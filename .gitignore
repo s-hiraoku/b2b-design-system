@@ -72,9 +72,8 @@ coverage/
 BLOG.md
 
 # Claude Code
-.claude/agents/
-.claude/hooks/
 
+# Kiroのdoc関連ファイル
 docs/kiro/prompt/
 
 # Serena関連ファイル
