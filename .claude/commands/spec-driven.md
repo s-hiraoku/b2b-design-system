@@ -32,6 +32,14 @@ Executes appropriate development workflows based on project type, following CLAU
 - **Specs**: `.kiro/specs/` - Individual feature development processes
 - **Commands**: `.claude/commands/` - Custom slash commands
 
+## Best Practices
+
+### ✅ Required
+- **Always start with `/kiro:steering`** | **Never skip phases** | **Use `/kiro:spec-status` regularly** | **Keep steering current**
+
+### ❌ Forbidden  
+- **Skip confirmations** | **Neglect steering updates** | **Leave task status unupdated**
+
 ## Workflow Selection
 
 ### 1. New Project Case
@@ -39,24 +47,29 @@ Executes appropriate development workflows based on project type, following CLAU
 When project has few source files or adding completely new features:
 
 ```markdown
-**Recommended Workflow (New Project):**
+**Mandatory Workflow (New Project):**
 
-1. **Optional: Generate project steering**
+1. **REQUIRED: Generate project steering**
    /kiro:steering
+   ⚠️ NEVER SKIP - Essential for project context
 
 2. **Step 1: Start new feature specification (include detailed description)**
    /kiro:spec-init "Detailed project description here"
 
 3. **Step 2: Requirements definition (use auto-generated feature-name)**
    /kiro:spec-requirements {feature-name}
+   ✋ **MANDATORY REVIEW**: Confirm completion before design
 
 4. **Step 3: Technical design (interactive approval)**
    /kiro:spec-design {feature-name}
+   ✋ **MANDATORY REVIEW**: Confirm requirements AND design before tasks
 
 5. **Step 4: Task generation (interactive approval)**
    /kiro:spec-tasks {feature-name}
+   ✋ **MANDATORY REVIEW**: Confirm all phases before implementation
 
 6. **Step 5: Start implementation**
+   💡 Regular status checks with /kiro:spec-status
 ```
 
 ### 2. Adding Features to Existing Project
@@ -64,15 +77,29 @@ When project has few source files or adding completely new features:
 When adding new features to existing codebase or extending existing functionality:
 
 ```markdown
-**Recommended Workflow (Existing Project):**
+**Mandatory Workflow (Existing Project):**
 
-1. **Optional: Create/update steering**
+1. **REQUIRED: Update steering context**
    /kiro:steering
+   ⚠️ ALWAYS EXECUTE - Ensures current project context
 
 2. **Step 1: Start new feature specification**
    /kiro:spec-init "Detailed description of new feature here"
 
-3. **Steps 2-5: Same as new project workflow**
+3. **Step 2: Requirements definition (use auto-generated feature-name)**
+   /kiro:spec-requirements {feature-name}
+   ✋ **MANDATORY REVIEW**: Confirm completion before design
+
+4. **Step 3: Technical design (interactive approval)**
+   /kiro:spec-design {feature-name}
+   ✋ **MANDATORY REVIEW**: Confirm requirements AND design before tasks
+
+5. **Step 4: Task generation (interactive approval)**
+   /kiro:spec-tasks {feature-name}
+   ✋ **MANDATORY REVIEW**: Confirm all phases before implementation
+
+6. **Step 5: Start implementation**
+   💡 Regular status checks with /kiro:spec-status
 ```
 
 ## Task Execution Policy
@@ -89,14 +116,15 @@ Analyze current project state and execute appropriate workflow:
 
 2. **Context-Dependent Execution**
 
-   - New projects: Recommend starting with steering
-   - Existing projects: Direct spec creation is possible
-   - Complex projects: Always update steering
+   - New projects: **MANDATORY** steering before any spec work
+   - Existing projects: **MANDATORY** steering update before spec work
+   - All projects: **NO EXCEPTIONS** - steering is required
 
 3. **CLAUDE.md Context Utilization**
    - Maintain project-wide context
    - Enforce development guidelines
    - Generate Japanese responses
+
 
 ## Implementation Procedure
 
@@ -124,6 +152,11 @@ Analyze current project state and execute appropriate workflow:
    - Enforce Japanese responses
    - Implement approval workflow
 
+## Steering Updates
+
+**Required**: Before any spec work | After major changes | Monthly maintenance  
+**Auto-detects**: New dependencies, structure changes, outdated files (30+ days)
+
 ## Error Handling
 
 ### Common Problem Resolution
@@ -136,6 +169,11 @@ Analyze current project state and execute appropriate workflow:
 
 3. **Specs pending approval**
    → Prompt status check with `/kiro:spec-status`
+
+## Progress Tracking
+
+**Mandatory**: `/kiro:spec-status` after each phase | Weekly reviews | Update task completion immediately  
+**Accountability**: Status must be current before requesting help | No "dark" specifications
 
 ## Usage
 
@@ -157,7 +195,7 @@ Invoke specialized sub-agents for each phase, ensuring reliable application of C
 
 1. **Steering Generation**: `Kiro Steering` sub-agent
 2. **Custom Steering**: `Kiro Steering Custom` sub-agent (as needed)
-3. **Spec Initialization**: `Kiro Spec Init` sub-agent  
+3. **Spec Initialization**: `Kiro Spec Init` sub-agent
 4. **Requirements Definition**: `Kiro Spec Requirements` sub-agent
 5. **Design**: `Kiro Spec Design` sub-agent
 6. **Task Breakdown**: `Kiro Spec Tasks` sub-agent
@@ -193,16 +231,19 @@ Each sub-agent incorporates complete CLAUDE.md context and spec-driven developme
 To enhance the spec-driven development process, leverage the following MCP (Model Context Protocol) servers:
 
 #### DeepWiki MCP
+
 - **Purpose**: Access comprehensive GitHub repository documentation and knowledge
 - **Usage**: Read repository documentation structure, access up-to-date project information, ask specific questions about GitHub repositories
 - **Integration**: Use during requirements gathering and design phases to understand existing patterns and documentation
 
-#### Context7 MCP  
+#### Context7 MCP
+
 - **Purpose**: Retrieve current library documentation and code examples
 - **Usage**: Resolve library IDs for accurate documentation, access up-to-date documentation for any library or framework, get focused documentation on specific topics
 - **Integration**: Utilize during design and implementation phases to ensure best practices and current API usage
 
 #### Serena MCP
+
 - **Purpose**: Enhanced development capabilities and workflow automation
 - **Usage**: Access specialized development tools and resources, streamline development workflows with automated assistance
 - **Integration**: Apply throughout all phases for enhanced code quality and development efficiency
