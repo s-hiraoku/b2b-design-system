@@ -174,7 +174,7 @@ Invoke specialized sub-agents for each phase, ensuring reliable application of C
 ### Available Sub-Agents
 
 ```
-.claude/agents/
+.claude/agents/kiro/
 ├── kiro-steering.md           # Project steering management
 ├── kiro-steering-custom.md    # Custom steering creation
 ├── kiro-spec-init.md         # Spec initialization
