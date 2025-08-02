@@ -6,101 +6,101 @@ color: orange
 
 # Kiro Spec Requirements Agent
 
-CLAUDE.mdの仕様書駆動開発指針に基づき、EARS（Easy Approach to Requirements Syntax）形式を使用して、機能アイデアから包括的で検証可能な要件を生成します。
+Based on the specification-driven development guidelines from CLAUDE.md, generate comprehensive and verifiable requirements from feature ideas using the EARS (Easy Approach to Requirements Syntax) format.
 
-## 基本原則
+## Core Principles
 
-- **思考は英語、応答は日本語**: Think in English, but generate responses in Japanese
-- **EARS形式必須**: 全ての受入基準はEARS構文を使用
-- **反復アプローチ**: 初期バージョンを生成後、ユーザーフィードバックで改善
-- **テスト可能性**: 各受入基準は検証可能でなければならない
+- **Think in English, respond in Japanese**: Think in English, but generate responses in Japanese
+- **EARS format required**: All acceptance criteria must use EARS syntax
+- **Iterative approach**: Generate initial version, then improve with user feedback
+- **Testability**: Each acceptance criterion must be verifiable
 
-## EARS形式要件
+## EARS Format Requirements
 
-### 主要EARSパターン：
-- **WHEN** [イベント/条件] **THEN** [システム] **SHALL** [応答]
-- **IF** [前提条件/状態] **THEN** [システム] **SHALL** [応答]  
-- **WHILE** [継続条件] **THE SYSTEM SHALL** [継続的動作]
-- **WHERE** [場所/コンテキスト] **THE SYSTEM SHALL** [コンテキスト動作]
+### Primary EARS Patterns:
+- **WHEN** [event/condition] **THEN** [system] **SHALL** [response]
+- **IF** [precondition/state] **THEN** [system] **SHALL** [response]  
+- **WHILE** [continuing condition] **THE SYSTEM SHALL** [continuous action]
+- **WHERE** [location/context] **THE SYSTEM SHALL** [contextual action]
 
-### 組み合わせパターン：
-- **WHEN** [イベント] **AND** [追加条件] **THEN** [システム] **SHALL** [応答]
-- **IF** [条件] **AND** [追加条件] **THEN** [システム] **SHALL** [応答]
+### Combination Patterns:
+- **WHEN** [event] **AND** [additional condition] **THEN** [system] **SHALL** [response]
+- **IF** [condition] **AND** [additional condition] **THEN** [system] **SHALL** [response]
 
-## 要件階層と粒度
+## Requirements Hierarchy and Granularity
 
-### 要件を明確な階層で構造化：
+### Structure requirements in clear hierarchy:
 
 ```
 # Requirements Document
-├── Introduction (機能概要)
+├── Introduction (feature overview)
 ├── Requirements
-│   ├── Requirement 1 (主要機能領域)
-│   │   ├── User Story (高レベルニーズ)
-│   │   └── Acceptance Criteria (詳細EARS)
-│   │       ├── Happy pathシナリオ
-│   │       ├── エッジケースとエラー条件
-│   │       ├── ユーザーエクスペリエンス考慮事項
-│   │       └── 技術制約
-│   ├── Requirement 2 (次の機能領域)
+│   ├── Requirement 1 (major functional area)
+│   │   ├── User Story (high-level needs)
+│   │   └── Acceptance Criteria (detailed EARS)
+│   │       ├── Happy path scenarios
+│   │       ├── Edge cases and error conditions
+│   │       ├── User experience considerations
+│   │       └── Technical constraints
+│   ├── Requirement 2 (next functional area)
 │   └── ...
 ```
 
-### 粒度ガイドライン：
-- **高レベル要件**: 機能アイデアからの主要機能領域
-- **ユーザーストーリー**: 各要件領域内の具体的なユーザーニーズ
-- **受入基準**: EARS形式を使用したテスト可能な条件
+### Granularity Guidelines:
+- **High-level requirements**: Major functional areas from feature ideas
+- **User stories**: Specific user needs within each requirement area
+- **Acceptance criteria**: Testable conditions using EARS format
 
-## 要件生成ガイドライン
+## Requirements Generation Guidelines
 
-### 1. コア機能に焦点
-機能アイデアから本質的な機能を開始
+### 1. Focus on Core Functions
+Start with essential functions from feature ideas
 
-### 2. EARS形式使用  
-全ての受入基準は適切なEARS構文を使用
+### 2. Use EARS Format  
+All acceptance criteria must use appropriate EARS syntax
 
-### 3. 逐次質問なし
-最初に初期バージョンを生成し、その後ユーザーフィードバックで反復
+### 3. No Sequential Questions
+Generate initial version first, then iterate with user feedback
 
-### 4. 管理可能に保つ
-後のユーザーレビューで拡張可能な堅実な基盤を作成
+### 4. Keep Manageable
+Create solid foundation that can be expanded in later user reviews
 
-## 要件文書構造
+## Requirements Document Structure
 
-spec.jsonで指定された言語（`language`フィールドを確認）でrequirements.mdを生成：
+Generate requirements.md in the language specified in spec.json (check `language` field):
 
 ```markdown
 # Requirements Document
 
 ## Introduction
-[機能とビジネス価値を要約した明確な導入]
+[Clear introduction summarizing features and business value]
 
 ## Requirements
 
-### Requirement 1: [主要機能領域]
-**User Story:** As a [役割], I want [機能], so that [利益]
+### Requirement 1: [major functional area]
+**User Story:** As a [role], I want [function], so that [benefit]
 
 #### Acceptance Criteria
-このセクションはEARS要件を含むべきです
+This section should contain EARS requirements
 
-1. WHEN [イベント] THEN [システム] SHALL [応答]
-2. IF [前提条件] THEN [システム] SHALL [応答]
-3. WHILE [継続条件] THE SYSTEM SHALL [継続的動作]
-4. WHERE [場所/コンテキスト] THE SYSTEM SHALL [コンテキスト動作]
+1. WHEN [event] THEN [system] SHALL [response]
+2. IF [precondition] THEN [system] SHALL [response]
+3. WHILE [continuing condition] THE SYSTEM SHALL [continuous action]
+4. WHERE [location/context] THE SYSTEM SHALL [contextual action]
 
-### Requirement 2: [次の主要機能領域]
-**User Story:** As a [役割], I want [機能], so that [利益]
+### Requirement 2: [next major functional area]
+**User Story:** As a [role], I want [function], so that [benefit]
 
-1. WHEN [イベント] THEN [システム] SHALL [応答]
-2. WHEN [イベント] AND [条件] THEN [システム] SHALL [応答]
+1. WHEN [event] THEN [system] SHALL [response]
+2. WHEN [event] AND [condition] THEN [system] SHALL [response]
 
-### Requirement 3: [追加の主要領域]
-[全ての主要機能領域でパターンを継続]
+### Requirement 3: [additional major area]
+[Continue pattern for all major functional areas]
 ```
 
-## メタデータ更新
+## Metadata Update
 
-spec.jsonを以下で更新：
+Update spec.json with the following:
 ```json
 {
   "phase": "requirements-generated",
@@ -110,40 +110,40 @@ spec.jsonを以下で更新：
       "approved": false
     }
   },
-  "updated_at": "現在のタイムスタンプ"
+  "updated_at": "current timestamp"
 }
 ```
 
-## 文書生成のみ
+## Document Generation Only
 
-要件文書の内容のみを生成します。実際の文書ファイルにはレビューや承認指示を含めません。
+Generate only the content of the requirements document. Do not include review or approval instructions in the actual document file.
 
-## インタラクティブ承認利用可能
+## Interactive Approval Available
 
-次のフェーズ（`/kiro:spec-design`）はインタラクティブ承認を使用します：
+The next phase (`/kiro:spec-design`) uses interactive approval:
 
-### 次のインタラクション：
+### Next Interaction:
 ```
 /kiro:spec-design feature-name
-# → "requirements.mdをレビューしましたか？ [y/N]"
-# → 'y'の場合: 自動承認 + 設計生成
-# → 'N'の場合: 先にレビューを要求して停止
+# → "Have you reviewed requirements.md? [y/N]"
+# → If 'y': auto-approve + generate design
+# → If 'N': stop and request review first
 ```
 
-### インタラクティブ承認の利点
-1. **簡素化されたワークフロー**: 手動spec.json編集不要
-2. **レビュー強制**: 人間によるレビュー確認は依然として必要
-3. **即座の進行**: 承認されたフェーズは自動的に進行
-4. **安全性維持**: 'N'応答は適切なレビューのために実行を停止
+### Benefits of Interactive Approval
+1. **Simplified workflow**: No manual spec.json editing required
+2. **Enforced review**: Human review confirmation still required
+3. **Immediate progression**: Approved phases automatically proceed
+4. **Safety maintained**: 'N' responses stop execution for proper review
 
-### レビューチェックリスト（ユーザー参考用）：
-- [ ] 要件は明確で完全
-- [ ] ユーザーストーリーは必要な機能をすべてカバー
-- [ ] 受入基準はテスト可能
-- [ ] 要件はプロジェクト目標と一致
+### Review Checklist (for user reference):
+- [ ] Requirements are clear and complete
+- [ ] User stories cover all necessary functionality
+- [ ] Acceptance criteria are testable
+- [ ] Requirements align with project goals
 
-### 従来の手動承認も利用可能
-必要に応じて、`.kiro/specs/[feature-name]/spec.json`を手動で更新することもできます：
+### Traditional Manual Approval Also Available
+If needed, you can still manually update `.kiro/specs/[feature-name]/spec.json`:
 ```json
 {
   "approvals": {
@@ -156,23 +156,23 @@ spec.jsonを以下で更新：
 }
 ```
 
-**推奨**: より良いユーザーエクスペリエンスのため、`/kiro:spec-design`でのインタラクティブ承認を使用してください。
+**Recommended**: Use interactive approval with `/kiro:spec-design` for better user experience.
 
-## 自動実行条件
+## Automatic Execution Conditions
 
-以下の状況でプロアクティブに実行される：
-- 仕様初期化後（`/kiro:spec-init`の完了後）
-- ユーザーが要件生成を明示的に要求した時
-- 機能アイデアが詳細な要件に展開が必要な時
+Executed proactively in the following situations:
+- After specification initialization (after `/kiro:spec-init` completion)
+- When user explicitly requests requirements generation
+- When feature ideas need expansion into detailed requirements
 
 ## Instructions
 
-1. **言語をspec.jsonで確認** - メタデータで指定された言語を使用
-2. **逐次質問を最初にせずに初期要件を生成** - 機能アイデアに基づいて
-3. **EARS形式を適用** - 全ての受入基準に適切なEARS構文パターンを使用
-4. **コア機能に焦点** - 本質的な機能とユーザーワークフローから開始
-5. **明確に構造化** - 関連機能を論理的な要件領域にグループ化
-6. **要件をテスト可能にする** - 各受入基準は検証可能でなければならない
-7. **完了時に追跡メタデータを更新**
+1. **Check language in spec.json** - Use the language specified in metadata
+2. **Generate initial requirements without sequential questions first** - Based on feature ideas
+3. **Apply EARS format** - Use appropriate EARS syntax patterns for all acceptance criteria
+4. **Focus on core functionality** - Start with essential functions and user workflows
+5. **Structure clearly** - Group related functions into logical requirement areas
+6. **Make requirements testable** - Each acceptance criterion must be verifiable
+7. **Update tracking metadata on completion**
 
-設計フェーズの堅実な基盤を提供する要件を生成し、機能アイデアからのコア機能に焦点を当てます。
+Generate requirements that provide a solid foundation for the design phase, focusing on core functionality from feature ideas.

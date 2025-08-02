@@ -3,185 +3,208 @@ description: Kiro-style Spec-Driven Development workflow with streamlined comman
 allowed-tools: Task, Read, Write, Edit, MultiEdit, Bash, Glob, Grep, LS
 ---
 
-# Kiro 仕様書駆動開発
+# Kiro Spec-Driven Development
 
-CLAUDE.md の仕様書駆動開発指針に基づき、プロジェクトの種類に応じて適切な開発ワークフローを実行します。
+Executes appropriate development workflows based on project type, following CLAUDE.md spec-driven development guidelines.
 
-## プロジェクト分析
+## Project Analysis
 
-### 現在のプロジェクト状態
+### Current Project State
 
-- 既存の仕様: !`if [ -d ".kiro/specs" ]; then ls -la .kiro/specs/; else echo "仕様ディレクトリが見つかりません"; fi`
-- ステアリングファイル: !`if [ -d ".kiro/steering" ]; then ls -la .kiro/steering/; else echo "ステアリングディレクトリが見つかりません"; fi`
-- プロジェクトファイル: !`find . -maxdepth 2 \( -name "package.json" -o -name "requirements.txt" -o -name "pyproject.toml" -o -name "Cargo.toml" -o -name "go.mod" \) 2>/dev/null || echo "設定ファイルが見つかりません"`
+- Existing specs: !`if [ -d ".kiro/specs" ]; then ls -la .kiro/specs/; else echo "Specs directory not found"; fi`
+- Steering files: !`if [ -d ".kiro/steering" ]; then ls -la .kiro/steering/; else echo "Steering directory not found"; fi`
+- Project files: !`find . -maxdepth 2 \( -name "package.json" -o -name "requirements.txt" -o -name "pyproject.toml" -o -name "Cargo.toml" -o -name "go.mod" \) 2>/dev/null || echo "Configuration files not found"`
 
-## CLAUDE.md コンテキスト
+## CLAUDE.md Context
 
-### 仕様書駆動開発の原則
+### Spec-Driven Development Principles
 
-- **英語で思考、日本語で生成**: Think in English, but generate responses in Japanese
-- **フェーズ別承認ワークフロー**: Requirements → Design → Tasks → Implementation
-- **承認必須**: 各フェーズで人間によるレビューが必要（インタラクティブプロンプトまたは手動）
-- **フェーズスキップ禁止**: Design requires approved requirements; Tasks require approved design
-- **ステアリング更新**: 重要な変更後は `/kiro:steering` を実行
-- **仕様準拠確認**: `/kiro:spec-status` でアライメント確認
+- **Think in English, generate in Japanese**: Think in English, but generate responses in Japanese
+- **Phase-based approval workflow**: Requirements → Design → Tasks → Implementation
+- **Approval required**: Human review needed at each phase (interactive prompts or manual)
+- **No phase skipping**: Design requires approved requirements; Tasks require approved design
+- **Steering updates**: Execute `/kiro:steering` after significant changes
+- **Spec compliance check**: Verify alignment with `/kiro:spec-status`
 
-### プロジェクト構造
+### Project Structure
 
-- **Steering**: `.kiro/steering/` - プロジェクト全体のルールとコンテキスト
-- **仕様**: `.kiro/specs/` - 個別機能の開発プロセス
-- **コマンド**: `.claude/commands/` - カスタムスラッシュコマンド
+- **Steering**: `.kiro/steering/` - Project-wide rules and context
+- **Specs**: `.kiro/specs/` - Individual feature development processes
+- **Commands**: `.claude/commands/` - Custom slash commands
 
-## ワークフロー選択
+## Workflow Selection
 
-### 1. 新規プロジェクトの場合
+### 1. New Project Case
 
-プロジェクトにソースファイルがほとんどない、または全く新しい機能を追加する場合：
+When project has few source files or adding completely new features:
 
 ```markdown
-**推奨ワークフロー（新規プロジェクト）:**
+**Recommended Workflow (New Project):**
 
-1. **オプション: プロジェクトステアリング生成**
+1. **Optional: Generate project steering**
    /kiro:steering
 
-2. **ステップ 1: 新機能の仕様作成開始（詳細な説明を含める）**
-   /kiro:spec-init "詳細なプロジェクト説明をここに記述"
+2. **Step 1: Start new feature specification (include detailed description)**
+   /kiro:spec-init "Detailed project description here"
 
-3. **ステップ 2: 要件定義（自動生成された feature-name を使用）**
+3. **Step 2: Requirements definition (use auto-generated feature-name)**
    /kiro:spec-requirements {feature-name}
 
-4. **ステップ 3: 技術設計（インタラクティブ承認）**
+4. **Step 3: Technical design (interactive approval)**
    /kiro:spec-design {feature-name}
 
-5. **ステップ 4: タスク生成（インタラクティブ承認）**
+5. **Step 4: Task generation (interactive approval)**
    /kiro:spec-tasks {feature-name}
 
-6. **ステップ 5: 実装開始**
+6. **Step 5: Start implementation**
 ```
 
-### 2. 既存プロジェクトへの機能追加
+### 2. Adding Features to Existing Project
 
-既存のコードベースに新しい機能を追加、または既存機能を拡張する場合：
+When adding new features to existing codebase or extending existing functionality:
 
 ```markdown
-**推奨ワークフロー（既存プロジェクト）:**
+**Recommended Workflow (Existing Project):**
 
-1. **オプション: ステアリング作成・更新**
+1. **Optional: Create/update steering**
    /kiro:steering
 
-2. **ステップ 1: 新機能の仕様作成開始**
-   /kiro:spec-init "新しい機能の詳細な説明をここに記述"
+2. **Step 1: Start new feature specification**
+   /kiro:spec-init "Detailed description of new feature here"
 
-3. **ステップ 2-5: 新規プロジェクトと同じ手順**
+3. **Steps 2-5: Same as new project workflow**
 ```
 
-## タスク実行方針
+## Task Execution Policy
 
-### プロジェクト分析による自動選択
+### Automatic Selection Based on Project Analysis
 
-現在のプロジェクト状態を分析して、適切なワークフローを実行：
+Analyze current project state and execute appropriate workflow:
 
-1. **プロジェクト状態の判定**
+1. **Project State Assessment**
 
-   - ソースファイルの存在確認
-   - 既存の仕様書の確認
-   - ステアリングファイルの確認
+   - Check for source file existence
+   - Verify existing specifications
+   - Confirm steering file presence
 
-2. **コンテキスト依存の実行**
+2. **Context-Dependent Execution**
 
-   - 新規プロジェクト: ステアリングから開始を推奨
-   - 既存プロジェクト: 直接仕様作成も可能
-   - 複雑なプロジェクト: 必ずステアリング更新
+   - New projects: Recommend starting with steering
+   - Existing projects: Direct spec creation is possible
+   - Complex projects: Always update steering
 
-3. **CLAUDE.md コンテキストの活用**
-   - プロジェクト全体のコンテキストを保持
-   - 開発ガイドラインの遵守
-   - 日本語での応答生成
+3. **CLAUDE.md Context Utilization**
+   - Maintain project-wide context
+   - Enforce development guidelines
+   - Generate Japanese responses
 
-## 実装手順
+## Implementation Procedure
 
-### 基本実行フロー
+### Basic Execution Flow
 
-1. **プロジェクト分析実行**
+1. **Execute Project Analysis**
 
    ```bash
    find . -name "*.js" -o -name "*.ts" -o -name "*.py" -o -name "*.go" | head -10
-   ls -la .kiro/specs/ 2>/dev/null || echo "仕様なし"
-   ls -la .kiro/steering/ 2>/dev/null || echo "ステアリングなし"
+   ls -la .kiro/specs/ 2>/dev/null || echo "No specs"
+   ls -la .kiro/steering/ 2>/dev/null || echo "No steering"
    ```
 
-2. **適切なステアリングエージェント呼び出し**
+2. **Call Appropriate Steering Agent**
 
-   - 新規: `steering` エージェント
-   - 既存: `steering` エージェント（更新モード）
+   - New: `steering` agent
+   - Existing: `steering` agent (update mode)
 
-3. **仕様作成エージェント連鎖呼び出し**
+3. **Chain Spec Creation Agent Calls**
 
    - `spec-init` → `spec-requirements` → `spec-design` → `spec-tasks`
 
-4. **CLAUDE.md コンテキスト統合**
-   - 各エージェントに CLAUDE.md の内容を渡す
-   - 日本語応答の徹底
-   - 承認ワークフローの実装
+4. **CLAUDE.md Context Integration**
+   - Pass CLAUDE.md content to each agent
+   - Enforce Japanese responses
+   - Implement approval workflow
 
-## エラーハンドリング
+## Error Handling
 
-### 一般的な問題への対処
+### Common Problem Resolution
 
-1. **仕様ディレクトリが存在しない**
-   → 自動作成して新規プロジェクトワークフローを実行
+1. **Specs directory does not exist**
+   → Auto-create and execute new project workflow
 
-2. **ステアリングファイルが古い**
-   → 自動更新を提案
+2. **Steering files are outdated**
+   → Suggest automatic update
 
-3. **承認待ちの仕様がある**
-   → `/kiro:spec-status` でステータス確認を促す
+3. **Specs pending approval**
+   → Prompt status check with `/kiro:spec-status`
 
-## 使用方法
+## Usage
 
 ```bash
-# 基本的な使用方法
+# Basic usage
 /spec-driven
 
-# プロジェクト説明付きで実行
-/spec-driven "PDFアップロード機能とAI図表解析を追加したい"
+# Execute with project description
+/spec-driven "Want to add PDF upload functionality and AI chart analysis"
 ```
 
-このコマンドは、CLAUDE.md の指針に従って、プロジェクトの状態を分析し、適切な仕様書駆動開発ワークフローを自動的に実行します。
+This command analyzes project state following CLAUDE.md guidelines and automatically executes appropriate spec-driven development workflows.
 
-## サブエージェント実行
+## Sub-Agent Execution
 
-### 専門エージェント呼び出し戦略
+### Specialized Agent Invocation Strategy
 
-各フェーズで専門的なサブエージェントを呼び出し、CLAUDE.mdのコンテキストを確実に適用します：
+Invoke specialized sub-agents for each phase, ensuring reliable application of CLAUDE.md context:
 
-1. **ステアリング生成**: `Kiro Steering` サブエージェント
-2. **カスタムステアリング**: `Kiro Steering Custom` サブエージェント（必要に応じて）
-3. **仕様初期化**: `Kiro Spec Init` サブエージェント  
-4. **要件定義**: `Kiro Spec Requirements` サブエージェント
-5. **設計**: `Kiro Spec Design` サブエージェント
-6. **タスク分解**: `Kiro Spec Tasks` サブエージェント
-7. **ステータス確認**: `Kiro Spec Status` サブエージェント
+1. **Steering Generation**: `Kiro Steering` sub-agent
+2. **Custom Steering**: `Kiro Steering Custom` sub-agent (as needed)
+3. **Spec Initialization**: `Kiro Spec Init` sub-agent  
+4. **Requirements Definition**: `Kiro Spec Requirements` sub-agent
+5. **Design**: `Kiro Spec Design` sub-agent
+6. **Task Breakdown**: `Kiro Spec Tasks` sub-agent
+7. **Status Check**: `Kiro Spec Status` sub-agent
 
-### サブエージェントの利点
+### Sub-Agent Benefits
 
-- **専門性**: 各フェーズに特化した高品質な支援
-- **自動選択**: Claude Codeが適切なタイミングでエージェントを自動選択
-- **プロアクティブ実行**: 条件に応じた自動実行
-- **一貫性**: CLAUDE.mdルールの統一的適用
-- **保守性**: モジュラー構造で個別更新が容易
+- **Specialization**: High-quality support specialized for each phase
+- **Automatic Selection**: Claude Code automatically selects agents at appropriate timing
+- **Proactive Execution**: Automatic execution based on conditions
+- **Consistency**: Unified application of CLAUDE.md rules
+- **Maintainability**: Modular structure enables easy individual updates
 
-### 利用可能なサブエージェント
+### Available Sub-Agents
 
 ```
 .claude/agents/
-├── kiro-steering.md           # プロジェクトステアリング管理
-├── kiro-steering-custom.md    # カスタムステアリング作成
-├── kiro-spec-init.md         # 仕様初期化
-├── kiro-spec-requirements.md # 要件定義（EARS形式）
-├── kiro-spec-design.md       # 技術設計
-├── kiro-spec-tasks.md        # 実装タスク分解
-└── kiro-spec-status.md       # 仕様ステータス確認
+├── kiro-steering.md           # Project steering management
+├── kiro-steering-custom.md    # Custom steering creation
+├── kiro-spec-init.md         # Spec initialization
+├── kiro-spec-requirements.md # Requirements definition (EARS format)
+├── kiro-spec-design.md       # Technical design
+├── kiro-spec-tasks.md        # Implementation task breakdown
+└── kiro-spec-status.md       # Spec status verification
 ```
 
-各サブエージェントには、CLAUDE.mdの完全なコンテキストと仕様書駆動開発の原則が組み込まれており、一貫した高品質な開発支援を提供します。
+Each sub-agent incorporates complete CLAUDE.md context and spec-driven development principles, providing consistent high-quality development support.
+
+## MCP Integration
+
+### Utilize deepwiki, context7, and serena MCP Servers
+
+To enhance the spec-driven development process, leverage the following MCP (Model Context Protocol) servers:
+
+#### DeepWiki MCP
+- **Purpose**: Access comprehensive GitHub repository documentation and knowledge
+- **Usage**: Read repository documentation structure, access up-to-date project information, ask specific questions about GitHub repositories
+- **Integration**: Use during requirements gathering and design phases to understand existing patterns and documentation
+
+#### Context7 MCP  
+- **Purpose**: Retrieve current library documentation and code examples
+- **Usage**: Resolve library IDs for accurate documentation, access up-to-date documentation for any library or framework, get focused documentation on specific topics
+- **Integration**: Utilize during design and implementation phases to ensure best practices and current API usage
+
+#### Serena MCP
+- **Purpose**: Enhanced development capabilities and workflow automation
+- **Usage**: Access specialized development tools and resources, streamline development workflows with automated assistance
+- **Integration**: Apply throughout all phases for enhanced code quality and development efficiency
+
+These MCP servers should be integrated into the spec-driven development workflow to provide comprehensive, up-to-date context and ensure implementations follow current best practices and documentation standards.
