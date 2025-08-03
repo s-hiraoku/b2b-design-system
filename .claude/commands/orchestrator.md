@@ -446,3 +446,48 @@ Streamline the pull request creation process with comprehensive analysis, conten
 - **Smart Assignments**: Intelligent reviewer and label assignment based on changes
 - **CI/CD Integration**: Automated test execution and pipeline triggering
 - **Documentation Linking**: Automatic linking to related issues and documentation
+
+## PR Merge Integration
+
+### Human-Approved Pull Request Merge
+
+Execute safe, human-approved pull request merges with comprehensive validation, approval workflows, and post-merge activities:
+
+```bash
+# Human-approved PR merge with safety validation
+/orchestrator "pr-merge 123"
+
+# Emergency merge with expedited approval
+/orchestrator "pr-merge 456 --emergency --approver on-call-engineer"
+
+# Complete development workflow with PR merge and next steps
+/orchestrator "Build feature with automated PR merge and next issue identification"
+```
+
+### PR Merge Sub-Agent
+
+- **Sub-agent**: `PR Merge`
+- **Responsibility**: Human-approved merge workflows with safety validation and post-merge management
+- **Benefits**: Safe merge execution with human oversight, comprehensive validation, and workflow continuation
+
+### PR Merge Integration Points
+
+```bash
+# Development cycle with human-approved merge
+/orchestrator "Build authentication system with safe PR merge and post-merge activities"
+
+# Post-development merge workflow
+/orchestrator "pr-merge feature-implementation --strategy squash --auto-delete-branch"
+
+# Quality-focused merge with next steps
+/orchestrator "pr-merge microservices-refactor --approver tech-lead --identify-next-issues"
+```
+
+### PR Merge Benefits
+
+- **Human Oversight**: Structured approval processes with comprehensive merge information
+- **Safety Validation**: Comprehensive pre-merge checks and post-merge integrity validation
+- **Risk Management**: Emergency procedures, rollback capabilities, and safety mechanisms
+- **Workflow Continuation**: Next issue identification and development workflow management
+- **Stakeholder Communication**: Automated notifications and project management integration
+- **Quality Assurance**: Merge strategy selection and comprehensive validation framework
