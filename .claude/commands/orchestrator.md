@@ -150,6 +150,51 @@ Execute complete development workflows with research, planning, implementation, 
 - **Complete Documentation**: API docs, tutorials, and usage examples
 - **Technology Expertise**: Current library documentation and framework best practices
 
+## Refactoring Integration
+
+### Post-Coding Quality Improvement
+
+Automatically execute refactoring workflows after coding completion to improve code quality and maintainability:
+
+```bash
+# Complete development cycle with automatic refactoring
+/orchestrator "Build authentication system with post-coding refactoring"
+
+# Coding followed by comprehensive refactoring
+/orchestrator "coding 'Create user management' && refactoring user-management"
+
+# Development workflow with quality improvement
+/orchestrator "Implement payment processing with automatic code optimization"
+```
+
+### Refactoring Sub-Agent
+
+- **Sub-agent**: `Refactoring`
+- **Responsibility**: Intelligent code refactoring using semantic analysis and pattern detection
+- **Benefits**: Improved code maintainability, reduced duplication, and enhanced quality
+
+### Post-Coding Refactoring Integration
+
+```bash
+# Automatic refactoring after implementation
+/orchestrator "coding 'Build REST API' --auto-refactor"
+
+# Similarity-based refactoring post-coding
+/orchestrator "Implement microservices with duplicate pattern consolidation"
+
+# Quality-focused development cycle
+/orchestrator "Build feature with coding, refactoring, and validation cycle"
+```
+
+### Refactoring Benefits
+
+- **Code Quality Enhancement**: Systematic improvement of code structure and readability
+- **Duplication Elimination**: Serena MCP semantic analysis for pattern detection
+- **Maintainability Improvement**: Better code organization and design patterns
+- **Performance Optimization**: Identification and resolution of performance bottlenecks
+- **Technical Debt Reduction**: Proactive addressing of code quality issues
+- **Consistency Enforcement**: Standardization of coding patterns across codebase
+
 ## Human Approval Integration
 
 ### Structured Approval Workflow
