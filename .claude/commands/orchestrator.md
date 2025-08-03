@@ -195,6 +195,51 @@ Automatically execute refactoring workflows after coding completion to improve c
 - **Technical Debt Reduction**: Proactive addressing of code quality issues
 - **Consistency Enforcement**: Standardization of coding patterns across codebase
 
+## Acceptance Integration
+
+### Human Approval and Feedback-Driven Improvement
+
+Enable comprehensive acceptance workflows with human oversight and automated feedback-driven phase re-execution:
+
+```bash
+# Human acceptance review with feedback processing
+/orchestrator "acceptance user-authentication"
+
+# Acceptance with specific reviewer and auto-retry
+/orchestrator "acceptance payment-api --reviewer product-owner --auto-retry"
+
+# Complete development workflow with acceptance gates
+/orchestrator "Build feature with comprehensive acceptance and feedback-driven improvement"
+```
+
+### Acceptance Sub-Agent
+
+- **Sub-agent**: `Acceptance`
+- **Responsibility**: Human approval workflows with feedback analysis and automated phase re-execution
+- **Benefits**: Quality assurance through structured human oversight and intelligent feedback processing
+
+### Acceptance Integration Points
+
+```bash
+# Development cycle with acceptance validation
+/orchestrator "Build authentication system with human acceptance and feedback integration"
+
+# Post-development acceptance with detailed review
+/orchestrator "acceptance feature-implementation --detailed --auto-retry"
+
+# Quality-focused development with acceptance gates
+/orchestrator "acceptance microservices-refactor --reviewer tech-lead"
+```
+
+### Acceptance Benefits
+
+- **Human Oversight**: Structured stakeholder review and approval processes
+- **Feedback Analysis**: Intelligent analysis of rejection feedback and root cause identification
+- **Automated Re-execution**: Smart phase rollback and re-execution based on feedback
+- **Quality Improvement**: Systematic addressing of feedback requirements and quality enhancement
+- **Process Learning**: Continuous improvement through feedback pattern analysis
+- **Stakeholder Engagement**: Enhanced communication and collaboration in acceptance processes
+
 ## Human Approval Integration
 
 ### Structured Approval Workflow
