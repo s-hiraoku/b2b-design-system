@@ -24,6 +24,15 @@ Transform hierarchical implementation tasks into trackable GitHub issues:
 
 # Create issues for feature in current directory
 /create-issues
+
+# Create issues with custom separation settings
+/create-issues user-auth-system --label-prefix "auto-task" --title-prefix "[Auto]"
+
+# Create issues and assign to specific project board
+/create-issues user-auth-system --project-board "Implementation Tasks"
+
+# Create issues with custom namespace for separation
+/create-issues user-auth-system --namespace "tasks-md"
 ```
 
 ## Implementation Strategy
@@ -48,8 +57,9 @@ Parse `.kiro/specs/{feature-name}/tasks.md` format:
 
 For each task, create GitHub issue with:
 
-**Title Format**: `Phase {number}: {task-title}`
-- Example: "Phase 1.1: Create basic model functionality"
+**Title Format**: `{title-prefix} {number}: {task-title}`
+- Default: "Phase 1.1: Create basic model functionality"
+- With separation: "[Auto] 1.1: Create basic model functionality"
 
 **Body Format**:
 ```markdown
@@ -70,19 +80,29 @@ Generated from: .kiro/specs/{feature-name}/tasks.md
 ```
 
 **Labels**:
-- `task` - Identifies as implementation task
+- `{label-prefix}` - Identifies as implementation task (default: "task")
+- `auto-generated` - Marks as tasks.md generated issue for separation
 - `phase-{major}` - Major phase number (phase-1, phase-2)
 - `requirements-{req}` - Requirements mapping (requirements-1.1, requirements-2.2)
+- `namespace-{namespace}` - Custom namespace for filtering (optional)
 
 ### 3. GitHub Integration
 
 Use `gh issue create` command:
 
 ```bash
+# Default behavior
 gh issue create \
   --title "Phase 1.1: Create basic model functionality" \
   --body "$(cat issue-body.md)" \
-  --label "task,phase-1,requirements-2.1,requirements-2.2"
+  --label "task,auto-generated,phase-1,requirements-2.1,requirements-2.2"
+
+# With separation settings
+gh issue create \
+  --title "[Auto] 1.1: Create basic model functionality" \
+  --body "$(cat issue-body.md)" \
+  --label "auto-task,auto-generated,phase-1,requirements-2.1,requirements-2.2,namespace-tasks-md" \
+  --project "Implementation Tasks"
 ```
 
 ## Error Handling
@@ -150,6 +170,14 @@ gh issue create \
 - `--assignee @username`: Auto-assign issues to team member
 - `--milestone MILESTONE`: Group issues under milestone
 
+### Issue Separation Parameters
+
+- `--label-prefix PREFIX`: Custom label prefix (default: "task")
+- `--title-prefix PREFIX`: Custom title prefix (default: "Phase")
+- `--namespace NAMESPACE`: Custom namespace for filtering
+- `--project-board PROJECT`: Dedicated project board for separation
+- `--auto-label LABEL`: Additional label for auto-generated issues (default: "auto-generated")
+
 ### Integration Points
 
 - **Spec status tracking**: Update completion status in tasks.md
@@ -158,6 +186,7 @@ gh issue create \
 
 ## Example Output
 
+### Default Behavior
 ```
 Creating GitHub issues from .kiro/specs/user-auth-system/tasks.md...
 
@@ -167,7 +196,41 @@ Creating GitHub issues from .kiro/specs/user-auth-system/tasks.md...
 ✅ Created: Phase 2: Implement data access layer (#126)
 
 Summary: 4 issues created successfully
-Project board: https://github.com/owner/repo/projects/1
+Labels: task, auto-generated, phase-X, requirements-X.X
+```
+
+### With Separation Settings
+```
+Creating GitHub issues with separation settings...
+Label prefix: auto-task
+Title prefix: [Auto]
+Namespace: tasks-md
+Project board: Implementation Tasks
+
+✅ Created: [Auto] 1: Set up project structure (#127)
+✅ Created: [Auto] 1.1: Create basic model functionality (#128)
+✅ Created: [Auto] 1.2: Implement User model with validation (#129)
+✅ Created: [Auto] 2: Implement data access layer (#130)
+
+Summary: 4 issues created successfully
+Project board: https://github.com/owner/repo/projects/2
+Filtering: Use 'gh issue list --label auto-task' to see only auto-generated issues
+```
+
+## Issue Filtering Examples
+
+```bash
+# View only auto-generated issues
+gh issue list --label auto-generated
+
+# View only manual issues (exclude auto-generated)
+gh issue list --label -auto-generated
+
+# Filter by namespace
+gh issue list --label namespace-tasks-md
+
+# Filter by custom prefix
+gh issue list --label auto-task
 ```
 
 This command bridges the gap between spec-driven development completion and practical implementation tracking through GitHub's issue management system.

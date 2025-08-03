@@ -21,13 +21,18 @@ Specialized agent for creating GitHub issues from parsed task data with consiste
 ### Title Format
 
 ```
-Phase {task-number}: {task-title}
+{title-prefix} {task-number}: {task-title}
 ```
 
 Examples:
-- `Phase 1: Set up project structure and core interfaces`
-- `Phase 1.1: Create basic model functionality`
-- `Phase 2.2: Implement User model validation`
+- Default: `Phase 1: Set up project structure and core interfaces`
+- Custom: `[Auto] 1.1: Create basic model functionality`
+- Namespace: `[TasksMD] 2.2: Implement User model validation`
+
+**Title Identification Rules**:
+- Auto-generated issues: Use configurable prefix (default: "Phase")
+- Human issues: No forced prefix requirements
+- Separation: Auto issues are identifiable by title pattern + `auto-generated` label
 
 ### Body Template
 
@@ -62,11 +67,17 @@ Examples:
 2. **Execute GitHub Commands**
 
    ```bash
-   # Create issue with formatted content
+   # Create issue with MANDATORY auto-generated label
    gh issue create \
      --title "Phase 1.1: Create basic model functionality" \
      --body "$(cat /tmp/issue-body-1.1.md)" \
-     --label "task,phase-1,requirements-2.1,requirements-2.2"
+     --label "auto-generated,task,phase-1,requirements-2.1,requirements-2.2"
+   
+   # With custom separation settings
+   gh issue create \
+     --title "[Auto] 1.1: Create basic model functionality" \
+     --body "$(cat /tmp/issue-body-1.1.md)" \
+     --label "auto-generated,auto-task,phase-1,requirements-2.1,requirements-2.2,namespace-tasks-md"
    ```
 
 3. **Handle Creation Results**
@@ -174,9 +185,16 @@ This task enables:
 ### Issue Labels
 
 Generate labels based on task metadata:
-- `task`: Core label for all generated issues
+- `auto-generated`: **MANDATORY** label for all create-issues generated issues
+- `task`: Core label for all generated issues (customizable via --label-prefix)
 - `phase-{major}`: Major phase identifier (phase-1, phase-2)
 - `requirements-{req}`: Requirement mapping (requirements-1.1, requirements-2.2)
+- `namespace-{namespace}`: Custom namespace for filtering (optional)
+
+**Human vs Auto Issue Distinction**:
+- **Auto-generated issues**: ALWAYS include `auto-generated` label
+- **Human-created issues**: Will NOT have `auto-generated` label
+- **Filtering**: Use `gh issue list --label auto-generated` for tasks.md issues only
 
 ### Optional Enhancements
 
