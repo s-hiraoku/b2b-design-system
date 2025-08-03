@@ -68,6 +68,43 @@ This command demonstrates sub-agent invocation patterns by:
 
 This pattern demonstrates how complex workflows can be broken down into orchestration and execution layers.
 
+## Issue Creation Integration
+
+### Post-Tasks Phase Workflow
+
+After tasks.md generation, optionally convert tasks to GitHub issues for implementation tracking:
+
+```bash
+# Convert tasks to GitHub issues (optional)
+/orchestrator "create-issues feature-name"
+
+# Or using the direct command
+/create-issues feature-name
+```
+
+### Create Issues Sub-Agent
+
+- **Sub-agent**: `Create Issues`
+- **Responsibility**: Transform tasks.md into trackable GitHub issues
+- **Benefits**: Bridge specification and implementation phases, improve project management
+
+### Usage Examples
+
+```bash
+# Complete workflow with issue creation
+/orchestrator "Build user authentication system and create implementation issues"
+
+# Post-completion issue generation
+/orchestrator "create-issues user-auth-system"
+```
+
+### Integration Benefits
+
+- **Implementation Tracking**: Convert spec-driven tasks to GitHub issues
+- **Team Coordination**: Assign tasks to team members via GitHub
+- **Progress Visibility**: Track implementation progress through issue management
+- **Traceability**: Maintain links between specifications and implementation work
+
 ## MCP Integration
 
 ### Utilize deepwiki, context7, and serena MCP Servers
