@@ -105,28 +105,39 @@ After tasks.md generation, optionally convert tasks to GitHub issues for impleme
 - **Progress Visibility**: Track implementation progress through issue management
 - **Traceability**: Maintain links between specifications and implementation work
 
-## MCP Integration
+## Human Approval Integration
 
-### Utilize deepwiki, context7, and serena MCP Servers
+### Structured Approval Workflow
 
-To enhance the spec-driven development process, leverage the following MCP (Model Context Protocol) servers:
+Enable human oversight at critical decision points with intelligent approval management:
 
-#### DeepWiki MCP
+```bash
+# Check and approve issue completion
+/orchestrator "check-issues user-auth-system"
 
-- **Purpose**: Access comprehensive GitHub repository documentation and knowledge
-- **Usage**: Read repository documentation structure, access up-to-date project information, ask specific questions about GitHub repositories
-- **Integration**: Use during requirements gathering and design phases to understand existing patterns and documentation
+# Automated approval integration in workflows
+/orchestrator "Build authentication system with approval gates"
+```
 
-#### Context7 MCP
+### Check Issues Sub-Agent
 
-- **Purpose**: Retrieve current library documentation and code examples
-- **Usage**: Resolve library IDs for accurate documentation, access up-to-date documentation for any library or framework, get focused documentation on specific topics
-- **Integration**: Utilize during design and implementation phases to ensure best practices and current API usage
+- **Sub-agent**: `Check Issues`
+- **Responsibility**: Human approval workflow management and progress validation
+- **Benefits**: Quality assurance through structured human oversight
 
-#### Serena MCP
+### Approval Integration Points
 
-- **Purpose**: Enhanced development capabilities and workflow automation
-- **Usage**: Access specialized development tools and resources, streamline development workflows with automated assistance
-- **Integration**: Apply throughout all phases for enhanced code quality and development efficiency
+```bash
+# Complete workflow with approval gates
+/orchestrator "Complete feature development with approval checkpoints"
 
-These MCP servers should be integrated into the spec-driven development workflow to provide comprehensive, up-to-date context and ensure implementations follow current best practices and documentation standards.
+# Approval-driven progression
+/orchestrator "check-issues feature-name --auto-progress"
+```
+
+### Approval Benefits
+
+- **Quality Assurance**: Human validation of critical milestones
+- **Risk Mitigation**: Structured decision making at key points
+- **Process Control**: Automated progression based on approval outcomes
+- **Audit Trail**: Complete record of approval decisions and reasoning
