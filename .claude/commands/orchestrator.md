@@ -105,6 +105,51 @@ After tasks.md generation, optionally convert tasks to GitHub issues for impleme
 - **Progress Visibility**: Track implementation progress through issue management
 - **Traceability**: Maintain links between specifications and implementation work
 
+## Comprehensive Coding Integration
+
+### End-to-End Development Workflow
+
+Execute complete development workflows with research, planning, implementation, testing, and documentation:
+
+```bash
+# Comprehensive coding workflow
+/orchestrator "coding 'Build a REST API with authentication'"
+
+# Development with specific technology focus
+/orchestrator "coding 'Create microservices architecture' --focus backend"
+
+# Complete feature development cycle
+/orchestrator "Build user management system with comprehensive coding workflow"
+```
+
+### Coding Sub-Agent
+
+- **Sub-agent**: `Coding`
+- **Responsibility**: Complete development workflow orchestration from research to documentation
+- **Benefits**: End-to-end development automation with MCP integration and best practices
+
+### Coding Integration Points
+
+```bash
+# Research-driven development
+/orchestrator "coding 'Implement OAuth2 authentication' --research-first"
+
+# Implementation with testing focus
+/orchestrator "coding 'Build payment processing' --tdd-approach"
+
+# Documentation-heavy development
+/orchestrator "coding 'Create public API' --comprehensive-docs"
+```
+
+### Coding Benefits
+
+- **Research Integration**: Web search, DeepWiki, and Context7 MCP for best practices
+- **Strategic Planning**: Architecture and implementation strategy development
+- **Quality Implementation**: Serena MCP integration for high-quality code generation
+- **Comprehensive Testing**: TDD approach with automated test generation
+- **Complete Documentation**: API docs, tutorials, and usage examples
+- **Technology Expertise**: Current library documentation and framework best practices
+
 ## Human Approval Integration
 
 ### Structured Approval Workflow
