@@ -31,7 +31,15 @@ Transform similar code patterns into maintainable, DRY implementations:
 
 ## Implementation Strategy
 
-### 1. Similarity Detection
+### 1. Sub-Agent Delegation
+
+Delegate specialized refactoring tasks to the Serena MCP Refactoring sub-agent:
+
+- **Primary Agent**: `serena-mcp-refactoring` - Handles comprehensive refactoring analysis and implementation
+- **Specialized Tools**: Uses Serena MCP's full capabilities for systematic code improvements
+- **Quality Assurance**: Ensures functionality preservation while improving code structure
+
+### 2. Similarity Detection
 
 Use Serena MCP tools for comprehensive pattern analysis:
 
@@ -40,7 +48,7 @@ Use Serena MCP tools for comprehensive pattern analysis:
 - **Code Overview**: `mcp__serena__get_symbols_overview` for organization understanding
 - **Reference Tracking**: `mcp__serena__find_referencing_symbols` for impact analysis
 
-### 2. Refactoring Strategy Development
+### 3. Refactoring Strategy Development
 
 Based on detected patterns, develop appropriate strategies:
 
@@ -64,10 +72,17 @@ Based on detected patterns, develop appropriate strategies:
 - Extract strategies into separate classes
 - Use dependency injection or factory patterns
 
-### 3. Safe Implementation
+### 4. Safe Implementation
 
-Execute refactoring with precision:
+Execute refactoring with precision through sub-agent delegation:
 
+**Primary Execution**: Delegate to `serena-mcp-refactoring` sub-agent for:
+- Comprehensive code analysis and refactoring strategy
+- Systematic implementation of improvements
+- Quality assurance and functionality preservation
+- Performance optimization while maintaining readability
+
+**Direct Serena MCP Tools** (when sub-agent delegates back):
 ```bash
 # Symbol-level refactoring
 mcp__serena__replace_symbol_body
@@ -84,7 +99,14 @@ mcp__serena__insert_after_symbol
 
 ## Refactoring Workflow
 
-### Phase 1: Analysis
+### Phase 1: Sub-Agent Initialization
+
+1. **Delegate to Serena MCP Refactoring Agent**
+   - Call `serena-mcp-refactoring` sub-agent for comprehensive analysis
+   - Provide context about similarity detection requirements
+   - Specify target directories or patterns for focused analysis
+
+### Phase 2: Analysis (via Sub-Agent)
 
 1. **Memory Context**
    ```bash
@@ -107,7 +129,7 @@ mcp__serena__insert_after_symbol
    mcp__serena__find_referencing_symbols
    ```
 
-### Phase 2: Planning
+### Phase 3: Planning (Sub-Agent Strategy)
 
 1. **Refactoring Strategy**
    - Group similar patterns by refactoring approach
@@ -119,7 +141,7 @@ mcp__serena__insert_after_symbol
    - Progress to higher-level abstractions
    - Minimize breaking changes
 
-### Phase 3: Execution
+### Phase 4: Execution (Sub-Agent Implementation)
 
 1. **Create Abstractions**
    ```bash
@@ -139,7 +161,7 @@ mcp__serena__insert_after_symbol
    - Update imports and dependencies
    - Verify all references are updated
 
-### Phase 4: Validation
+### Phase 5: Validation (Sub-Agent QA)
 
 1. **Reference Verification**
    ```bash
@@ -218,6 +240,12 @@ fi
 
 ## Integration Points
 
+### Sub-Agent Architecture
+
+- **Primary Sub-Agent**: `serena-mcp-refactoring` - Handles comprehensive refactoring analysis and implementation
+- **Specialized Delegation**: Focus on similarity detection while leveraging full refactoring capabilities
+- **Quality Assurance**: Ensures systematic approach to code improvements
+
 ### Development Workflow
 
 - **Pre-commit Hooks**: Detect new duplication
@@ -230,4 +258,4 @@ fi
 - **Progress Metrics**: Track code quality improvements over time
 - **Team Communication**: Share refactoring insights and patterns
 
-This command provides intelligent, safe refactoring capabilities using advanced semantic analysis to improve code maintainability while preserving functionality.
+This command provides intelligent, safe refactoring capabilities using the `serena-mcp-refactoring` sub-agent for advanced semantic analysis to improve code maintainability while preserving functionality.
