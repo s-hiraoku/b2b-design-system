@@ -33,31 +33,51 @@ CC-DECK provides a structured approach to software development through:
 - **Testing**: Multi-level test generation and validation
 - **Documentation**: Automated documentation generation
 
-## Available Commands
+## Available Command
 
-### Spec-Driven Development
+CC-DECK uses a single, intelligent command that automatically manages your entire development workflow:
+
 ```bash
-/spec-driven "Project description"     # Complete spec-driven workflow
-/kiro:steering                         # Generate project steering
-/kiro:spec-init "Feature description"  # Initialize feature specification
-/kiro:spec-requirements {feature}      # Generate requirements
-/kiro:spec-design {feature}           # Create technical design  
-/kiro:spec-tasks {feature}            # Generate implementation tasks
-/kiro:spec-status                     # Check specification status
+/orchestrator                         # Continue from where you left off
+/orchestrator "Project description"   # Start new project or feature
 ```
 
-### Task and Issue Management
+### Intelligent Workflow Management
+
+The `/orchestrator` command automatically:
+- **Detects project state** by analyzing specifications, issues, and code
+- **Determines next phase** based on completed work and pending tasks
+- **Delegates to appropriate agents** for specialized execution
+- **Maintains continuity** across development sessions
+
+### Usage Examples
+
 ```bash
-/create-issues {feature-name}         # Convert tasks to GitHub issues
-/orchestrator "Project request"       # Orchestrate development workflow
+# Start a new project
+/orchestrator "Build a real-time chat application"
+
+# Continue development (auto-detects current phase)
+/orchestrator
+
+# Jump to specific phase if needed
+/orchestrator "coding user-authentication"
+/orchestrator "acceptance payment-system"
+/orchestrator "pr-merge 123"
 ```
 
-### Development Assistance
-```bash
-/coding "Development request"         # Comprehensive coding assistance
-/refactoring                         # Intelligent code refactoring
-/similarity-refactoring              # Duplicate code detection and refactoring
-```
+### Workflow Phases
+
+The orchestrator manages all development phases:
+1. **Specification** - Project steering and requirements
+2. **Design** - Technical architecture and decisions
+3. **Tasks** - Implementation planning
+4. **Issues** - GitHub issue creation and tracking
+5. **Coding** - Implementation with AI assistance
+6. **Testing** - Comprehensive test coverage
+7. **Refactoring** - Code quality improvement
+8. **Acceptance** - Human approval workflows
+9. **PR Management** - Creation and merge workflows
+10. **Next Steps** - Continuous workflow progression
 
 ## Sub-Agent Architecture
 
@@ -103,98 +123,91 @@ CC-DECK provides a structured approach to software development through:
 
 ## Development Workflow
 
-### 1. Specification Phase
+### Getting Started
+
+Simply run `/orchestrator` and the system will guide you through the entire development process:
+
 ```bash
-# Create project steering
-/kiro:steering
+# First time - starts project setup
+/orchestrator
+# → "No active features found. Starting with project steering..."
 
-# Initialize feature specification
-/kiro:spec-init "User authentication system"
-
-# Generate requirements
-/kiro:spec-requirements user-auth-system
-
-# Create technical design  
-/kiro:spec-design user-auth-system
-
-# Generate implementation tasks
-/kiro:spec-tasks user-auth-system
+# Subsequent runs - continues from last phase
+/orchestrator
+# → "Feature 'user-auth' at Design phase. Continuing with task generation..."
 ```
 
-### 2. Task Management Phase
+### Automatic Workflow Progression
+
+The orchestrator automatically manages phase transitions:
+
+1. **Project Setup** → Steering document creation
+2. **Feature Planning** → Requirements and design
+3. **Task Generation** → Implementation roadmap
+4. **Development** → Coding with AI assistance
+5. **Quality Assurance** → Testing and refactoring
+6. **Deployment** → PR creation and merge
+7. **Continuation** → Next issue identification
+
+### Manual Phase Control (Optional)
+
+While the orchestrator handles progression automatically, you can jump to specific phases:
+
 ```bash
-# Convert tasks to GitHub issues
-/create-issues user-auth-system
-
-# Check progress
-/kiro:spec-status
+# Force specific workflow phase
+/orchestrator "kiro:spec-design user-auth"
+/orchestrator "coding authentication-module"
+/orchestrator "acceptance user-management"
+/orchestrator "pr-merge 123"
 ```
-
-### 3. Implementation Phase
-```bash
-# Comprehensive development assistance
-/coding "Implement JWT authentication with OAuth 2.0"
-
-# Code quality improvement
-/refactoring
-
-# Duplicate code cleanup
-/similarity-refactoring
-```
-
-### 4. Quality Assurance
-- Automated testing at multiple levels
-- Code quality validation
-- Security and performance verification
-- Documentation generation and validation
 
 ## Project Structure
 
 ```
 .claude/
-├── commands/           # Custom slash commands
-│   ├── coding.md
-│   ├── create-issues.md
-│   ├── refactoring.md
-│   └── similarity-refactoring.md
-├── agents/            # Specialized sub-agents
-│   ├── coding/        # Development assistance agents
-│   ├── create-issues/ # Issue management agents
-│   ├── kiro/         # Spec-driven development agents
-│   └── refactor/     # Code refactoring agents
-└── settings.local.json
+├── commands/              # Custom slash commands
+│   ├── orchestrator.md    # Single intelligent workflow orchestrator
+│   └── _archived/         # Archived individual commands (reference only)
+├── agents/                # Specialized sub-agents
+│   ├── acceptance/        # Human approval workflows
+│   ├── check-issues/      # Issue validation and approval
+│   ├── coding/            # Development assistance agents
+│   ├── create-issues/     # Issue management agents
+│   ├── e2e-test/         # End-to-end testing agents
+│   ├── integration-test/  # Integration testing agents
+│   ├── kiro/             # Spec-driven development agents
+│   ├── pr-create/        # PR creation agents
+│   ├── pr-merge/         # PR merge workflow agents
+│   └── refactor/         # Code refactoring agents
+└── settings.local.json    # MCP server configuration
 
 docs/
-├── ARCHITECTURE.md    # System architecture documentation
-└── kiro/             # Spec-driven development examples
+├── ARCHITECTURE.md        # System architecture documentation
+└── kiro/                 # Spec-driven development examples
+
+specs/                    # Feature specifications (auto-generated)
+└── {feature}/           # Individual feature specs and status
 ```
 
 ## Getting Started
 
-1. **Initialize Project Steering**
+1. **Start Your Project**
    ```bash
-   /kiro:steering
+   /orchestrator
    ```
+   That's it! The system will guide you through the entire process.
 
-2. **Create Feature Specification**
+2. **Continue Development**
    ```bash
-   /kiro:spec-init "Your feature description"
+   /orchestrator
    ```
+   Automatically picks up where you left off.
 
-3. **Follow Spec-Driven Workflow**
+3. **Start New Feature**
    ```bash
-   /spec-driven "Complete feature implementation"
+   /orchestrator "Build user authentication system"
    ```
-
-4. **Convert to Implementation Tasks**
-   ```bash
-   /create-issues {feature-name}
-   ```
-
-5. **Implement with AI Assistance**
-   ```bash
-   /coding "Implementation request"
-   ```
+   Begins a new feature workflow with intelligent phase management.
 
 ## Quality Standards
 

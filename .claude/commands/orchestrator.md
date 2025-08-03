@@ -1,72 +1,210 @@
 ---
-description: Orchestrator command that delegates spec-driven development to specialized sub-agent
+description: Orchestrator command that intelligently analyzes project state and delegates to appropriate development phase
 allowed-tools: Task, Read, Write, Edit, MultiEdit, Bash, Glob, Grep, LS
 ---
 
 # Orchestrator Command
 
-Simple orchestrator that delegates spec-driven development execution to the specialized Kiro Spec Driven sub-agent.
+Intelligent orchestrator that automatically detects project state and continues development workflow from the appropriate phase.
 
 ## Purpose
 
-This command demonstrates sub-agent invocation patterns by:
+This command serves as the single entry point for all development workflows by:
 
-1. **Receiving user input** (project descriptions, parameters)
-2. **Delegating to specialized agent** (Kiro Spec Driven)
-3. **Returning results** to user
+1. **Analyzing project state** (checking existing specifications, issues, code)
+2. **Determining next phase** (identifying what needs to be done next)
+3. **Delegating to appropriate agent** (executing the right workflow)
+4. **Maintaining continuity** (preserving context between phases)
 
-## Execution Strategy
+## Intelligent State Detection
 
-### Primary Delegation
+### Automatic Project Analysis
 
-- **Sub-agent**: `Kiro Spec Driven`
-- **Responsibility**: Complete spec-driven development workflow orchestration
-- **Benefits**: Separation of concerns, specialized expertise, maintainable architecture
+When invoked without specific parameters, orchestrator will:
 
-### Input Handling
+1. **Check for existing specifications** in `specs/` directory
+2. **Analyze GitHub issues** for active development tasks
+3. **Review code changes** and PR status
+4. **Determine current phase** and recommend next steps
 
-- **No parameters**: Execute basic project analysis and workflow
-- **Project description**: Pass description to sub-agent for spec initialization
-- **Feature requests**: Forward to appropriate workflow
+```bash
+# Automatic state detection and continuation
+/orchestrator
 
-## Implementation
+# Example output:
+# 🔍 Analyzing project state...
+# ✅ Found feature: user-auth-system
+# 📋 Current phase: Design completed
+# 🎯 Next recommended: Generate implementation tasks
+# ▶️  Proceeding with: /orchestrator "kiro:spec-tasks user-auth-system"
+```
 
-1. **Analyze Input**
+### State Detection Logic
 
-   - Determine if project description provided
-   - Prepare parameters for sub-agent
+```yaml
+Project State Analysis:
+  1. Check Specifications:
+     - No specs → Start with Kiro Steering
+     - Incomplete spec → Resume from last phase
+     - Complete spec → Check implementation status
+  
+  2. Check Implementation:
+     - No issues → Create issues from tasks
+     - Open issues → Check development progress
+     - Completed issues → Validate and test
+  
+  3. Check Quality:
+     - No tests → Generate tests
+     - Failed tests → Debug and fix
+     - Passing tests → Check acceptance status
+  
+  4. Check Deployment:
+     - Not ready → Complete prerequisites
+     - Ready → Create PR
+     - PR open → Check merge readiness
+```
 
-2. **Call Sub-Agent**
+## Implementation Strategy
 
-   - Invoke `Kiro Spec Driven` agent
-   - Pass all relevant context and parameters
-   - Handle response appropriately
+### Smart Workflow Continuation
 
-3. **Return Results**
-   - Report sub-agent execution results
-   - Provide any additional orchestration feedback
+1. **State Analysis Phase**
+   ```bash
+   # Analyze project structure
+   - Check specs/ directory for feature specifications
+   - Read kiro_status.json for phase tracking
+   - Query GitHub for issue and PR status
+   - Determine optimal next action
+   ```
+
+2. **Context Preservation**
+   ```bash
+   # Maintain workflow context
+   - Feature name from existing specs
+   - Current phase from status files
+   - Completed work from git history
+   - Next steps from workflow logic
+   ```
+
+3. **Intelligent Delegation**
+   ```bash
+   # Delegate to appropriate phase
+   - Missing specs → Kiro workflow
+   - Missing issues → Create issues
+   - Open issues → Development assistance
+   - Complete code → Testing and validation
+   - Tested code → PR and deployment
+   ```
 
 ## Usage Examples
 
+### Basic Continuation
 ```bash
-# Basic orchestration
+# Continue from where you left off
 /orchestrator
 
-# With project description
-/orchestrator "Build a real-time chat application with WebSocket support"
+# Force specific phase
+/orchestrator "continue coding user-auth-system"
 
-# Feature addition
-/orchestrator "Add user authentication to existing project"
+# Start new feature
+/orchestrator "Build a real-time chat application"
+```
+
+### Phase-Specific Execution
+```bash
+# Jump to specific phase
+/orchestrator "kiro:spec-design user-auth"      # Continue with design
+/orchestrator "create-issues payment-system"    # Create issues for existing spec
+/orchestrator "coding authentication-module"    # Start implementation
+/orchestrator "acceptance user-management"      # Run acceptance tests
+/orchestrator "pr-merge 123"                   # Merge approved PR
+```
+
+## Workflow State Management
+
+### State Files and Tracking
+
+The orchestrator maintains project state through several mechanisms:
+
+```yaml
+State Storage:
+  specs/{feature}/kiro_status.json:
+    - current_phase: "design|requirements|tasks|etc"
+    - completed_phases: ["steering", "init", "requirements"]
+    - last_updated: "2024-01-15T10:00:00Z"
+    - next_recommended: "tasks"
+  
+  .claude/workflow-state.json:
+    - active_feature: "user-auth-system"
+    - active_issues: [123, 124, 125]
+    - completed_issues: [120, 121, 122]
+    - current_pr: 456
+    - workflow_phase: "implementation"
+```
+
+### Automatic Next Step Detection
+
+When `/orchestrator` is called without parameters:
+
+1. **Scan for Active Features**
+   ```bash
+   # Check specs directory
+   ls specs/*/kiro_status.json
+   # Identify features in progress
+   # Select most recently updated
+   ```
+
+2. **Determine Current Phase**
+   ```bash
+   # Read kiro_status.json
+   # Check completed vs pending phases
+   # Identify blockers or dependencies
+   ```
+
+3. **Recommend Next Action**
+   ```bash
+   # Based on phase completion:
+   - Steering done → Requirements
+   - Requirements done → Design
+   - Design done → Tasks
+   - Tasks done → Create Issues
+   - Issues created → Implementation
+   - Implementation done → Testing
+   - Testing done → Acceptance
+   - Acceptance done → PR Creation
+   - PR created → Merge
+   - Merged → Next Issue
+   ```
+
+### Example Workflow Continuation
+
+```bash
+# First time - starts from beginning
+/orchestrator
+# Output: "No active features found. Starting with Kiro Steering..."
+
+# After steering completed
+/orchestrator
+# Output: "Found project context. Proceeding with feature initialization..."
+
+# After several phases completed
+/orchestrator
+# Output: "Feature 'user-auth' at Design phase. Continuing with task generation..."
+
+# With active development
+/orchestrator
+# Output: "Found 3 open issues for 'user-auth'. Checking implementation progress..."
 ```
 
 ## Sub-Agent Architecture Benefits
 
-- **Focused Responsibility**: Orchestrator handles delegation, sub-agent handles execution
-- **Testability**: Can verify sub-agent invocation patterns
-- **Maintainability**: Changes to spec-driven logic isolated to sub-agent
-- **Reusability**: Sub-agent can be called from multiple orchestrators
+- **Focused Responsibility**: Orchestrator handles state detection and delegation
+- **Intelligent Continuation**: Automatically resumes from last successful phase
+- **Context Preservation**: Maintains workflow state across sessions
+- **Flexible Progression**: Allows jumping to specific phases when needed
+- **Progress Visibility**: Clear indication of current state and next steps
 
-This pattern demonstrates how complex workflows can be broken down into orchestration and execution layers.
+This pattern enables seamless workflow continuation without manual state tracking.
 
 ## Issue Creation Integration
 
