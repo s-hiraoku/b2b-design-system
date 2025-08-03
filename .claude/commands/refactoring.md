@@ -33,11 +33,13 @@ Transform similar code patterns into maintainable, DRY implementations:
 
 ### 1. Sub-Agent Delegation
 
-Delegate specialized refactoring tasks to the Serena MCP Refactoring sub-agent:
+Delegate specialized refactoring tasks to the comprehensive Refactoring sub-agent:
 
-- **Primary Agent**: `serena-mcp-refactoring` - Handles comprehensive refactoring analysis and implementation
-- **Specialized Tools**: Uses Serena MCP's full capabilities for systematic code improvements
-- **Quality Assurance**: Ensures functionality preservation while improving code structure
+- **Primary Agent**: `Refactoring` - Main orchestrator for intelligent code refactoring
+- **Pattern Detection**: `Pattern Detector` - Identifies duplicate and similar code patterns
+- **Code Analysis**: `Code Analyzer` - Analyzes structure and dependencies
+- **Implementation**: `Refactoring Implementer` - Executes safe code transformations
+- **Validation**: `Quality Validator` - Comprehensive validation and verification
 
 ### 2. Similarity Detection
 
@@ -76,13 +78,19 @@ Based on detected patterns, develop appropriate strategies:
 
 Execute refactoring with precision through sub-agent delegation:
 
-**Primary Execution**: Delegate to `serena-mcp-refactoring` sub-agent for:
-- Comprehensive code analysis and refactoring strategy
-- Systematic implementation of improvements
+**Primary Execution**: Delegate to `Refactoring` sub-agent for:
+- Comprehensive pattern detection and code analysis
+- Strategic refactoring planning and implementation
 - Quality assurance and functionality preservation
 - Performance optimization while maintaining readability
 
-**Direct Serena MCP Tools** (when sub-agent delegates back):
+**Specialized Sub-Agents** (orchestrated by main Refactoring agent):
+- **Pattern Detector**: Identifies code similarities and duplication
+- **Code Analyzer**: Analyzes structure, dependencies, and impact
+- **Refactoring Implementer**: Executes systematic transformations
+- **Quality Validator**: Validates results and ensures quality
+
+**Direct Serena MCP Tools** (when sub-agents delegate back):
 ```bash
 # Symbol-level refactoring
 mcp__serena__replace_symbol_body
@@ -101,8 +109,8 @@ mcp__serena__insert_after_symbol
 
 ### Phase 1: Sub-Agent Initialization
 
-1. **Delegate to Serena MCP Refactoring Agent**
-   - Call `serena-mcp-refactoring` sub-agent for comprehensive analysis
+1. **Delegate to Refactoring Agent**
+   - Call `Refactoring` sub-agent for comprehensive orchestration
    - Provide context about similarity detection requirements
    - Specify target directories or patterns for focused analysis
 
@@ -242,9 +250,10 @@ fi
 
 ### Sub-Agent Architecture
 
-- **Primary Sub-Agent**: `serena-mcp-refactoring` - Handles comprehensive refactoring analysis and implementation
-- **Specialized Delegation**: Focus on similarity detection while leveraging full refactoring capabilities
-- **Quality Assurance**: Ensures systematic approach to code improvements
+- **Primary Sub-Agent**: `Refactoring` - Main orchestrator for intelligent code refactoring
+- **Specialized Sub-Agents**: Pattern Detector, Code Analyzer, Refactoring Implementer, Quality Validator
+- **Comprehensive Workflow**: End-to-end refactoring from detection to validation
+- **Quality Assurance**: Multi-layered validation and systematic approach to improvements
 
 ### Development Workflow
 
@@ -258,4 +267,4 @@ fi
 - **Progress Metrics**: Track code quality improvements over time
 - **Team Communication**: Share refactoring insights and patterns
 
-This command provides intelligent, safe refactoring capabilities using the `serena-mcp-refactoring` sub-agent for advanced semantic analysis to improve code maintainability while preserving functionality.
+This command provides intelligent, safe refactoring capabilities using the comprehensive `Refactoring` sub-agent ecosystem for advanced semantic analysis and systematic code improvements while preserving functionality.
