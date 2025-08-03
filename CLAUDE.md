@@ -1,8 +1,20 @@
-# CC-Deck Project
+# Tetris Game Project
 
 ## Overview
 
-This is a development documentation project implementing the Kiro SDD (Specification-Driven Development) process. The project focuses on task management, issue creation, and development workflow optimization using Claude Code.
+This is a Tetris game development project implementing the Kiro SDD (Specification-Driven Development) process. The project creates a fully functional web-based Tetris game with standard gameplay mechanics, modern interface, and comprehensive development documentation.
+
+## Active Steering Files
+
+The following steering documents are active and provide project context:
+
+- `.kiro/steering/product.md` - Product overview, features, and value proposition
+- `.kiro/steering/tech.md` - Technology stack, development environment, and architecture  
+- `.kiro/steering/structure.md` - Project structure, code organization, and development guidelines
+
+## Active Specifications
+
+- `tetris-game` - Complete Tetris game implementation with standard gameplay mechanics, 7 tetromino pieces, scoring, and modern web interface
 
 ## Project Structure
 
@@ -25,7 +37,29 @@ The project follows a structured development process:
 
 ## Commands
 
-No specific build/test commands defined yet - this appears to be a documentation-focused project.
+### Issue自動管理システム
+
+Issue完了後の自動処理とAI駆動承認システム：
+
+```bash
+# Issue自動管理の有効化
+/orchestrator "enable-auto-issue-management"
+
+# 特定のIssueに対する承認処理
+/orchestrator "approve-issue #123"
+
+# 承認プロセスの最適化実行
+/orchestrator "optimize-approval-process"
+
+# フィードバックループの確認
+/orchestrator "check-feedback-loop"
+```
+
+### 承認カテゴリと処理
+
+- **低リスク（自動承認）**: ルーチンなバグ修正、ドキュメント更新、テスト改善
+- **中リスク（条件付き承認）**: 新機能実装、パフォーマンス最適化、リファクタリング  
+- **高リスク（人間承認必須）**: セキュリティ変更、データベース変更、API破壊的変更
 
 ## Technologies
 
