@@ -19,14 +19,17 @@ Execute appropriate development workflows based on project type, following CLAUD
 ## Best Practices Enforcement
 
 ### ✅ Required
+
 - **Always start with `/kiro:steering`** | **Never skip phases** | **Use `/kiro:spec-status` regularly** | **Keep steering current**
 
-### ❌ Forbidden  
+### ❌ Forbidden
+
 - **Skip confirmations** | **Neglect steering updates** | **Leave task status unupdated**
 
 ## Workflow Execution
 
 ### New Project Workflow
+
 1. **REQUIRED: Generate project steering** - Execute Kiro Steering agent
 2. **Spec Initialization** - Execute Kiro Spec Init agent with project description
 3. **Requirements Definition** - Execute Kiro Spec Requirements agent
@@ -34,23 +37,27 @@ Execute appropriate development workflows based on project type, following CLAUD
 5. **Task Generation** - Execute Kiro Spec Tasks agent (after design approval)
 6. **Implementation Start** - Regular status monitoring
 
-### Existing Project Workflow  
+### Existing Project Workflow
+
 1. **REQUIRED: Update steering context** - Execute Kiro Steering agent (update mode)
 2. **Follow same steps 2-6 as new project**
 
 ## Agent Orchestration Strategy
 
 ### Sequential Agent Calls
+
 ```
 Kiro Steering → Kiro Spec Init → Kiro Spec Requirements → Kiro Spec Design → Kiro Spec Tasks
 ```
 
 ### Interactive Approval Points
+
 - **After Requirements**: Confirm review before calling Kiro Spec Design
-- **After Design**: Confirm review before calling Kiro Spec Tasks  
+- **After Design**: Confirm review before calling Kiro Spec Tasks
 - **After Tasks**: Confirm review before implementation starts
 
 ### Error Handling
+
 - **Missing specs directory**: Auto-create and execute new project workflow
 - **Outdated steering**: Auto-execute Kiro Steering agent
 - **Pending approvals**: Prompt for `/kiro:spec-status` check
@@ -58,19 +65,23 @@ Kiro Steering → Kiro Spec Init → Kiro Spec Requirements → Kiro Spec Design
 ## Implementation Instructions
 
 1. **Analyze Project State**
+
    - Check for existing specs and steering
    - Determine if new or existing project workflow applies
 
 2. **Execute Steering First** (MANDATORY)
+
    - Call Kiro Steering agent before any spec work
    - Ensure current project context
 
 3. **Orchestrate Spec Creation**
+
    - Call appropriate agents in sequence
    - Enforce approval workflow between phases
    - Handle interactive approval prompts
 
 4. **Monitor Progress**
+
    - Call Kiro Spec Status agent as needed
    - Ensure all phases are properly tracked
 
@@ -81,8 +92,9 @@ Kiro Steering → Kiro Spec Init → Kiro Spec Requirements → Kiro Spec Design
 ## Sub-Agent Integration
 
 Available agents for orchestration:
+
 - **Kiro Steering**: Project steering management
-- **Kiro Spec Init**: Specification initialization  
+- **Kiro Spec Init**: Specification initialization
 - **Kiro Spec Requirements**: Requirements definition
 - **Kiro Spec Design**: Technical design
 - **Kiro Spec Tasks**: Implementation task breakdown
