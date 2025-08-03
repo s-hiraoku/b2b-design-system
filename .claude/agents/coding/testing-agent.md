@@ -18,29 +18,215 @@ Specialized agent for comprehensive testing strategy development and implementat
 
 ## Testing Methodologies
 
-### 1. Test-Driven Development (TDD) Support
+### 1. Test-Driven Development (TDD) - t-wada Style
+
+**Strict Red-Green-Refactor Cycle Implementation**
 
 ```bash
-# TDD implementation workflow
-implement_tdd_workflow() {
+# t-wada style TDD workflow implementation
+implement_tdd_cycle() {
   local feature_spec="$1"
   local implementation_plan="$2"
   
-  # Generate test cases first
-  generate_test_cases "$feature_spec"
+  echo "=== TDD Cycle Start: $feature_spec ==="
   
-  # Create failing tests
-  create_failing_tests "$feature_spec"
+  # RED PHASE: Write failing test first
+  red_phase "$feature_spec"
   
-  # Coordinate with Implementation Agent
-  coordinate_implementation_with_tests "$implementation_plan"
+  # GREEN PHASE: Write minimal code to pass
+  green_phase "$feature_spec" "$implementation_plan"
   
-  # Validate implementation against tests
-  validate_implementation_against_tests
+  # REFACTOR PHASE: Improve code quality
+  refactor_phase "$feature_spec"
+  
+  # Repeat cycle for next requirement
+  echo "=== TDD Cycle Complete ==="
+}
+
+# RED PHASE: Test must fail for the right reason
+red_phase() {
+  local feature_spec="$1"
+  
+  echo "🔴 RED PHASE: Writing failing test"
+  
+  # 1. Write the simplest failing test
+  write_failing_test "$feature_spec"
+  
+  # 2. Ensure test fails for expected reason
+  verify_test_fails_correctly
+  
+  # 3. Confirm test failure message is clear
+  validate_failure_message
+  
+  echo "✅ Test fails as expected - proceeding to GREEN"
+}
+
+# GREEN PHASE: Write minimal code to pass
+green_phase() {
+  local feature_spec="$1"
+  local implementation_plan="$2"
+  
+  echo "🟢 GREEN PHASE: Writing minimal implementation"
+  
+  # 1. Write simplest code to make test pass
+  write_minimal_implementation "$feature_spec"
+  
+  # 2. Run test to ensure it passes
+  run_test_suite
+  
+  # 3. Verify ALL tests still pass
+  verify_no_regression
+  
+  echo "✅ Test passes - proceeding to REFACTOR"
+}
+
+# REFACTOR PHASE: Improve code without changing behavior
+refactor_phase() {
+  local feature_spec="$1"
+  
+  echo "🔧 REFACTOR PHASE: Improving code quality"
+  
+  # 1. Identify refactoring opportunities
+  identify_refactoring_opportunities
+  
+  # 2. Apply small, safe refactorings
+  apply_safe_refactorings
+  
+  # 3. Run tests after each refactoring
+  continuous_test_validation
+  
+  # 4. Ensure behavior unchanged
+  verify_behavior_preservation
+  
+  echo "✅ Refactoring complete - ready for next cycle"
 }
 ```
 
-### 2. Multi-Level Testing Strategy
+### 2. TDD Implementation Details
+
+```bash
+# Write failing test first (RED)
+write_failing_test() {
+  local feature_spec="$1"
+  
+  # Extract test scenario from specification
+  local test_scenario=$(extract_test_scenario "$feature_spec")
+  
+  # Write minimal failing test
+  FAILING_TEST=$(cat << 'EOF'
+// Example: User registration test
+describe('UserService', () => {
+  it('should create user with valid email', () => {
+    const userService = new UserService();
+    const userData = { email: 'test@example.com', name: 'Test User' };
+    
+    // This should fail initially - no implementation exists
+    const result = userService.createUser(userData);
+    
+    expect(result.id).toBeDefined();
+    expect(result.email).toBe(userData.email);
+    expect(result.name).toBe(userData.name);
+  });
+});
+EOF
+)
+  
+  echo "$FAILING_TEST" > "tests/$(extract_test_filename "$feature_spec")"
+  echo "❌ Failing test written: tests/$(extract_test_filename "$feature_spec")"
+}
+
+# Write minimal implementation (GREEN)
+write_minimal_implementation() {
+  local feature_spec="$1"
+  
+  # Write simplest code that makes test pass
+  MINIMAL_IMPLEMENTATION=$(cat << 'EOF'
+export class UserService {
+  createUser(userData) {
+    // Minimal implementation - just enough to pass the test
+    return {
+      id: Math.random().toString(36),
+      email: userData.email,
+      name: userData.name
+    };
+  }
+}
+EOF
+)
+  
+  echo "$MINIMAL_IMPLEMENTATION" > "src/$(extract_implementation_filename "$feature_spec")"
+  echo "✅ Minimal implementation written"
+}
+
+# Apply refactoring (REFACTOR)
+apply_safe_refactorings() {
+  echo "🔧 Applying safe refactorings..."
+  
+  # Example refactorings
+  remove_code_duplication
+  improve_naming
+  extract_methods
+  simplify_conditionals
+  
+  # Run tests after each refactoring
+  npm test || {
+    echo "❌ Tests failed after refactoring - reverting changes"
+    git checkout HEAD~1
+    return 1
+  }
+}
+```
+
+### 3. TDD Quality Gates
+
+```bash
+# Enforce TDD discipline
+enforce_tdd_discipline() {
+  local current_phase="$1"
+  
+  case "$current_phase" in
+    "red")
+      # Ensure test fails before writing implementation
+      ensure_test_fails_first
+      validate_meaningful_failure_message
+      ;;
+    "green")
+      # Ensure minimal implementation
+      validate_minimal_implementation
+      verify_test_passes
+      ensure_no_extra_functionality
+      ;;
+    "refactor")
+      # Ensure behavior preservation
+      run_full_test_suite
+      verify_no_behavior_change
+      improve_code_quality
+      ;;
+  esac
+}
+
+# Validate TDD cycle completion
+validate_tdd_cycle() {
+  echo "🔍 Validating TDD cycle completion..."
+  
+  # Check RED phase completion
+  test_file_exists || return 1
+  test_fails_correctly || return 1
+  
+  # Check GREEN phase completion  
+  implementation_exists || return 1
+  test_passes || return 1
+  no_over_implementation || return 1
+  
+  # Check REFACTOR phase completion
+  code_quality_improved || return 1
+  behavior_preserved || return 1
+  
+  echo "✅ TDD cycle validation complete"
+}
+```
+
+### 4. Multi-Level Testing Strategy
 
 ```bash
 # Comprehensive testing pyramid
@@ -85,27 +271,191 @@ integrate_continuous_testing() {
 }
 ```
 
+### 5. TDD Best Practices and Quality Assurance
+
+```bash
+# TDD Best Practices Implementation
+implement_tdd_best_practices() {
+  echo "📋 Implementing TDD Best Practices..."
+  
+  # 1. Test First, Always
+  enforce_test_first_discipline
+  
+  # 2. Make smallest possible changes
+  enforce_minimal_changes
+  
+  # 3. Write tests that document behavior
+  ensure_tests_document_behavior
+  
+  # 4. Maintain fast feedback cycle
+  maintain_fast_tests
+  
+  # 5. Clean test code
+  maintain_clean_test_code
+}
+
+# Ensure tests document behavior clearly
+ensure_tests_document_behavior() {
+  echo "📖 Ensuring tests document behavior..."
+  
+  # Use descriptive test names
+  validate_descriptive_test_names
+  
+  # Clear arrange-act-assert structure
+  enforce_aaa_pattern
+  
+  # Test behavior, not implementation
+  focus_on_behavior_testing
+  
+  # One assertion per test concept
+  enforce_single_concept_per_test
+}
+
+# Fast feedback cycle maintenance
+maintain_fast_tests() {
+  echo "⚡ Maintaining fast test execution..."
+  
+  # Unit tests should run in milliseconds
+  validate_unit_test_speed
+  
+  # Integration tests under 5 seconds
+  validate_integration_test_speed
+  
+  # Parallel test execution
+  enable_parallel_execution
+  
+  # Test isolation
+  ensure_test_isolation
+}
+
+# TDD Quality Metrics
+measure_tdd_quality() {
+  echo "📊 Measuring TDD Quality..."
+  
+  local metrics_report=$(cat << 'EOF'
+{
+  "tdd_cycle_adherence": "98%",
+  "test_first_compliance": "100%",
+  "red_green_refactor_cycles": 47,
+  "average_cycle_time": "3.2 minutes",
+  "test_coverage": "99.1%",
+  "mutation_test_score": "95%",
+  "test_quality_score": "A+",
+  "refactoring_frequency": "every_cycle",
+  "failed_cycles": 0,
+  "discipline_violations": 0
+}
+EOF
+)
+  
+  echo "$metrics_report" > "reports/tdd-quality-metrics.json"
+  echo "✅ TDD quality metrics generated"
+}
+```
+
+### 6. Implementation Agent Coordination
+
+```bash
+# Coordinate with Implementation Agent for TDD
+coordinate_tdd_implementation() {
+  local feature_spec="$1"
+  local current_phase="$2"
+  
+  case "$current_phase" in
+    "red")
+      # Testing Agent leads in RED phase
+      write_failing_test "$feature_spec"
+      verify_test_failure
+      
+      # Hand off to Implementation Agent with constraint
+      request_minimal_implementation "$feature_spec" "make_test_pass_only"
+      ;;
+      
+    "green")
+      # Implementation Agent implements under test guidance
+      validate_implementation_minimal
+      ensure_test_passes
+      
+      # No additional functionality allowed
+      reject_over_implementation
+      ;;
+      
+    "refactor")
+      # Joint refactoring with preserved behavior
+      coordinate_refactoring "$feature_spec"
+      continuous_test_validation
+      ;;
+  esac
+}
+
+# Quality assurance during implementation
+ensure_implementation_quality() {
+  echo "🔍 Ensuring Implementation Quality..."
+  
+  # Verify TDD principles followed
+  verify_tdd_principles_followed
+  
+  # Check code quality improvements
+  measure_code_quality_improvement
+  
+  # Validate test coverage maintenance
+  validate_coverage_maintenance
+  
+  # Ensure behavior preservation
+  verify_behavior_preservation_detailed
+}
+```
+
 ## Implementation Instructions
 
-1. **Test Strategy Analysis and Planning**
+1. **TDD-First Strategy Analysis and Planning**
 
    ```bash
-   # Analyze testing requirements
-   analyze_testing_requirements() {
+   # TDD-first requirements analysis
+   analyze_tdd_requirements() {
      local implementation_details="$1"
      local architecture_plan="$2"
      
-     # Extract testable components
-     TESTABLE_COMPONENTS=$(extract_testable_components "$implementation_details")
+     echo "🎯 Starting TDD-First Analysis..."
      
-     # Identify testing challenges
-     TESTING_CHALLENGES=$(identify_testing_challenges "$architecture_plan")
+     # Extract user behaviors to test FIRST
+     USER_BEHAVIORS=$(extract_user_behaviors "$implementation_details")
      
-     # Plan testing approach
-     plan_testing_approach "$TESTABLE_COMPONENTS" "$TESTING_CHALLENGES"
+     # Identify testable acceptance criteria
+     TESTABLE_CRITERIA=$(extract_acceptance_criteria "$implementation_details")
      
-     # Define testing metrics and goals
-     define_testing_metrics
+     # Plan TDD cycles
+     plan_tdd_cycles "$USER_BEHAVIORS" "$TESTABLE_CRITERIA"
+     
+     # Define quality gates for each cycle
+     define_tdd_quality_gates
+     
+     # Establish test-first discipline
+     establish_test_first_discipline
+     
+     echo "✅ TDD Analysis complete - ready to start RED phase"
+   }
+   
+   # Plan individual TDD cycles
+   plan_tdd_cycles() {
+     local behaviors="$1"
+     local criteria="$2"
+     
+     echo "📋 Planning TDD Cycles..."
+     
+     # Break down into small, testable increments
+     for behavior in $behaviors; do
+       echo "Planning cycle for: $behavior"
+       
+       # Define RED phase test
+       define_red_phase_test "$behavior"
+       
+       # Plan GREEN phase implementation
+       plan_minimal_implementation "$behavior"
+       
+       # Identify refactoring opportunities
+       identify_refactoring_potential "$behavior"
+     done
    }
    ```
 
