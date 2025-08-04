@@ -1,8 +1,8 @@
-# Tetris Game Project
+# CC-Deck Project
 
 ## Overview
 
-This is a Tetris game development project implementing the Kiro SDD (Specification-Driven Development) process. The project creates a fully functional web-based Tetris game with standard gameplay mechanics, modern interface, and comprehensive development documentation.
+This is the CC-Deck (Claude Code Deck) project implementing the Kiro SDD (Specification-Driven Development) process. The project provides an AI-driven development platform with intelligent orchestration, task management, and comprehensive development workflows.
 
 ## Active Steering Files
 
@@ -16,7 +16,7 @@ The following steering documents are active and provide project context (stored 
 
 All specifications are stored in the `.kiro/specs/` directory:
 
-- `.kiro/specs/tetris-game/` - Complete Tetris game implementation with standard gameplay mechanics, 7 tetromino pieces, scoring, and modern web interface
+- Currently no active specifications - new features will be created here automatically
 
 ## Project Structure
 
@@ -30,90 +30,30 @@ All specifications are stored in the `.kiro/specs/` directory:
 
 ## Development Workflow
 
-The project follows a structured development process:
+The project follows the Kiro SDD (Specification-Driven Development) process with automated orchestration:
 
-1. Implement Kiro SDD process
-2. Break down specifications into .kiro/specs/{feature}/tasks.md files
-3. Execute tasks with testing and implementation
-4. Track progress through .kiro/specs/{feature}/tasks.md checkboxes
-5. Use orchestration, MCP, and similarity-ts tools
-6. Perform refactoring and maintain code quality
-7. Create and run E2E tests
-8. Merge PRs and update documentation
+1. Kiro SDD specification creation in `.kiro/specs/`
+2. Task-based implementation with progress tracking  
+3. Automated next work identification from GitHub issues
+4. Human approval workflows for quality assurance
+5. Comprehensive testing and deployment
 
-## Commands
+## Main Command
 
-### Tasks.md進捗管理システム
+Use `/orchestrator` for all development workflows - it provides intelligent state detection and workflow continuation.
 
-Tasks.mdファイルを使用した開発進捗の追跡と管理：
-
-```bash
-# Task進捗の確認
-/orchestrator "task-status feature-name"
-
-# 特定のTaskを完了としてマーク
-/orchestrator "complete-task feature-name 1.1"
-
-# 次に作業すべきTaskの特定
-/orchestrator "next-tasks feature-name"
-
-# 進捗レポートの生成
-/orchestrator "progress-report feature-name"
-```
-
-### Tasks.md自動管理システム
-
-Task完了後の自動処理とAI駆動承認システム：
-
-```bash
-# Task自動管理の有効化
-/orchestrator "enable-auto-task-management"
-
-# 特定のTaskに対する承認処理
-/orchestrator "approve-task feature-name 1.1"
-
-# 承認プロセスの最適化実行
-/orchestrator "optimize-approval-process"
-
-# フィードバックループの確認
-/orchestrator "check-feedback-loop"
-```
-
-### 承認カテゴリと処理
-
-- **低リスク（自動承認）**: ルーチンなバグ修正、ドキュメント更新、テスト改善
-- **中リスク（条件付き承認）**: 新機能実装、パフォーマンス最適化、リファクタリング  
-- **高リスク（人間承認必須）**: セキュリティ変更、データベース変更、API破壊的変更
-
-## Technologies
+## Key Technologies
 
 - Kiro SDD (Specification-Driven Development)
-- Claude Code integration
-- MCP (Model Context Protocol)
-- similarity-ts for code analysis
+- Claude Code integration with custom slash commands
+- MCP (Model Context Protocol) servers: DeepWiki, Context7, Serena
+- Automated task management and progress tracking
+- GitHub integration for issue management
 
-## MCP Integration
+## Core Features
 
-### Utilize deepwiki, context7, and serena MCP Servers
-
-To enhance the spec-driven development process, leverage the following MCP (Model Context Protocol) servers:
-
-#### DeepWiki MCP
-
-- **Purpose**: Access comprehensive GitHub repository documentation and knowledge
-- **Usage**: Read repository documentation structure, access up-to-date project information, ask specific questions about GitHub repositories
-- **Integration**: Use during requirements gathering and design phases to understand existing patterns and documentation
-
-#### Context7 MCP
-
-- **Purpose**: Retrieve current library documentation and code examples
-- **Usage**: Resolve library IDs for accurate documentation, access up-to-date documentation for any library or framework, get focused documentation on specific topics
-- **Integration**: Utilize during design and implementation phases to ensure best practices and current API usage
-
-#### Serena MCP
-
-- **Purpose**: Enhanced development capabilities and workflow automation
-- **Usage**: Access specialized development tools and resources, streamline development workflows with automated assistance
-- **Integration**: Apply throughout all phases for enhanced code quality and development efficiency
-
-These MCP servers should be integrated into the spec-driven development workflow to provide comprehensive, up-to-date context and ensure implementations follow current best practices and documentation standards.
+- **Intelligent Orchestration**: Automated workflow management and state detection
+- **Task-Based Development**: Progress tracking through .kiro/specs/{feature}/tasks.md
+- **Human Approval Workflows**: Quality gates with structured decision making
+- **Next Issue Detection**: Automatic GitHub issue analysis and prioritization
+- **MCP Integration**: Enhanced development with up-to-date documentation and tools
