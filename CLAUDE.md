@@ -28,25 +28,44 @@ The following steering documents are active and provide project context:
 The project follows a structured development process:
 
 1. Implement Kiro SDD process
-2. Break down tasks into GitHub issues
-3. Execute issues with testing and implementation
-4. Use orchestration, MCP, and similarity-ts tools
-5. Perform refactoring and maintain code quality
-6. Create and run E2E tests
-7. Merge PRs and update documentation
+2. Break down specifications into tasks.md files
+3. Execute tasks with testing and implementation
+4. Track progress through tasks.md checkboxes
+5. Use orchestration, MCP, and similarity-ts tools
+6. Perform refactoring and maintain code quality
+7. Create and run E2E tests
+8. Merge PRs and update documentation
 
 ## Commands
 
-### Issue自動管理システム
+### Tasks.md進捗管理システム
 
-Issue完了後の自動処理とAI駆動承認システム：
+Tasks.mdファイルを使用した開発進捗の追跡と管理：
 
 ```bash
-# Issue自動管理の有効化
-/orchestrator "enable-auto-issue-management"
+# Task進捗の確認
+/orchestrator "task-status feature-name"
 
-# 特定のIssueに対する承認処理
-/orchestrator "approve-issue #123"
+# 特定のTaskを完了としてマーク
+/orchestrator "complete-task feature-name 1.1"
+
+# 次に作業すべきTaskの特定
+/orchestrator "next-tasks feature-name"
+
+# 進捗レポートの生成
+/orchestrator "progress-report feature-name"
+```
+
+### Tasks.md自動管理システム
+
+Task完了後の自動処理とAI駆動承認システム：
+
+```bash
+# Task自動管理の有効化
+/orchestrator "enable-auto-task-management"
+
+# 特定のTaskに対する承認処理
+/orchestrator "approve-task feature-name 1.1"
 
 # 承認プロセスの最適化実行
 /orchestrator "optimize-approval-process"

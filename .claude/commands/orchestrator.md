@@ -193,7 +193,7 @@ When `/orchestrator` is called without parameters:
 
 # With active development
 /orchestrator
-# Output: "Found 3 open issues for 'user-auth'. Checking implementation progress..."
+# Output: "Found 3 incomplete tasks for 'user-auth'. Checking implementation progress..."
 ```
 
 ## Sub-Agent Architecture Benefits
@@ -206,42 +206,173 @@ When `/orchestrator` is called without parameters:
 
 This pattern enables seamless workflow continuation without manual state tracking.
 
-## Issue Creation Integration
+## Tasks.md Progress Tracking Integration
 
-### Post-Tasks Phase Workflow
+### Task-Based Development Workflow
 
-After tasks.md generation, optionally convert tasks to GitHub issues for implementation tracking:
+After tasks.md generation, track implementation progress by updating task completion status:
 
 ```bash
-# Convert tasks to GitHub issues (optional)
-/orchestrator "create-issues feature-name"
+# Update task completion status
+/orchestrator "update-tasks feature-name"
 
-# Or using the direct command
-/create-issues feature-name
+# Mark specific tasks as completed
+/orchestrator "complete-task feature-name task-id"
 ```
 
-### Create Issues Sub-Agent
+### Tasks Progress Sub-Agent
 
-- **Sub-agent**: `Create Issues`
-- **Responsibility**: Transform tasks.md into trackable GitHub issues
-- **Benefits**: Bridge specification and implementation phases, improve project management
+- **Sub-agent**: `Tasks Progress`
+- **Responsibility**: Update tasks.md with completion status and track development progress
+- **Benefits**: Maintain accurate progress tracking within specification files
 
 ### Usage Examples
 
 ```bash
-# Complete workflow with issue creation
-/orchestrator "Build user authentication system and create implementation issues"
+# Complete workflow with task progress tracking
+/orchestrator "Build user authentication system and track task completion"
 
-# Post-completion issue generation
-/orchestrator "create-issues user-auth-system"
+# Update specific task completion
+/orchestrator "complete-task user-auth-system 1.1"
 ```
 
 ### Integration Benefits
 
-- **Implementation Tracking**: Convert spec-driven tasks to GitHub issues
-- **Team Coordination**: Assign tasks to team members via GitHub
-- **Progress Visibility**: Track implementation progress through issue management
-- **Traceability**: Maintain links between specifications and implementation work
+- **Progress Visibility**: Track implementation progress through tasks.md checkboxes
+- **Self-Contained**: Keep progress tracking within specification files
+- **Hierarchical Tracking**: Maintain task hierarchy and sub-task completion status
+- **Traceability**: Direct link between specifications and implementation progress
+
+### Tasks.md File Structure and Format
+
+Tasks.md files follow a hierarchical checkbox format for tracking implementation progress:
+
+```markdown
+# Implementation Plan
+
+- [ ] 1. Major Task Category
+  - Sub-task details and requirements
+  - _Requirements: 1.1, 1.2_
+
+  - [ ] 1.1 Specific Implementation Task
+    - Detailed implementation steps
+    - Technical requirements and constraints
+    - _Requirements: specific requirement references_
+
+  - [x] 1.2 Completed Implementation Task
+    - Implementation details
+    - Testing requirements
+    - _Requirements: requirement references_
+
+- [x] 2. Completed Major Task Category
+  - [x] 2.1 All subtasks completed
+  - [x] 2.2 Full task hierarchy tracked
+```
+
+### Task Progress Update Process
+
+#### Automatic Task Completion Detection
+
+The orchestrator automatically detects task completion by:
+
+1. **Analyzing Code Changes**: Comparing implemented functionality against task requirements
+2. **Checking Test Coverage**: Verifying tests exist for completed tasks
+3. **Validating Requirements**: Ensuring task acceptance criteria are met
+4. **Updating Checkboxes**: Automatically updating `[ ]` to `[x]` for completed tasks
+
+#### Manual Task Progress Updates
+
+```bash
+# Update specific task completion
+/orchestrator "complete-task feature-name 1.1"
+
+# Mark multiple tasks as completed
+/orchestrator "complete-tasks feature-name 1.1,1.2,2.3"
+
+# Update task progress with validation
+/orchestrator "update-progress feature-name --validate"
+```
+
+#### Progress Tracking Commands
+
+```bash
+# Check current task progress
+/orchestrator "task-status feature-name"
+
+# Generate progress report
+/orchestrator "progress-report feature-name"
+
+# Identify next tasks to work on
+/orchestrator "next-tasks feature-name"
+```
+
+### Task Completion Validation
+
+#### Requirements-Based Validation
+
+Each task completion is validated against:
+
+- **Functional Requirements**: Implementation meets specified behavior
+- **Technical Requirements**: Code quality and architecture standards
+- **Testing Requirements**: Adequate test coverage and passing tests
+- **Documentation Requirements**: Proper code documentation and comments
+
+#### Quality Gates for Task Completion
+
+```yaml
+Task Completion Criteria:
+  1. Functional Implementation:
+     - Core functionality implemented
+     - Edge cases handled
+     - Error handling included
+  
+  2. Code Quality:
+     - Follows project conventions
+     - Proper error handling
+     - Performance considerations
+  
+  3. Testing Coverage:
+     - Unit tests written and passing
+     - Integration tests where applicable
+     - Manual testing completed
+  
+  4. Documentation:
+     - Code properly commented
+     - API documentation updated
+     - Usage examples provided
+```
+
+### Progress Visualization and Reporting
+
+#### Progress Status Display
+
+```bash
+# Example progress output
+Feature: user-authentication-system
+Progress: 7/12 tasks completed (58%)
+
+├── [x] 1. Set up project infrastructure (100%)
+│   ├── [x] 1.1 Add dependencies
+│   ├── [x] 1.2 Database configuration  
+│   └── [x] 1.3 Environment setup
+├── [ ] 2. Implement authentication (33%)
+│   ├── [x] 2.1 User model creation
+│   ├── [ ] 2.2 Password hashing
+│   └── [ ] 2.3 JWT implementation  
+└── [ ] 3. Create UI components (0%)
+    ├── [ ] 3.1 Login form
+    ├── [ ] 3.2 Registration form
+    └── [ ] 3.3 Password reset
+```
+
+#### Integration with Development Workflow
+
+The tasks.md progress tracking integrates seamlessly with the development workflow:
+
+1. **Task Selection**: Automatically identifies next logical task to implement
+2. **Context Preservation**: Maintains task context across development sessions
+3. **Dependency Management**: Ensures prerequisite tasks are completed first
+4. **Progress Continuity**: Resumes development from the last completed task
 
 ## Comprehensive Coding Integration
 
@@ -385,17 +516,17 @@ Enable comprehensive acceptance workflows with human oversight and automated fee
 Enable human oversight at critical decision points with intelligent approval management:
 
 ```bash
-# Check and approve issue completion
-/orchestrator "check-issues user-auth-system"
+# Check and approve task completion
+/orchestrator "check-tasks user-auth-system"
 
 # Automated approval integration in workflows
 /orchestrator "Build authentication system with approval gates"
 ```
 
-### Check Issues Sub-Agent
+### Check Tasks Sub-Agent
 
-- **Sub-agent**: `Check Issues`
-- **Responsibility**: Human approval workflow management and progress validation
+- **Sub-agent**: `Check Tasks`
+- **Responsibility**: Human approval workflow management and task progress validation
 - **Benefits**: Quality assurance through structured human oversight
 
 ### Approval Integration Points
@@ -404,8 +535,8 @@ Enable human oversight at critical decision points with intelligent approval man
 # Complete workflow with approval gates
 /orchestrator "Complete feature development with approval checkpoints"
 
-# Approval-driven progression
-/orchestrator "check-issues feature-name --auto-progress"
+# Approval-driven progression  
+/orchestrator "check-tasks feature-name --auto-progress"
 ```
 
 ### Approval Benefits
@@ -495,27 +626,27 @@ Generate basic E2E test scenarios and framework setup for essential user journey
 - **CI/CD Integration**: Basic workflow generation for automated testing
 - **Minimal Scope**: Focused on essential scenarios with manual enhancement guidance
 
-## Self-Check Integration (Issue Requirements Validation)
+## Self-Check Integration (Task Requirements Validation)
 
 ### Automated Requirements Validation
 
-Enable self-checking capabilities to validate issue requirements completion and ensure quality before progression:
+Enable self-checking capabilities to validate task requirements completion and ensure quality before progression:
 
 ```bash
-# Self-check issue requirements completion
-/orchestrator "check-issues user-auth-system"
+# Self-check task requirements completion
+/orchestrator "check-tasks user-auth-system"
 
 # Automated validation with progression
-/orchestrator "check-issues payment-api --auto-progress"
+/orchestrator "check-tasks payment-api --auto-progress"
 
 # Complete development workflow with self-validation
 /orchestrator "Build feature with automated self-check and approval gates"
 ```
 
-### Check Issues Sub-Agent
+### Check Tasks Sub-Agent
 
-- **Sub-agent**: `Check Issues`
-- **Responsibility**: Human approval workflow management and automated requirements validation
+- **Sub-agent**: `Check Tasks`
+- **Responsibility**: Human approval workflow management and automated task requirements validation
 - **Benefits**: Quality assurance through structured validation and human oversight
 
 ### Self-Check Integration Points
@@ -525,15 +656,15 @@ Enable self-checking capabilities to validate issue requirements completion and 
 /orchestrator "Build authentication system with automated requirement validation"
 
 # Post-implementation validation
-/orchestrator "check-issues feature-implementation --validate-requirements"
+/orchestrator "check-tasks feature-implementation --validate-requirements"
 
 # Quality gate enforcement
-/orchestrator "check-issues microservices --enforce-quality-gates"
+/orchestrator "check-tasks microservices --enforce-quality-gates"
 ```
 
 ### Self-Check Benefits
 
-- **Requirements Validation**: Automated verification of issue completion against acceptance criteria
+- **Requirements Validation**: Automated verification of task completion against acceptance criteria
 - **Quality Assurance**: Structured validation before feature progression
 - **Human Oversight**: Intelligent approval workflows with context-aware decision making
 - **Audit Trail**: Complete record of validation decisions and quality assessments
@@ -618,7 +749,7 @@ Execute safe, human-approved pull request merges with comprehensive validation, 
 /orchestrator "pr-merge feature-implementation --strategy squash --auto-delete-branch"
 
 # Quality-focused merge with next steps
-/orchestrator "pr-merge microservices-refactor --approver tech-lead --identify-next-issues"
+/orchestrator "pr-merge microservices-refactor --approver tech-lead --identify-next-tasks"
 ```
 
 ### PR Merge Benefits
@@ -626,6 +757,6 @@ Execute safe, human-approved pull request merges with comprehensive validation, 
 - **Human Oversight**: Structured approval processes with comprehensive merge information
 - **Safety Validation**: Comprehensive pre-merge checks and post-merge integrity validation
 - **Risk Management**: Emergency procedures, rollback capabilities, and safety mechanisms
-- **Workflow Continuation**: Next issue identification and development workflow management
+- **Workflow Continuation**: Next task identification and development workflow management
 - **Stakeholder Communication**: Automated notifications and project management integration
 - **Quality Assurance**: Merge strategy selection and comprehensive validation framework
