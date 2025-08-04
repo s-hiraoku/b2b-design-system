@@ -413,21 +413,22 @@ Execute complete development workflows with research, planning, implementation, 
 ### TDD-First Development Integration
 
 ```bash
-# Test-Driven Development with t-wada methodology
+# Test-Driven Development with t-wada methodology (delegates to coding agent with TDD approach)
 /orchestrator "tdd 'Implement OAuth2 authentication'"
 
-# TDD with specific testing framework
+# TDD with specific testing framework (coding agent manages TDD internally)
 /orchestrator "tdd 'Build payment processing' --framework jest"
 
-# Complete TDD cycle with Red-Green-Refactor
+# Complete TDD cycle with Red-Green-Refactor (coding agent orchestrates with tdd-agent)
 /orchestrator "tdd 'Create user management system' --full-cycle"
 ```
 
-### TDD Sub-Agent
+### TDD Integration Architecture
 
-- **Sub-agent**: `tdd-t-wada-agent` (renamed from tdd-agent)
-- **Responsibility**: Test-Driven Development following t-wada's methodology with Red-Green-Refactor cycle
-- **Benefits**: Test-first implementation ensuring high code quality and comprehensive test coverage
+- **Primary Orchestrator**: `coding` - Manages complete implementation workflow and delegates TDD practices internally
+- **TDD Specialist**: `tdd-agent` (formerly tdd-t-wada-agent) - Provides TDD guidance when invoked by coding agent
+- **Responsibility**: Coding agent handles implementation planning and orchestration, using tdd-agent for TDD methodology
+- **Benefits**: Proper separation of concerns between implementation orchestration and TDD practices
 
 ### Coding Integration Points
 
@@ -435,7 +436,7 @@ Execute complete development workflows with research, planning, implementation, 
 # Research-driven development
 /orchestrator "coding 'Implement OAuth2 authentication' --research-first"
 
-# Implementation with TDD approach (automatically uses tdd-t-wada-agent)
+# Implementation with TDD approach (coding agent automatically uses tdd-agent internally)
 /orchestrator "coding 'Build payment processing' --tdd-approach"
 
 # Documentation-heavy development
@@ -447,7 +448,7 @@ Execute complete development workflows with research, planning, implementation, 
 - **Research Integration**: Web search, DeepWiki, and Context7 MCP for best practices
 - **Strategic Planning**: Architecture and implementation strategy development
 - **Quality Implementation**: Serena MCP integration for high-quality code generation
-- **Test-Driven Development**: Automatic integration with tdd-t-wada-agent for test-first implementation
+- **Test-Driven Development**: Automatic integration with tdd-agent for test-first implementation when TDD approach is requested
 - **Complete Documentation**: API docs, tutorials, and usage examples
 - **Technology Expertise**: Current library documentation and framework best practices
 

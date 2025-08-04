@@ -42,7 +42,7 @@ The project follows the Kiro SDD (Specification-Driven Development) process with
 
 This project prioritizes Test-Driven Development following t-wada's rigorous methodology:
 
-- **TDD Agent**: Dedicated `tdd-t-wada-agent` for strict TDD guidance
+- **TDD Agent**: Dedicated `tdd-agent` for strict TDD guidance
 - **Red-Green-Refactor**: Enforced cycle with no shortcuts allowed
 - **Test-First**: All code implementation must start with failing tests
 - **Quality Focus**: Tests as documentation and design drivers
