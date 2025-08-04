@@ -80,3 +80,6 @@ docs/kiro/prompt/
 .serena/cache/
 .serena/memories/
 .serena/logs/
+
+# 通知関連
+.notifications/
