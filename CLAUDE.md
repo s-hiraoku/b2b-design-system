@@ -6,7 +6,7 @@ This is a Tetris game development project implementing the Kiro SDD (Specificati
 
 ## Active Steering Files
 
-The following steering documents are active and provide project context:
+The following steering documents are active and provide project context (stored in `.kiro/steering/`):
 
 - `.kiro/steering/product.md` - Product overview, features, and value proposition
 - `.kiro/steering/tech.md` - Technology stack, development environment, and architecture  
@@ -14,13 +14,18 @@ The following steering documents are active and provide project context:
 
 ## Active Specifications
 
-- `tetris-game` - Complete Tetris game implementation with standard gameplay mechanics, 7 tetromino pieces, scoring, and modern web interface
+All specifications are stored in the `.kiro/specs/` directory:
+
+- `.kiro/specs/tetris-game/` - Complete Tetris game implementation with standard gameplay mechanics, 7 tetromino pieces, scoring, and modern web interface
 
 ## Project Structure
 
+- `.kiro/` - Kiro SDD working directory
+  - `specs/` - Active feature specifications and implementations
+  - `steering/` - Project steering documents
 - `docs/` - Project documentation
   - `claude-code/` - Claude Code specific documentation and guides
-  - `kiro/` - Kiro SDD examples and specifications
+  - `kiro/` - Kiro SDD examples and references
 - `README.md` - Main project workflow
 
 ## Development Workflow
@@ -28,9 +33,9 @@ The following steering documents are active and provide project context:
 The project follows a structured development process:
 
 1. Implement Kiro SDD process
-2. Break down specifications into tasks.md files
+2. Break down specifications into .kiro/specs/{feature}/tasks.md files
 3. Execute tasks with testing and implementation
-4. Track progress through tasks.md checkboxes
+4. Track progress through .kiro/specs/{feature}/tasks.md checkboxes
 5. Use orchestration, MCP, and similarity-ts tools
 6. Perform refactoring and maintain code quality
 7. Create and run E2E tests

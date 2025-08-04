@@ -22,7 +22,7 @@ This command serves as the single entry point for all development workflows by:
 
 When invoked without specific parameters, orchestrator will:
 
-1. **Check for existing specifications** in `specs/` directory
+1. **Check for existing specifications** in `.kiro/specs/` directory
 2. **Analyze GitHub issues** for active development tasks
 3. **Review code changes** and PR status
 4. **Determine current phase** and recommend next steps
@@ -49,16 +49,21 @@ Project State Analysis:
      - Complete spec → Check implementation status
   
   2. Check Implementation:
-     - No issues → Create issues from tasks
-     - Open issues → Check development progress
-     - Completed issues → Validate and test
+     - No tasks.md → Create tasks from specs
+     - Incomplete tasks → Continue development
+     - Completed tasks → Next issue selection workflow
   
-  3. Check Quality:
+  3. Check Next Work:
+     - All tasks complete → Analyze GitHub issues
+     - Issue selection pending → Present options to user
+     - Issue selected → Initialize new Kiro workflow
+  
+  4. Check Quality:
      - No tests → Generate tests
      - Failed tests → Debug and fix
      - Passing tests → Check acceptance status
   
-  4. Check Deployment:
+  5. Check Deployment:
      - Not ready → Complete prerequisites
      - Ready → Create PR
      - PR open → Check merge readiness
@@ -71,7 +76,7 @@ Project State Analysis:
 1. **State Analysis Phase**
    ```bash
    # Analyze project structure
-   - Check specs/ directory for feature specifications
+   - Check .kiro/specs/ directory for feature specifications
    - Read kiro_status.json for phase tracking
    - Query GitHub for issue and PR status
    - Determine optimal next action
@@ -128,7 +133,7 @@ The orchestrator maintains project state through several mechanisms:
 
 ```yaml
 State Storage:
-  specs/{feature}/kiro_status.json:
+  .kiro/specs/{feature}/kiro_status.json:
     - current_phase: "design|requirements|tasks|etc"
     - completed_phases: ["steering", "init", "requirements"]
     - last_updated: "2024-01-15T10:00:00Z"
@@ -149,7 +154,7 @@ When `/orchestrator` is called without parameters:
 1. **Scan for Active Features**
    ```bash
    # Check specs directory
-   ls specs/*/kiro_status.json
+   ls .kiro/specs/*/kiro_status.json
    # Identify features in progress
    # Select most recently updated
    ```
@@ -167,8 +172,9 @@ When `/orchestrator` is called without parameters:
    - Steering done → Requirements
    - Requirements done → Design
    - Design done → Tasks
-   - Tasks done → Create Issues
-   - Issues created → Implementation
+   - Tasks created → Implementation
+   - All tasks complete → Next Issue Selection
+   - Issue selected → New Kiro Workflow
    - Implementation done → Testing
    - Testing done → Acceptance
    - Acceptance done → PR Creation
@@ -210,7 +216,7 @@ This pattern enables seamless workflow continuation without manual state trackin
 
 ### Task-Based Development Workflow
 
-After tasks.md generation, track implementation progress by updating task completion status:
+After .kiro/specs/{feature}/tasks.md generation, track implementation progress by updating task completion status:
 
 ```bash
 # Update task completion status
@@ -245,7 +251,7 @@ After tasks.md generation, track implementation progress by updating task comple
 
 ### Tasks.md File Structure and Format
 
-Tasks.md files follow a hierarchical checkbox format for tracking implementation progress:
+.kiro/specs/{feature}/tasks.md files follow a hierarchical checkbox format for tracking implementation progress:
 
 ```markdown
 # Implementation Plan
@@ -373,6 +379,186 @@ The tasks.md progress tracking integrates seamlessly with the development workfl
 2. **Context Preservation**: Maintains task context across development sessions
 3. **Dependency Management**: Ensures prerequisite tasks are completed first
 4. **Progress Continuity**: Resumes development from the last completed task
+
+### Task Completion and Next Issue Workflow
+
+#### Automatic Next Issue Detection
+
+When all tasks in a tasks.md file are completed, the orchestrator automatically:
+
+1. **Validates Complete Task Completion**: Ensures all checkboxes are marked as completed
+2. **Retrieves GitHub Issues**: Fetches open issues from the repository
+3. **Analyzes Issue Priority**: Evaluates issues based on labels, assignees, and content
+4. **Presents Options**: Shows top 3-5 most relevant issues for user selection
+5. **Requests User Approval**: Waits for user confirmation before proceeding
+
+```bash
+# Automatic flow when tasks complete
+/orchestrator
+# Output: "All tasks completed for 'user-auth-system'!"
+# Output: "Analyzing available GitHub issues for next work..."
+# Output: "Found 5 relevant issues. Please select next issue to work on:"
+# Output: "1. [bug] Login validation error #123"
+# Output: "2. [feature] Add password reset #124" 
+# Output: "3. [enhancement] Improve auth UI #125"
+# Output: "Which issue would you like to work on next? (1-3)"
+```
+
+#### Manual Next Issue Selection
+
+```bash
+# Force next issue selection
+/orchestrator "next-issue feature-name"
+
+# Select specific issue by number
+/orchestrator "select-issue #123"
+
+# Get issue recommendations
+/orchestrator "recommend-issues --limit 5"
+```
+
+#### Issue Analysis and Prioritization
+
+The orchestrator analyzes GitHub issues using several criteria:
+
+```yaml
+Issue Prioritization Criteria:
+  1. Labels Priority:
+     - bug: High priority (critical fixes)
+     - feature: Medium priority (new functionality)
+     - enhancement: Medium priority (improvements)
+     - documentation: Low priority (docs updates)
+  
+  2. Assignment Status:
+     - Unassigned: Higher priority (available work)
+     - Assigned to user: High priority (user's work)
+     - Assigned to others: Lower priority (team coordination)
+  
+  3. Issue Age:
+     - Recent issues: Higher priority (current context)
+     - Older issues: Medium priority (established requirements)
+  
+  4. Content Analysis:
+     - Clear requirements: Higher priority (ready to work)
+     - Missing details: Lower priority (needs clarification)
+     - Related to current work: Higher priority (context continuity)
+```
+
+#### User Approval and Selection Process
+
+```bash
+# Interactive approval flow
+Feature 'user-authentication' completed successfully!
+
+Available GitHub Issues:
+┌─────┬────────────────────────────────────────────┬─────────┬──────────┐
+│ #   │ Title                                      │ Labels  │ Priority │
+├─────┼────────────────────────────────────────────┼─────────┼──────────┤
+│ 123 │ Fix login validation error on empty email │ bug     │ High     │
+│ 124 │ Add password reset functionality           │ feature │ Medium   │
+│ 125 │ Improve authentication UI responsiveness   │ enhance │ Medium   │
+│ 126 │ Add OAuth integration support              │ feature │ Low      │
+│ 127 │ Update authentication documentation        │ docs    │ Low      │
+└─────┴────────────────────────────────────────────┴─────────┴──────────┘
+
+Select issue to work on next (1-5, or 'skip' to choose later): 
+```
+
+#### Integration with Kiro SDD Workflow
+
+After issue selection, the orchestrator automatically:
+
+1. **Creates New Specification**: Generates new spec directory in .kiro/specs/ for the selected issue
+2. **Initializes Kiro Workflow**: Starts requirements gathering phase
+3. **Links Issue Context**: Includes GitHub issue details in requirements
+4. **Preserves Traceability**: Maintains links between issue and specification
+
+```bash
+# Example continuation after issue selection
+User selected: Issue #123 "Fix login validation error on empty email"
+
+Creating new specification: .kiro/specs/login-validation-fix
+Initializing Kiro SDD workflow...
+├── Generating requirements from GitHub issue
+├── Creating specification directory structure
+├── Setting up phase tracking
+└── Ready to begin requirements phase
+
+Next: /orchestrator "kiro:spec-requirements login-validation-fix"
+```
+
+### Workflow State Management Integration
+
+#### State Transitions
+
+```yaml
+Workflow State Transitions:
+  task_completion_detected:
+    - Validate all tasks completed
+    - Archive completed feature specification
+    - Query GitHub for available issues
+    - Present issue selection interface
+  
+  issue_selected:
+    - Create new specification directory in .kiro/specs/
+    - Initialize Kiro SDD workflow
+    - Update workflow state tracking
+    - Begin requirements phase
+  
+  issue_skipped:
+    - Maintain current state
+    - Allow manual issue selection later
+    - Continue with other orchestrator functions
+```
+
+#### Approval Decision Tracking
+
+```yaml
+.claude/workflow-state.json:
+  completed_features: [".kiro/specs/user-auth-system", ".kiro/specs/payment-processing"]
+  available_issues: [
+    {
+      "number": 123,
+      "title": "Fix login validation error",
+      "labels": ["bug"],
+      "priority": "high",
+      "analysis": "Clear requirements, ready for implementation"
+    }
+  ]
+  pending_approval: {
+    "type": "issue_selection",
+    "options": [123, 124, 125],
+    "recommended": 123
+  }
+```
+
+### Next Issue Sub-Agent
+
+- **Sub-agent**: `Next Issue`
+- **Responsibility**: GitHub issue analysis, prioritization, and user approval workflow management
+- **Benefits**: Seamless transition from completed tasks to new work with intelligent issue selection
+
+### Next Issue Integration Points
+
+```bash
+# Complete workflow with automatic next issue selection
+/orchestrator "Build authentication system with automatic next issue progression"
+
+# Task completion with issue selection
+/orchestrator "complete-feature user-auth --select-next-issue"
+
+# Manual next issue workflow
+/orchestrator "next-issue --analyze-github"
+```
+
+### Next Issue Benefits
+
+- **Workflow Continuity**: Seamless transition from completed work to new issues
+- **Intelligent Prioritization**: AI-driven analysis of issue importance and readiness
+- **User Control**: Human approval required for all issue selections
+- **Context Preservation**: Maintains development context across feature boundaries
+- **Traceability**: Links GitHub issues to new Kiro SDD specifications
+- **Flexibility**: Allows skipping issue selection for manual workflow control
 
 ## Comprehensive Coding Integration
 
