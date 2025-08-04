@@ -5,13 +5,13 @@ allowed-tools: Task, Read, Write, Edit, MultiEdit, Bash, Glob, Grep, LS
 
 # Orchestrator Command
 
-Intelligent orchestrator that automatically detects project state and continues development workflow from the appropriate phase.
+Intelligent orchestrator that automatically detects project state and continues development workflow from the appropriate phase using task-based progression.
 
 ## Purpose
 
 This command serves as the single entry point for all development workflows by:
 
-1. **Analyzing project state** (checking existing specifications, issues, code)
+1. **Analyzing project state** (checking existing specifications, tasks.md files, code)
 2. **Determining next phase** (identifying what needs to be done next)
 3. **Delegating to appropriate agent** (executing the right workflow)
 4. **Maintaining continuity** (preserving context between phases)
@@ -23,8 +23,8 @@ This command serves as the single entry point for all development workflows by:
 When invoked without specific parameters, orchestrator will:
 
 1. **Check for existing specifications** in `.kiro/specs/` directory
-2. **Analyze GitHub issues** for active development tasks
-3. **Review code changes** and PR status
+2. **Analyze tasks.md files** for active development tasks and completion status
+3. **Review code changes** and implementation progress
 4. **Determine current phase** and recommend next steps
 
 ```bash
@@ -34,9 +34,9 @@ When invoked without specific parameters, orchestrator will:
 # Example output:
 # 🔍 Analyzing project state...
 # ✅ Found feature: user-auth-system
-# 📋 Current phase: Design completed
-# 🎯 Next recommended: Generate implementation tasks
-# ▶️  Proceeding with: /orchestrator "kiro:spec-tasks user-auth-system"
+# 📋 Current phase: Implementation (7/12 tasks completed)
+# 🎯 Next recommended: Continue with task 2.2 (Password hashing)
+# ▶️  Proceeding with implementation...
 ```
 
 ### State Detection Logic
@@ -46,27 +46,27 @@ Project State Analysis:
   1. Check Specifications:
      - No specs → Start with Kiro Steering
      - Incomplete spec → Resume from last phase
-     - Complete spec → Check implementation status
+     - Complete spec → Check tasks.md status
   
-  2. Check Implementation:
+  2. Check Implementation (tasks.md):
      - No tasks.md → Create tasks from specs
-     - Incomplete tasks → Continue development
-     - Completed tasks → Next issue selection workflow
+     - Incomplete tasks → Continue with next uncompleted task
+     - All tasks completed → Ready for next feature/enhancement
   
   3. Check Next Work:
-     - All tasks complete → Analyze GitHub issues
-     - Issue selection pending → Present options to user
-     - Issue selected → Initialize new Kiro workflow
+     - All tasks complete → Analyze for new features or improvements
+     - Tasks in progress → Focus on current implementation
+     - Blocked tasks → Identify and resolve blockers
   
   4. Check Quality:
-     - No tests → Generate tests
-     - Failed tests → Debug and fix
-     - Passing tests → Check acceptance status
+     - Implementation complete → Run tests and validation
+     - Tests failing → Debug and fix issues
+     - Tests passing → Mark tasks as completed
   
-  5. Check Deployment:
-     - Not ready → Complete prerequisites
-     - Ready → Create PR
-     - PR open → Check merge readiness
+  5. Check Documentation:
+     - Code complete → Update documentation
+     - Documentation ready → Final validation
+     - All complete → Ready for new work cycle
 ```
 
 ## Implementation Strategy
@@ -77,8 +77,8 @@ Project State Analysis:
    ```bash
    # Analyze project structure
    - Check .kiro/specs/ directory for feature specifications
-   - Read kiro_status.json for phase tracking
-   - Query GitHub for issue and PR status
+   - Read tasks.md files for implementation progress
+   - Analyze task completion status (checkboxes)
    - Determine optimal next action
    ```
 
@@ -86,19 +86,19 @@ Project State Analysis:
    ```bash
    # Maintain workflow context
    - Feature name from existing specs
-   - Current phase from status files
-   - Completed work from git history
-   - Next steps from workflow logic
+   - Current task from tasks.md progress
+   - Completed tasks from checkbox status
+   - Next logical task from task hierarchy
    ```
 
 3. **Intelligent Delegation**
    ```bash
    # Delegate to appropriate phase
-   - Missing specs → Kiro workflow
-   - Missing issues → Create issues
-   - Open issues → Development assistance
-   - Complete code → Testing and validation
-   - Tested code → PR and deployment
+   - Missing specs → Kiro workflow (Steering → Requirements → Design → Tasks)
+   - Missing tasks.md → Generate implementation tasks
+   - Incomplete tasks → Continue implementation
+   - All tasks complete → Identify next feature/enhancement
+   - Code complete → Testing and validation
    ```
 
 ## Usage Examples
@@ -216,63 +216,49 @@ This pattern enables seamless workflow continuation without manual state trackin
 
 ### Task-Based Development Workflow
 
-After .kiro/specs/{feature}/tasks.md generation, track implementation progress by updating task completion status:
+The orchestrator focuses on .kiro/specs/{feature}/tasks.md files for tracking implementation progress:
 
 ```bash
-# Update task completion status
-/orchestrator "update-tasks feature-name"
-
-# Mark specific tasks as completed
-/orchestrator "complete-task feature-name task-id"
-```
-
-### Tasks Progress Sub-Agent
-
-- **Sub-agent**: `Tasks Progress`
-- **Responsibility**: Update tasks.md with completion status and track development progress
-- **Benefits**: Maintain accurate progress tracking within specification files
-
-### Usage Examples
-
-```bash
-# Complete workflow with task progress tracking
-/orchestrator "Build user authentication system and track task completion"
+# Continue from current task progress
+/orchestrator
 
 # Update specific task completion
-/orchestrator "complete-task user-auth-system 1.1"
+/orchestrator "complete-task feature-name 1.1"
+
+# Work on next uncompleted task
+/orchestrator "next-task feature-name"
 ```
 
-### Integration Benefits
+### Core Task Management
 
-- **Progress Visibility**: Track implementation progress through tasks.md checkboxes
-- **Self-Contained**: Keep progress tracking within specification files
-- **Hierarchical Tracking**: Maintain task hierarchy and sub-task completion status
-- **Traceability**: Direct link between specifications and implementation progress
+- **Primary Focus**: Track progress through tasks.md checkbox completion
+- **Automatic Detection**: Identify next uncompleted task automatically
+- **Progress Visualization**: Display current completion status
+- **Smart Continuation**: Resume from last incomplete task
 
 ### Tasks.md File Structure and Format
 
 .kiro/specs/{feature}/tasks.md files follow a hierarchical checkbox format for tracking implementation progress:
 
 ```markdown
-# Implementation Plan
+# 実装計画
 
-- [ ] 1. Major Task Category
-  - Sub-task details and requirements
-  - _Requirements: 1.1, 1.2_
+## 概要
+ダイエット管理アプリの実装を、承認された要件仕様書と技術設計書に基づいて段階的に実行するためのタスクリスト。
 
-  - [ ] 1.1 Specific Implementation Task
-    - Detailed implementation steps
-    - Technical requirements and constraints
-    - _Requirements: specific requirement references_
+## 実装フェーズ
 
-  - [x] 1.2 Completed Implementation Task
-    - Implementation details
-    - Testing requirements
-    - _Requirements: requirement references_
+### Phase 1: プロジェクト基盤・環境構築
 
-- [x] 2. Completed Major Task Category
-  - [x] 2.1 All subtasks completed
-  - [x] 2.2 Full task hierarchy tracked
+- [ ] 1.1 React Native開発環境のセットアップ
+  - React Native 0.72+のプロジェクト初期化
+  - TypeScript、ESLint、Prettier設定の構成
+  - _要件: 7.1, 8.1_
+
+- [x] 1.2 プロジェクト構造とディレクトリ構成
+  - src/配下のレイヤー別ディレクトリ作成
+  - 共通型定義ファイル（types/）の作成
+  - _要件: すべての要件に対応_
 ```
 
 ### Task Progress Update Process
@@ -312,18 +298,71 @@ The orchestrator automatically detects task completion by:
 /orchestrator "next-tasks feature-name"
 ```
 
-### Task Completion Validation
+### Progress Visualization and Reporting
 
-#### Requirements-Based Validation
+#### Progress Status Display
 
-Each task completion is validated against:
+```bash
+# Example progress output
+Feature: user-authentication-system
+Progress: 7/12 tasks completed (58%)
 
-- **Functional Requirements**: Implementation meets specified behavior
-- **Technical Requirements**: Code quality and architecture standards
-- **Testing Requirements**: Adequate test coverage and passing tests
-- **Documentation Requirements**: Proper code documentation and comments
+├── [x] 1.1 React Native環境セットアップ (完了)
+├── [x] 1.2 プロジェクト構造作成 (完了)  
+├── [ ] 1.3 依存関係インストール (次のタスク)
+├── [ ] 2.1 SQLiteデータベース初期化
+├── [ ] 2.2 データモデル実装
+└── [ ] 2.3 Repository層実装
+```
 
-#### Quality Gates for Task Completion
+#### Integration with Development Workflow
+
+The tasks.md progress tracking integrates seamlessly with the development workflow:
+
+1. **Task Selection**: Automatically identifies next logical task to implement
+2. **Context Preservation**: Maintains task context across development sessions
+3. **Dependency Management**: Ensures prerequisite tasks are completed first
+4. **Progress Continuity**: Resumes development from the last completed task
+
+### Task Completion and Next Feature Workflow
+
+#### Automatic Next Feature Identification
+
+When all tasks in a tasks.md file are completed, the orchestrator automatically:
+
+1. **Validates Complete Task Completion**: Ensures all checkboxes are marked as completed
+2. **Analyzes Project State**: Reviews current codebase and documentation
+3. **Identifies Improvements**: Suggests enhancements, optimizations, or new features
+4. **Presents Options**: Shows potential next development areas
+5. **Requests User Decision**: Waits for user direction on next focus area
+
+```bash
+# Automatic flow when tasks complete
+/orchestrator
+# Output: "All tasks completed for 'user-auth-system'!"
+# Output: "Analyzing project for potential improvements..."
+# Output: "Suggested next development areas:"
+# Output: "1. Performance optimizations"
+# Output: "2. UI/UX enhancements" 
+# Output: "3. Additional security features"
+# Output: "4. New feature development"
+# Output: "What would you like to focus on next?"
+```
+
+#### Manual Next Feature Selection
+
+```bash
+# Force next feature analysis
+/orchestrator "next-feature feature-name"
+
+# Suggest improvements for specific area
+/orchestrator "suggest-improvements authentication"
+
+# Start new feature development
+/orchestrator "new-feature user-profile-management"
+```
+
+### Quality Gates for Task Completion
 
 ```yaml
 Task Completion Criteria:
@@ -344,221 +383,9 @@ Task Completion Criteria:
   
   4. Documentation:
      - Code properly commented
-     - API documentation updated
+     - Implementation notes updated
      - Usage examples provided
 ```
-
-### Progress Visualization and Reporting
-
-#### Progress Status Display
-
-```bash
-# Example progress output
-Feature: user-authentication-system
-Progress: 7/12 tasks completed (58%)
-
-├── [x] 1. Set up project infrastructure (100%)
-│   ├── [x] 1.1 Add dependencies
-│   ├── [x] 1.2 Database configuration  
-│   └── [x] 1.3 Environment setup
-├── [ ] 2. Implement authentication (33%)
-│   ├── [x] 2.1 User model creation
-│   ├── [ ] 2.2 Password hashing
-│   └── [ ] 2.3 JWT implementation  
-└── [ ] 3. Create UI components (0%)
-    ├── [ ] 3.1 Login form
-    ├── [ ] 3.2 Registration form
-    └── [ ] 3.3 Password reset
-```
-
-#### Integration with Development Workflow
-
-The tasks.md progress tracking integrates seamlessly with the development workflow:
-
-1. **Task Selection**: Automatically identifies next logical task to implement
-2. **Context Preservation**: Maintains task context across development sessions
-3. **Dependency Management**: Ensures prerequisite tasks are completed first
-4. **Progress Continuity**: Resumes development from the last completed task
-
-### Task Completion and Next Issue Workflow
-
-#### Automatic Next Issue Detection
-
-When all tasks in a tasks.md file are completed, the orchestrator automatically:
-
-1. **Validates Complete Task Completion**: Ensures all checkboxes are marked as completed
-2. **Retrieves GitHub Issues**: Fetches open issues from the repository
-3. **Analyzes Issue Priority**: Evaluates issues based on labels, assignees, and content
-4. **Presents Options**: Shows top 3-5 most relevant issues for user selection
-5. **Requests User Approval**: Waits for user confirmation before proceeding
-
-```bash
-# Automatic flow when tasks complete
-/orchestrator
-# Output: "All tasks completed for 'user-auth-system'!"
-# Output: "Analyzing available GitHub issues for next work..."
-# Output: "Found 5 relevant issues. Please select next issue to work on:"
-# Output: "1. [bug] Login validation error #123"
-# Output: "2. [feature] Add password reset #124" 
-# Output: "3. [enhancement] Improve auth UI #125"
-# Output: "Which issue would you like to work on next? (1-3)"
-```
-
-#### Manual Next Issue Selection
-
-```bash
-# Force next issue selection
-/orchestrator "next-issue feature-name"
-
-# Select specific issue by number
-/orchestrator "select-issue #123"
-
-# Get issue recommendations
-/orchestrator "recommend-issues --limit 5"
-```
-
-#### Issue Analysis and Prioritization
-
-The orchestrator analyzes GitHub issues using several criteria:
-
-```yaml
-Issue Prioritization Criteria:
-  1. Labels Priority:
-     - bug: High priority (critical fixes)
-     - feature: Medium priority (new functionality)
-     - enhancement: Medium priority (improvements)
-     - documentation: Low priority (docs updates)
-  
-  2. Assignment Status:
-     - Unassigned: Higher priority (available work)
-     - Assigned to user: High priority (user's work)
-     - Assigned to others: Lower priority (team coordination)
-  
-  3. Issue Age:
-     - Recent issues: Higher priority (current context)
-     - Older issues: Medium priority (established requirements)
-  
-  4. Content Analysis:
-     - Clear requirements: Higher priority (ready to work)
-     - Missing details: Lower priority (needs clarification)
-     - Related to current work: Higher priority (context continuity)
-```
-
-#### User Approval and Selection Process
-
-```bash
-# Interactive approval flow
-Feature 'user-authentication' completed successfully!
-
-Available GitHub Issues:
-┌─────┬────────────────────────────────────────────┬─────────┬──────────┐
-│ #   │ Title                                      │ Labels  │ Priority │
-├─────┼────────────────────────────────────────────┼─────────┼──────────┤
-│ 123 │ Fix login validation error on empty email │ bug     │ High     │
-│ 124 │ Add password reset functionality           │ feature │ Medium   │
-│ 125 │ Improve authentication UI responsiveness   │ enhance │ Medium   │
-│ 126 │ Add OAuth integration support              │ feature │ Low      │
-│ 127 │ Update authentication documentation        │ docs    │ Low      │
-└─────┴────────────────────────────────────────────┴─────────┴──────────┘
-
-Select issue to work on next (1-5, or 'skip' to choose later): 
-```
-
-#### Integration with Kiro SDD Workflow
-
-After issue selection, the orchestrator automatically:
-
-1. **Creates New Specification**: Generates new spec directory in .kiro/specs/ for the selected issue
-2. **Initializes Kiro Workflow**: Starts requirements gathering phase
-3. **Links Issue Context**: Includes GitHub issue details in requirements
-4. **Preserves Traceability**: Maintains links between issue and specification
-
-```bash
-# Example continuation after issue selection
-User selected: Issue #123 "Fix login validation error on empty email"
-
-Creating new specification: .kiro/specs/login-validation-fix
-Initializing Kiro SDD workflow...
-├── Generating requirements from GitHub issue
-├── Creating specification directory structure
-├── Setting up phase tracking
-└── Ready to begin requirements phase
-
-Next: /orchestrator "kiro:spec-requirements login-validation-fix"
-```
-
-### Workflow State Management Integration
-
-#### State Transitions
-
-```yaml
-Workflow State Transitions:
-  task_completion_detected:
-    - Validate all tasks completed
-    - Archive completed feature specification
-    - Query GitHub for available issues
-    - Present issue selection interface
-  
-  issue_selected:
-    - Create new specification directory in .kiro/specs/
-    - Initialize Kiro SDD workflow
-    - Update workflow state tracking
-    - Begin requirements phase
-  
-  issue_skipped:
-    - Maintain current state
-    - Allow manual issue selection later
-    - Continue with other orchestrator functions
-```
-
-#### Approval Decision Tracking
-
-```yaml
-.claude/workflow-state.json:
-  completed_features: [".kiro/specs/user-auth-system", ".kiro/specs/payment-processing"]
-  available_issues: [
-    {
-      "number": 123,
-      "title": "Fix login validation error",
-      "labels": ["bug"],
-      "priority": "high",
-      "analysis": "Clear requirements, ready for implementation"
-    }
-  ]
-  pending_approval: {
-    "type": "issue_selection",
-    "options": [123, 124, 125],
-    "recommended": 123
-  }
-```
-
-### Next Issue Sub-Agent
-
-- **Sub-agent**: `Next Issue`
-- **Responsibility**: GitHub issue analysis, prioritization, and user approval workflow management
-- **Benefits**: Seamless transition from completed tasks to new work with intelligent issue selection
-
-### Next Issue Integration Points
-
-```bash
-# Complete workflow with automatic next issue selection
-/orchestrator "Build authentication system with automatic next issue progression"
-
-# Task completion with issue selection
-/orchestrator "complete-feature user-auth --select-next-issue"
-
-# Manual next issue workflow
-/orchestrator "next-issue --analyze-github"
-```
-
-### Next Issue Benefits
-
-- **Workflow Continuity**: Seamless transition from completed work to new issues
-- **Intelligent Prioritization**: AI-driven analysis of issue importance and readiness
-- **User Control**: Human approval required for all issue selections
-- **Context Preservation**: Maintains development context across feature boundaries
-- **Traceability**: Links GitHub issues to new Kiro SDD specifications
-- **Flexibility**: Allows skipping issue selection for manual workflow control
 
 ## Comprehensive Coding Integration
 
@@ -583,13 +410,32 @@ Execute complete development workflows with research, planning, implementation, 
 - **Responsibility**: Complete development workflow orchestration from research to documentation
 - **Benefits**: End-to-end development automation with MCP integration and best practices
 
+### TDD-First Development Integration
+
+```bash
+# Test-Driven Development with t-wada methodology
+/orchestrator "tdd 'Implement OAuth2 authentication'"
+
+# TDD with specific testing framework
+/orchestrator "tdd 'Build payment processing' --framework jest"
+
+# Complete TDD cycle with Red-Green-Refactor
+/orchestrator "tdd 'Create user management system' --full-cycle"
+```
+
+### TDD Sub-Agent
+
+- **Sub-agent**: `tdd-t-wada-agent` (renamed from tdd-agent)
+- **Responsibility**: Test-Driven Development following t-wada's methodology with Red-Green-Refactor cycle
+- **Benefits**: Test-first implementation ensuring high code quality and comprehensive test coverage
+
 ### Coding Integration Points
 
 ```bash
 # Research-driven development
 /orchestrator "coding 'Implement OAuth2 authentication' --research-first"
 
-# Implementation with testing focus
+# Implementation with TDD approach (automatically uses tdd-t-wada-agent)
 /orchestrator "coding 'Build payment processing' --tdd-approach"
 
 # Documentation-heavy development
@@ -601,7 +447,7 @@ Execute complete development workflows with research, planning, implementation, 
 - **Research Integration**: Web search, DeepWiki, and Context7 MCP for best practices
 - **Strategic Planning**: Architecture and implementation strategy development
 - **Quality Implementation**: Serena MCP integration for high-quality code generation
-- **Comprehensive Testing**: TDD approach with automated test generation
+- **Test-Driven Development**: Automatic integration with tdd-t-wada-agent for test-first implementation
 - **Complete Documentation**: API docs, tutorials, and usage examples
 - **Technology Expertise**: Current library documentation and framework best practices
 

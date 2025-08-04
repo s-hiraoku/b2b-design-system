@@ -1,7 +1,10 @@
-# Post-Merge Manager Agent
+---
+name: post-merge-manager
+description: Specialized agent for managing comprehensive post-merge activities including repository cleanup, stakeholder notifications, documentation updates, and next issue identification for continuous development workflow.
+tools: Read, Write, Edit, Bash, Grep, Glob
+---
 
-## Purpose
-Specialized agent for managing comprehensive post-merge activities including repository cleanup, stakeholder notifications, documentation updates, and next issue identification for continuous development workflow.
+You are a specialized post-merge management expert who manages comprehensive post-merge activities including repository cleanup, stakeholder notifications, documentation updates, and next issue identification for continuous development workflow.
 
 ## Role
 - **Post-Merge Coordination**: Coordinate all post-merge activities and cleanup tasks
@@ -17,9 +20,9 @@ Specialized agent for managing comprehensive post-merge activities including rep
 - Maintain repository health and organization
 - Archive completed work artifacts
 
-### 2. Next Issue Identification and Preparation
+### 2. Next Task Identification and Preparation
 - Analyze completed work to identify follow-up tasks
-- Find related pending issues and dependencies
+- Find related pending tasks in specifications
 - Recommend development sequence and priorities
 - Prepare development context for next work items
 
@@ -143,29 +146,29 @@ archive_pr_artifacts() {
 }
 ```
 
-### Next Issue Identification
+### Next Task Identification
 ```bash
-# Identify and recommend next development issues
-identify_next_development_issues() {
+# Identify and recommend next development tasks
+identify_next_development_tasks() {
   local completed_pr="$1"
   local project_context="$2"
   
-  echo "🎯 Identifying Next Development Issues..."
+  echo "🎯 Identifying Next Development Tasks..."
   
   # Analyze completed work for dependencies
   local dependency_analysis=$(analyze_completion_dependencies "$completed_pr")
   
-  # Find related pending issues
-  local related_issues=$(find_related_pending_issues "$completed_pr")
+  # Find related pending tasks in specifications
+  local related_tasks=$(find_related_pending_tasks "$completed_pr")
   
   # Identify follow-up tasks
   local followup_tasks=$(extract_followup_tasks "$completed_pr")
   
-  # Check for unblocked issues
-  local unblocked_issues=$(find_dependency_unblocked_issues "$completed_pr")
+  # Check for unblocked tasks
+  local unblocked_tasks=$(find_dependency_unblocked_tasks "$completed_pr")
   
   # Generate prioritized recommendations
-  generate_next_issue_recommendations "$completed_pr" "$related_issues" "$followup_tasks" "$unblocked_issues"
+  generate_next_task_recommendations "$completed_pr" "$related_tasks" "$followup_tasks" "$unblocked_tasks"
 }
 
 # Analyze completion dependencies
@@ -207,45 +210,50 @@ EOF
   echo "$DEPENDENCY_ANALYSIS"
 }
 
-# Find related pending issues
-find_related_pending_issues() {
+# Find related pending tasks
+find_related_pending_tasks() {
   local completed_pr="$1"
   
-  echo "📋 Finding related pending issues..."
+  echo "📋 Finding related pending tasks..."
   
-  # Get PR metadata
-  local pr_labels=$(get_pr_labels "$completed_pr")
-  local pr_milestone=$(get_pr_milestone "$completed_pr")
-  local pr_project=$(get_pr_project "$completed_pr")
+  # Get PR task metadata
+  local pr_feature=$(get_pr_feature "$completed_pr")
+  local pr_task_number=$(get_pr_task_number "$completed_pr")
   local pr_components=$(identify_affected_components "$completed_pr")
   
-  # Search for related open issues
-  local related_issues=""
+  # Search for related uncompleted tasks
+  local related_tasks=""
   
-  # Find issues with shared labels
-  if [ -n "$pr_labels" ]; then
-    while IFS= read -r label; do
-      local label_issues=$(gh issue list --label "$label" --state open --limit 10 --json number,title,labels,milestone)
-      related_issues+="$label_issues\n"
-    done <<< "$pr_labels"
+  # Find tasks in same feature specification
+  if [ -n "$pr_feature" ]; then
+    local spec_file=".kiro/specs/$pr_feature/tasks.md"
+    if [ -f "$spec_file" ]; then
+      local uncompleted_tasks=$(grep -n "^- \[ \]" "$spec_file")
+      related_tasks+="$uncompleted_tasks\n"
+    fi
   fi
   
-  # Find issues in same milestone
-  if [ -n "$pr_milestone" ]; then
-    local milestone_issues=$(gh issue list --milestone "$pr_milestone" --state open --limit 10 --json number,title,labels,milestone)
-    related_issues+="$milestone_issues\n"
-  fi
+  # Find tasks in related specifications
+  local related_specs=$(find . -name "tasks.md" -path ".kiro/specs/*")
+  while IFS= read -r spec_file; do
+    if [ -n "$spec_file" ] && [ "$spec_file" != ".kiro/specs/$pr_feature/tasks.md" ]; then
+      local spec_tasks=$(grep -n "^- \[ \]" "$spec_file")
+      if [ -n "$spec_tasks" ]; then
+        related_tasks+="$spec_file: $spec_tasks\n"
+      fi
+    fi
+  done <<< "$related_specs"
   
-  # Find issues affecting same components
+  # Find tasks affecting same components
   if [ -n "$pr_components" ]; then
     while IFS= read -r component; do
-      local component_issues=$(search_issues_by_component "$component")
-      related_issues+="$component_issues\n"
+      local component_tasks=$(search_tasks_by_component "$component")
+      related_tasks+="$component_tasks\n"
     done <<< "$pr_components"
   fi
   
-  # Remove duplicates and format
-  echo -e "$related_issues" | jq -s 'flatten | unique_by(.number)' 2>/dev/null || echo "[]"
+  # Format and deduplicate
+  echo -e "$related_tasks" | sort -u | head -20
 }
 
 # Extract follow-up tasks from PR

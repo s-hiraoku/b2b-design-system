@@ -9,7 +9,7 @@ This is the CC-Deck (Claude Code Deck) project implementing the Kiro SDD (Specif
 The following steering documents are active and provide project context (stored in `.kiro/steering/`):
 
 - `.kiro/steering/product.md` - Product overview, features, and value proposition
-- `.kiro/steering/tech.md` - Technology stack, development environment, and architecture  
+- `.kiro/steering/tech.md` - Technology stack, development environment, and architecture
 - `.kiro/steering/structure.md` - Project structure, code organization, and development guidelines
 
 ## Active Specifications
@@ -33,7 +33,7 @@ All specifications are stored in the `.kiro/specs/` directory:
 The project follows the Kiro SDD (Specification-Driven Development) process with automated orchestration:
 
 1. Kiro SDD specification creation in `.kiro/specs/`
-2. Task-based implementation with progress tracking  
+2. Task-based implementation with progress tracking
 3. Automated next work identification from GitHub issues
 4. Human approval workflows for quality assurance
 5. Comprehensive testing and deployment
