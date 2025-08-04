@@ -30,13 +30,23 @@ All specifications are stored in the `.kiro/specs/` directory:
 
 ## Development Workflow
 
-The project follows the Kiro SDD (Specification-Driven Development) process with automated orchestration:
+The project follows the Kiro SDD (Specification-Driven Development) process with automated orchestration and TDD-first approach:
 
 1. Kiro SDD specification creation in `.kiro/specs/`
-2. Task-based implementation with progress tracking
-3. Automated next work identification from GitHub issues
+2. Test-Driven Development (TDD) using t-wada methodology with Red-Green-Refactor cycle
+3. Task-based implementation with progress tracking through tasks.md
 4. Human approval workflows for quality assurance
 5. Comprehensive testing and deployment
+
+## TDD Practice
+
+This project prioritizes Test-Driven Development following t-wada's rigorous methodology:
+
+- **TDD Agent**: Dedicated `tdd-t-wada-agent` for strict TDD guidance
+- **Red-Green-Refactor**: Enforced cycle with no shortcuts allowed
+- **Test-First**: All code implementation must start with failing tests
+- **Quality Focus**: Tests as documentation and design drivers
+- **Integration**: TDD automatically integrated into all development workflows
 
 ## Main Command
 
