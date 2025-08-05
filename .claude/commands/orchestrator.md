@@ -43,6 +43,11 @@ When invoked without specific parameters, orchestrator will:
 
 ```yaml
 Project State Analysis:
+  0. Check Serena MCP Status:
+     - New project → Initialize Serena MCP with mcp__serena__initial_instructions
+     - Existing project → Load context with mcp__serena__list_memories
+     - Context stale → Refresh project understanding
+
   1. Check Specifications:
      - No specs → Start with Kiro Steering
      - Incomplete spec → Resume from last phase
@@ -93,10 +98,11 @@ Project State Analysis:
 
 3. **Intelligent Delegation**
    ```bash
-   # Delegate to appropriate phase
+   # Delegate to appropriate phase (with Serena MCP integration)
+   - New project → Serena MCP initialization → Kiro workflow
    - Missing specs → Kiro workflow (Steering → Requirements → Design → Tasks)
    - Missing tasks.md → Generate implementation tasks
-   - Incomplete tasks → Continue implementation
+   - Incomplete tasks → Continue implementation (with Serena context)
    - All tasks complete → Identify next feature/enhancement
    - Code complete → Testing and validation
    ```
