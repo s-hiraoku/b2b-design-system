@@ -30,6 +30,35 @@ When invoked, orchestrate specialized sub-agents:
 - **Context7 MCP**: Up-to-date library documentation and examples
 - **Serena MCP**: Advanced code generation and refactoring
 
+## Serena MCP Initialization
+
+### Project Onboarding Process
+Before starting any development workflow, ensure proper Serena MCP initialization:
+
+```bash
+# 1. Initial Project Setup (for new projects or first-time usage)
+mcp__serena__initial_instructions
+
+# 2. Memory Context Loading (for existing projects)
+mcp__serena__list_memories
+mcp__serena__read_memory
+
+# 3. Codebase Understanding
+mcp__serena__get_symbols_overview
+```
+
+### When to Initialize Serena MCP
+- **New Project**: Always run `mcp__serena__initial_instructions` before development
+- **Existing Project**: Check memories and reload context as needed
+- **Team Handoff**: Re-establish project understanding and patterns
+- **After Major Changes**: Update Serena's understanding of project evolution
+
+### Integration with Sub-Agents
+All implementation-focused sub-agents should leverage initialized Serena context:
+- **implementation-agent**: Uses project patterns and coding standards
+- **refactoring agents**: Access established codebase understanding
+- **quality validation**: Reference project-specific quality standards
+
 ## Workflow Process with Sub-Agent Delegation
 
 ### Phase 1: Research
@@ -51,10 +80,10 @@ Task(subagent_type="planning-agent",
 ### Phase 3: Implementation
 **Option A: Standard Implementation**
 ```bash
-# Use Task tool to invoke implementation-agent
+# Use Task tool to invoke implementation-agent (with Serena MCP integration)
 Task(subagent_type="implementation-agent",
      description="Generate code implementation", 
-     prompt="Implement [feature] following the approved plan and architecture")
+     prompt="Implement [feature] following the approved plan and architecture. Use Serena MCP for project-aware code generation and pattern consistency.")
 ```
 
 **Option B: TDD Implementation** 
