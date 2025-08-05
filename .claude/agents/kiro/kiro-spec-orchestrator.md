@@ -67,25 +67,42 @@ Kiro Steering → Kiro Spec Init → Kiro Spec Requirements → Kiro Spec Design
 1. **Analyze Project State**
 
    - Check for existing specs and steering
+   - **NEW: Detect state inconsistencies** between kiro_status.json and actual implementation
    - Determine if new or existing project workflow applies
 
-2. **Execute Steering First** (MANDATORY)
+2. **State Consistency Validation** (NEW STEP)
+
+   - Compare current phase in kiro_status.json with actual project state
+   - Detect if implementation has proceeded ahead of status tracking
+   - Auto-sync status when implementation is detected but not reflected in kiro_status.json
+   - Auto-approve completed phases when implementation verification confirms completion
+
+3. **Execute Steering First** (MANDATORY)
 
    - Call Kiro Steering agent before any spec work
    - Ensure current project context
 
-3. **Orchestrate Spec Creation**
+4. **Orchestrate Spec Creation**
 
    - Call appropriate agents in sequence
    - Enforce approval workflow between phases
    - Handle interactive approval prompts
+   - **NEW: Auto-detect completion** when implementation exists but approval is pending
 
-4. **Monitor Progress**
+5. **Monitor Progress**
 
    - Call Kiro Spec Status agent as needed
    - Ensure all phases are properly tracked
+   - **NEW: Real-time consistency validation** between status and implementation
 
-5. **Handle User Input**
+6. **Auto-Resolve State Blocks** (NEW STEP)
+
+   - Detect TDD-agent continuous operation due to status inconsistencies
+   - Auto-update kiro_status.json when implementation is complete but not reflected
+   - Auto-approve phases when completion criteria are objectively met
+   - Trigger proper workflow progression when blocks are resolved
+
+7. **Handle User Input**
    - Accept project descriptions for spec initialization
    - Pass parameters appropriately to sub-agents
 

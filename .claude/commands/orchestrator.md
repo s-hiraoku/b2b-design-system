@@ -53,22 +53,35 @@ Project State Analysis:
      - Incomplete spec → Resume from last phase
      - Complete spec → Check tasks.md status
   
-  2. Check Implementation (tasks.md):
+  2. Validate State Consistency:
+     - Compare kiro_status.json with actual project state
+     - Detect implementation ahead of kiro status
+     - Detect approval blocks preventing progression
+     - Auto-sync status when implementation detected
+  
+  3. Check Implementation (tasks.md):
      - No tasks.md → Create tasks from specs
      - Incomplete tasks → Continue with next uncompleted task
      - All tasks completed → Ready for next feature/enhancement
+     - Implementation exists but tasks unmarked → Auto-update task progress
   
-  3. Check Next Work:
+  4. Auto-Resolve Status Inconsistencies:
+     - Detect created files/code vs task completion status
+     - Auto-approve completed phases when implementation verified
+     - Update kiro_status.json current_phase to match reality
+     - Trigger TDD-agent completion when implementation done
+  
+  5. Check Next Work:
      - All tasks complete → Analyze for new features or improvements
      - Tasks in progress → Focus on current implementation
      - Blocked tasks → Identify and resolve blockers
   
-  4. Check Quality:
+  6. Check Quality:
      - Implementation complete → Run tests and validation
      - Tests failing → Debug and fix issues
      - Tests passing → Mark tasks as completed
   
-  5. Check Documentation:
+  7. Check Documentation:
      - Code complete → Update documentation
      - Documentation ready → Final validation
      - All complete → Ready for new work cycle
