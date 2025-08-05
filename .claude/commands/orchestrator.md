@@ -1,6 +1,8 @@
 ---
 description: Orchestrator command that intelligently analyzes project state and delegates to appropriate development phase
+argument-hint: [optional feature description or workflow command]
 allowed-tools: Task, Read, Write, Edit, MultiEdit, Bash, Glob, Grep, LS
+model: sonnet
 ---
 
 # Orchestrator Command

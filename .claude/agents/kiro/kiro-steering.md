@@ -2,7 +2,7 @@
 name: Kiro Steering
 description: Create and update project steering documents to establish the foundation for spec-driven development. Proactively executed at the start of new projects or after significant changes.
 color: blue
----
+model: sonnet---
 
 # Kiro Steering Agent
 

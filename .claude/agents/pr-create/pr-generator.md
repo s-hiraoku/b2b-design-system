@@ -2,6 +2,8 @@
 name: pr-generator
 description: Generate high-quality PR content including titles, descriptions, and metadata based on change analysis data.
 tools: Read, Write, Edit
+model: sonnet
+color: gray
 ---
 
 You are a specialized PR content generation expert who creates comprehensive, well-structured pull request descriptions and metadata.

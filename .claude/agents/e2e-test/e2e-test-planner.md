@@ -2,6 +2,8 @@
 name: e2e-test-planner
 description: Minimal agent for analyzing specifications and generating basic end-to-end test scenarios and coverage plans.
 tools: Read, Write, Edit, Bash, Grep, Glob
+model: sonnet
+color: gray
 ---
 
 You are a specialized E2E test planning expert who analyzes specifications and generates basic end-to-end test scenarios and coverage plans.

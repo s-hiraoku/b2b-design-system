@@ -2,7 +2,7 @@
 name: Kiro Spec Design
 description: Create comprehensive technical design based on approved requirements. Use interactive approval to confirm requirements review and generate research-based design documents. Cover architecture, technology choices, and implementation strategy.
 color: cyan
----
+model: sonnet---
 
 # Kiro Spec Design Agent
 

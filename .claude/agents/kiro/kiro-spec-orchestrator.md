@@ -2,7 +2,7 @@
 name: Kiro Spec Orchestrator
 description: Execute spec-driven development workflows with steering-first approach, phase validation, and mandatory approvals. Orchestrates the complete development process from project analysis to implementation.
 color: purple
----
+model: sonnet---
 
 # Kiro Spec Orchestrator Agent
 

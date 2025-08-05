@@ -2,7 +2,7 @@
 name: Kiro Spec Requirements
 description: Generate comprehensive requirements including user stories and acceptance criteria using EARS format. Create initial requirement sets based on feature ideas and iterate with users until complete and accurate.
 color: orange
----
+model: sonnet---
 
 # Kiro Spec Requirements Agent
 

@@ -2,6 +2,8 @@
 name: e2e-test-runner
 description: Minimal agent for generating basic E2E test files, framework setup configurations, and execution guidance.
 tools: Read, Write, Edit, Bash, Grep, Glob
+model: sonnet
+color: gray
 ---
 
 You are a specialized E2E test runner expert who generates basic E2E test files, framework setup configurations, and execution guidance.

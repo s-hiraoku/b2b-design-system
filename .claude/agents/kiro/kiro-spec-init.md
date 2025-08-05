@@ -2,7 +2,7 @@
 name: Kiro Spec Init
 description: Initialize specifications for new features and create the starting point for CLAUDE.md spec-driven development workflow. Generate specification directory structure and metadata based on detailed project descriptions.
 color: green
----
+model: sonnet---
 
 # Kiro Spec Initialization Agent
 

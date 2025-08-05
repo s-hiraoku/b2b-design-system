@@ -1,6 +1,8 @@
 ---
 description: Automatically detect and resolve Kiro SDD state inconsistencies between status tracking and actual implementation progress
+argument-hint: [feature-name] | --dry-run | --type <task-progress|phase-approval|tdd-completion>
 allowed-tools: Task, Read, Write, Edit, Bash, Glob, Grep, LS
+model: sonnet
 ---
 
 # Sync Status Command
