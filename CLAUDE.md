@@ -60,6 +60,25 @@ Use `/orchestrator` for all development workflows - it provides intelligent stat
 - Automated task management and progress tracking
 - GitHub integration for issue management
 
+## Custom Development Guidelines
+
+### Creating Custom Slash Commands and Sub-Agents
+
+When developing custom slash commands or sub-agents for this project, **always refer to Anthropic's official documentation** for best practices and implementation guidelines:
+
+- **Slash Commands**: https://docs.anthropic.com/en/docs/claude-code/slash-commands
+- **Sub-Agents**: https://docs.anthropic.com/en/docs/claude-code/sub-agents
+- **CLAUDE.md Files**: https://docs.anthropic.com/en/docs/claude-code/memory
+
+These official resources provide:
+- Detailed configuration formats and requirements
+- Best practices for agent design and tool allocation
+- Examples of effective command and agent implementations
+- Guidelines for optimal context management and performance
+- CLAUDE.md structure and usage patterns for project instructions
+
+All custom commands, agents, and CLAUDE.md files in this project should follow Anthropic's official patterns to ensure consistency, reliability, and maintainability.
+
 ## Core Features
 
 - **Intelligent Orchestration**: Automated workflow management and state detection
