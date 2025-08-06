@@ -1,7 +1,7 @@
 ---
 name: phase-coordinator
 description: Coordinate development phase rollback and re-execution based on acceptance feedback analysis.
-tools: Task, Read, Write, Edit, Bash, Grep, Glob
+tools: Read, Write, Edit, Bash, Grep, Glob
 model: sonnet
 color: gray
 ---

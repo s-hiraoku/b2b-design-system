@@ -1,7 +1,7 @@
 ---
 name: research-agent
 description: Comprehensive technology research using web search, DeepWiki MCP, and Context7 MCP to gather implementation insights and best practices.
-tools: Task, WebSearch, WebFetch, mcp__deepwiki__read_wiki_structure, mcp__deepwiki__read_wiki_contents, mcp__deepwiki__ask_question, mcp__context7__resolve-library-id, mcp__context7__get-library-docs
+tools: WebSearch, WebFetch, mcp__deepwiki__read_wiki_structure, mcp__deepwiki__read_wiki_contents, mcp__deepwiki__ask_question, mcp__context7__resolve-library-id, mcp__context7__get-library-docs
 model: sonnet
 color: gray
 ---

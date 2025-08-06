@@ -1,7 +1,7 @@
 ---
 name: planning-agent
 description: Strategic planning that develops comprehensive implementation strategies, system architecture, and development roadmaps based on research findings.
-tools: Task, Read, Write, Edit
+tools: Read, Write, Edit
 model: sonnet
 color: gray
 ---

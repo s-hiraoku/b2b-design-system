@@ -1,0 +1,180 @@
+# Kiro SDD (Specification-Driven Development) Workflow
+# Implements the complete specification-driven development process with tasks.md integration
+
+name: kiro-sdd-workflow
+description: Complete Kiro SDD process from steering to implementation with Smart Context Propagation
+version: "1.0.0"
+
+# Smart Context Schema
+context_schema:
+  project:
+    name: string
+    type: string
+    complexity: enum[low, medium, high]
+  current_phase: string
+  completed_phases: array[string]
+  task_progress:
+    total: number
+    completed: number
+    current_task_id: string
+    next_tasks: array[object]
+
+# Workflow Definition
+phases:
+  # Phase 1: Project Steering (Required)
+  - name: steering
+    agent: kiro-steering
+    required: true
+    description: "Generate or update project steering documents"
+    inputs: []
+    outputs:
+      - steering_context
+    success_criteria:
+      - files_exist: [".kiro/steering/product.md", ".kiro/steering/tech.md", ".kiro/steering/structure.md"]
+    next_phase: init
+
+  # Phase 2: Specification Initialization
+  - name: init
+    agent: kiro-spec-init
+    description: "Initialize specification directory and metadata"
+    inputs: [steering_context]
+    outputs:
+      - spec_metadata
+      - feature_directory
+    success_criteria:
+      - directory_exists: ".kiro/specs/${feature_name}"
+      - file_exists: ".kiro/specs/${feature_name}/kiro_status.json"
+    next_phase: requirements
+
+  # Phase 3: Requirements Definition
+  - name: requirements
+    agent: kiro-spec-requirements
+    description: "Generate comprehensive requirements using EARS format"
+    inputs: [spec_metadata, steering_context]
+    outputs:
+      - requirements_document
+    success_criteria:
+      - file_exists: ".kiro/specs/${feature_name}/requirements.md"
+      - content_validation: requirements_format
+    approval_required: true
+    on_approval:
+      action: proceed_to_design
+    on_rejection:
+      action: revise_requirements
+    next_phase: design
+
+  # Phase 4: Technical Design
+  - name: design
+    agent: kiro-spec-design
+    description: "Create comprehensive technical design based on approved requirements"
+    inputs: [requirements_document, steering_context]
+    outputs:
+      - design_document
+    success_criteria:
+      - file_exists: ".kiro/specs/${feature_name}/design.md"
+      - content_validation: design_completeness
+    approval_required: true
+    next_phase: tasks
+
+  # Phase 5: Implementation Tasks Generation
+  - name: tasks
+    agent: kiro-spec-tasks
+    description: "Generate detailed implementation tasks based on design"
+    inputs: [design_document, requirements_document]
+    outputs:
+      - tasks_document
+      - implementation_roadmap
+    success_criteria:
+      - file_exists: ".kiro/specs/${feature_name}/tasks.md"
+      - content_validation: tasks_format
+    approval_required: true
+    next_phase: implementation
+
+  # Phase 6: Task-Driven Implementation
+  - name: implementation
+    type: task_driven
+    description: "Execute implementation tasks with progress tracking"
+    source: ".kiro/specs/${feature_name}/tasks.md"
+    execution_strategy:
+      type: sequential_with_parallel_groups
+      parallel_limit: 3
+      dependency_aware: true
+    
+    task_execution:
+      default_agent: implementation-agent
+      agent_selection_rules:
+        - pattern: "test|testing"
+          agent: testing-agent
+        - pattern: "refactor|refactoring"
+          agent: refactoring
+        - pattern: "tdd|test.driven"
+          agent: tdd-agent
+        - pattern: "documentation|docs"
+          agent: documentation-agent
+        - default: implementation-agent
+    
+    on_task_complete:
+      - update_checkbox: true
+      - update_context: task_outputs
+      - commit_changes: true
+      - run_validation: true
+    
+    progress_checkpoints:
+      - every_n_tasks: 5
+        action: run_status_check
+      - percentage: [25, 50, 75]
+        action: generate_progress_report
+    
+    success_criteria:
+      - all_tasks_completed: true
+      - tests_passing: true
+      - code_quality_check: passed
+    
+    next_phase: validation
+
+  # Phase 7: Final Validation and Status Update
+  - name: validation
+    agent: kiro-spec-status
+    description: "Validate completion and update project status"
+    inputs: [implementation_results, task_progress]
+    outputs:
+      - completion_status
+      - next_recommendations
+    success_criteria:
+      - implementation_complete: true
+      - documentation_updated: true
+      - quality_gates_passed: true
+
+# Error Handling and Recovery
+error_handling:
+  retry_policy:
+    max_retries: 3
+    retry_delay: 5s
+    exponential_backoff: true
+  
+  recovery_strategies:
+    approval_timeout:
+      action: notify_user
+      timeout: 24h
+    
+    task_failure:
+      action: create_recovery_task
+      notify: true
+    
+    validation_failure:
+      action: rollback_to_last_checkpoint
+      create_issue: true
+
+# Monitoring and Analytics
+monitoring:
+  metrics:
+    - phase_duration
+    - task_completion_rate
+    - approval_response_time
+    - error_frequency
+  
+  notifications:
+    - phase_completion
+    - approval_required
+    - error_occurred
+    - milestone_reached

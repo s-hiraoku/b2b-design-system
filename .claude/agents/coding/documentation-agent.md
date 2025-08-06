@@ -1,7 +1,7 @@
 ---
 name: documentation-agent
 description: Comprehensive documentation specialist that creates API documentation, usage examples, tutorials, and project documentation from implementation and testing results.
-tools: Task, Read, Write, Edit, Bash, Grep, Glob
+tools: Read, Write, Edit, Bash, Grep, Glob
 model: sonnet
 color: gray
 ---

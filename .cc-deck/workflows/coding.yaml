@@ -1,0 +1,169 @@
+# Comprehensive Coding Workflow
+# End-to-end development workflow with research, planning, implementation, testing, and documentation
+
+name: coding-workflow
+description: Complete development workflow with MCP integrations and Smart Context Propagation
+version: "1.0.0"
+
+# Smart Context Schema
+context_schema:
+  research_context:
+    technologies: array[string]
+    best_practices: array[object]
+    documentation_sources: array[string]
+  planning_context:
+    architecture: object
+    implementation_strategy: string
+    technology_stack: array[string]
+  implementation_context:
+    code_generated: array[object]
+    test_coverage: number
+    quality_metrics: object
+
+# Workflow Definition
+phases:
+  # Phase 1: Research
+  - name: research
+    agent: research-agent
+    description: "Technology research using MCP integrations"
+    inputs: [project_requirements]
+    outputs:
+      - research_context
+      - technology_recommendations
+    mcp_integrations:
+      - deepwiki: "GitHub repository analysis"
+      - context7: "Library documentation"
+      - web_search: "Current best practices"
+    success_criteria:
+      - research_complete: true
+      - technology_stack_identified: true
+    next_phase: planning
+
+  # Phase 2: Strategic Planning
+  - name: planning
+    agent: planning-agent
+    description: "Develop architecture and implementation strategy"
+    inputs: [research_context, project_requirements]
+    outputs:
+      - planning_context
+      - architecture_design
+      - implementation_roadmap
+    success_criteria:
+      - architecture_documented: true
+      - implementation_plan_created: true
+    next_phase: implementation_choice
+
+  # Phase 3: Implementation Approach Selection
+  - name: implementation_choice
+    type: conditional
+    description: "Choose between TDD or standard implementation"
+    condition: context.requires_tdd
+    branches:
+      tdd_approach:
+        condition: "context.requires_tdd === true OR context.complexity === 'high' OR context.security_critical === true"
+        next_phase: tdd_implementation
+      standard_approach:
+        condition: "default"
+        next_phase: implementation
+
+  # Phase 4a: TDD Implementation
+  - name: tdd_implementation
+    agent: tdd-agent
+    description: "Test-Driven Development following t-wada methodology"
+    inputs: [planning_context, research_context]
+    outputs:
+      - implementation_context
+      - test_suite
+      - production_code
+    tdd_cycle:
+      red_phase: write_failing_test
+      green_phase: minimal_implementation
+      refactor_phase: improve_code_quality
+    success_criteria:
+      - all_tests_passing: true
+      - code_coverage: ">= 90%"
+      - refactoring_complete: true
+    next_phase: testing
+
+  # Phase 4b: Standard Implementation
+  - name: implementation
+    agent: implementation-agent
+    description: "Standard implementation with Serena MCP integration"
+    inputs: [planning_context, research_context]
+    outputs:
+      - implementation_context
+      - code_artifacts
+    mcp_integrations:
+      - serena: "High-quality code generation"
+    success_criteria:
+      - implementation_complete: true
+      - code_quality_check: passed
+    next_phase: testing
+
+  # Phase 5: Testing
+  - name: testing
+    agent: testing-agent
+    description: "Comprehensive testing strategy"
+    inputs: [implementation_context]
+    outputs:
+      - test_results
+      - coverage_report
+    test_types:
+      - unit_tests: true
+      - integration_tests: true
+      - e2e_tests: conditional
+    success_criteria:
+      - tests_created: true
+      - tests_passing: true
+      - coverage_threshold_met: true
+    next_phase: documentation
+
+  # Phase 6: Documentation
+  - name: documentation
+    agent: documentation-agent
+    description: "Generate comprehensive documentation"
+    inputs: [implementation_context, test_results]
+    outputs:
+      - api_documentation
+      - usage_examples
+      - tutorials
+    documentation_types:
+      - api_docs: true
+      - readme: true
+      - tutorials: true
+      - examples: true
+    success_criteria:
+      - documentation_complete: true
+      - examples_working: true
+
+# Parallel Execution Support
+parallel_groups:
+  development_and_testing:
+    condition: "context.allow_parallel === true"
+    phases: [implementation, testing]
+    coordination: shared_context
+
+# Integration Points
+integrations:
+  post_coding_workflows:
+    - refactoring:
+        condition: "context.code_quality_score < 8.0"
+        trigger: automatic
+    - integration_testing:
+        condition: "context.api_endpoints > 0"
+        trigger: automatic
+    - acceptance:
+        condition: "always"
+        trigger: manual_approval
+
+# Quality Gates
+quality_gates:
+  code_quality:
+    threshold: 7.5
+    metrics: [maintainability, readability, performance]
+  test_coverage:
+    threshold: 85
+    exclude_patterns: [test_files, mocks]
+  documentation_completeness:
+    threshold: 90
+    check_api_coverage: true

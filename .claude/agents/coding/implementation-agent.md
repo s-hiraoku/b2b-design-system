@@ -1,7 +1,7 @@
 ---
 name: implementation-agent
 description: Code implementation specialist that generates high-quality, maintainable code using Serena MCP tools based on planning and architecture specifications.
-tools: Task, Read, Write, Edit, MultiEdit, Bash, Grep, Glob, mcp__serena__list_memories, mcp__serena__read_memory, mcp__serena__get_symbols_overview, mcp__serena__find_symbol, mcp__serena__write_to_file
+tools: Read, Write, Edit, MultiEdit, Bash, Grep, Glob, mcp__serena__list_memories, mcp__serena__read_memory, mcp__serena__get_symbols_overview, mcp__serena__find_symbol, mcp__serena__write_to_file
 model: sonnet
 color: gray
 ---

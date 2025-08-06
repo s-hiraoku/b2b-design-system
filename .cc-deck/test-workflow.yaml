@@ -1,0 +1,58 @@
+# Test Workflow Definition
+# Simple test workflow to validate CC-Deck Workflow Engine implementation
+
+name: test-workflow
+description: Simple test workflow for validation
+version: "1.0.0"
+
+# Basic context schema for testing
+context_schema:
+  test_data:
+    message: string
+    step_count: number
+
+# Simple sequential phases
+phases:
+  # Phase 1: Initialization
+  - name: init
+    agent: general-purpose
+    description: "Initialize test workflow"
+    inputs: []
+    outputs:
+      - init_result
+    success_criteria:
+      - test_started: true
+    next_phase: processing
+
+  # Phase 2: Processing
+  - name: processing
+    agent: general-purpose
+    description: "Process test data"
+    inputs: [init_result]
+    outputs:
+      - processing_result
+    success_criteria:
+      - data_processed: true
+    next_phase: completion
+
+  # Phase 3: Completion
+  - name: completion
+    agent: general-purpose
+    description: "Complete test workflow"
+    inputs: [processing_result]
+    outputs:
+      - final_result
+    success_criteria:
+      - test_completed: true
+
+# Basic error handling
+error_handling:
+  retry_policy:
+    max_retries: 2
+    retry_delay: 1s
+
+# Simple monitoring
+monitoring:
+  metrics:
+    - phase_duration
+    - success_rate

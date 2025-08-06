@@ -1,7 +1,7 @@
 ---
 name: testing-agent
 description: Comprehensive testing specialist that develops testing strategies, implements automated tests, and ensures code quality and functionality validation.
-tools: Task, Read, Write, Edit, Bash, Grep, Glob
+tools: Read, Write, Edit, Bash, Grep, Glob
 model: sonnet
 color: gray
 ---

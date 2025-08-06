@@ -70,6 +70,40 @@ Use `/orchestrator` for all development workflows - it provides intelligent stat
 - Automated task management and progress tracking
 - GitHub integration for issue management
 
+## CC-Deck Workflow Engine
+
+### Advanced Workflow Orchestration System
+
+This project now includes the **CC-Deck Workflow Engine**, an advanced workflow orchestration system that realizes the ARCHITECTURE.md design through:
+
+- **Workflow Composition Pattern**: Hierarchical workflow definitions with phase management
+- **Smart Context Propagation**: Context sharing between agents and phases  
+- **Kiro SDD Integration**: Seamless integration with `.kiro/specs/*/tasks.md` files
+- **Agent Orchestration**: Intelligent agent selection and delegation
+
+#### Key Features
+- **Enhanced `/orchestrator`**: Main entry point with intelligent workflow selection
+- **Workflow Definitions**: YAML-based workflows in `.cc-deck/workflows/`
+- **Smart Context**: Persistent state management in `.cc-deck/context/`
+- **Task-Driven Execution**: Automatic tasks.md parsing and checkbox management
+- **Error Recovery**: Comprehensive error handling with checkpoints
+
+#### Usage Examples
+```bash
+# Intelligent workflow selection
+/orchestrator
+
+# Explicit workflow with feature
+/orchestrator "kiro-sdd user-authentication-system"
+/orchestrator "coding REST API service"
+/orchestrator "refactoring legacy-system"
+
+# Resume interrupted workflow
+/orchestrator "resume user-authentication-system"
+```
+
+For detailed documentation, see `docs/CC-DECK-DESIGN.md`.
+
 ## Custom Development Guidelines
 
 ### Creating Custom Slash Commands and Sub-Agents
@@ -100,10 +134,17 @@ When creating or updating custom slash commands and sub-agents, **ALWAYS** verif
 
 ### Critical Requirements:
 
-1. **No Task() calls within agents**: Sub-agents should use delegation patterns, not direct Task() function calls
+1. **✅ FIXED: No Task() calls within agents**: Sub-agents cannot directly call other sub-agents. All orchestration is handled by the `/orchestrator` command through CC-Deck Workflow Engine
 2. **Proper description format**: Keep descriptions concise, specific, and action-oriented
 3. **Correct YAML frontmatter**: Follow exact specification for name, description, tools, model, and color fields
-4. **Valid delegation patterns**: Use "First use X, then use Y" format for sub-agent chains
+4. **Valid delegation patterns**: Use CC-Deck Workflow Engine for complex multi-agent workflows
+
+### ✅ Compliance Status
+
+**All sub-agents have been updated to comply with Anthropic specifications**:
+- Removed `Task` tool from all sub-agent definitions
+- Updated agent descriptions to reflect orchestrator delegation
+- All agent coordination now happens through CC-Deck Workflow Engine
 
 **Always check official documentation before implementing new features to avoid specification violations.**
 

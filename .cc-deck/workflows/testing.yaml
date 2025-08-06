@@ -1,0 +1,251 @@
+# Testing Workflow
+# Comprehensive testing workflow with integration and E2E test orchestration
+
+name: testing-workflow
+description: Complete testing workflow with integration testing, E2E testing, and comprehensive reporting
+version: "1.0.0"
+
+# Smart Context Schema
+context_schema:
+  test_strategy:
+    test_types: array[string]
+    coverage_requirements: object
+    test_environment: string
+  execution_context:
+    test_results: array
+    coverage_reports: object
+    performance_metrics: object
+
+# Workflow Definition
+phases:
+  # Phase 1: Test Strategy Planning
+  - name: strategy_planning
+    agent: test-strategy-planner
+    description: "Develop comprehensive testing strategy based on project specifications"
+    inputs: []
+    outputs:
+      - test_strategy
+      - coverage_plan
+      - test_scenarios
+    success_criteria:
+      - strategy_defined: true
+      - coverage_plan_created: true
+    next_phase: environment_setup
+
+  # Phase 2: Test Environment Setup
+  - name: environment_setup
+    agent: test-environment-manager
+    description: "Set up and configure test environments"
+    inputs: [test_strategy]
+    outputs:
+      - test_environment_config
+      - infrastructure_status
+    success_criteria:
+      - environments_ready: true
+      - infrastructure_validated: true
+    next_phase: test_type_selection
+
+  # Phase 3: Test Type Selection
+  - name: test_type_selection
+    type: conditional
+    description: "Select appropriate testing approach based on project needs"
+    condition: context.test_requirements
+    branches:
+      comprehensive_testing:
+        condition: "context.requires_full_testing === true"
+        next_phase: integration_testing
+      integration_only:
+        condition: "context.test_type === 'integration'"
+        next_phase: integration_testing
+      e2e_only:
+        condition: "context.test_type === 'e2e'"
+        next_phase: e2e_testing
+
+  # Phase 4a: Integration Testing
+  - name: integration_testing
+    agent: integration-test
+    description: "Execute comprehensive integration testing"
+    inputs: [test_strategy, test_environment_config]
+    outputs:
+      - integration_test_results
+      - api_test_results
+      - service_integration_results
+    test_types:
+      - unit_integration: true
+      - api_testing: true
+      - service_integration: true
+      - database_integration: true
+    success_criteria:
+      - integration_tests_pass: ">= 95%"
+      - api_coverage: ">= 90%"
+      - service_connectivity_verified: true
+    next_phase: test_reporting
+    
+    # Sub-phases for integration testing
+    sub_phases:
+      - name: test_execution
+        agent: test-executor
+        parallel_execution: true
+      - name: result_collection
+        agent: test-reporter
+        depends_on: test_execution
+
+  # Phase 4b: E2E Testing  
+  - name: e2e_testing
+    agent: e2e-test
+    description: "Execute end-to-end testing scenarios"
+    inputs: [test_strategy, test_environment_config]
+    outputs:
+      - e2e_test_results
+      - user_journey_results
+      - performance_test_results
+    test_frameworks:
+      - playwright: preferred
+      - cypress: alternative
+    success_criteria:
+      - e2e_scenarios_pass: ">= 90%"
+      - critical_paths_verified: true
+      - performance_benchmarks_met: true
+    next_phase: test_reporting
+
+  # Phase 5: Test Reporting and Analysis
+  - name: test_reporting
+    agent: test-reporter
+    description: "Generate comprehensive test reports and analysis"
+    inputs: [test_results, coverage_data, performance_metrics]
+    outputs:
+      - test_summary_report
+      - coverage_analysis
+      - quality_metrics
+      - recommendations
+    report_types:
+      - html_report: true
+      - junit_xml: true
+      - coverage_report: true
+      - performance_report: true
+    success_criteria:
+      - reports_generated: true
+      - quality_metrics_calculated: true
+      - recommendations_provided: true
+
+# Parallel Execution Support
+parallel_groups:
+  multi_environment_testing:
+    condition: "context.test_environments.length > 1"
+    phases: [integration_testing, e2e_testing]
+    coordination: environment_isolation
+    
+  test_type_parallel:
+    condition: "context.parallel_testing_enabled === true"
+    execution_strategy:
+      - unit_tests: parallel
+      - integration_tests: parallel_groups
+      - e2e_tests: sequential  # E2E tests run sequentially to avoid conflicts
+
+# Test Execution Strategies
+execution_strategies:
+  integration_testing:
+    parallel_limit: 5  # Maximum 5 integration test suites in parallel
+    timeout: 300s      # 5 minute timeout per test suite
+    retry_failed: true
+    retry_count: 2
+    
+  e2e_testing:
+    parallel_limit: 2  # Limited parallel execution for E2E
+    timeout: 600s      # 10 minute timeout for E2E scenarios
+    browser_grid: true # Use browser grid for cross-browser testing
+    
+  performance_testing:
+    load_testing: true
+    stress_testing: conditional  # Only if explicitly requested
+    baseline_comparison: true
+
+# Error Handling and Recovery
+error_handling:
+  retry_policy:
+    max_retries: 3
+    retry_delay: 30s
+    exponential_backoff: true
+  
+  recovery_strategies:
+    test_environment_failure:
+      action: recreate_environment
+      timeout: 600s
+    
+    test_execution_failure:
+      action: retry_with_clean_state
+      max_attempts: 2
+    
+    critical_test_failure:
+      action: escalate_to_manual_review
+      notify: true
+
+# Quality Gates
+quality_gates:
+  test_coverage:
+    line_coverage: ">= 85%"
+    branch_coverage: ">= 80%"
+    function_coverage: ">= 90%"
+  
+  test_pass_rate:
+    integration_tests: ">= 95%"
+    e2e_tests: ">= 90%"
+    critical_path_tests: "100%"
+  
+  performance_benchmarks:
+    api_response_time: "< 200ms"
+    page_load_time: "< 3s"
+    database_query_time: "< 100ms"
+
+# Integration Points
+integrations:
+  pre_testing:
+    - build_verification:
+        trigger: automatic
+        requirements: [build_successful, artifacts_available]
+    
+  post_testing:
+    - quality_report_generation:
+        trigger: automatic
+        include: [coverage, performance, recommendations]
+    - deployment_readiness:
+        condition: "context.all_quality_gates_passed === true"
+        trigger: conditional
+
+# Monitoring and Analytics
+monitoring:
+  metrics:
+    - test_execution_duration
+    - test_pass_rate_trend
+    - coverage_trend
+    - performance_trend
+    - flaky_test_detection
+  
+  alerts:
+    - coverage_drop: "> 5%"
+    - performance_regression: "> 10%"
+    - critical_test_failure: "any"
+  
+  notifications:
+    - testing_complete
+    - quality_gates_status
+    - performance_regression_detected
+    - manual_review_required
+
+# Reporting Configuration
+reporting:
+  formats:
+    - html: comprehensive
+    - json: api_consumption
+    - junit: ci_integration
+    - markdown: documentation
+  
+  distribution:
+    - slack_channel: "#testing"
+    - email_list: "qa-team@company.com"
+    - dashboard_update: true
+  
+  retention:
+    test_results: 90_days
+    coverage_reports: 180_days
+    performance_data: 1_year

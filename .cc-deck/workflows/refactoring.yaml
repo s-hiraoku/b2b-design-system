@@ -1,0 +1,181 @@
+# Refactoring Workflow
+# Systematic code refactoring using semantic analysis and pattern detection
+
+name: refactoring-workflow
+description: Comprehensive code refactoring workflow with semantic analysis and quality validation
+version: "1.0.0"
+
+# Smart Context Schema
+context_schema:
+  analysis_context:
+    code_quality_metrics: object
+    pattern_analysis: object
+    refactoring_opportunities: array
+  execution_context:
+    refactoring_changes: array
+    quality_improvements: object
+    validation_results: object
+
+# Workflow Definition
+phases:
+  # Phase 1: Analysis
+  - name: pattern_analysis
+    agent: pattern-detector
+    description: "Identify duplicate and similar code patterns"
+    inputs: []
+    outputs:
+      - pattern_analysis
+      - similarity_report
+    success_criteria:
+      - patterns_identified: true
+      - analysis_complete: true
+    next_phase: code_analysis
+
+  # Phase 2: Code Analysis
+  - name: code_analysis
+    agent: code-analyzer
+    description: "Analyze code structure and dependencies"
+    inputs: [pattern_analysis]
+    outputs:
+      - code_structure_analysis
+      - dependency_map
+      - refactoring_opportunities
+    success_criteria:
+      - structure_analyzed: true
+      - opportunities_identified: true
+    next_phase: refactoring_selection
+
+  # Phase 3: Refactoring Strategy Selection
+  - name: refactoring_selection
+    type: conditional
+    description: "Select appropriate refactoring approach"
+    condition: context.refactoring_type
+    branches:
+      serena_refactoring:
+        condition: "context.requires_semantic_analysis === true"
+        next_phase: serena_refactoring
+      similarity_refactoring:
+        condition: "context.has_duplicate_patterns === true"
+        next_phase: similarity_refactoring
+      standard_refactoring:
+        condition: "default"
+        next_phase: standard_refactoring
+
+  # Phase 4a: Serena MCP Refactoring
+  - name: serena_refactoring
+    agent: serena-mcp-refactoring
+    description: "Execute semantic refactoring using Serena MCP"
+    inputs: [code_structure_analysis, refactoring_opportunities]
+    outputs:
+      - refactored_code
+      - semantic_improvements
+    mcp_integrations:
+      - serena: "Semantic code analysis and refactoring"
+    success_criteria:
+      - refactoring_complete: true
+      - semantic_quality_improved: true
+    next_phase: quality_validation
+
+  # Phase 4b: Similarity-Based Refactoring
+  - name: similarity_refactoring
+    agent: similarity-refactoring
+    description: "Refactor using similarity analysis for duplicate patterns"
+    inputs: [pattern_analysis, similarity_report]
+    outputs:
+      - deduplicated_code
+      - pattern_consolidation
+    success_criteria:
+      - duplicates_eliminated: true
+      - patterns_consolidated: true
+    next_phase: quality_validation
+
+  # Phase 4c: Standard Refactoring
+  - name: standard_refactoring
+    agent: refactoring-implementer
+    description: "Execute standard refactoring transformations"
+    inputs: [refactoring_opportunities]
+    outputs:
+      - refactored_code
+      - transformation_log
+    success_criteria:
+      - refactoring_applied: true
+      - code_quality_improved: true
+    next_phase: quality_validation
+
+  # Phase 5: Quality Validation
+  - name: quality_validation
+    agent: quality-validator
+    description: "Validate refactoring results and quality improvements"
+    inputs: [refactored_code, original_code_metrics]
+    outputs:
+      - quality_report
+      - validation_results
+      - improvement_metrics
+    success_criteria:
+      - quality_validated: true
+      - no_functionality_regression: true
+      - quality_metrics_improved: true
+
+# Parallel Execution Support
+parallel_groups:
+  analysis_phase:
+    condition: "context.large_codebase === true"
+    phases: [pattern_analysis, code_analysis]
+    coordination: shared_context
+
+# Error Handling and Recovery
+error_handling:
+  retry_policy:
+    max_retries: 3
+    retry_delay: 10s
+    exponential_backoff: true
+  
+  recovery_strategies:
+    refactoring_failure:
+      action: rollback_changes
+      create_checkpoint: true
+    
+    quality_regression:
+      action: revert_to_previous_state
+      notify: true
+    
+    validation_failure:
+      action: manual_review_required
+      escalate: true
+
+# Quality Gates
+quality_gates:
+  code_quality_improvement:
+    threshold: 10  # 10% minimum improvement
+    metrics: [maintainability, complexity, duplication]
+  
+  functionality_preservation:
+    threshold: 100  # 100% test pass rate
+    requirements: [all_tests_pass, no_breaking_changes]
+  
+  performance_impact:
+    threshold: 5  # Maximum 5% performance degradation allowed
+    monitoring: [execution_time, memory_usage]
+
+# Integration Points
+integrations:
+  post_refactoring:
+    - testing:
+        trigger: automatic
+        type: comprehensive
+    - documentation:
+        condition: "context.api_changes === true"
+        trigger: automatic
+
+# Monitoring and Analytics
+monitoring:
+  metrics:
+    - refactoring_duration
+    - quality_improvement_ratio
+    - pattern_elimination_count
+    - code_reduction_percentage
+  
+  notifications:
+    - refactoring_complete
+    - quality_improvement_achieved
+    - manual_review_required
