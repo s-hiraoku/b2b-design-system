@@ -1,12 +1,20 @@
-# CC-Deck AI Driven Development アーキテクチャ
+# CC-Deck Workflow Engine アーキテクチャ
 
 ## 概要
 
-CC-Deck (Claude Code Deck) は、Claude Code を活用した包括的な AI Driven Development プラットフォームです。43の専門サブエージェントとカスタムコマンドを組み合わせて、仕様駆動開発から実装、テスト、デプロイまで完全自動化された開発ワークフローを提供します。
+CC-Deck (Claude Code Deck) は、Claude Code を活用した **CC-Deck Workflow Engine** による革新的なAI駆動開発プラットフォームです。40+の専門サブエージェントが6つのYAMLワークフローで協調動作し、TDD統一による高品質開発、人間承認必須による品質保証、Kiro SDD仕様駆動開発の完全自動化を実現します。
 
-> **Kiro SDD について**: 本プロジェクトの仕様駆動開発（SDD）プロセスは [gotalab/claude-code-spec](https://github.com/gotalab/claude-code-spec) に大きく基づいています。`.kiro/` ディレクトリ構造、フェーズベース開発アプローチ（要件→設計→タスク）、仕様ファイルの組織化などの核心的なコンセプトは同プロジェクトのメソドロジーを採用しています。その上で、Claude Code との統合、MCP サービス連携、マルチエージェントオーケストレーションなどの拡張機能を追加して実装しています。
+## CC-Deck Workflow Engine の革新的特徴
 
-## 完全サブエージェント連携図
+### 🎯 コアアーキテクチャ原理
+
+- **TDD統一ポリシー**: 全開発がTest-Driven Developmentで統一、95%+テストカバレッジ保証
+- **人間承認必須**: 全変更に人間ステークホルダー承認が必須の厳格品質管理
+- **Workflow Composition Pattern**: YAML定義による宣言的ワークフロー管理と動的実行
+- **Smart Context Propagation**: エージェント間コンテキスト共有とクロスフェーズ状態継承
+- **カスタムスラッシュコマンド**: 6つの専用コマンドによる直接ワークフロー実行
+- **Task-Driven Execution**: `.kiro/specs/*/tasks.md`ファイルとの完全統合とリアルタイム同期
+- **MCP統合エコシステム**: DeepWiki、Context7、Serena、Playwright MCP連携
 
 ### メインオーケストレーター連携フロー
 
@@ -14,47 +22,53 @@ CC-Deck (Claude Code Deck) は、Claude Code を活用した包括的な AI Driv
 graph TD
     User[👤 ユーザー] --> Orchestrator[🎯 /orchestrator]
     User --> SyncStatus[🔄 /sync-status]
-    
+
     Orchestrator --> StateDetection{🔍 プロジェクト状態検出}
-    
+
     %% 各フェーズへの委任
     StateDetection --> KiroFlow[📋 Kiro SDD フロー]
-    StateDetection --> CodingFlow[💻 Coding フロー] 
+    StateDetection --> CodingFlow[💻 Coding フロー]
     StateDetection --> RefactorFlow[🔧 Refactoring フロー]
     StateDetection --> TestFlow[🧪 Testing フロー]
     StateDetection --> PRFlow[📤 PR フロー]
     StateDetection --> AcceptanceFlow[✅ Acceptance フロー]
-    
+
     %% 状態同期
     SyncStatus --> StateSync[🔄 状態整合性チェック]
     StateSync --> KiroStatus[📊 Kiro Status 更新]
     StateSync --> TaskProgress[📝 Task Progress 同期]
 ```
 
-### 1. Kiro SDD (仕様駆動開発) フロー
+## CC-Deck Workflow Engine: 6つのメインワークフロー
+
+### 1. 📋 Kiro SDD Workflow (`/kiro-sdd`)
+
+**仕様駆動開発の完全自動化ワークフロー**
 
 ```mermaid
 graph TD
     KiroOrchestrator[🎭 kiro-spec-orchestrator] --> SteeringPhase{📋 Steering Phase}
-    
+
     %% Steering Branch
     SteeringPhase --> KiroSteering[🧭 kiro-steering]
     SteeringPhase --> KiroSteeringCustom[🎨 kiro-steering-custom]
-    
+
     %% Spec Workflow
     KiroSteering --> SpecInit[🚀 kiro-spec-init]
     SpecInit --> SpecRequirements[📝 kiro-spec-requirements]
-    SpecRequirements --> SpecDesign[🏗️ kiro-spec-design] 
+    SpecRequirements --> SpecDesign[🏗️ kiro-spec-design]
     SpecDesign --> SpecTasks[📋 kiro-spec-tasks]
     SpecTasks --> SpecStatus[📊 kiro-spec-status]
-    
+
     %% Status Monitoring
     SpecStatus --> StateCheck{✅ Phase Complete?}
     StateCheck -->|No| BackToPhase[↩️ Return to Current Phase]
     StateCheck -->|Yes| NextPhase[➡️ Next Phase]
 ```
 
-### 2. Coding (開発統合) フロー
+### 2. 💻 Coding Workflow (`/coding`) 
+
+**TDD統一による包括的開発ワークフロー** - 全実装がTest-Driven Developmentで統一され、95%+テストカバレッジを保証します。
 
 ```mermaid
 graph TD
@@ -63,87 +77,127 @@ graph TD
     CodingMain --> ImplementPhase[⚡ Phase 3: Implementation]
     CodingMain --> TestPhase[🧪 Phase 4: Testing]
     CodingMain --> DocPhase[📚 Phase 5: Documentation]
-    
+
     %% Research Phase
     ResearchPhase --> ResearchAgent[🔬 research-agent]
     ResearchAgent --> DeepWiki[📖 DeepWiki MCP]
     ResearchAgent --> Context7[🔍 Context7 MCP]
     ResearchAgent --> WebSearch[🌐 Web Search]
-    
-    %% Planning Phase  
+
+    %% Planning Phase
     PlanningPhase --> PlanningAgent[📐 planning-agent]
-    
-    %% Implementation Phase
-    ImplementPhase --> TDDChoice{TDD 方式?}
-    TDDChoice -->|Yes| TDDAgent[🔴 tdd-agent]
-    TDDChoice -->|Standard| ImplementAgent[⚙️ implementation-agent]
-    
-    %% Serena Integration
-    ImplementAgent --> SerenaOnboard[🤖 serena-onboarding-agent]
-    SerenaOnboard --> SerenaMCP[🧠 Serena MCP]
-    
+
+    %% Implementation Phase (TDD統一フロー)
+    ImplementPhase --> SerenaOnboard[🤖 Phase 3: Serena Onboarding<br/>TDD環境構築]
+    SerenaOnboard --> TDDCycle[🔴 Phase 4: TDD Cycle<br/>Red-Green-Refactor]
+    TDDCycle --> FullImpl[⚙️ Phase 5: Full Implementation<br/>TDD基盤拡張]
+
+    %% Serena MCP Integration
+    SerenaOnboard --> SerenaMCP[🧠 Serena MCP<br/>コンテキスト管理]
+    TDDCycle --> SerenaMCP
+    FullImpl --> SerenaMCP
+
     %% Testing Phase
     TestPhase --> TestingAgent[🧪 testing-agent]
-    
+
     %% Documentation Phase
     DocPhase --> DocumentationAgent[📝 documentation-agent]
 ```
 
-### 3. Refactoring (リファクタリング) フロー
+#### 🔴 TDD Trilogy: 3段階エージェント連携システム
+
+**すべての実装がTDD統一ポリシーに従い、以下の3つのエージェントが順次連携動作します：**
+
+##### Phase 3: serena-onboarding-agent (TDD環境構築)
+
+- **TDD専用環境**: Serena MCPにTDD特化プロジェクトコンテキストを登録
+- **テストパターン**: AAA (Arrange-Act-Assert) パターン、Given-When-Then構造の設定
+- **フレームワーク**: テストファースト開発のための完全ツールチェーン初期化  
+- **標準化**: TDD専用コーディング規約とベストプラクティスの確立
+
+##### Phase 4: tdd-agent (Red-Green-Refactor実行)
+
+- **Red Phase**: 要求仕様を満たす失敗テストの作成（テスト駆動設計）
+- **Green Phase**: テストを通過する最小限実装（YAGNI原則徹底）
+- **Refactor Phase**: コード品質向上と設計洗練（DRY、SOLID原則適用）
+- **厳格性**: [t-wada](https://github.com/t-wada) 方法論による妥協なきTDDサイクル実施
+
+##### Phase 5: implementation-agent (TDD基盤完成)
+
+- **基盤拡張**: TDD作成テスト群を完全に維持したまま本格実装へ展開
+- **エッジケース**: 境界値・異常系・エラー処理の包括的実装
+- **パフォーマンス**: 本番環境要件を満たすスケーラブル・高効率実装
+- **品質保証**: Serena MCP活用による保守性・拡張性の高い最終コード生成
+
+#### 🏆 TDD統一による品質保証効果
+
+- **100%テスト駆動**: 全プロダクションコードがテスト先行で作成される完全TDD
+- **設計自然導出**: テストファースト開発による低結合・高凝集設計の自動的実現  
+- **継続的品質**: 全リファクタリングが既存テストにより安全性確保される
+- **生きた仕様**: テストコードが実行可能仕様書・APIドキュメントとして機能
+- **95%+カバレッジ**: 定量的品質指標による客観的品質保証の実現
+
+### 3. 🔧 Refactoring Workflow (`/refactoring`)
+
+**セマンティック解析による高度リファクタリングワークフロー**
 
 ```mermaid
 graph TD
     RefactorMain[🔧 refactoring] --> AnalysisPhase[🔍 Phase 1: Analysis]
-    RefactorMain --> ExecutePhase[⚡ Phase 2: Execution] 
+    RefactorMain --> ExecutePhase[⚡ Phase 2: Execution]
     RefactorMain --> ValidatePhase[✅ Phase 3: Validation]
-    
+
     %% Analysis Phase
     AnalysisPhase --> PatternDetector[🔍 pattern-detector]
     AnalysisPhase --> CodeAnalyzer[📊 code-analyzer]
-    
+
     %% Execution Phase
     ExecutePhase --> RefactorChoice{リファクタリング種別}
     RefactorChoice -->|Serena MCP| SerenaMCPRefactor[🤖 serena-mcp-refactoring]
     RefactorChoice -->|Similarity| SimilarityRefactor[🔄 similarity-refactoring]
     RefactorChoice -->|General| RefactorImplementer[⚙️ refactoring-implementer]
-    
+
     %% Validation Phase
     ValidatePhase --> QualityValidator[✅ quality-validator]
 ```
 
-### 4. Testing (テスト) フロー
+### 4. 🧪 Testing Workflow (`/testing`)
+
+**統合テスト・E2Eテスト自動化ワークフロー**
 
 ```mermaid
 graph TD
     TestMain{🧪 Testing Type} --> IntegrationPath[🔗 Integration Testing]
     TestMain --> E2EPath[🎭 E2E Testing]
-    
+
     %% Integration Testing Flow
     IntegrationPath --> IntegrationTest[🔗 integration-test]
     IntegrationTest --> TestStrategyPlanner[📋 test-strategy-planner]
     IntegrationTest --> TestEnvManager[🏗️ test-environment-manager]
     IntegrationTest --> TestExecutor[⚡ test-executor]
     IntegrationTest --> TestReporter[📊 test-reporter]
-    
+
     %% E2E Testing Flow
     E2EPath --> E2ETest[🎭 e2e-test]
     E2ETest --> E2ETestPlanner[📋 e2e-test-planner]
     E2ETest --> E2ETestRunner[⚡ e2e-test-runner]
 ```
 
-### 5. PR (プルリクエスト) フロー
+### 5. 📤 PR Workflow (`/pr`)
+
+**プルリクエストライフサイクル完全管理ワークフロー**
 
 ```mermaid
 graph TD
     PRCreate[📤 pr-create] --> PRAnalysisPhase[🔍 Phase 1: Analysis]
     PRCreate --> PRGenerationPhase[📝 Phase 2: Generation]
     PRCreate --> PRValidationPhase[✅ Phase 3: Validation]
-    
+
     %% PR Creation Flow
     PRAnalysisPhase --> PRAnalyzer[🔍 pr-analyzer]
     PRGenerationPhase --> PRGenerator[📝 pr-generator]
     PRValidationPhase --> PRValidator[✅ pr-validator]
-    
+
     %% PR Merge Flow
     PRValidator --> PRMerge[🔗 pr-merge]
     PRMerge --> MergeApprover[👤 merge-approver]
@@ -151,26 +205,30 @@ graph TD
     PRMerge --> PostMergeManager[📋 post-merge-manager]
 ```
 
-### 6. Acceptance (承認) フロー
+### 6. ✅ Acceptance Workflow (`/acceptance`)
+
+**人間承認・フィードバック処理ワークフロー**
 
 ```mermaid
 graph TD
     AcceptanceMain[✅ acceptance] --> ReviewPhase[👤 Phase 1: Review]
     AcceptanceMain --> FeedbackPhase[💬 Phase 2: Feedback]
     AcceptanceMain --> CoordinationPhase[🔄 Phase 3: Coordination]
-    
+
     %% Acceptance Flow
     ReviewPhase --> AcceptanceReviewer[👤 acceptance-reviewer]
     FeedbackPhase --> FeedbackAnalyzer[💬 feedback-analyzer]
     CoordinationPhase --> PhaseCoordinator[🔄 phase-coordinator]
-    
+
     %% Feedback Loop
     FeedbackAnalyzer --> RollbackDecision{🔄 Rollback Needed?}
     RollbackDecision -->|Yes| PhaseCoordinator
     RollbackDecision -->|No| Approved[✅ Approved]
 ```
 
-### サブエージェント間連携マトリックス
+## 🤖 40+エージェント・マルチクラスター・アーキテクチャ
+
+### エージェント統合連携マトリックス
 
 ```mermaid
 graph LR
@@ -178,7 +236,7 @@ graph LR
         Orchestrator[orchestrator]
         SyncStatus[sync-status]
     end
-    
+
     subgraph "📋 Kiro SDD Cluster"
         KiroOrch[kiro-spec-orchestrator]
         KiroSteering[kiro-steering]
@@ -188,18 +246,18 @@ graph LR
         KiroTasks[kiro-spec-tasks]
         KiroStatus[kiro-spec-status]
     end
-    
-    subgraph "💻 Coding Cluster"
-        Coding[coding]
-        Research[research-agent]
-        Planning[planning-agent]
-        Implementation[implementation-agent]
-        TDD[tdd-agent]
-        Testing[testing-agent]
-        Documentation[documentation-agent]
-        SerenaOnboard[serena-onboarding-agent]
+
+    subgraph "💻 Coding Cluster (8 agents)"
+        Coding[coding - 統合管理]
+        Research[research-agent - MCP連携調査]
+        Planning[planning-agent - 戦略設計]
+        Implementation[implementation-agent - Serena統合実装]
+        TDD[tdd-agent - Red-Green-Refactor]
+        Testing[testing-agent - 包括的テスト]
+        Documentation[documentation-agent - ドキュメント生成]
+        SerenaOnboard[serena-onboarding-agent - TDD環境]
     end
-    
+
     subgraph "🔧 Refactoring Cluster"
         Refactoring[refactoring]
         PatternDetect[pattern-detector]
@@ -209,7 +267,7 @@ graph LR
         SerenaMCP[serena-mcp-refactoring]
         Similarity[similarity-refactoring]
     end
-    
+
     subgraph "🧪 Testing Cluster"
         IntegrationTest[integration-test]
         TestStrategy[test-strategy-planner]
@@ -220,7 +278,7 @@ graph LR
         E2EPlanner[e2e-test-planner]
         E2ERunner[e2e-test-runner]
     end
-    
+
     subgraph "📤 PR Cluster"
         PRCreate[pr-create]
         PRAnalyzer[pr-analyzer]
@@ -231,14 +289,14 @@ graph LR
         MergeExecutor[merge-executor]
         PostMerge[post-merge-manager]
     end
-    
+
     subgraph "✅ Acceptance Cluster"
         Acceptance[acceptance]
         AcceptReviewer[acceptance-reviewer]
         FeedbackAnalyzer[feedback-analyzer]
         PhaseCoord[phase-coordinator]
     end
-    
+
     %% Main delegation flows
     Orchestrator --> KiroOrch
     Orchestrator --> Coding
@@ -246,7 +304,7 @@ graph LR
     Orchestrator --> IntegrationTest
     Orchestrator --> PRCreate
     Orchestrator --> Acceptance
-    
+
     %% Cross-cluster integrations
     Coding --> TDD
     Implementation --> SerenaOnboard
@@ -255,50 +313,77 @@ graph LR
     PhaseCoord --> KiroOrch
 ```
 
-## 連携強化のための改善提案
+## CC-Deck Workflow Engine 実装詳細
 
-### 1. サブエージェント間通信の標準化
+### 🏗️ Workflow Composition Pattern の実装
 
-現在のTask()呼び出しに加えて、以下の連携パターンを強化：
+**YAML定義ワークフローによる宣言的エージェント連携システム**：
 
-```mermaid
-graph TD
-    subgraph "連携パターン"
-        DirectCall[直接呼び出し<br/>Task(subagent_type)]
-        StateShare[状態共有<br/>共通ステータス]
-        ResultPass[結果受け渡し<br/>出力→入力]
-        ParallelExec[並列実行<br/>並行処理]
-    end
+```yaml
+# .cc-deck/workflows/coding.yaml の構造例
+workflow_name: "coding"
+description: "TDD統一による包括的開発ワークフロー"
+phases:
+  - name: research
+    agent: research-agent
+    description: "技術調査・MCP統合リサーチ"
+    next_phase: planning
     
-    DirectCall --> StandardPattern[標準的な委任パターン]
-    StateShare --> EnhancedSync[状態同期強化]
-    ResultPass --> PipelineFlow[パイプライン化]
-    ParallelExec --> ConcurrentOps[並行処理最適化]
+  - name: planning  
+    agent: planning-agent
+    description: "戦略的アーキテクチャ設計"
+    next_phase: serena_onboarding
+    
+  # TDD Trilogy の開始
+  - name: serena_onboarding
+    agent: serena-onboarding-agent
+    description: "TDD環境構築・Serena MCP初期化"
+    next_phase: tdd_cycle
+    
+  - name: tdd_cycle
+    agent: tdd-agent
+    description: "Red-Green-Refactorサイクル実行"
+    next_phase: full_implementation
+    
+  - name: full_implementation
+    agent: implementation-agent  
+    description: "TDD基盤上での完全実装"
+    next_phase: testing
 ```
 
-### 2. 提案される連携強化機能
+### 🧠 Smart Context Propagation システム
 
-#### A. 状態共有メカニズム
-- **共通状態ストア**: 全サブエージェントが参照可能な状態情報
-- **リアルタイム同期**: 状態変更の即座反映
-- **競合回避**: 同時アクセス制御機構
+**クロスエージェント状態共有とコンテキスト継承メカニズム**
 
-#### B. 結果受け渡しパイプライン
-- **標準化された出力形式**: JSON Schema準拠の結果フォーマット
-- **自動変換**: エージェント間のデータ形式変換
-- **エラー伝播**: 失敗時の適切なエラー処理
+#### A. 統合状態管理 (.cc-deck/context/)
 
-#### C. 並列実行制御
-- **依存関係管理**: 前提条件チェックと待機機構
-- **リソース管理**: 同時実行数制限
-- **進捗監視**: 並列実行タスクの統合監視
+- **SmartContext**: 全エージェント共通参照可能な実行状態ストア
+- **ContextChain**: フェーズ間でのコンテキスト自動継承とバージョン管理
+- **StateCheckpoint**: 実行中断・再開対応のチェックポイントシステム
+- **ConflictResolution**: 同期実行時の状態競合回避機構
 
-#### D. フィードバックループ
-- **学習機構**: 連携パターンの最適化
-- **パフォーマンス監視**: 実行時間・成功率追跡
-- **自動調整**: 負荷に応じた動的調整
+#### B. Task-Driven Execution 統合
 
-### 3. MCP統合による外部サービス連携
+- **TasksSync**: `.kiro/specs/*/tasks.md`ファイルとのリアルタイム双方向同期
+- **ProgressTracking**: チェックボックス自動更新と完了状態判定
+- **AutoContinuation**: 中断タスクの自動検出と継続実行
+- **QualityGate**: タスク完了時の品質チェックと承認フロー連携
+
+#### C. Human Approval Integration
+
+- **MandatoryApproval**: 全変更に対する人間ステークホルダー承認の強制
+- **ApprovalMaterial**: AIによる包括的承認材料自動生成
+- **FeedbackLoop**: 承認拒否時の自動フィードバック分析とフェーズ巻き戻し
+- **DecisionTraceability**: 全承認判断の完全トレーサビリティ確保
+
+#### D. MCP統合エコシステム
+
+- **DeepWiki MCP**: GitHub技術文書・README・Wiki自動分析
+- **Context7 MCP**: 最新ライブラリドキュメント・API仕様自動取得
+- **Serena MCP**: セマンティックコード解析・高度リファクタリング実行
+- **Playwright MCP**: E2Eテスト自動生成・ブラウザ自動化実行
+
+### 🔗 MCP統合による外部サービス連携詳細
 
 ```mermaid
 graph TD
@@ -308,14 +393,14 @@ graph TD
         Serena[🧠 Serena MCP<br/>セマンティック解析・リファクタリング]
         Playwright[🎭 Playwright MCP<br/>E2Eテスト実行]
     end
-    
+
     subgraph "Agent Clusters"
         Research[🔬 Research Agents]
-        Coding[💻 Coding Agents] 
+        Coding[💻 Coding Agents]
         Refactor[🔧 Refactor Agents]
         Testing[🧪 Testing Agents]
     end
-    
+
     Research --> DeepWiki
     Research --> Context7
     Coding --> Serena
@@ -323,100 +408,153 @@ graph TD
     Testing --> Playwright
 ```
 
-## 現在のシステム統計
+## 📊 システム構成統計
 
-### 📊 サブエージェント構成
-- **総数**: 43個のサブエージェント
-- **クラスター**: 6つの専門クラスター + 2つのメインオーケストレーター
-- **連携**: 248個の潜在的連携パス
+### CC-Deck Workflow Engine 完全構成
 
-### 🔄 連携フロー統計
-- **直接委任**: 18個のメイン委任パス
-- **クロス連携**: 5個のクラスター間連携
-- **MCP統合**: 4つのMCPサービス統合
+- **総エージェント数**: 40+個の高度専門化サブエージェント
+- **メインワークフロー**: 6つのYAML定義宣言的ワークフロー (.cc-deck/workflows/)
+- **カスタムコマンド**: 6つの専用スラッシュコマンド (/.claude/commands/)
+- **TDD統一ポリシー**: 全開発フローがTest-Driven Development必須
+- **人間承認必須**: 全変更に人間ステークホルダー承認強制 (品質保証)
+- **MCP統合**: 4つのMCPサーバー統合 (DeepWiki, Context7, Serena, Playwright)
+
+### 🎯 ワークフロー実行統計
+
+- **直接実行コマンド**: `/kiro-sdd`, `/coding`, `/refactoring`, `/testing`, `/pr`, `/acceptance`
+- **インテリジェント統合**: `/orchestrator` による状態検出・自動ワークフロー選択
+- **Smart Context**: `.cc-deck/context/` クロスエージェント状態継承システム
+- **Task連携**: `.kiro/specs/*/tasks.md` リアルタイム双方向同期
+- **品質保証**: 全フェーズでの人間承認・フィードバック統合
 
 ### 🛠️ クラスター別詳細
 
 #### 📋 Kiro SDD Cluster (8 agents)
-仕様駆動開発の完全自動化
-- **Orchestrator**: 1個 (統合管理)
-- **Core Agents**: 7個 (仕様作成プロセス)
 
-#### 💻 Coding Cluster (8 agents)  
-包括的開発ワークフロー
-- **Main Orchestrator**: 1個 (coding)
-- **Specialized**: 7個 (research, planning, implementation, testing, documentation, TDD ([t-wada](https://github.com/t-wada) 氏の方法論), Serena onboarding)
+仕様駆動開発の完全自動化
+
+- **Orchestrator**: 1 個 (統合管理)
+- **Core Agents**: 7 個 (仕様作成プロセス)
+
+#### 💻 Coding Cluster (8 agents)
+
+**TDD統一ポリシーによる包括的高品質開発**
+
+- **TDD Trilogy Core**: 3つの連携特化エージェント
+  - serena-onboarding-agent (TDD環境・Serena MCP初期化)
+  - tdd-agent ([t-wada](https://github.com/t-wada) 方法論・Red-Green-Refactor厳格実行)
+  - implementation-agent (TDD基盤完成・本格実装)
+- **Workflow Support**: 5つの支援エージェント
+  - coding (統合管理・フロー調整)
+  - research-agent (MCP技術調査)
+  - planning-agent (戦略的アーキテクチャ)
+  - testing-agent (包括テスト戦略)
+  - documentation-agent (API・仕様ドキュメント)
 
 #### 🔧 Refactoring Cluster (7 agents)
-セマンティック解析による高度リファクタリング
-- **Main Orchestrator**: 1個 (refactoring)
-- **Analysis**: 2個 (pattern-detector, code-analyzer)
-- **Execution**: 3個 (serena-mcp-refactoring, similarity-refactoring ([mizchi/similarity](https://github.com/mizchi/similarity) 概念参考), refactoring-implementer)
-- **Validation**: 1個 (quality-validator)
+
+**セマンティック解析・パターン検出による高度リファクタリング**
+
+- **統合管理**: refactoring (フロー統括・戦略選択)
+- **解析エンジン**: 2つの分析特化エージェント
+  - pattern-detector (重複・類似パターン検出)
+  - code-analyzer (構造・依存関係・品質分析)
+- **実行エンジン**: 3つの変換特化エージェント  
+  - serena-mcp-refactoring (Serena MCP高度セマンティック変換)
+  - similarity-refactoring ([mizchi/similarity](https://github.com/mizchi/similarity) ベース重複統合)
+  - refactoring-implementer (汎用品質改善・構造最適化)
+- **品質保証**: quality-validator (変換結果検証・機能保持確認)
 
 #### 🧪 Testing Cluster (9 agents)
-統合・E2Eテスト自動化
-- **Integration**: 5個 (統合テスト完全自動化)
-- **E2E**: 3個 (エンドツーエンドテスト)
-- **Main Orchestrator**: 1個 (integration-test)
+
+統合・E2E テスト自動化
+
+- **Integration**: 5 個 (統合テスト完全自動化)
+- **E2E**: 3 個 (エンドツーエンドテスト)
+- **Main Orchestrator**: 1 個 (integration-test)
 
 #### 📤 PR Cluster (8 agents)
+
 プルリクエスト自動化
-- **Creation**: 4個 (pr-create, pr-analyzer, pr-generator, pr-validator)
-- **Merge**: 4個 (pr-merge, merge-approver, merge-executor, post-merge-manager)
+
+- **Creation**: 4 個 (pr-create, pr-analyzer, pr-generator, pr-validator)
+- **Merge**: 4 個 (pr-merge, merge-approver, merge-executor, post-merge-manager)
 
 #### ✅ Acceptance Cluster (4 agents)
+
 人間承認・フィードバックワークフロー
-- **Main**: 1個 (acceptance)
-- **Sub-processes**: 3個 (acceptance-reviewer, feedback-analyzer, phase-coordinator)
 
-### 🎯 Main Orchestrators (2 agents)
-- **orchestrator**: メインエントリーポイント
-- **sync-status**: 状態整合性管理
+- **Main**: 1 個 (acceptance)
+- **Sub-processes**: 3 個 (acceptance-reviewer, feedback-analyzer, phase-coordinator)
 
-## データフロー
+### 🎯 Main Orchestration System (2 agents)
+
+- **orchestrator**: インテリジェント統合管理・状態検出・ワークフロー自動選択
+- **sync-status**: Kiro SDD状態整合性・タスク進捗・実装同期管理
+
+## 🔄 CC-Deck データフロー
 
 ```
-ユーザー入力 → コマンド層 → エージェント選択 → 実行 → 出力生成
-     ↑                                              ↓
-     └── フィードバック ← 承認フロー ← ステータス確認 ←┘
+ユーザー入力
+    ↓
+[/orchestrator OR Custom Commands]
+    ↓
+CC-Deck Workflow Engine (YAML実行)
+    ↓
+Smart Context (状態管理・エージェント連携)
+    ↓
+Multi-Agent Execution (40+ agents)
+    ↓
+Tasks.md Sync (リアルタイム進捗)
+    ↓
+Human Approval (必須承認)
+    ↓
+Feedback Loop (承認拒否時巻き戻し)
 ```
 
-## フェーズ管理
+## 🔒 人間承認必須・品質保証システム
 
-### 必須フェーズ
+### 品質保証フェーズ構造
 
-1. **Steering** (必須・最優先)
-2. **Requirements** (承認必須)
-3. **Design** (承認必須)
-4. **Tasks** (承認必須)
-5. **Implementation** (継続的モニタリング)
+1. **Steering Phase** (プロジェクト方針・必須承認)
+2. **Requirements Phase** (EARS形式要件・承認必須)
+3. **Design Phase** (技術設計・アーキテクチャ承認必須)
+4. **Tasks Phase** (実装計画・タスク承認必須)
+5. **Implementation Phase** (TDD統一実装・継続承認)
+6. **Testing Phase** (品質検証・承認必須)
+7. **Acceptance Phase** (最終承認・リリース判定)
 
-### 承認ポイント
+### 🔒 人間承認必須システム
 
-- **AI駆動インテリジェント承認**: リスク評価に基づく自動承認ルーティング
-- **3段階承認システム**: 低リスク（自動）、中リスク（条件付き）、高リスク（人間必須）
-- **継続的学習**: 人間判断パターンの学習による精度向上
-- **統合通知**: Slack/Email統合による透明性確保
+- **Zero Auto-Approval**: AI自動承認完全禁止・全判断人間実行
+- **AI-Prepared Materials**: AI包括的承認材料準備・人間最終判断
+- **Decision Traceability**: 全承認判断完全記録・監査追跡可能
+- **Feedback Integration**: 承認拒否時自動フィードバック分析・フェーズ巻き戻し
+- **Quality Gate Enforcement**: 各フェーズ品質基準未満時進行停止
 
-## 技術的特徴
+## 🏆 CC-Deck Workflow Engine 技術的優位性
 
-### 専門化
+### 🎯 高度専門化アーキテクチャ
 
-- 各エージェントが特定の責任を持つ
-- 専門知識による高品質な出力
-- 再利用可能なコンポーネント設計
+- **Domain Expertise**: 40+エージェントが各々高度専門領域を担当
+- **Quality Specialization**: TDD・リファクタリング・テスト・承認各領域の深い専門性
+- **MCP Integration**: 外部知識ソース統合による最新技術・ドキュメント連携
+- **Reusable Components**: エージェント・ワークフローの高い再利用性
 
-### 一貫性
+### 🔄 システム一貫性保証
 
-- CLAUDE.md による統一されたコンテキスト
-- 日本語での応答生成
-- 段階的承認によるクオリティ保証
+- **CLAUDE.md Context**: 全エージェント統一コンテキスト・プロジェクト知識共有
+- **Japanese-First**: 日本語ネイティブ開発者向け最適化応答生成
+- **Smart Context Continuity**: フェーズ間コンテキスト継承・状態一貫性保証
+- **Quality Consistency**: 人間承認による品質基準統一・ブレ防止
 
-### 拡張性
+### 📈 無限拡張可能性
 
-- MCP server による外部情報統合
-- カスタムエージェントの追加可能
-- プロジェクト固有の操舵設定
+- **MCP Ecosystem**: 新MCPサーバー追加による機能拡張無制限
+- **Agent Extensibility**: 新専門エージェント追加・既存ワークフロー統合簡単
+- **Workflow Composition**: 新YAML定義による独自ワークフロー構築可能
+- **Project Customization**: `.kiro/steering/` プロジェクト固有カスタマイズ完全対応
 
-この 4 層アーキテクチャにより、複雑な開発ワークフローを管理しやすい形に分解し、各層が明確な責任を持って連携することで、効率的で品質の高い spec-driven development を実現しています。
+### 🌟 革新的統合価値
+
+**CC-Deck Workflow Engine は、従来の単発AI支援を超越し、人間とAIの協調による持続可能で高品質な開発エコシステムを実現します。40+エージェントの専門性、6つのYAMLワークフローの柔軟性、TDD統一による品質保証、人間承認による信頼性が統合され、次世代のAI駆動開発プラットフォームとして機能します。**

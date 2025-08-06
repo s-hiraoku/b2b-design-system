@@ -26,7 +26,7 @@ See [docs/ATTRIBUTION.md](docs/ATTRIBUTION.md) for detailed acknowledgments.
 
 All specifications are stored in the `.kiro/specs/` directory:
 
-- Currently no active specifications - new features will be created here automatically
+- `tetris-game` - クラシックなテトリスゲームのWebブラウザ実装 (初期化済み)
 
 ## Project Structure
 
@@ -48,15 +48,16 @@ The project follows the Kiro SDD (Specification-Driven Development) process with
 4. Human approval workflows for quality assurance
 5. Comprehensive testing and deployment
 
-## TDD Practice
+## TDD-First Development Policy
 
-This project prioritizes Test-Driven Development following t-wada's rigorous methodology:
+This project mandates Test-Driven Development for ALL implementations following t-wada's rigorous methodology:
 
-- **TDD Agent**: Dedicated `tdd-agent` for strict TDD guidance
-- **Red-Green-Refactor**: Enforced cycle with no shortcuts allowed
-- **Test-First**: All code implementation must start with failing tests
-- **Quality Focus**: Tests as documentation and design drivers
-- **Integration**: TDD automatically integrated into all development workflows
+- **TDD-Only Policy**: ALL code must be developed using strict TDD approach
+- **Dedicated TDD Agent**: `tdd-agent` enforces Red-Green-Refactor cycles
+- **No Shortcuts Allowed**: Test-first development is mandatory
+- **Quality Guarantee**: 95%+ test coverage and design-driven development
+- **Unified Workflow**: Single TDD-based implementation path for consistency
+- **Multi-Agent TDD**: serena-onboarding → tdd-agent → implementation-agent sequence
 
 ## Main Command
 
@@ -152,7 +153,8 @@ When creating or updating custom slash commands and sub-agents, **ALWAYS** verif
 
 - **Intelligent Orchestration**: Automated workflow management and state detection
 - **Task-Based Development**: Progress tracking through .kiro/specs/{feature}/tasks.md
-- **Human Approval Workflows**: Quality gates with structured decision making
+- **Mandatory Human Approval**: ALL changes require human stakeholder approval for quality assurance
+- **AI-Assisted Reviews**: AI prepares comprehensive review materials, humans make final decisions
 - **Next Issue Detection**: Automatic GitHub issue analysis and prioritization
 - **MCP Integration**: Enhanced development with up-to-date documentation and tools
 

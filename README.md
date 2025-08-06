@@ -1,32 +1,35 @@
 # CC-Deck: AI-Driven Development Platform
 
-**Claude Code Deck** - AI 駆動開発プラットフォーム
+**Claude Code Deck** - AI駆動開発プラットフォーム
 
 ## 概要
 
-CC-Deck は、Claude Code を中心とした包括的な開発ワークフローを自動化する AI 駆動開発プラットフォームです。Kiro SDD（Specification-Driven Development）プロセスを採用し、要件定義から実装まで一貫した開発体験を提供します。
+CC-Deck は、Claude Code を中心とした **CC-Deck Workflow Engine** による革新的なAI駆動開発プラットフォームです。40+の専門サブエージェントが6つのYAMLワークフローで協調動作し、TDD統一による高品質開発、人間承認必須による品質保証、Kiro SDD（Specification-Driven Development）の完全自動化を実現します。
 
-> **Kiro SDD について**: 本プロジェクトの仕様駆動開発（SDD）プロセスは [gotalab/claude-code-spec](https://github.com/gotalab/claude-code-spec) のアプローチに大きく基づいています。ディレクトリ構造、フェーズベース開発、仕様ファイル構成などの中核的な概念は同プロジェクトから採用し、Claude Code統合やマルチエージェントシステムなどの拡張機能を追加しています。
+> **Kiro SDD について**: 本プロジェクトの仕様駆動開発（SDD）プロセスは [gotalab/claude-code-spec](https://github.com/gotalab/claude-code-spec) のアプローチに大きく基づいています。ディレクトリ構造、フェーズベース開発、仕様ファイル構成などの中核的な概念は同プロジェクトから採用し、Claude Code 統合やマルチエージェントシステムなどの拡張機能を追加しています。
 
 ## ✨ 主要機能
 
-### 🎯 インテリジェント・オーケストレーション
+### 🔴 TDD統一ポリシー
 
-- **自動ワークフロー管理**: プロジェクト状態を自動検出し、適切な次のステップを提案
-- **状態ベース実行**: 現在のプロジェクト状態に基づいて最適な開発アクションを選択
-- **スマートな委任**: 専門エージェントへのタスク自動振り分け
+- **TDD-Only Policy**: 全開発フローがTest-Driven Development必須・選択肢なし
+- **TDD Trilogy**: serena-onboarding → tdd-agent → implementation-agent の3段階特化連携
+- **95%+テストカバレッジ**: t-wada方法論による完全品質保証
+- **Red-Green-Refactor**: 妥協なき厳格サイクルによる設計自然導出
 
-### 📋 タスクベース開発
+### 🎯 CC-Deck Workflow Engine
 
-- **進捗トラッキング**: `.kiro/specs/{feature}/tasks.md`による詳細な進捗管理
-- **段階的実装**: 要件定義 → 設計 → タスク分解 → 実装の構造化されたフロー
-- **品質ゲート**: 各フェーズでの承認プロセスによる品質保証
+- **Workflow Composition Pattern**: YAML定義による宣言的ワークフロー管理と動的実行
+- **Smart Context Propagation**: クロスエージェント状態共有とフェーズ間継承
+- **6つの専用スラッシュコマンド**: `/kiro-sdd`, `/coding`, `/refactoring`, `/testing`, `/pr`, `/acceptance`
+- **Task-Driven Execution**: `.kiro/specs/*/tasks.md`リアルタイム双方向同期
 
-### 🤖 人間承認ワークフロー
+### 🔒 人間承認必須システム
 
-- **AI 駆動リスク評価**: 変更内容の自動リスク分析
-- **3 段階承認システム**: 低リスク（自動）、中リスク（条件付き）、高リスク（人間必須）
-- **学習機能**: 人間の判断パターンを学習し、承認精度を継続的に向上
+- **Zero Auto-Approval**: AI自動承認完全禁止・全判断人間実行
+- **AI-Prepared Materials**: AI包括的承認材料準備・人間最終決定
+- **Decision Traceability**: 全承認判断完全記録・監査追跡可能
+- **Feedback Integration**: 承認拒否時自動フィードバック分析・フェーズ巻き戻し
 
 ### 🔍 次のタスク自動検出
 
@@ -42,7 +45,7 @@ CC-Deck は、Claude Code を中心とした包括的な開発ワークフロー
 
 ### 🤖 マルチエージェント・システム
 
-CC-Deck は **43 個の専門サブエージェント** が **6 つのクラスター** で協調動作する高度なマルチエージェント・システムです：
+CC-Deck は **40+個の専門サブエージェント** が **CC-Deck Workflow Engine** で協調動作する高度なマルチエージェント・システムです：
 
 #### 🎯 統合管理
 
@@ -60,12 +63,14 @@ CC-Deck は **43 個の専門サブエージェント** が **6 つのクラス�
 
 #### 💻 Coding (8 エージェント)
 
-包括的開発ワークフロークラスター
+**TDD統一ポリシーによる包括的高品質開発クラスター**
 
-- **統合管理**: coding
-- **リサーチ・計画**: research-agent, planning-agent
-- **実装・TDD**: implementation-agent (Serena MCP 統合), tdd-agent ([t-wada](https://github.com/t-wada) 氏の方法論)
-- **品質・文書**: testing-agent, documentation-agent, serena-onboarding-agent
+- **TDD Trilogy Core**: 3段階連携特化エージェント
+  - serena-onboarding-agent (TDD環境・Serena MCP初期化)
+  - tdd-agent ([t-wada](https://github.com/t-wada) 方法論・Red-Green-Refactor厳格実行)
+  - implementation-agent (TDD基盤完成・本格実装)
+- **Workflow Support**: 5つの支援エージェント
+  - coding (統合管理・フロー調整) + research, planning, testing, documentation
 
 #### 🔧 Refactoring (7 エージェント)
 
@@ -99,14 +104,15 @@ CC-Deck は **43 個の専門サブエージェント** が **6 つのクラス�
 
 ## 🏗️ アーキテクチャ
 
-CC-Deck は **43 個の専門サブエージェント** が **6 つのクラスター** に組織されたマルチエージェント・アーキテクチャを採用：
+CC-Deck は **CC-Deck Workflow Engine** を中核とする革新的なワークフロー管理アーキテクチャを採用：
 
 ### 📊 システム構成
 
-- **総エージェント数**: 43 個の専門サブエージェント
-- **クラスター構成**: 6 つの専門クラスター + メインオーケストレーター
-- **連携パス**: 248 個の潜在的連携経路
-- **MCP 統合**: 4 つの MCP サービス（DeepWiki, Context7, Serena, Playwright）
+- **総エージェント数**: 40+個の専門サブエージェント  
+- **ワークフロー数**: 6つのYAML定義メインワークフロー
+- **TDD統一**: 全開発フローがTest-Driven Developmentで統一
+- **人間承認**: 全変更に必須の人間ステークホルダー承認
+- **MCP統合**: 4つのMCPサービス（DeepWiki, Context7, Serena, Playwright）
 
 ### 🎯 メインオーケストレーター層
 
@@ -252,22 +258,24 @@ graph LR
 ### セットアップ
 
 1. **依存関係のインストール**:
+
    ```bash
    npm install
    ```
-   
+
    または
-   
+
    ```bash
    yarn install
    ```
 
 2. **Similarity ツールのインストール** (TypeScript プロジェクト用):
+
    ```bash
    cargo install similarity-ts
    ```
 
-2. **Claude Code環境**: このプロジェクトはClaude Code環境で動作します。
+3. **Claude Code 環境**: このプロジェクトは Claude Code 環境で動作します。
 
 ### 基本的な使用方法
 
@@ -312,62 +320,99 @@ graph LR
 
 ```
 cc-deck/
-├── .kiro/                    # Kiro SDD作業ディレクトリ
+├── .cc-deck/                 # CC-Deck Workflow Engine
+│   ├── workflows/           # YAML定義ワークフロー (6個)
+│   └── context/             # Smart Context状態管理
+├── .kiro/                   # Kiro SDD作業ディレクトリ  
 │   ├── specs/               # アクティブな機能仕様
 │   └── steering/            # プロジェクト操舵文書
+├── .claude/                 # Claude Code統合
+│   ├── commands/            # カスタムコマンド
+│   └── agents/              # 専門サブエージェント (40+個)
 ├── docs/                    # プロジェクトドキュメント
-│   ├── ARCHITECTURE.md      # アーキテクチャ仕様
-│   ├── claude-code/         # Claude Code固有のドキュメント
+│   ├── ARCHITECTURE.md      # システムアーキテクチャ
+│   ├── claude-code/         # Claude Code固有ドキュメント
 │   └── kiro/               # Kiro SDD例とリファレンス
-├── CLAUDE.md               # プロジェクトコンテキスト
-└── README.md              # メインワークフロー
+├── CLAUDE.md               # プロジェクトコンテキスト・ポリシー
+└── README.md              # メインガイド
 ```
 
-## 🔧 開発ワークフロー
+## 🔧 CC-Deck Workflow Engine 詳細
 
-CC-Deck は 8 段階の開発プロセスを自動化し、全段階で TDD（Test-Driven Development）を重視します：
+CC-Deck は **6つのYAMLワークフロー + 6つの専用スラッシュコマンド** で包括的な開発プロセスを自動化します：
 
-1. **プロジェクト分析**: 現在の状態と次のアクションを特定
-2. **操舵設定**: プロジェクトの方向性と技術方針を確立
-3. **仕様初期化**: 新機能の仕様フレームワークを作成
-4. **要件定義**: EARS 形式での詳細な要件記述
-5. **技術設計**: アーキテクチャと実装戦略の策定
-6. **タスク分解**: TDD 対応の実装可能な粒度でのタスク分割
-7. **TDD 実装**: テストファースト・Red-Green-Refactor サイクルでのコード開発
-8. **承認・進行**: 品質評価と次ステップの決定
+### 📋 ワークフロー・コマンド構成
 
-## 🧪 TDD 実践
+1. **`/kiro-sdd`** → kiro-sdd-workflow: Kiro SDD仕様駆動開発（要件→設計→タスク）
+2. **`/coding`** → coding-workflow: TDD統一開発（7段階TDD Trilogy + 支援）
+3. **`/refactoring`** → refactoring-workflow: セマンティック解析・パターン検出リファクタリング
+4. **`/testing`** → testing-workflow: 統合テスト・E2Eテスト完全自動化
+5. **`/pr`** → pr-workflow: プルリクエストライフサイクル完全管理
+6. **`/acceptance`** → acceptance-workflow: 人間承認・フィードバック・品質保証
 
-このプロジェクトでは [t-wada](https://github.com/t-wada) 氏の方法論による TDD を重視しています：
+### 🔴 TDD統一開発フロー（`/coding` workflow）
 
-### TDD 特徴
+**全実装が以下の7段階TDD統一ポリシーで必須実行されます：**
 
-- **専用エージェント**: `tdd-agent`による厳格な TDD ガイダンス
-- **Red-Green-Refactor**: 妥協のない 3 段階サイクルの実施
-- **テストファースト**: すべての実装は失敗テストから開始
-- **設計 emergence**: TDD を通じた自然な設計パターンの発見
+1. **Research** (research-agent): MCP技術調査・ベストプラクティス収集
+2. **Planning** (planning-agent): 戦略的アーキテクチャ設計・実装計画策定
+3. **Serena Onboarding** (serena-onboarding-agent): TDD環境・Serena MCP初期化
+4. **TDD Cycle** (tdd-agent): Red-Green-Refactor厳格実行 (t-wada方法論)
+5. **Full Implementation** (implementation-agent): TDD基盤上での本格実装完成
+6. **Testing** (testing-agent): 統合・E2Eテスト包括戦略追加
+7. **Documentation** (documentation-agent): API・仕様書自動生成
 
-### TDD 実行方法
+## 🧪 TDD-First Development Policy
 
+このプロジェクトでは **TDD統一ポリシー** により、すべての開発が [t-wada](https://github.com/t-wada) 氏の方法論に従います：
+
+### 🔴 TDD統一ポリシーの革新性
+
+- **TDD-Only Policy**: 選択肢完全排除・全実装TDD必須・例外なし
+- **TDD Trilogy System**: 3段階特化エージェント連携（環境 → サイクル → 完成）
+- **100%テスト駆動**: 全プロダクションコードがテスト先行作成
+- **t-wada Method Enforcement**: 妥協なき厳格Red-Green-Refactorサイクル
+- **95%+カバレッジ**: 定量的品質指標による客観的品質保証
+
+### 🎯 ワークフロー実行方法
+
+#### インテリジェント統合実行
 ```bash
-# TDDを使用した機能実装（coding経由でtdd-agentを自動呼び出し）
-/orchestrator "Build OAuth2 authentication system using TDD approach"
+# 状態自動検出・適切ワークフロー選択
+/orchestrator
+/orchestrator "ユーザー認証システムを構築したい"
+```
 
-# 具体的なTDD指示（coding agent がtdd-agentに委任）
-/orchestrator "Implement Payment API with strict Red-Green-Refactor cycle"
+#### 直接ワークフロー実行
+```bash
+# TDD統一開発（推奨メイン）
+/coding "Build OAuth2 authentication system with comprehensive TDD"
 
-# TDD統合開発ワークフロー
-/orchestrator "Create User Management system with comprehensive TDD and testing"
+# 仕様駆動開発から開始
+/kiro-sdd "Create specification for e-commerce payment system"
+
+# セマンティック解析リファクタリング
+/refactoring "Optimize user service architecture and eliminate code duplication"
+
+# 統合・E2Eテスト実行
+/testing "Run comprehensive integration tests for authentication system"
+
+# プルリクエスト完全管理
+/pr "Create and merge PR for user-management feature with validation"
+
+# 人間承認・品質保証
+/acceptance "Review and approve payment processing implementation"
 ```
 
 ## 🛠️ 技術スタック
 
-- **AI Platform**: Claude Code with Opus 4
-- **Development Process**: Kiro SDD (Specification-Driven Development)
-- **Integration**: MCP (Model Context Protocol) servers
-- **Documentation**: Markdown-based specifications
-- **Version Control**: Git with automated GitHub integration
-- **Quality Assurance**: Multi-tier approval workflows
+- **AI Platform**: Claude Code with Sonnet 4 (40+専門エージェント)
+- **Workflow Engine**: CC-Deck Workflow Engine (YAML定義・Smart Context)
+- **Development Methodology**: TDD統一ポリシー (t-wada方法論) + Kiro SDD
+- **MCP Integration**: DeepWiki, Context7, Serena, Playwright MCP統合
+- **Documentation**: 自動生成API仕様・実行可能テスト仕様書
+- **Version Control**: Git + GitHub完全自動化 (PR・マージ・品質管理)
+- **Quality Assurance**: 人間承認必須・AI自動承認完全禁止
 
 ## 📖 ドキュメント
 
@@ -384,50 +429,50 @@ CC-Deck は 8 段階の開発プロセスを自動化し、全段階で TDD（Te
 ### 新機能の開発
 
 ```bash
-# 状態自動検出でのワークフロー継続
-/orchestrator
-
-# 具体的な機能開発指示
+# インテリジェント統合 (推奨)
 /orchestrator "ユーザー認証システムにソーシャルログイン機能を追加したい"
 
-# TDD approach での開発
-/orchestrator "Build real-time chat system with comprehensive TDD implementation"
+# TDD統一開発 (直接実行)
+/coding "Build real-time chat system with comprehensive TDD implementation"
+
+# 仕様から開始
+/kiro-sdd "Create specification for AI-powered recommendation engine"
 ```
 
 ### 既存コードの改善・リファクタリング
 
 ```bash
-# パフォーマンス改善・リファクタリング
-/orchestrator "APIレスポンス時間を改善し、エラーハンドリングを強化したい"
+# セマンティック解析リファクタリング
+/refactoring "Refactor authentication module to eliminate code duplication and improve maintainability"
 
-# コード品質向上
-/orchestrator "Refactor authentication module to eliminate code duplication and improve maintainability"
+# パフォーマンス最適化
+/refactoring "Analyze and optimize database queries with semantic pattern detection"
 
-# セマンティック解析による改善
-/orchestrator "Analyze and optimize database queries for better performance"
+# 高度構造改善
+/refactoring "Apply SOLID principles and design patterns to legacy payment system"
 ```
 
 ### テスト・品質保証
 
 ```bash
-# 統合テスト実行
-/orchestrator "Run comprehensive integration tests for payment system"
+# 統合テスト完全自動化
+/testing "Run comprehensive integration tests for payment system with environment setup"
 
-# E2E テスト生成
-/orchestrator "Generate E2E tests for user registration flow"
+# E2Eテスト・ブラウザ自動化
+/testing "Generate E2E tests for user registration flow with cross-browser validation"
 
-# 受け入れテスト・承認ワークフロー
-/orchestrator "Setup acceptance testing for authentication feature"
+# 人間承認・品質保証
+/acceptance "Review and approve authentication feature with comprehensive quality checks"
 ```
 
 ### PR・デプロイメント
 
 ```bash
-# PR作成・マージワークフロー
-/orchestrator "Create and merge PR for user-management feature"
+# プルリクエストライフサイクル完全管理
+/pr "Create comprehensive PR for user-management feature with analysis and validation"
 
-# 安全なマージ実行
-/orchestrator "Safely merge approved authentication PR with post-merge validation"
+# 安全マージ・後処理自動化
+/pr "Safely merge approved authentication PR with conflict resolution and cleanup"
 ```
 
 ## 🤝 貢献
@@ -444,4 +489,4 @@ CC-Deck は継続的に進化するプラットフォームです。新しいエ
 
 ---
 
-**CC-Deck** - AI と人間の協調による、次世代の開発体験を提供します。（気持ち的には）
+**CC-Deck Workflow Engine** - 40+エージェントの専門性、YAML定義の柔軟性、TDD統一の品質保証、人間承認の信頼性が統合された、次世代AI駆動開発プラットフォーム。従来の単発AI支援を超越し、人間とAIの協調による持続可能で高品質な開発エコシステムを実現します。

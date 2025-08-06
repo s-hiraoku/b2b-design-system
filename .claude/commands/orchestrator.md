@@ -2,7 +2,6 @@
 description: Orchestrator command that intelligently analyzes project state and delegates to appropriate development phase
 argument-hint: [optional feature description or workflow command]
 allowed-tools: Task, Read, Write, Edit, MultiEdit, Bash, Glob, Grep, LS
-model: sonnet
 ---
 
 # Orchestrator Command
@@ -894,12 +893,12 @@ The orchestrator uses intelligent analysis to select appropriate workflows:
 Workflow Selection Rules:
   project_analysis:
     - has_kiro_specs: kiro-sdd-workflow
-    - code_quality_issues: refactoring-workflow  
+    - code_quality_issues: refactoring-workflow
     - test_coverage_low: testing-workflow
     - new_development: coding-workflow
     - pr_creation_needed: pr-workflow
     - stakeholder_review_required: acceptance-workflow
-  
+
   explicit_keywords:
     - "kiro|sdd|spec": kiro-sdd-workflow
     - "code|coding|implement": coding-workflow
@@ -914,16 +913,19 @@ Workflow Selection Rules:
 The CC-Deck integration follows a **gradual enhancement approach**:
 
 #### Phase 1: Basic Workflow Engine (Current)
+
 - Load and parse workflow definitions from `.cc-deck/workflows/`
 - Implement Smart Context for state management
 - Basic sequential phase execution with agent delegation
 
 #### Phase 2: Advanced Features (Next)
+
 - Task-driven execution with `tasks.md` integration
 - Conditional workflow branching and parallel execution
 - Error handling and recovery mechanisms
 
 #### Phase 3: Full Integration (Future)
+
 - Advanced monitoring and analytics
 - Workflow visualization and debugging
 - Performance optimization and caching
@@ -936,52 +938,126 @@ When workflow execution is triggered, the orchestrator implements the following 
 def execute_workflow_engine(workflow_name, feature_name, arguments):
     # 1. Load workflow definition
     workflow_def = load_workflow_definition(f".cc-deck/workflows/{workflow_name}.yaml")
-    
+
     # 2. Initialize or load Smart Context
     context = SmartContext(workflow_name, feature_name)
     context.load_existing_state()
-    
+
     # 3. Determine starting phase
     current_phase = determine_current_phase(workflow_def, context)
-    
+
     # 4. Execute workflow phases
     while current_phase:
         phase_def = workflow_def.phases[current_phase]
-        
+
         # Phase-specific execution
         if phase_def.type == "task_driven":
             result = execute_task_driven_phase(phase_def, context)
         elif phase_def.type == "conditional":
             current_phase = evaluate_conditional_branch(phase_def, context)
             continue
+        elif phase_def.type == "interactive_selection":
+            current_phase = execute_interactive_selection(phase_def, context)
+            continue
         else:
             result = execute_standard_phase(phase_def, context)
-        
+
         # Update context and handle results
         context.update_phase_output(current_phase, result)
-        
+
         # Handle approvals if required
         if phase_def.approval_required:
             approval = handle_approval_workflow(current_phase, result)
             if not approval.approved:
                 return handle_rejection_feedback(approval, context)
-        
+
         # Progress to next phase
         current_phase = determine_next_phase(phase_def, context)
         context.save_state()
-    
+
     return generate_completion_report(context)
+
+def execute_interactive_selection(phase_def, context):
+    """Execute interactive selection phase with user prompts"""
+    if not phase_def.get("prompt_user", False):
+        # If auto-select conditions are met, use automatic selection
+        auto_select = phase_def.get("auto_select", {})
+        if auto_select.get("condition") and evaluate_condition(auto_select["condition"], context):
+            selected_option = auto_select["selection"]
+            # Find the matching option
+            for option in phase_def.options:
+                if option["id"] == selected_option:
+                    context.update_selection_result(phase_def["name"], option)
+                    return option["next_phase"]
+    
+    # Build interactive prompt
+    prompt = f"\n{'='*60}\n"
+    prompt += f"📋 {phase_def['description']}\n"
+    prompt += f"{'='*60}\n\n"
+    
+    # Add context-based recommendations
+    selection_context = phase_def.get("selection_context", {})
+    for key, condition in selection_context.items():
+        if evaluate_condition(condition, context):
+            if key == "tdd_recommended":
+                prompt += "🔴 TDD approach is RECOMMENDED for this project based on:\n"
+                prompt += "   • High complexity or security-critical requirements detected\n\n"
+            elif key == "standard_suitable":
+                prompt += "⚡ Standard approach is SUITABLE for this project based on:\n"
+                prompt += "   • Rapid prototyping or simple CRUD requirements detected\n\n"
+    
+    # Display options
+    prompt += "Available implementation approaches:\n\n"
+    for i, option in enumerate(phase_def.options, 1):
+        prompt += f"{i}. **{option['name']}**\n"
+        prompt += f"   {option['description']}\n"
+        
+        if option.get("recommended_when"):
+            prompt += f"   📌 Recommended when:\n"
+            for item in option["recommended_when"]:
+                prompt += f"      • {item}\n"
+        
+        if option.get("benefits"):
+            prompt += f"   ✅ Benefits:\n"
+            for item in option["benefits"]:
+                prompt += f"      • {item}\n"
+        prompt += "\n"
+    
+    prompt += "Please select an approach (1 or 2): "
+    
+    # Present to user and get selection
+    print(prompt)
+    try:
+        selection = int(input()) - 1
+        if 0 <= selection < len(phase_def.options):
+            selected_option = phase_def.options[selection]
+            context.update_selection_result(phase_def["name"], selected_option)
+            
+            print(f"\n✅ Selected: {selected_option['name']}")
+            print(f"Proceeding to: {selected_option['next_phase']}")
+            
+            return selected_option["next_phase"]
+        else:
+            print("❌ Invalid selection. Defaulting to first option.")
+            selected_option = phase_def.options[0]
+            context.update_selection_result(phase_def["name"], selected_option)
+            return selected_option["next_phase"]
+    except (ValueError, KeyboardInterrupt):
+        print("❌ Invalid input. Defaulting to first option.")
+        selected_option = phase_def.options[0]
+        context.update_selection_result(phase_def["name"], selected_option)
+        return selected_option["next_phase"]
 
 def execute_task_driven_phase(phase_def, context):
     """Execute tasks.md based implementation phase"""
     tasks_file = phase_def.source.replace("${feature_name}", context.feature_name)
-    
+
     if not file_exists(tasks_file):
         return {"error": f"Tasks file not found: {tasks_file}"}
-    
+
     tasks = parse_tasks_md(tasks_file)
     incomplete_tasks = [t for t in tasks if not t.completed]
-    
+
     execution_strategy = phase_def.execution_strategy
     if execution_strategy.type == "sequential_with_parallel_groups":
         return execute_parallel_task_groups(incomplete_tasks, phase_def, context)
@@ -991,11 +1067,11 @@ def execute_task_driven_phase(phase_def, context):
 def execute_sequential_tasks(tasks, phase_def, context):
     """Execute tasks sequentially with agent selection"""
     results = []
-    
+
     for task in tasks:
         # Intelligent agent selection based on task content
         selected_agent = select_agent_for_task(task, phase_def)
-        
+
         # Prepare task context
         task_context = {
             "task_id": task.id,
@@ -1004,14 +1080,14 @@ def execute_sequential_tasks(tasks, phase_def, context):
             "project_context": context.get_relevant_context(),
             "previous_results": results[-3:]  # Last 3 results for context
         }
-        
+
         # Execute task with selected agent
         task_result = Task(
             subagent_type=selected_agent,
             description=f"Execute task {task.id}",
             prompt=build_task_prompt(task, task_context)
         )
-        
+
         # Process results and update task status
         if task_result.success:
             update_task_checkbox(tasks_file, task.id, completed=True)
@@ -1022,13 +1098,13 @@ def execute_sequential_tasks(tasks, phase_def, context):
                 "files_created": task_result.files_created,
                 "timestamp": datetime.now().isoformat()
             })
-            
+
             # Create checkpoint every 5 tasks
             if len(results) % 5 == 0:
                 create_workflow_checkpoint(context, f"task_{task.id}_completed")
         else:
             return handle_task_failure(task, task_result, context)
-    
+
     return {
         "phase": "implementation",
         "status": "completed",
@@ -1040,35 +1116,67 @@ def select_agent_for_task(task, phase_def):
     """Select appropriate agent based on task content"""
     agent_rules = phase_def.task_execution.agent_selection_rules
     task_desc_lower = task.description.lower()
-    
+
     for rule in agent_rules:
         if "pattern" in rule:
             import re
             if re.search(rule.pattern, task_desc_lower):
                 return rule.agent
-    
+
     return phase_def.task_execution.default_agent
+
+def evaluate_condition(condition_str, context):
+    """Evaluate a condition string against the context"""
+    try:
+        # Simple condition evaluation - in production this should be more secure
+        # Replace context references with actual values
+        context_data = context.data.get("context_data", {})
+        
+        # Replace common patterns
+        condition_str = condition_str.replace("context.complexity === 'high'", 
+                                            str(context_data.get("complexity") == "high"))
+        condition_str = condition_str.replace("context.security_critical === true",
+                                            str(context_data.get("security_critical") == True))
+        condition_str = condition_str.replace("context.financial_system === true",
+                                            str(context_data.get("financial_system") == True))
+        condition_str = condition_str.replace("context.rapid_prototype === true",
+                                            str(context_data.get("rapid_prototype") == True))
+        condition_str = condition_str.replace("context.simple_crud === true",
+                                            str(context_data.get("simple_crud") == True))
+        condition_str = condition_str.replace("context.implementation_approach !== undefined",
+                                            str(context_data.get("implementation_approach") is not None))
+        condition_str = condition_str.replace("context.implementation_approach",
+                                            f"'{context_data.get('implementation_approach', '')}'")
+        
+        # Handle OR conditions
+        condition_str = condition_str.replace(" OR ", " or ")
+        
+        # Evaluate the condition
+        return eval(condition_str)
+    except Exception as e:
+        print(f"Warning: Failed to evaluate condition '{condition_str}': {e}")
+        return False
 
 def load_workflow_definition(workflow_path):
     """Load and validate workflow definition"""
     if not file_exists(workflow_path):
         raise WorkflowDefinitionError(f"Workflow definition not found: {workflow_path}")
-    
+
     try:
         import yaml
         with open(workflow_path, 'r') as f:
             workflow_def = yaml.safe_load(f)
-        
+
         # Basic validation
         validate_workflow_definition(workflow_def)
         return workflow_def
-        
+
     except Exception as e:
         raise WorkflowDefinitionError(f"Invalid workflow definition: {e}")
 
 class SmartContext:
     """Smart Context management for workflow state and agent communication"""
-    
+
     def __init__(self, workflow_name, feature_name=None):
         self.workflow_name = workflow_name
         self.feature_name = feature_name or "default"
@@ -1085,7 +1193,7 @@ class SmartContext:
             "task_progress": {},
             "context_data": {}
         }
-    
+
     def load_existing_state(self):
         """Load existing workflow state if available"""
         if file_exists(self.context_file):
@@ -1099,26 +1207,26 @@ class SmartContext:
                 # If context file is corrupted, start fresh but log the issue
                 log_warning(f"Could not load existing context: {e}")
         return False
-    
+
     def save_state(self):
         """Persist current workflow state"""
         ensure_directory_exists(os.path.dirname(self.context_file))
         self.data["updated_at"] = datetime.now().isoformat()
-        
+
         try:
             with open(self.context_file, 'w') as f:
                 import json
                 json.dump(self.data, f, indent=2)
         except Exception as e:
             log_error(f"Failed to save workflow context: {e}")
-    
+
     def update_phase_output(self, phase_name, output):
         """Update context with phase execution results"""
         self.data["phase_outputs"][phase_name] = output
         if phase_name not in self.data["completed_phases"]:
             self.data["completed_phases"].append(phase_name)
         self.data["current_phase"] = phase_name
-    
+
     def get_relevant_context(self):
         """Get context relevant for current task execution"""
         return {
@@ -1130,6 +1238,24 @@ class SmartContext:
             "completed_phases": self.data["completed_phases"],
             "task_progress": self.data.get("task_progress", {})
         }
+
+    def update_selection_result(self, phase_name, selected_option):
+        """Update context with user selection results"""
+        if "user_selections" not in self.data:
+            self.data["user_selections"] = {}
+        
+        self.data["user_selections"][phase_name] = {
+            "selected_id": selected_option["id"],
+            "selected_name": selected_option["name"],
+            "next_phase": selected_option["next_phase"],
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        # Update context data for future condition evaluations
+        if selected_option["id"] == "tdd_approach":
+            self.data["context_data"]["implementation_approach"] = "tdd"
+        elif selected_option["id"] == "standard_approach":
+            self.data["context_data"]["implementation_approach"] = "standard"
 ```
 
 ### Integration with Existing Systems
@@ -1137,12 +1263,14 @@ class SmartContext:
 The CC-Deck Workflow Engine maintains full compatibility with existing orchestrator functionality:
 
 #### Kiro SDD Integration
+
 - **Preserves** existing `.kiro/` directory structure
-- **Enhances** tasks.md parsing and checkbox management  
+- **Enhances** tasks.md parsing and checkbox management
 - **Maintains** compatibility with kiro_status.json
 - **Extends** with Smart Context for cross-phase communication
 
 #### Agent Integration
+
 - **Utilizes** existing sub-agent definitions without modification
 - **Enhances** with intelligent agent selection based on task content
 - **Provides** richer context to agents through Smart Context
@@ -1155,13 +1283,13 @@ The workflow engine includes comprehensive error handling:
 ```python
 def handle_workflow_error(error, phase_name, context):
     """Handle workflow execution errors with recovery strategies"""
-    
+
     # Log error details
     log_error(f"Workflow error in phase {phase_name}: {error}")
-    
+
     # Create error checkpoint
     create_error_checkpoint(context, phase_name, error)
-    
+
     # Determine recovery strategy
     if isinstance(error, AgentExecutionError):
         return retry_agent_execution(phase_name, context)
@@ -1180,10 +1308,10 @@ def create_workflow_checkpoint(context, checkpoint_name):
         "workflow_context": context.data.copy(),
         "file_state": capture_file_checksums()
     }
-    
+
     checkpoint_file = f".cc-deck/checkpoints/{context.workflow_id}-{checkpoint_name}.json"
     ensure_directory_exists(os.path.dirname(checkpoint_file))
-    
+
     with open(checkpoint_file, 'w') as f:
         json.dump(checkpoint_data, f, indent=2)
 ```
@@ -1191,11 +1319,12 @@ def create_workflow_checkpoint(context, checkpoint_name):
 ### Usage Examples
 
 #### Basic Workflow Execution
+
 ```bash
 # Intelligent workflow selection based on project state
 /orchestrator
 
-# Explicit workflow with feature specification  
+# Explicit workflow with feature specification
 /orchestrator "kiro-sdd user-authentication-system"
 
 # Resume interrupted workflow
@@ -1203,6 +1332,7 @@ def create_workflow_checkpoint(context, checkpoint_name):
 ```
 
 #### Advanced Workflow Control
+
 ```bash
 # Force specific workflow regardless of project state
 /orchestrator "workflow:coding feature:payment-api"
@@ -1228,18 +1358,18 @@ def parse_tasks_md(tasks_file):
             content = f.read()
     except FileNotFoundError:
         return []
-    
+
     tasks = []
     current_task = None
-    
+
     for line_num, line in enumerate(content.split('\n'), 1):
-        # Match task lines with checkbox format: - [x] or - [ ] 
+        # Match task lines with checkbox format: - [x] or - [ ]
         task_match = re.match(r'^(\s*)- \[([ x])\]\s*(.+)', line)
         if task_match:
             indent = task_match.group(1)
             completed = task_match.group(2).lower() == 'x'
             description = task_match.group(3).strip()
-            
+
             # Extract task ID if present (format: "1.1 Description" or "Phase 1: Description")
             task_id_match = re.match(r'^(\d+(?:\.\d+)*)\s+(.+)', description)
             if task_id_match:
@@ -1247,13 +1377,13 @@ def parse_tasks_md(tasks_file):
                 description = task_id_match.group(2)
             else:
                 task_id = str(len(tasks) + 1)
-            
+
             # Extract requirements references (_要件: X.Y_)
             requirements = []
             req_match = re.search(r'_要件:\s*([^_]+)_', description)
             if req_match:
                 requirements = [req.strip() for req in req_match.group(1).split(',')]
-            
+
             task = {
                 'id': task_id,
                 'description': description,
@@ -1263,10 +1393,10 @@ def parse_tasks_md(tasks_file):
                 'requirements': requirements,
                 'subtasks': []
             }
-            
+
             tasks.append(task)
             current_task = task
-    
+
     return tasks
 
 def update_task_checkbox(tasks_file, task_id, completed=True):
@@ -1276,10 +1406,10 @@ def update_task_checkbox(tasks_file, task_id, completed=True):
             lines = f.readlines()
     except FileNotFoundError:
         return False
-    
+
     checkbox = '[x]' if completed else '[ ]'
     updated = False
-    
+
     for i, line in enumerate(lines):
         # Match task line with the specific task ID
         if re.match(rf'^(\s*)- \[[x ]\]\s*{re.escape(task_id)}\s', line):
@@ -1287,7 +1417,7 @@ def update_task_checkbox(tasks_file, task_id, completed=True):
             lines[i] = re.sub(r'^(\s*)- \[[x ]\]', rf'\1- {checkbox}', line)
             updated = True
             break
-    
+
     if updated:
         try:
             with open(tasks_file, 'w', encoding='utf-8') as f:
@@ -1295,7 +1425,7 @@ def update_task_checkbox(tasks_file, task_id, completed=True):
             return True
         except Exception as e:
             log_error(f"Failed to update task checkbox: {e}")
-    
+
     return False
 
 def build_task_prompt(task, task_context):
@@ -1319,10 +1449,10 @@ def build_task_prompt(task, task_context):
 
 ### Previous Task Results (Last 3)
 """
-    
+
     for result in task_context.get('previous_results', [])[-3:]:
         prompt += f"\n- **{result['task_id']}**: {result['result'].get('summary', 'Task completed')}"
-    
+
     prompt += f"""
 
 ## Instructions
@@ -1335,28 +1465,28 @@ def build_task_prompt(task, task_context):
 
 ## Expected Output
 - **Files created/modified**: List any files you create or modify
-- **Tests run**: Describe any tests executed and their results  
+- **Tests run**: Describe any tests executed and their results
 - **Summary**: Brief description of what was accomplished
 - **Next recommendations**: Any suggestions for subsequent tasks
 
 Please proceed with implementing this task.
 """
-    
+
     return prompt
 
 def determine_current_phase(workflow_def, context):
     """Determine the current phase based on workflow definition and context"""
     completed_phases = context.data.get('completed_phases', [])
-    
+
     if not completed_phases:
         # Start with first phase
         return workflow_def['phases'][0]['name']
-    
+
     # Find next uncompleted phase
     for phase in workflow_def['phases']:
         if phase['name'] not in completed_phases:
             return phase['name']
-    
+
     # All phases completed
     return None
 
@@ -1364,16 +1494,16 @@ def determine_next_phase(phase_def, context):
     """Determine next phase based on current phase definition and context"""
     if 'next_phase' in phase_def:
         return phase_def['next_phase']
-    
+
     # Find current phase in workflow and return next one
     workflow_def = context.workflow_def
     current_phase_name = phase_def['name']
-    
+
     for i, phase in enumerate(workflow_def['phases']):
         if phase['name'] == current_phase_name:
             if i + 1 < len(workflow_def['phases']):
                 return workflow_def['phases'][i + 1]['name']
-    
+
     return None
 
 def file_exists(file_path):
@@ -1400,10 +1530,10 @@ def validate_workflow_definition(workflow_def):
     for field in required_fields:
         if field not in workflow_def:
             raise ValueError(f"Missing required field: {field}")
-    
+
     if not isinstance(workflow_def['phases'], list) or len(workflow_def['phases']) == 0:
         raise ValueError("Workflow must have at least one phase")
-    
+
     for phase in workflow_def['phases']:
         if 'name' not in phase:
             raise ValueError("Each phase must have a name")
@@ -1420,13 +1550,13 @@ The orchestrator's main execution logic now incorporates workflow engine detecti
 ```python
 def main_orchestrator_logic(arguments=None):
     """Main orchestrator execution with CC-Deck Workflow Engine integration"""
-    
+
     # Parse arguments for workflow hints
     workflow_hint, feature_name = parse_orchestrator_arguments(arguments)
-    
+
     # Analyze project state
     project_state = analyze_project_state()
-    
+
     # Determine if workflow engine should be used
     if should_use_workflow_engine(workflow_hint, project_state):
         # Route to CC-Deck Workflow Engine
@@ -1440,9 +1570,9 @@ def parse_orchestrator_arguments(arguments):
     """Parse orchestrator arguments for workflow and feature information"""
     if not arguments:
         return None, None
-    
+
     args = str(arguments).lower()
-    
+
     # Extract workflow hints
     workflow_hint = None
     if any(keyword in args for keyword in ['kiro', 'sdd', 'spec']):
@@ -1453,21 +1583,21 @@ def parse_orchestrator_arguments(arguments):
         workflow_hint = 'refactoring'
     elif any(keyword in args for keyword in ['test', 'testing', 'quality']):
         workflow_hint = 'testing'
-    
+
     # Extract feature name (simple heuristic)
     # Look for common feature naming patterns
     feature_patterns = [
         r'(?:feature[:\s]+)?([a-z][a-z0-9-]+(?:-[a-z][a-z0-9-]*)*)',
         r'([a-z][a-z0-9]+(?:[A-Z][a-z0-9]*)*)',  # camelCase
     ]
-    
+
     feature_name = None
     for pattern in feature_patterns:
         match = re.search(pattern, arguments, re.IGNORECASE)
         if match:
             feature_name = match.group(1).lower().replace(' ', '-')
             break
-    
+
     return workflow_hint, feature_name
 
 def should_use_workflow_engine(workflow_hint, project_state):
@@ -1475,21 +1605,21 @@ def should_use_workflow_engine(workflow_hint, project_state):
     # Use workflow engine if explicitly requested
     if workflow_hint:
         return True
-    
+
     # Use workflow engine for complex project states
     complexity_indicators = [
         project_state.get('has_kiro_specs', False),
         project_state.get('multiple_active_features', False),
         project_state.get('requires_multi_agent_coordination', False)
     ]
-    
+
     return any(complexity_indicators)
 
 def select_workflow(workflow_hint, project_state):
     """Select appropriate workflow based on hints and project analysis"""
     if workflow_hint:
         return f"{workflow_hint}-workflow"
-    
+
     # Default workflow selection based on project state
     if project_state.get('has_kiro_specs'):
         return 'kiro-sdd-workflow'
@@ -1509,7 +1639,7 @@ def analyze_project_state():
         'needs_implementation': False,
         'multiple_active_features': False
     }
-    
+
     # Check for incomplete tasks
     if state['has_kiro_specs']:
         for spec_dir in glob_pattern('.kiro/specs/*'):
@@ -1520,7 +1650,7 @@ def analyze_project_state():
                     state['has_incomplete_tasks'] = True
                     state['needs_implementation'] = True
                     break
-    
+
     return state
 
 def glob_pattern(pattern):

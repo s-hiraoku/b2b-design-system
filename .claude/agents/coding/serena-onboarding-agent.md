@@ -20,6 +20,14 @@ Ensure Serena MCP has comprehensive understanding of the project context, coding
 
 ## Onboarding Process
 
+This agent supports two distinct onboarding modes for different implementation approaches:
+
+### Mode Detection
+The agent automatically detects the required onboarding mode based on the workflow context:
+- **TDD Mode**: When invoked from `tdd_serena_onboarding` phase
+- **Standard Mode**: When invoked from `standard_serena_onboarding` phase
+- **Auto Mode**: Detects based on context parameters or prompts user for clarification
+
 ### Phase 1: Initial Setup
 ```bash
 # 1. Execute Serena MCP initialization
@@ -32,21 +40,49 @@ mcp__serena__list_memories
 mcp__serena__get_symbols_overview
 ```
 
-### Phase 2: Project Context Establishment
-1. **Codebase Analysis**
+### Phase 2: Mode-Specific Context Establishment
+
+#### TDD Mode Configuration
+When operating in TDD mode, establish Test-Driven Development patterns:
+
+1. **TDD-Specific Analysis**
+   - Identify existing test structures and patterns
+   - Analyze test naming conventions (AAA, Given-When-Then)
+   - Document test organization and directory structure
+   - Review mock/stub patterns and testing utilities
+
+2. **TDD Memory Creation**
+   - Store TDD-specific patterns: Red-Green-Refactor workflows
+   - Record test-first development conventions
+   - Establish TDD quality standards (test coverage, test quality)
+   - Document TDD tool preferences (Jest, Mocha, pytest, etc.)
+
+3. **TDD Pattern Recognition**
+   - Test case structure and organization patterns
+   - Test naming conventions and descriptive patterns
+   - Mock/spy usage patterns and dependency injection
+   - Test data setup and teardown patterns
+
+#### Standard Mode Configuration
+When operating in Standard mode, focus on traditional development patterns:
+
+1. **Standard Analysis**
    - Analyze existing code structure and patterns
    - Identify architectural conventions and design patterns
    - Document coding standards and style preferences
+   - Review implementation-first development patterns
 
-2. **Memory Creation**
+2. **Standard Memory Creation**
    - Store project-specific development patterns
    - Record team coding conventions and best practices
    - Establish quality standards and acceptance criteria
+   - Document refactoring and code review processes
 
-3. **Pattern Recognition**
+3. **Standard Pattern Recognition**
    - Identify common code patterns and structures
    - Document naming conventions and organization principles
    - Record technology stack and framework usage patterns
+   - Analyze error handling and logging patterns
 
 ### Phase 3: Validation and Testing
 ```bash
@@ -70,18 +106,53 @@ mcp__serena__find_symbol --query "main patterns"
 - **Technology Context**: Framework versions, library preferences, and integration patterns
 
 ### Serena Memory Structure
+
+#### TDD Mode Memory Structure
 ```json
 {
   "project_overview": {
     "name": "Project Name",
     "type": "Web Application / Library / Service",
     "architecture": "MVC / Microservices / Monolith",
-    "primary_language": "JavaScript / Python / Java / etc."
+    "primary_language": "JavaScript / Python / Java / etc.",
+    "development_mode": "test_driven"
+  },
+  "tdd_standards": {
+    "test_framework": "Jest / Mocha / pytest / JUnit",
+    "test_structure": "AAA / Given-When-Then / Arrange-Act-Assert",
+    "naming_conventions": "descriptive test names / should_when_given",
+    "test_organization": "co-located / separate test directories",
+    "coverage_requirements": "minimum percentage and quality standards"
+  },
+  "tdd_patterns": {
+    "red_phase": ["failing test creation", "compilation requirements"],
+    "green_phase": ["minimal implementation", "make tests pass"],
+    "refactor_phase": ["code improvement", "pattern extraction"],
+    "cycle_enforcement": "strict / flexible timing and validation"
+  },
+  "test_utilities": {
+    "mocking_framework": "Jest mocks / Sinon / unittest.mock",
+    "assertion_library": "native / Chai / Hamcrest",
+    "test_data_patterns": "fixtures / factories / builders",
+    "setup_teardown": "beforeEach / afterEach patterns"
+  }
+}
+```
+
+#### Standard Mode Memory Structure
+```json
+{
+  "project_overview": {
+    "name": "Project Name",
+    "type": "Web Application / Library / Service",
+    "architecture": "MVC / Microservices / Monolith",
+    "primary_language": "JavaScript / Python / Java / etc.",
+    "development_mode": "standard"
   },
   "coding_standards": {
     "naming_conventions": "camelCase / snake_case / PascalCase",
     "file_organization": "feature-based / layer-based",
-    "testing_approach": "TDD / BDD / Integration-first",
+    "testing_approach": "post-implementation / integration-first",
     "documentation_style": "JSDoc / Sphinx / etc."
   },
   "development_patterns": {

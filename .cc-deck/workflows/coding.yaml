@@ -51,56 +51,85 @@ phases:
     success_criteria:
       - architecture_documented: true
       - implementation_plan_created: true
-    next_phase: implementation_choice
+    next_phase: serena_onboarding
 
-  # Phase 3: Implementation Approach Selection
-  - name: implementation_choice
-    type: conditional
-    description: "Choose between TDD or standard implementation"
-    condition: context.requires_tdd
-    branches:
-      tdd_approach:
-        condition: "context.requires_tdd === true OR context.complexity === 'high' OR context.security_critical === true"
-        next_phase: tdd_implementation
-      standard_approach:
-        condition: "default"
-        next_phase: implementation
-
-  # Phase 4a: TDD Implementation
-  - name: tdd_implementation
-    agent: tdd-agent
-    description: "Test-Driven Development following t-wada methodology"
+  # Phase 3: TDD Serena Onboarding & Environment Setup
+  - name: serena_onboarding
+    agent: serena-onboarding-agent
+    description: "Initialize Serena MCP and establish TDD development environment"
     inputs: [planning_context, research_context]
     outputs:
-      - implementation_context
+      - serena_context
+      - tdd_patterns
+      - coding_standards
+      - test_environment_config
+    configuration:
+      development_mode: "test_driven"
+      tdd_focus: true
+      pattern_preferences:
+        - "AAA pattern for tests (Arrange-Act-Assert)"
+        - "Given-When-Then structure for BDD"
+        - "Descriptive test names"
+        - "Red-Green-Refactor enforcement"
+    success_criteria:
+      - serena_initialized: true
+      - tdd_patterns_established: true
+      - test_framework_ready: true
+    next_phase: tdd_cycle
+
+  # Phase 4: TDD Red-Green-Refactor Cycle
+  - name: tdd_cycle
+    agent: tdd-agent
+    description: "Execute strict TDD Red-Green-Refactor cycles following t-wada methodology"
+    inputs: [serena_context, planning_context, tdd_patterns]
+    outputs:
       - test_suite
+      - minimal_implementations
+      - refactored_code
+      - tdd_cycles_log
+    tdd_methodology:
+      strict_mode: true
+      cycle_enforcement: true
+      test_first_only: true
+      red_phase_validation: true
+      green_phase_minimal: true
+      refactor_phase_mandatory: true
+    success_criteria:
+      - all_cycles_complete: true
+      - tests_written_first: true
+      - minimal_implementation_achieved: true
+      - refactoring_applied: true
+      - zero_failing_tests: true
+    next_phase: full_implementation
+
+  # Phase 5: Complete TDD-Based Implementation
+  - name: full_implementation
+    agent: implementation-agent
+    description: "Build complete implementation on TDD foundation"
+    inputs: [test_suite, minimal_implementations, serena_context, refactored_code]
+    outputs:
+      - implementation_context
       - production_code
-    tdd_cycle:
-      red_phase: write_failing_test
-      green_phase: minimal_implementation
-      refactor_phase: improve_code_quality
+      - edge_case_handling
+      - performance_optimizations
+    implementation_approach: "tdd_completion"
+    implementation_focus:
+      - "Maintain ALL existing tests in passing state"
+      - "Expand functionality while preserving test coverage"
+      - "Add comprehensive error handling and edge cases"
+      - "Optimize performance without breaking tests"
+      - "Ensure production readiness and maintainability"
+    mcp_integrations:
+      - serena: "TDD-aware production code generation"
     success_criteria:
       - all_tests_passing: true
-      - code_coverage: ">= 90%"
-      - refactoring_complete: true
+      - code_coverage: ">= 95%"
+      - production_ready: true
+      - performance_optimized: true
+      - edge_cases_handled: true
     next_phase: testing
 
-  # Phase 4b: Standard Implementation
-  - name: implementation
-    agent: implementation-agent
-    description: "Standard implementation with Serena MCP integration"
-    inputs: [planning_context, research_context]
-    outputs:
-      - implementation_context
-      - code_artifacts
-    mcp_integrations:
-      - serena: "High-quality code generation"
-    success_criteria:
-      - implementation_complete: true
-      - code_quality_check: passed
-    next_phase: testing
-
-  # Phase 5: Testing
+  # Phase 6: Testing
   - name: testing
     agent: testing-agent
     description: "Comprehensive testing strategy"
@@ -118,7 +147,7 @@ phases:
       - coverage_threshold_met: true
     next_phase: documentation
 
-  # Phase 6: Documentation
+  # Phase 7: Documentation
   - name: documentation
     agent: documentation-agent
     description: "Generate comprehensive documentation"
