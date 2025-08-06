@@ -1,46 +1,66 @@
 # CC-Deck Workflow Engine
 
-## Overview
-CC-Deck (Claude Code Deck) workflow orchestration system implementing Workflow Composition Pattern + Smart Context Propagation to realize the ARCHITECTURE.md design.
+## 📁 フォルダ構造
 
-## Directory Structure
+### 🔧 config/ - 永続設定ファイル
+**バージョン管理対象・プロジェクト定義ファイル**
+- `workflows/` - YAMLワークフロー定義（6つのメインワークフロー）
+- `engine/` - エンジン設定・コア機能ドキュメント
 
-```
-.cc-deck/
-├── workflows/          # Workflow definition files
-│   ├── kiro-sdd.yaml   # Kiro SDD integration workflow
-│   ├── coding.yaml     # Comprehensive coding workflow
-│   ├── refactoring.yaml
-│   └── testing.yaml
-├── context/            # Smart Context storage
-│   ├── workflow-states.json
-│   └── feature-contexts/
-├── checkpoints/        # Recovery checkpoints
-├── engine/             # Workflow engine implementation
-│   ├── workflow-engine.md
-│   └── task-integration.md
-└── README.md
-```
+### 🏃 runtime/ - 実行時動的ファイル
+**実行時生成・セッション管理・gitignore推奨**
+- `context/` - Smart Context状態管理・エージェント間コンテキスト共有
+- `sessions/` - セッション別実行履歴・ワークフロー実行ログ
+- `checkpoints/` - 実行チェックポイント・復旧ポイント管理
+- `logs/` - 詳細実行ログ・デバッグ情報・エラートレース
 
-## Purpose
+### 📝 templates/ - テンプレートファイル
+**新規プロジェクト・カスタマイズ用テンプレート**
+- `workflows/` - ワークフローテンプレート・新規ワークフロー雛形
+- `configs/` - 設定テンプレート・初期設定サンプル
 
-This directory contains the workflow orchestration system that enables:
+### 📚 docs/ - CC-Deck専用ドキュメント
+**設計・利用ガイド・開発文書**
+- `design/` - 設計ドキュメント・アーキテクチャ仕様
+- `guides/` - 利用ガイド・チュートリアル・ベストプラクティス
 
-1. **Workflow Composition**: Hierarchical workflow definitions with phase management
-2. **Smart Context Propagation**: Context sharing between agents and phases  
-3. **Kiro SDD Integration**: Seamless integration with `.kiro/specs/*/tasks.md` files
-4. **Agent Orchestration**: Intelligent agent selection and delegation
-5. **State Management**: Persistent workflow state and recovery capabilities
+## 🚀 エージェント実行ファイル配置ルール
 
-## Integration with Kiro SDD
+### 永続ファイル → config/ 配下
+- ワークフロー定義 → `config/workflows/`
+- エンジン設定 → `config/engine/`
 
-The CC-Deck workflow engine integrates with Kiro SDD by:
+### 実行時ファイル → runtime/ 配下
+- コンテキスト状態 → `runtime/context/`
+- セッション履歴 → `runtime/sessions/`
+- チェックポイント → `runtime/checkpoints/`
+- 実行ログ → `runtime/logs/`
 
-- Respecting the `.kiro/` directory structure for specifications
-- Reading and updating `tasks.md` files for implementation tracking
-- Using `kiro_status.json` for phase management
-- Maintaining separation between SDD process and orchestration logic
+## 🔍 ファイル分類の判断基準
 
-## Usage
+### ✅ 永続ファイル（config/配下）
+- **定義ファイル**: YAML、設定、スキーマ
+- **テンプレート**: 再利用可能な雛形
+- **ドキュメント**: 設計書、仕様書
+- **バージョン管理**: Git追跡必要
 
-The workflow engine is integrated into `/orchestrator` command and operates transparently to provide the advanced orchestration capabilities described in `docs/ARCHITECTURE.md`.
+### 🏃 実行時ファイル（runtime/配下）
+- **状態管理**: コンテキスト、セッション
+- **一時ファイル**: ログ、キャッシュ、作業ファイル
+- **動的生成**: 実行中作成・更新ファイル
+- **バージョン管理**: Git無視推奨
+
+## 📋 利用方法
+
+1. **設定確認**: `config/workflows/` でワークフロー定義確認
+2. **実行開始**: `/orchestrator` でワークフロー実行
+3. **状態確認**: `runtime/context/` で実行状態確認
+4. **ログ確認**: `runtime/logs/` で詳細ログ確認
+5. **復旧**: `runtime/checkpoints/` からチェックポイント復旧
+
+## 🛠️ メンテナンス
+
+- **config/**: 定期バックアップ・バージョン管理
+- **runtime/**: 定期クリーンアップ・容量監視
+- **templates/**: 新機能追加時テンプレート更新
+- **docs/**: ドキュメント定期更新・最新化

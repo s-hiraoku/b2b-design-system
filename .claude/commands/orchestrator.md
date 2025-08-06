@@ -866,7 +866,7 @@ The orchestrator now integrates with the CC-Deck Workflow Engine to provide adva
 
 #### Workflow-Driven Execution
 
-When complex workflows are detected or explicitly requested, the orchestrator leverages workflow definitions from `.cc-deck/workflows/` to execute sophisticated multi-agent processes:
+When complex workflows are detected or explicitly requested, the orchestrator leverages workflow definitions from `.cc-deck/config/workflows/` to execute sophisticated multi-agent processes:
 
 ```bash
 # Workflow-driven execution examples
@@ -880,7 +880,7 @@ When complex workflows are detected or explicitly requested, the orchestrator le
 
 The orchestrator maintains workflow context across agent executions using the Smart Context system:
 
-- **Context Persistence**: Workflow state saved in `.cc-deck/context/`
+- **Context Persistence**: Workflow state saved in `.cc-deck/runtime/context/`
 - **Cross-Agent Communication**: Results propagated between agents automatically
 - **Resume Capability**: Interrupted workflows can be resumed from checkpoints
 - **Progress Tracking**: Real-time visibility into workflow progression
@@ -914,7 +914,7 @@ The CC-Deck integration follows a **gradual enhancement approach**:
 
 #### Phase 1: Basic Workflow Engine (Current)
 
-- Load and parse workflow definitions from `.cc-deck/workflows/`
+- Load and parse workflow definitions from `.cc-deck/config/workflows/`
 - Implement Smart Context for state management
 - Basic sequential phase execution with agent delegation
 
@@ -937,7 +937,7 @@ When workflow execution is triggered, the orchestrator implements the following 
 ```python
 def execute_workflow_engine(workflow_name, feature_name, arguments):
     # 1. Load workflow definition
-    workflow_def = load_workflow_definition(f".cc-deck/workflows/{workflow_name}.yaml")
+    workflow_def = load_workflow_definition(f".cc-deck/config/workflows/{workflow_name}.yaml")
 
     # 2. Initialize or load Smart Context
     context = SmartContext(workflow_name, feature_name)
@@ -1181,7 +1181,7 @@ class SmartContext:
         self.workflow_name = workflow_name
         self.feature_name = feature_name or "default"
         self.workflow_id = f"{workflow_name}-{self.feature_name}-{datetime.now().strftime('%Y%m%d')}"
-        self.context_file = f".cc-deck/context/active/{self.workflow_id}.json"
+        self.context_file = f".cc-deck/runtime/context/{self.workflow_id}.json"
         self.data = {
             "workflow_name": workflow_name,
             "feature_name": self.feature_name,
@@ -1309,7 +1309,7 @@ def create_workflow_checkpoint(context, checkpoint_name):
         "file_state": capture_file_checksums()
     }
 
-    checkpoint_file = f".cc-deck/checkpoints/{context.workflow_id}-{checkpoint_name}.json"
+    checkpoint_file = f".cc-deck/runtime/checkpoints/{context.workflow_id}-{checkpoint_name}.json"
     ensure_directory_exists(os.path.dirname(checkpoint_file))
 
     with open(checkpoint_file, 'w') as f:

@@ -1,0 +1,24 @@
+# CC-Deck Runtime Files
+# These files are generated during workflow execution and should not be version controlled
+
+# Runtime execution files
+runtime/context/*
+runtime/sessions/*
+runtime/checkpoints/*
+runtime/logs/*
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Session-specific files
+session-*.json
+context-*.json
+checkpoint-*.json
+
+# Exception: Keep directory structure
+!runtime/context/.gitkeep
+!runtime/sessions/.gitkeep
+!runtime/checkpoints/.gitkeep
+!runtime/logs/.gitkeep

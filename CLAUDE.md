@@ -27,6 +27,7 @@ See [docs/ATTRIBUTION.md](docs/ATTRIBUTION.md) for detailed acknowledgments.
 All specifications are stored in the `.kiro/specs/` directory:
 
 - `tetris-game` - クラシックなテトリスゲームのWebブラウザ実装 (初期化済み)
+- `todo-app` - Modern web-based TODO application with task management, filtering, and persistent storage (初期化済み)
 
 ## Project Structure
 
