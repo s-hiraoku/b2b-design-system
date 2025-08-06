@@ -12,6 +12,15 @@ The following steering documents are active and provide project context (stored 
 - `.kiro/steering/tech.md` - Technology stack, development environment, and architecture
 - `.kiro/steering/structure.md` - Project structure, code organization, and development guidelines
 
+## Attribution
+
+This project substantially references:
+- **gotalab/claude-code-spec** - Core SDD methodology and workflow patterns
+- **mizchi/similarity** - Code similarity analysis tools (MIT License)
+- **t-wada** - TDD methodology and best practices
+
+See [docs/ATTRIBUTION.md](docs/ATTRIBUTION.md) for detailed acknowledgments.
+
 ## Active Specifications
 
 All specifications are stored in the `.kiro/specs/` directory:

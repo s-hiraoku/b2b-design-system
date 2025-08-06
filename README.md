@@ -6,7 +6,7 @@
 
 CC-Deck は、Claude Code を中心とした包括的な開発ワークフローを自動化する AI 駆動開発プラットフォームです。Kiro SDD（Specification-Driven Development）プロセスを採用し、要件定義から実装まで一貫した開発体験を提供します。
 
-> **Kiro SDD について**: 本プロジェクトの仕様駆動開発（SDD）プロセスは [gotalab/claude-code-spec](https://github.com/gotalab/claude-code-spec) を参考に設計・実装されています。
+> **Kiro SDD について**: 本プロジェクトの仕様駆動開発（SDD）プロセスは [gotalab/claude-code-spec](https://github.com/gotalab/claude-code-spec) のアプローチに大きく基づいています。ディレクトリ構造、フェーズベース開発、仕様ファイル構成などの中核的な概念は同プロジェクトから採用し、Claude Code統合やマルチエージェントシステムなどの拡張機能を追加しています。
 
 ## ✨ 主要機能
 
@@ -197,7 +197,7 @@ graph LR
 
 - **refactoring**: 統合管理
 - **serena-mcp-refactoring**: Serena MCP 専用
-- **similarity-refactoring**: 重複パターン統合 ([mizchi/similarity](https://github.com/mizchi/similarity) ベース)
+- **similarity-refactoring**: 重複パターン統合 ([mizchi/similarity](https://github.com/mizchi/similarity) ライブラリ統合)
 - **code-analyzer**: 構造・依存関係分析
 - **pattern-detector**: パターン検出
 - **quality-validator**: 品質検証
@@ -248,6 +248,26 @@ graph LR
 詳細なアーキテクチャ図は **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** を参照してください。
 
 ## 🚀 クイックスタート
+
+### セットアップ
+
+1. **依存関係のインストール**:
+   ```bash
+   npm install
+   ```
+   
+   または
+   
+   ```bash
+   yarn install
+   ```
+
+2. **Similarity ツールのインストール** (TypeScript プロジェクト用):
+   ```bash
+   cargo install similarity-ts
+   ```
+
+2. **Claude Code環境**: このプロジェクトはClaude Code環境で動作します。
 
 ### 基本的な使用方法
 
@@ -354,6 +374,8 @@ CC-Deck は 8 段階の開発プロセスを自動化し、全段階で TDD（Te
 詳細なドキュメントは `docs/` ディレクトリにあります：
 
 - **[ARCHITECTURE.md](docs/ARCHITECTURE.md)**: システムアーキテクチャの詳細
+- **[ATTRIBUTION.md](docs/ATTRIBUTION.md)**: 参照プロジェクトと謝辞
+- **[INSTALLATION.md](docs/INSTALLATION.md)**: インストールガイド
 - **[claude-code/](docs/claude-code/)**: Claude Code 統合ガイド
 - **[kiro/](docs/kiro/)**: Kiro SDD 方法論とサンプル
 
@@ -415,6 +437,10 @@ CC-Deck は継続的に進化するプラットフォームです。新しいエ
 ## 📄 ライセンス
 
 このプロジェクトは [MIT License](LICENSE) の下で公開されています。
+
+- **参照プロジェクトの詳細**: [ATTRIBUTION.md](docs/ATTRIBUTION.md)
+- **サードパーティライセンス**: [LICENSES.md](LICENSES.md)
+- **プロジェクトの独自性**: [ORIGINALITY.md](ORIGINALITY.md)
 
 ---
 

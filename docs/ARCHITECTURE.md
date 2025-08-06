@@ -4,7 +4,7 @@
 
 CC-Deck (Claude Code Deck) は、Claude Code を活用した包括的な AI Driven Development プラットフォームです。43の専門サブエージェントとカスタムコマンドを組み合わせて、仕様駆動開発から実装、テスト、デプロイまで完全自動化された開発ワークフローを提供します。
 
-> **Kiro SDD について**: 本プロジェクトの仕様駆動開発（SDD）プロセスは [gotalab/claude-code-spec](https://github.com/gotalab/claude-code-spec) を参考に設計・実装されています。Claude Code における spec-driven development の実践的な実装例として、要件定義から実装まで一貫したワークフローを自動化しています。
+> **Kiro SDD について**: 本プロジェクトの仕様駆動開発（SDD）プロセスは [gotalab/claude-code-spec](https://github.com/gotalab/claude-code-spec) に大きく基づいています。`.kiro/` ディレクトリ構造、フェーズベース開発アプローチ（要件→設計→タスク）、仕様ファイルの組織化などの核心的なコンセプトは同プロジェクトのメソドロジーを採用しています。その上で、Claude Code との統合、MCP サービス連携、マルチエージェントオーケストレーションなどの拡張機能を追加して実装しています。
 
 ## 完全サブエージェント連携図
 
@@ -351,7 +351,7 @@ graph TD
 セマンティック解析による高度リファクタリング
 - **Main Orchestrator**: 1個 (refactoring)
 - **Analysis**: 2個 (pattern-detector, code-analyzer)
-- **Execution**: 3個 (serena-mcp-refactoring, similarity-refactoring ([mizchi/similarity](https://github.com/mizchi/similarity) ベース), refactoring-implementer)
+- **Execution**: 3個 (serena-mcp-refactoring, similarity-refactoring ([mizchi/similarity](https://github.com/mizchi/similarity) 概念参考), refactoring-implementer)
 - **Validation**: 1個 (quality-validator)
 
 #### 🧪 Testing Cluster (9 agents)

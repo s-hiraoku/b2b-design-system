@@ -1,0 +1,24 @@
+{
+  "name": "cc-deck",
+  "version": "1.0.0",
+  "description": "Claude Code Deck - AI-Driven Development Platform",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/cc-deck.git"
+  },
+  "keywords": [
+    "claude-code",
+    "ai-development",
+    "specification-driven-development",
+    "code-refactoring",
+    "similarity-analysis",
+    "multi-agent-system"
+  ],
+  "author": "CC-Deck Project",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
