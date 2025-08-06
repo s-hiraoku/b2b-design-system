@@ -144,6 +144,34 @@ phases:
       - implementation_complete: true
       - documentation_updated: true
       - quality_gates_passed: true
+    next_phase: human_approval_kiro_sdd
+
+  # Phase 8: Human Approval Checkpoint
+  - name: human_approval_kiro_sdd
+    type: human_interaction
+    description: "Human review and approval of Kiro SDD workflow completion before proceeding to next development phase"
+    approval_scope:
+      - "Requirements completeness and accuracy (EARS format compliance)"
+      - "Technical design feasibility and architecture soundness"
+      - "Task breakdown appropriateness and implementability"
+      - "Specification quality and clarity for implementation"
+      - "Project steering alignment and strategic fit"
+    review_materials:
+      - steering_context
+      - requirements_document
+      - design_document
+      - task_breakdown
+      - completion_status
+    decision_options: [approved, approved_with_conditions, rejected, deferred]
+    stakeholders:
+      required: [product_owner, technical_lead]
+      optional: [qa_lead, business_stakeholder]
+    timeout: 72 # hours
+    on_approval: 
+      next_workflow: coding
+    on_rejection:
+      rollback_to_phase: requirements
+      feedback_collection: true
 
 # Error Handling and Recovery
 error_handling:

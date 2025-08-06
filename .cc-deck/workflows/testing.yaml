@@ -127,6 +127,35 @@ phases:
       - reports_generated: true
       - quality_metrics_calculated: true
       - recommendations_provided: true
+    next_phase: human_approval_testing
+
+  # Phase 6: Human Approval Checkpoint
+  - name: human_approval_testing
+    type: human_interaction
+    description: "Human review and approval of testing workflow completion before proceeding to PR workflow"
+    approval_scope:
+      - "Test coverage adequacy and quality gate compliance (85%+ expected)"
+      - "Integration test results and API endpoint coverage validation"
+      - "E2E test scenarios and critical user journey verification"
+      - "Performance benchmarks and regression analysis"
+      - "Test environment stability and reliability assessment"
+    review_materials:
+      - test_summary_report
+      - coverage_analysis
+      - quality_metrics
+      - integration_test_results
+      - e2e_test_results
+      - performance_test_results
+    decision_options: [approved, approved_with_conditions, rejected, deferred]
+    stakeholders:
+      required: [qa_lead, technical_lead]
+      optional: [product_owner, performance_engineer]
+    timeout: 48 # hours
+    on_approval: 
+      next_workflow: pr
+    on_rejection:
+      rollback_to_phase: strategy_planning
+      feedback_collection: true
 
 # Parallel Execution Support
 parallel_groups:

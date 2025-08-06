@@ -115,6 +115,34 @@ phases:
       - quality_validated: true
       - no_functionality_regression: true
       - quality_metrics_improved: true
+    next_phase: human_approval_refactoring
+
+  # Phase 6: Human Approval Checkpoint
+  - name: human_approval_refactoring
+    type: human_interaction
+    description: "Human review and approval of refactoring workflow completion before proceeding to testing"
+    approval_scope:
+      - "Code quality improvements and maintainability enhancements"
+      - "Functionality preservation and regression testing results"
+      - "Architecture improvements and design pattern compliance"
+      - "Performance impact and optimization effectiveness"
+      - "Technical debt reduction and code smell elimination"
+    review_materials:
+      - quality_report
+      - validation_results
+      - improvement_metrics
+      - refactored_code
+      - transformation_log
+    decision_options: [approved, approved_with_conditions, rejected, deferred]
+    stakeholders:
+      required: [technical_lead]
+      optional: [senior_developer, qa_lead]
+    timeout: 72 # hours
+    on_approval: 
+      next_workflow: testing
+    on_rejection:
+      rollback_to_phase: pattern_analysis
+      feedback_collection: true
 
 # Parallel Execution Support
 parallel_groups:
