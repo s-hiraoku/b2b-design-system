@@ -18,7 +18,7 @@ This command serves as the single entry point for all development workflows by:
 3. **Delegating to appropriate agent** (executing the right workflow)
 4. **Maintaining continuity** (preserving context between phases)
 
-## Intelligent State Detection
+## Intelligent State Detection & Dynamic Agent Selection
 
 ### Automatic Project Analysis
 
@@ -28,6 +28,7 @@ When invoked without specific parameters, orchestrator will:
 2. **Analyze tasks.md files** for active development tasks and completion status
 3. **Review code changes** and implementation progress
 4. **Determine current phase** and recommend next steps
+5. **Select optimal agent** based on context and complexity
 
 ```bash
 # Automatic state detection and continuation
@@ -37,9 +38,44 @@ When invoked without specific parameters, orchestrator will:
 # 🔍 Analyzing project state...
 # ✅ Found feature: user-auth-system
 # 📋 Current phase: Implementation (7/12 tasks completed)
-# 🎯 Next recommended: Continue with task 2.2 (Password hashing)
-# ▶️  Proceeding with implementation...
+# 🧠 Context analysis: High complexity, security-critical
+# 🎯 Agent selection: tdd-agent (TDD approach for security)
+# ▶️  Proceeding with TDD implementation...
 ```
+
+### Context-Based Agent Selection
+
+Intelligent agent selection based on project context and requirements:
+
+Based on project analysis, the orchestrator selects the most appropriate workflow agent:
+
+- **Security-critical development**: Use `tdd-agent` for comprehensive security testing with TDD approach
+- **Complex refactoring needs**: Use `refactoring` agent for systematic code improvement workflows  
+- **API or service development**: Use `integration-test` agent for comprehensive API testing
+- **New feature development**: Use `coding` agent for full development lifecycle management
+- **Documentation requirements**: Use `documentation-agent` for comprehensive documentation generation
+- **Structured development**: Use `kiro-spec-orchestrator` for specification-driven development workflow
+
+### Agent Selection Criteria
+
+The orchestrator analyzes project characteristics to determine optimal delegation:
+
+1. **Code complexity analysis**: Assess existing codebase complexity and maintenance needs
+2. **Security requirements**: Identify authentication, authorization, and security-sensitive code
+3. **Integration patterns**: Detect APIs, external services, and integration requirements  
+4. **Development phase**: Determine whether project needs research, implementation, testing, or documentation
+5. **Quality status**: Assess current code quality and improvement opportunities
+
+### Workflow Coordination
+
+For complex scenarios requiring multiple workflows:
+
+- **Refactoring + Testing**: Coordinate code improvement with comprehensive testing
+- **Documentation + PR Creation**: Ensure documentation updates are included in pull requests
+- **Implementation + Quality Assurance**: Combine development with continuous quality validation
+- **Research + Planning**: Integrate technology research with strategic planning
+
+The orchestrator ensures proper sequencing and context sharing between different workflow phases.
 
 ### State Detection Logic
 

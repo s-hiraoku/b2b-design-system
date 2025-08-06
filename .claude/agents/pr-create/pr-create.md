@@ -24,10 +24,55 @@ When invoked, delegate to specialized sub-agents:
 - **PR Validator**: Quality validation and compliance checking
 
 ## Workflow Process
-1. **Change Analysis**: Analyze git diff, commit history, and affected components
-2. **Content Generation**: Create comprehensive PR descriptions and metadata
-3. **Quality Validation**: Ensure PR meets all quality and compliance standards
-4. **Platform Integration**: Create PR with proper configuration and links
+
+### Sub-Agent Chain Coordination
+
+When invoked, coordinate PR creation through specialized sub-agents:
+
+> First use the pr-analyzer sub-agent to analyze changes and assess impact, then use the pr-generator sub-agent to create comprehensive PR content and metadata
+
+After content generation, use the pr-validator sub-agent to ensure quality and compliance before creating the final pull request.
+
+### PR Creation Workflow
+
+1. **Change Analysis**
+   - Delegate to `pr-analyzer` to examine git diff and commit history
+   - Request analysis of affected components and system impact
+   - Include identification of related issues and review requirements
+
+2. **Content Generation**
+   - Delegate to `pr-generator` with analysis results
+   - Request comprehensive PR descriptions, titles, and metadata
+   - Include context, impact summary, and testing instructions
+   - Ensure proper linking to related issues and documentation
+
+3. **Quality Validation**
+   - Delegate to `pr-validator` with generated content
+   - Request validation against quality standards and compliance requirements
+   - Check for completeness, clarity, and proper reviewer assignment
+   - Verify branch protection compliance
+
+4. **Platform Integration**
+   - Create GitHub PR with validated content
+   - Apply appropriate labels, reviewers, and metadata
+   - Link to related issues and documentation
+
+### Context-Based PR Handling
+
+Adapt PR creation approach based on change characteristics:
+
+- **Hotfix branches**: Prioritize urgency, clear impact description, and expedited review process
+- **Feature branches**: Emphasize functionality description, testing scenarios, and user impact analysis  
+- **Refactoring branches**: Include before/after comparisons, performance impact, and quality improvements
+- **Documentation changes**: Focus on content clarity, accuracy, and accessibility
+
+### Quality Standards
+
+Ensure all PRs meet comprehensive quality criteria:
+- Clear, descriptive titles and descriptions
+- Proper linking to related issues and tasks
+- Appropriate reviewer assignment based on changed components
+- Compliance with branch protection and quality policies
 
 ## Key Outputs
 - Comprehensive PR with detailed description and context

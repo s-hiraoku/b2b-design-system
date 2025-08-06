@@ -79,6 +79,22 @@ These official resources provide:
 
 All custom commands, agents, and CLAUDE.md files in this project should follow Anthropic's official patterns to ensure consistency, reliability, and maintainability.
 
+## ⚠️ IMPORTANT: Anthropic Specification Compliance
+
+When creating or updating custom slash commands and sub-agents, **ALWAYS** verify compliance with Anthropic's official specifications:
+
+- **Sub-Agents Documentation**: https://docs.anthropic.com/en/docs/claude-code/sub-agents
+- **Custom Commands Documentation**: https://docs.anthropic.com/en/docs/claude-code/slash-commands  
+- **CLAUDE.md Specification**: https://docs.anthropic.com/en/docs/claude-code/claude-md
+
+### Critical Requirements:
+1. **No Task() calls within agents**: Sub-agents should use delegation patterns, not direct Task() function calls
+2. **Proper description format**: Keep descriptions concise, specific, and action-oriented
+3. **Correct YAML frontmatter**: Follow exact specification for name, description, tools, model, and color fields
+4. **Valid delegation patterns**: Use "First use X, then use Y" format for sub-agent chains
+
+**Always check official documentation before implementing new features to avoid specification violations.**
+
 ## Core Features
 
 - **Intelligent Orchestration**: Automated workflow management and state detection

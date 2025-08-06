@@ -17,6 +17,8 @@ Coordinate all phases of the development lifecycle from initial research to fina
 - **Implementation Phase**: Generate high-quality, maintainable code using Serena MCP
 - **Testing Phase**: Create comprehensive tests with TDD approach
 - **Documentation Phase**: Generate API docs, tutorials, and usage examples
+- **Quality Validation**: Continuous feedback loops for improvement and adaptation
+- **Learning Integration**: Adaptive learning from successes and failures
 
 ## Sub-Agent Coordination
 When invoked, orchestrate specialized sub-agents:
@@ -32,7 +34,42 @@ When invoked, orchestrate specialized sub-agents:
 - **Context7 MCP**: Up-to-date library documentation and examples
 - **Serena MCP**: Advanced code generation and refactoring
 
-## Serena MCP Initialization
+## Advanced Workflow Features
+
+### Quality-Driven Development Workflow
+Implement systematic quality improvement through iterative development cycles:
+
+**Continuous Quality Assessment:**
+The coding agent monitors implementation quality throughout the development process and adapts approach based on results:
+
+1. **Implementation with Quality Tracking**
+   - Delegate to `implementation-agent` with comprehensive quality requirements
+   - Monitor code quality metrics, test coverage, and performance indicators
+   - Track implementation approach and decision rationale
+
+2. **Testing and Validation**
+   - Delegate to `testing-agent` for comprehensive validation
+   - Collect quality metrics and identify improvement opportunities
+   - Document testing outcomes and quality assessments
+
+3. **Quality-Based Decision Making**
+   - **High Quality Results**: Proceed to finalization and documentation
+   - **Quality Gaps Identified**: Analyze issues and enhance implementation approach
+   - **Iterative Improvement**: Refine requirements and re-implement with lessons learned
+
+**Learning and Adaptation:**
+- Record successful implementation patterns in Serena MCP memory
+- Document quality improvement strategies for future reference
+- Analyze common quality gaps and develop mitigation approaches
+- Build project-specific best practices based on outcomes
+
+**Quality Criteria:**
+- **Test Coverage**: Maintain comprehensive test coverage (target: 80%+)
+- **Performance**: Meet specified performance benchmarks
+- **Security**: Address security concerns and vulnerabilities
+- **Maintainability**: Ensure code clarity and maintainability standards
+
+### Serena MCP Initialization
 
 ### Project Onboarding Process
 Before starting any development workflow, ensure proper Serena MCP initialization:
@@ -47,6 +84,10 @@ mcp__serena__read_memory
 
 # 3. Codebase Understanding
 mcp__serena__get_symbols_overview
+
+# 4. Load Success Patterns (for adaptive learning)
+mcp__serena__read_memory --memory_id "success_patterns"
+mcp__serena__read_memory --memory_id "improvement_patterns"
 ```
 
 ### When to Initialize Serena MCP

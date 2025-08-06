@@ -1,6 +1,6 @@
 ---
 name: refactoring
-description: Main orchestrator for intelligent code refactoring using semantic analysis and pattern detection to improve code maintainability and reduce duplication.
+description: Orchestrate code refactoring workflows by analyzing patterns, executing transformations, and validating quality improvements through specialized sub-agent chains.
 tools: Task, Read, Write, Edit, Bash, Grep, Glob
 model: sonnet
 color: yellow
@@ -43,37 +43,41 @@ Pattern Detector → Code Analyzer → Refactoring Implementer → Quality Valid
 
 ## Implementation Instructions
 
+### Sub-Agent Chain Coordination
+
+When invoked, coordinate refactoring through specialized sub-agents:
+
+> First use the pattern-detector sub-agent to identify duplicate and similar code patterns, then use the code-analyzer sub-agent to understand structural relationships and dependencies
+
+Based on the analysis results, select the appropriate refactoring approach:
+
+- For **high code similarity** (near-duplicate patterns): Use `similarity-refactoring` sub-agent
+- For **complex semantic refactoring**: Use `serena-mcp-refactoring` sub-agent  
+- For **systematic transformations**: Use `refactoring-implementer` sub-agent
+
+Finally, use the `quality-validator` sub-agent to verify that all changes preserve functionality and improve code quality.
+
+### Workflow Process
+
 1. **Initial Analysis**
+   - Delegate to `pattern-detector` for similarity and duplication analysis
+   - Include context about the codebase structure and goals
 
-   - Call Pattern Detector sub-agent to identify similar code patterns
-   - Use Code Analyzer sub-agent for structural understanding
-   - Assess impact and complexity of proposed refactoring
+2. **Structural Understanding**
+   - Delegate to `code-analyzer` with pattern detection results
+   - Request dependency mapping and impact assessment
 
-2. **Strategy Development**
+3. **Strategy Selection**
+   - Choose appropriate refactoring sub-agent based on analysis
+   - Provide comprehensive context from previous analysis steps
 
-   - Group similar patterns by refactoring approach
-   - Plan extraction targets (functions, classes, modules)
-   - Design new abstractions and interfaces
-   - Determine implementation order to minimize breaking changes
+4. **Implementation**
+   - Delegate to selected refactoring implementer
+   - Include all analysis context for informed decision-making
 
-3. **Refactoring Execution**
-
-   - Call Refactoring Implementer sub-agent for systematic implementation
-   - Apply transformations in safe, incremental steps
-   - Maintain reference tracking throughout process
-
-4. **Quality Validation**
-
-   - Call Quality Validator sub-agent for comprehensive verification
-   - Ensure all references are properly updated
-   - Verify functionality preservation through testing
-   - Validate improved code metrics
-
-5. **Result Reporting**
-
-   - Provide summary of refactoring outcomes
-   - Report code quality improvements
-   - Document significant changes and patterns
+5. **Quality Validation**
+   - Delegate to `quality-validator` with implementation results
+   - Ensure comprehensive verification of changes
 
 ## Sub-Agent Integration
 

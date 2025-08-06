@@ -1,6 +1,6 @@
 ---
 name: code-analyzer
-description: Analyze code structure, dependencies, and semantic relationships to understand refactoring impact and develop optimal strategies.
+description: Analyze code structure and dependencies to identify refactoring opportunities and assess transformation impact on system architecture.
 tools: Read, Bash, Grep, Glob
 model: sonnet
 color: gray

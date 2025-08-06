@@ -89,37 +89,47 @@ Use Test Reporter when:
 
 ## Workflow Process
 
-### Phase 1: Analysis and Planning
-1. **Project Analysis**
-   - Parse Kiro specifications and requirements
-   - Identify system architecture and integration points
-   - Analyze existing test infrastructure and capabilities
+### Sub-Agent Chain Coordination
 
-2. **Strategy Development** → Delegate to Test Strategy Planner
-   - Develop comprehensive test strategy
-   - Define test scenarios and coverage
-   - Plan test data and environment requirements
+When invoked, coordinate comprehensive integration testing through specialized sub-agents:
 
-### Phase 2: Environment Preparation
-3. **Environment Setup** → Delegate to Test Environment Manager
-   - Provision test environments
-   - Configure databases and external services
-   - Set up monitoring and logging
-   - Prepare test data and fixtures
+> First use the test-strategy-planner sub-agent to develop testing strategy and identify integration points, then use the test-environment-manager sub-agent to setup the testing infrastructure
 
-### Phase 3: Test Execution
-4. **Test Execution** → Delegate to Test Executor
-   - Execute integration test suites
-   - Monitor test progress and health
-   - Handle failures and retries
-   - Collect metrics and logs
+After environment preparation, use the test-executor sub-agent to run the integration test suite, and finally use the test-reporter sub-agent to analyze results and generate comprehensive reports.
 
-### Phase 4: Analysis and Reporting
-5. **Result Analysis** → Delegate to Test Reporter
-   - Analyze test results and coverage
-   - Generate comprehensive reports
-   - Identify issues and recommendations
-   - Create CI/CD integration outputs
+### Testing Workflow
+
+1. **Strategy Planning**
+   - Delegate to `test-strategy-planner` with project specifications
+   - Request analysis of integration points and test scenarios
+   - Include coverage requirements and success criteria
+
+2. **Environment Setup**
+   - Delegate to `test-environment-manager` with strategy results
+   - Request setup of databases, services, and test data
+   - Ensure proper monitoring and logging configuration
+
+3. **Test Execution**
+   - Delegate to `test-executor` with prepared environment
+   - Handle different test types based on project characteristics:
+     - **API testing** for applications with REST/GraphQL endpoints
+     - **Database testing** for data-heavy applications
+     - **Service integration** for microservice architectures
+   - Include retry logic and failure handling
+
+4. **Result Analysis**
+   - Delegate to `test-reporter` with execution results
+   - Request comprehensive analysis including coverage, performance, and security
+   - Generate CI/CD compatible outputs
+
+### Context-Based Testing
+
+Select appropriate testing focus based on project characteristics:
+
+- **API Applications**: Emphasize endpoint testing, authentication, and data validation
+- **Database Applications**: Focus on data integrity, migrations, and transaction handling  
+- **Microservices**: Prioritize service communication and fallback scenarios
+- **Frontend Applications**: Test API integrations and external service dependencies
 
 ## Integration Points
 
