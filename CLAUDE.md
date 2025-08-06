@@ -15,6 +15,7 @@ The following steering documents are active and provide project context (stored 
 ## Attribution
 
 This project substantially references:
+
 - **gotalab/claude-code-spec** - Core SDD methodology and workflow patterns
 - **mizchi/similarity** - Code similarity analysis tools (MIT License)
 - **t-wada** - TDD methodology and best practices
@@ -80,6 +81,7 @@ When developing custom slash commands or sub-agents for this project, **always r
 - **CLAUDE.md Files**: https://docs.anthropic.com/en/docs/claude-code/memory
 
 These official resources provide:
+
 - Detailed configuration formats and requirements
 - Best practices for agent design and tool allocation
 - Examples of effective command and agent implementations
@@ -93,10 +95,11 @@ All custom commands, agents, and CLAUDE.md files in this project should follow A
 When creating or updating custom slash commands and sub-agents, **ALWAYS** verify compliance with Anthropic's official specifications:
 
 - **Sub-Agents Documentation**: https://docs.anthropic.com/en/docs/claude-code/sub-agents
-- **Custom Commands Documentation**: https://docs.anthropic.com/en/docs/claude-code/slash-commands  
+- **Custom Commands Documentation**: https://docs.anthropic.com/en/docs/claude-code/slash-commands
 - **CLAUDE.md Specification**: https://docs.anthropic.com/en/docs/claude-code/claude-md
 
 ### Critical Requirements:
+
 1. **No Task() calls within agents**: Sub-agents should use delegation patterns, not direct Task() function calls
 2. **Proper description format**: Keep descriptions concise, specific, and action-oriented
 3. **Correct YAML frontmatter**: Follow exact specification for name, description, tools, model, and color fields
@@ -115,12 +118,14 @@ When creating or updating custom slash commands and sub-agents, **ALWAYS** verif
 # AI Development Platform Management
 
 ## Platform Development Commands
+
 - **Main Workflow**: `/orchestrator` - Primary command for all development workflows
 - **State Sync**: `/sync-status` - Resolve Kiro SDD state inconsistencies
 - **Agent Management**: `/agents` - Create and manage sub-agents via interactive interface
 - **Help**: `/help` - View all available commands and agents
 
 ## Sub-Agent Development Standards
+
 - **Naming**: Use lowercase letters and hyphens (e.g., `tdd-agent`, `kiro-spec-init`)
 - **Required Fields**: `name` and `description` in YAML frontmatter
 - **Proactive Usage**: Include "use proactively" in descriptions for automatic delegation
@@ -128,18 +133,21 @@ When creating or updating custom slash commands and sub-agents, **ALWAYS** verif
 - **Model Specification**: Use `model: sonnet` for consistency across agents
 
 ## Custom Command Development Standards
+
 - **File Location**: `.claude/commands/` for project-specific commands
 - **Required Fields**: `description` and `allowed-tools` in YAML frontmatter
 - **Recommended Fields**: `argument-hint` and `model` for better UX
 - **Documentation**: Clear usage examples and parameter descriptions
 
 ## Project Structure Management
+
 - **Active Specifications**: `.kiro/specs/` - Feature development tracking
 - **Steering Documents**: `.kiro/steering/` - Project context and guidelines
 - **Agent Organization**: Categorized in `.claude/agents/` subdirectories
 - **Command Organization**: Main commands in `.claude/commands/`
 
 ## Quality Standards for Platform Components
+
 - Follow Anthropic's official documentation patterns exactly
 - Maintain consistency across all custom components
 - Use hierarchical organization for related agents

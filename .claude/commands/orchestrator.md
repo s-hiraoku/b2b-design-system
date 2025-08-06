@@ -50,7 +50,7 @@ Intelligent agent selection based on project context and requirements:
 Based on project analysis, the orchestrator selects the most appropriate workflow agent:
 
 - **Security-critical development**: Use `tdd-agent` for comprehensive security testing with TDD approach
-- **Complex refactoring needs**: Use `refactoring` agent for systematic code improvement workflows  
+- **Complex refactoring needs**: Use `refactoring` agent for systematic code improvement workflows
 - **API or service development**: Use `integration-test` agent for comprehensive API testing
 - **New feature development**: Use `coding` agent for full development lifecycle management
 - **Documentation requirements**: Use `documentation-agent` for comprehensive documentation generation
@@ -62,7 +62,7 @@ The orchestrator analyzes project characteristics to determine optimal delegatio
 
 1. **Code complexity analysis**: Assess existing codebase complexity and maintenance needs
 2. **Security requirements**: Identify authentication, authorization, and security-sensitive code
-3. **Integration patterns**: Detect APIs, external services, and integration requirements  
+3. **Integration patterns**: Detect APIs, external services, and integration requirements
 4. **Development phase**: Determine whether project needs research, implementation, testing, or documentation
 5. **Quality status**: Assess current code quality and improvement opportunities
 
@@ -82,47 +82,47 @@ The orchestrator ensures proper sequencing and context sharing between different
 ```yaml
 Project State Analysis:
   0. Check Serena MCP Status:
-     - New project → Initialize Serena MCP with mcp__serena__initial_instructions
-     - Existing project → Load context with mcp__serena__list_memories
-     - Context stale → Refresh project understanding
+    - New project → Initialize Serena MCP with mcp__serena__initial_instructions
+    - Existing project → Load context with mcp__serena__list_memories
+    - Context stale → Refresh project understanding
 
   1. Check Specifications:
-     - No specs → Start with Kiro Steering
-     - Incomplete spec → Resume from last phase
-     - Complete spec → Check tasks.md status
-  
+    - No specs → Start with Kiro Steering
+    - Incomplete spec → Resume from last phase
+    - Complete spec → Check tasks.md status
+
   2. Validate State Consistency:
-     - Compare kiro_status.json with actual project state
-     - Detect implementation ahead of kiro status
-     - Detect approval blocks preventing progression
-     - Auto-sync status when implementation detected
-  
+    - Compare kiro_status.json with actual project state
+    - Detect implementation ahead of kiro status
+    - Detect approval blocks preventing progression
+    - Auto-sync status when implementation detected
+
   3. Check Implementation (tasks.md):
-     - No tasks.md → Create tasks from specs
-     - Incomplete tasks → Continue with next uncompleted task
-     - All tasks completed → Ready for next feature/enhancement
-     - Implementation exists but tasks unmarked → Auto-update task progress
-  
+    - No tasks.md → Create tasks from specs
+    - Incomplete tasks → Continue with next uncompleted task
+    - All tasks completed → Ready for next feature/enhancement
+    - Implementation exists but tasks unmarked → Auto-update task progress
+
   4. Auto-Resolve Status Inconsistencies:
-     - Detect created files/code vs task completion status
-     - Auto-approve completed phases when implementation verified
-     - Update kiro_status.json current_phase to match reality
-     - Trigger TDD-agent completion when implementation done
-  
+    - Detect created files/code vs task completion status
+    - Auto-approve completed phases when implementation verified
+    - Update kiro_status.json current_phase to match reality
+    - Trigger TDD-agent completion when implementation done
+
   5. Check Next Work:
-     - All tasks complete → Analyze for new features or improvements
-     - Tasks in progress → Focus on current implementation
-     - Blocked tasks → Identify and resolve blockers
-  
+    - All tasks complete → Analyze for new features or improvements
+    - Tasks in progress → Focus on current implementation
+    - Blocked tasks → Identify and resolve blockers
+
   6. Check Quality:
-     - Implementation complete → Run tests and validation
-     - Tests failing → Debug and fix issues
-     - Tests passing → Mark tasks as completed
-  
+    - Implementation complete → Run tests and validation
+    - Tests failing → Debug and fix issues
+    - Tests passing → Mark tasks as completed
+
   7. Check Documentation:
-     - Code complete → Update documentation
-     - Documentation ready → Final validation
-     - All complete → Ready for new work cycle
+    - Code complete → Update documentation
+    - Documentation ready → Final validation
+    - All complete → Ready for new work cycle
 ```
 
 ## Implementation Strategy
@@ -130,6 +130,7 @@ Project State Analysis:
 ### Smart Workflow Continuation
 
 1. **State Analysis Phase**
+
    ```bash
    # Analyze project structure
    - Check .kiro/specs/ directory for feature specifications
@@ -139,6 +140,7 @@ Project State Analysis:
    ```
 
 2. **Context Preservation**
+
    ```bash
    # Maintain workflow context
    - Feature name from existing specs
@@ -161,6 +163,7 @@ Project State Analysis:
 ## Usage Examples
 
 ### Basic Continuation
+
 ```bash
 # Continue from where you left off
 /orchestrator
@@ -173,6 +176,7 @@ Project State Analysis:
 ```
 
 ### Phase-Specific Execution
+
 ```bash
 # Jump to specific phase
 /orchestrator "kiro:spec-design user-auth"      # Continue with design
@@ -195,7 +199,7 @@ State Storage:
     - completed_phases: ["steering", "init", "requirements"]
     - last_updated: "2024-01-15T10:00:00Z"
     - next_recommended: "tasks"
-  
+
   .claude/workflow-state.json:
     - active_feature: "user-auth-system"
     - active_issues: [123, 124, 125]
@@ -209,6 +213,7 @@ State Storage:
 When `/orchestrator` is called without parameters:
 
 1. **Scan for Active Features**
+
    ```bash
    # Check specs directory
    ls .kiro/specs/*/kiro_status.json
@@ -217,6 +222,7 @@ When `/orchestrator` is called without parameters:
    ```
 
 2. **Determine Current Phase**
+
    ```bash
    # Read kiro_status.json
    # Check completed vs pending phases
@@ -301,15 +307,17 @@ The orchestrator focuses on .kiro/specs/{feature}/tasks.md files for tracking im
 # 実装計画
 
 ## 概要
+
 ダイエット管理アプリの実装を、承認された要件仕様書と技術設計書に基づいて段階的に実行するためのタスクリスト。
 
 ## 実装フェーズ
 
 ### Phase 1: プロジェクト基盤・環境構築
 
-- [ ] 1.1 React Native開発環境のセットアップ
+- [ ] 1.1 React Native 開発環境のセットアップ
+
   - React Native 0.72+のプロジェクト初期化
-  - TypeScript、ESLint、Prettier設定の構成
+  - TypeScript、ESLint、Prettier 設定の構成
   - _要件: 7.1, 8.1_
 
 - [x] 1.2 プロジェクト構造とディレクトリ構成
@@ -365,7 +373,7 @@ Feature: user-authentication-system
 Progress: 7/12 tasks completed (58%)
 
 ├── [x] 1.1 React Native環境セットアップ (完了)
-├── [x] 1.2 プロジェクト構造作成 (完了)  
+├── [x] 1.2 プロジェクト構造作成 (完了)
 ├── [ ] 1.3 依存関係インストール (次のタスク)
 ├── [ ] 2.1 SQLiteデータベース初期化
 ├── [ ] 2.2 データモデル実装
@@ -400,7 +408,7 @@ When all tasks in a tasks.md file are completed, the orchestrator automatically:
 # Output: "Analyzing project for potential improvements..."
 # Output: "Suggested next development areas:"
 # Output: "1. Performance optimizations"
-# Output: "2. UI/UX enhancements" 
+# Output: "2. UI/UX enhancements"
 # Output: "3. Additional security features"
 # Output: "4. New feature development"
 # Output: "What would you like to focus on next?"
@@ -424,24 +432,24 @@ When all tasks in a tasks.md file are completed, the orchestrator automatically:
 ```yaml
 Task Completion Criteria:
   1. Functional Implementation:
-     - Core functionality implemented
-     - Edge cases handled
-     - Error handling included
-  
+    - Core functionality implemented
+    - Edge cases handled
+    - Error handling included
+
   2. Code Quality:
-     - Follows project conventions
-     - Proper error handling
-     - Performance considerations
-  
+    - Follows project conventions
+    - Proper error handling
+    - Performance considerations
+
   3. Testing Coverage:
-     - Unit tests written and passing
-     - Integration tests where applicable
-     - Manual testing completed
-  
+    - Unit tests written and passing
+    - Integration tests where applicable
+    - Manual testing completed
+
   4. Documentation:
-     - Code properly commented
-     - Implementation notes updated
-     - Usage examples provided
+    - Code properly commented
+    - Implementation notes updated
+    - Usage examples provided
 ```
 
 ## Comprehensive Coding Integration
@@ -625,7 +633,7 @@ Enable human oversight at critical decision points with intelligent approval man
 # Complete workflow with approval gates
 /orchestrator "Complete feature development with approval checkpoints"
 
-# Approval-driven progression  
+# Approval-driven progression
 /orchestrator "check-tasks feature-name --auto-progress"
 ```
 
