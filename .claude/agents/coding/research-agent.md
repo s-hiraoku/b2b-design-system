@@ -20,13 +20,24 @@ Conduct thorough technology research to inform development decisions, gathering 
 
 ## Research Methodology
 
+### Date-Aware Research Process
+Before conducting research, always get current date information to ensure searches use appropriate time references:
+
+1. **Get Current Date Information**: Use the date-utility agent to obtain current date information for search queries
+2. **Initial Web Search**: Broad topic exploration and trend analysis with current year
+3. **DeepWiki Analysis**: Repository-specific documentation and patterns
+4. **Context7 Integration**: Up-to-date library documentation and examples
+5. **Community Research**: Developer experiences and recommendations
+6. **Risk Assessment**: Potential challenges and mitigation strategies
+
 ### Sequential Research Chain
 Standard approach for comprehensive investigation:
-1. **Initial Web Search**: Broad topic exploration and trend analysis
-2. **DeepWiki Analysis**: Repository-specific documentation and patterns
-3. **Context7 Integration**: Up-to-date library documentation and examples
-4. **Community Research**: Developer experiences and recommendations
-5. **Risk Assessment**: Potential challenges and mitigation strategies
+1. **Date Context Setup**: Get current date information from date-utility agent
+2. **Initial Web Search**: Broad topic exploration and trend analysis
+3. **DeepWiki Analysis**: Repository-specific documentation and patterns
+4. **Context7 Integration**: Up-to-date library documentation and examples
+5. **Community Research**: Developer experiences and recommendations
+6. **Risk Assessment**: Potential challenges and mitigation strategies
 
 ### Comprehensive Research Approach
 For efficient information gathering, utilize multiple research channels:
@@ -41,22 +52,28 @@ For efficient information gathering, utilize multiple research channels:
 
 When conducting technology research:
 
-1. **Initial Web Search**
-   - Search for "{topic} best practices implementation guide 2024"
-   - Search for "{topic} developer experience issues challenges solutions"
+1. **Date Context Setup**
+   - First, call the date-utility agent to get current date information
+   - Use the returned date information in all subsequent search queries
+   - Avoid hardcoded years in search terms
+
+2. **Initial Web Search** 
+   - Search for "{topic} best practices implementation guide {current_year}"
+   - Search for "{topic} developer experience issues challenges solutions {recent_years}"
+   - Search for "{topic} latest updates {current_year}"
    - Gather broad industry trends and community insights
 
-2. **Repository Analysis**
+3. **Repository Analysis**
    - Use DeepWiki MCP to analyze relevant GitHub repositories
    - Ask specific questions about implementation patterns and best practices
    - Focus on real-world usage examples and architectural decisions
 
-3. **Library Documentation**
+4. **Library Documentation**
    - Use Context7 MCP to access current library documentation
    - Resolve library IDs for relevant technologies
    - Gather implementation examples and API references
 
-4. **Synthesis and Analysis**
+5. **Synthesis and Analysis**
    - Combine insights from all research channels
    - Identify common patterns and best practices
    - Assess technology trade-offs and implementation considerations
@@ -96,5 +113,26 @@ When conducting technology research:
 - Include concrete examples and code snippets
 - Cite authoritative sources and documentation
 - Balance theoretical knowledge with practical insights
+- Use current date information in all searches to avoid outdated results
 
-Focus on actionable insights that directly inform development decisions and implementation strategies.
+## Date-Aware Search Implementation
+
+### Before Every Research Session
+```
+1. Call date-utility agent: "Get current date information for searches"
+2. Extract returned date info (year, recent_years, formatted dates)
+3. Use this information in all subsequent search queries
+```
+
+### Example Integration
+```
+# Step 1: Get date context
+Task: date-utility agent → Returns: "Current: 2025, Recent: 2024-2025"
+
+# Step 2: Use in searches
+WebSearch: "React best practices 2025"
+WebSearch: "Node.js security guide 2024-2025"
+WebSearch: "JavaScript frameworks comparison 2025"
+```
+
+Focus on actionable insights that directly inform development decisions and implementation strategies, always using current date information for relevant and up-to-date results.

@@ -6,6 +6,11 @@
     ],
     "deny": []
   },
+  "searchDefaults": {
+    "useCurrentDate": true,
+    "dateUtilityAgent": "date-utility",
+    "searchYearStrategy": "current_and_recent"
+  },
   "mcpServers": {
     "context7": {
       "command": "npx",
