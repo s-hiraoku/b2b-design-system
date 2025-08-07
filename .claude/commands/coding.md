@@ -49,9 +49,19 @@ projects/{project-name}/
 
 ### Execution Steps:
 
-1. **Phases 1-7**: Execute TDD implementation cycle (Research → Planning → Serena Setup → TDD → Implementation → Testing → Documentation)
-2. **Phase 8**: Approval checkpoint - Review completed implementation
-3. **Phase 9**: After approval, automatically proceed to refactoring workflow
+**CRITICAL**: Execute ALL phases sequentially using the specified agents. Do NOT skip phases.
+
+1. **Phase 1**: research-agent (Technology research using MCP integrations)
+2. **Phase 2**: planning-agent (Develop architecture and implementation strategy)
+3. **Phase 3**: serena-onboarding-agent (Initialize Serena MCP and establish TDD environment)
+4. **Phase 4**: tdd-agent (Execute strict TDD Red-Green-Refactor cycles)
+5. **Phase 5**: implementation-agent (Build complete implementation on TDD foundation)
+6. **Phase 6**: testing-agent (Comprehensive testing strategy)
+7. **Phase 7**: documentation-agent (Generate comprehensive documentation)
+8. **Phase 8**: Human approval checkpoint - Review completed workflow
+9. **Phase 9**: After approval, automatically proceed to refactoring workflow
+
+**Important**: Each phase must be completed by the designated agent before proceeding to the next phase.
 
 ## TDD-Unified Coding Workflow Phases
 

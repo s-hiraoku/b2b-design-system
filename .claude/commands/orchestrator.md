@@ -48,9 +48,63 @@ This command serves as the single entry point for all development workflows by:
 This orchestrator executes the complete flow through approvals, never stopping at single workflow.
 
 1. **Workflow Completion Detection**: Detect approval completion of each phase
-2. **Automatic Next Phase Start**: Execute next workflow immediately after approval
-3. **Progress Visualization**: Display current position and remaining phases
-4. **Continue Until Acceptance**: Never stop before final acceptance approval
+2. **Multi-Agent Phase Execution**: Execute ALL defined phases within each workflow using appropriate agents
+3. **Automatic Next Phase Start**: Execute next workflow immediately after approval
+4. **Progress Visualization**: Display current position and remaining phases
+5. **Continue Until Acceptance**: Never stop before final acceptance approval
+
+## 🤖 Multi-Agent Execution Strategy
+
+**Within Each Workflow**: Execute ALL defined phases sequentially using the specified agents:
+
+### Coding Workflow Example:
+- **Phase 1**: research-agent (technology research using MCP integrations)
+- **Phase 2**: planning-agent (architecture and implementation strategy)
+- **Phase 3**: serena-onboarding-agent (Serena MCP initialization)
+- **Phase 4**: tdd-agent (TDD Red-Green-Refactor cycles)
+- **Phase 5**: implementation-agent (complete TDD-based implementation)
+- **Phase 6**: testing-agent (comprehensive testing strategy)
+- **Phase 7**: documentation-agent (generate comprehensive documentation)
+- **Phase 8**: Human approval checkpoint
+
+**CRITICAL**: Do NOT execute only tdd-agent. Execute the COMPLETE workflow sequence using ALL specified agents in the correct order.
+
+### Agent Selection Criteria:
+
+**When to use research-agent**:
+- New features requiring technology research
+- Need to evaluate libraries, frameworks, or best practices
+- Complex projects requiring architectural decisions
+
+**When to use planning-agent**:
+- After research phase completion
+- Need to create implementation strategy
+- Architecture design required
+
+**When to use serena-onboarding-agent**:
+- Before any implementation begins
+- Need to establish project context in Serena MCP
+- Setting up TDD development environment
+
+**When to use tdd-agent**:
+- After Serena onboarding completion
+- Implementing core functionality using Red-Green-Refactor cycles
+- Building test-driven foundation
+
+**When to use implementation-agent**:
+- After TDD cycles create foundation
+- Need to complete full production implementation
+- Expanding functionality while maintaining tests
+
+**When to use testing-agent**:
+- After implementation completion
+- Need comprehensive testing strategy beyond TDD
+- Integration and E2E test requirements
+
+**When to use documentation-agent**:
+- After implementation and testing completion
+- Need API documentation, tutorials, examples
+- Final documentation before approval
 
 ```
 🎯 Flow Progress: [✅ kiro-sdd] [✅ coding] [🔄 refactoring] [ ] testing [ ] pr [ ] acceptance
