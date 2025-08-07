@@ -13,9 +13,27 @@ Intelligent orchestrator that automatically detects project state and continues 
 This command serves as the single entry point for all development workflows by:
 
 1. **Analyzing project state** (checking existing specifications, tasks.md files, code)
-2. **Determining next phase** (identifying what needs to be done next)
-3. **Delegating to appropriate agent** (executing the right workflow)
-4. **Maintaining continuity** (preserving context between phases)
+2. **Determining next phase** (identifying what needs to be done next)  
+3. **Enforcing human approval checkpoints** (NEVER bypassing approval gates)
+4. **Delegating to appropriate agent** (executing the right workflow)
+5. **Maintaining continuity** (preserving context between phases)
+
+## 🚨 CRITICAL HUMAN APPROVAL ENFORCEMENT
+
+**ABSOLUTE RULE**: This orchestrator MUST NEVER proceed to implementation or next workflow without explicit human approval.
+
+### Approval Checkpoint Requirements:
+
+1. **Before TDD Implementation**: Human approval of implementation tasks required
+2. **Before Next Workflow**: Human approval of current workflow completion required  
+3. **Implementation Directory**: ALL code must go in `src/` directory, NEVER in `.kiro/`
+
+### Approval Verification Process:
+- Always check if current phase requires human approval  
+- Present comprehensive review materials to user
+- Wait for explicit "はい" (Yes) or "approved" confirmation
+- Only proceed after receiving human approval
+- Log all approval decisions for audit trail
 
 ## Intelligent State Detection & Dynamic Agent Selection
 

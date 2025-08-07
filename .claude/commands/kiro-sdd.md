@@ -13,16 +13,34 @@ This command initiates and manages the Kiro SDD workflow, which transforms user 
 
 ## Workflow Execution
 
-When invoked, execute the CC-Deck Workflow Engine with the `kiro-sdd-workflow`:
+⚠️ **CRITICAL: Human Approval Required Before Implementation**
 
-```python
-# Execute Kiro SDD Workflow
-workflow_name = "kiro-sdd"
-feature_name = extract_feature_name_from_input(user_input)
-arguments = parse_arguments(user_input)
+This workflow MUST follow the human approval checkpoints defined in `.cc-deck/config/workflows/kiro-sdd.yaml`. 
 
-execute_workflow_engine(workflow_name, feature_name, arguments)
+**NEVER** proceed to TDD implementation without explicit human approval of the implementation tasks.
+
+### Execution Steps:
+
+1. **Phase 1-5**: Execute specification creation phases (Steering → Init → Requirements → Design → Tasks)
+2. **Phase 6: MANDATORY APPROVAL CHECKPOINT** - Present implementation tasks for human review
+3. **Phase 7**: Only after approval, proceed to TDD implementation with proper src/ directory structure
+
+### Implementation Directory Structure:
+
+All code implementation MUST be created in the `src/` directory, NOT in `.kiro/` directory:
+
 ```
+src/
+├── components/     # React components
+├── pages/         # Next.js pages
+├── api/          # API routes
+├── lib/          # Utility libraries
+├── styles/       # CSS/styling
+├── tests/        # Test files
+└── types/        # TypeScript types
+```
+
+**NEVER** create implementation files in `.kiro/specs/` - that directory is ONLY for specifications.
 
 ## Kiro SDD Workflow Phases
 

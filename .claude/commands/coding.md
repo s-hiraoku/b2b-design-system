@@ -21,16 +21,32 @@ This command initiates and manages the coding workflow, which transforms specifi
 
 ## Workflow Execution
 
-When invoked, execute the CC-Deck Workflow Engine with the `coding-workflow`:
+⚠️ **CRITICAL: Human Approval Required Before Proceeding to Refactoring**
 
-```python
-# Execute Coding Workflow (TDD-Unified)
-workflow_name = "coding"
-feature_name = extract_feature_name_from_input(user_input)
-arguments = parse_arguments(user_input)
+This workflow MUST follow the human approval checkpoint defined in `.cc-deck/config/workflows/coding.yaml`.
 
-execute_workflow_engine(workflow_name, feature_name, arguments)
+**NEVER** automatically proceed to refactoring workflow without explicit human approval.
+
+### Implementation Directory Structure:
+
+All code implementation MUST be created in the `src/` directory:
+
 ```
+src/
+├── components/     # React components
+├── pages/         # Next.js pages
+├── api/          # API routes
+├── lib/          # Utility libraries
+├── styles/       # CSS/styling
+├── tests/        # Test files
+└── types/        # TypeScript types
+```
+
+### Execution Steps:
+
+1. **Phases 1-7**: Execute TDD implementation cycle (Research → Planning → Serena Setup → TDD → Implementation → Testing → Documentation)
+2. **Phase 8: MANDATORY APPROVAL CHECKPOINT** - Present completed implementation for human review
+3. **Phase 9**: Only after approval, proceed to refactoring workflow
 
 ## TDD-Unified Coding Workflow Phases
 
