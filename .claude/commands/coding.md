@@ -29,17 +29,22 @@ This command initiates and manages the coding workflow, which transforms specifi
 
 ### Implementation Directory Structure:
 
-All code implementation MUST be created in the `src/` directory:
+All code implementation MUST be created in the `projects/{project-name}/` directory structure:
 
 ```
-src/
-├── components/     # React components
-├── pages/         # Next.js pages
-├── api/          # API routes
-├── lib/          # Utility libraries
-├── styles/       # CSS/styling
-├── tests/        # Test files
-└── types/        # TypeScript types
+projects/{project-name}/
+├── src/
+│   ├── components/     # React components
+│   ├── pages/         # Next.js pages
+│   ├── api/          # API routes
+│   ├── lib/          # Utility libraries
+│   ├── styles/       # CSS/styling
+│   ├── tests/        # Test files
+│   └── types/        # TypeScript types
+├── package.json       # Project dependencies
+├── next.config.js     # Framework configuration
+├── tailwind.config.js # Styling configuration
+└── tsconfig.json      # TypeScript configuration
 ```
 
 ### Execution Steps:

@@ -10,23 +10,28 @@ You are a specialized code implementation expert who transforms architectural pl
 
 ## 🚨 CRITICAL IMPLEMENTATION DIRECTORY REQUIREMENT
 
-**ALL CODE IMPLEMENTATION MUST BE CREATED IN THE `src/` DIRECTORY**
+**ALL CODE IMPLEMENTATION MUST BE CREATED IN THE `projects/{project-name}/` DIRECTORY STRUCTURE**
 
 **NEVER** create implementation files in `.kiro/specs/` directory - that is ONLY for specifications.
 
 Required directory structure for all implementations:
 ```
-src/
-├── components/     # React components
-├── pages/         # Next.js pages  
-├── api/          # API routes
-├── lib/          # Utility libraries
-├── styles/       # CSS/styling
-├── tests/        # Test files
-└── types/        # TypeScript types
+projects/{project-name}/
+├── src/
+│   ├── components/     # React components
+│   ├── pages/         # Next.js pages  
+│   ├── api/          # API routes
+│   ├── lib/          # Utility libraries
+│   ├── styles/       # CSS/styling
+│   ├── tests/        # Test files
+│   └── types/        # TypeScript types
+├── package.json       # Project dependencies
+├── next.config.js     # Framework configuration
+├── tailwind.config.js # Styling configuration
+└── tsconfig.json      # TypeScript configuration
 ```
 
-Always create implementation files in the appropriate `src/` subdirectory using Serena MCP tools.
+Always create implementation files in the appropriate `projects/{project-name}/src/` subdirectory using Serena MCP tools.
 
 ## Workflow Integration Context
 

@@ -29,13 +29,18 @@ All specifications are stored in the `.kiro/specs/` directory:
 - `tetris-game` - クラシックなテトリスゲームのWebブラウザ実装 (初期化済み)
 - `todo-app` - Modern web-based TODO application with task management, filtering, and persistent storage (初期化済み)
 - `schedule-app` - 日程管理とタスク管理を統合したWebアプリケーション (初期化済み)
-- `tech-blog-website` - エンジニア向けの技術ブログWebサイト。記事管理、Markdownエディタ、SEO最適化機能を備えたモダンなブログプラットフォーム (初期化済み)
+- `tech-blog-website` - エンジニア向けの技術ブログWebサイト。記事管理、Markdownエディタ、SEO最適化機能を備えたモダンなブログプラットフォーム (実装済み)
 
 ## Project Structure
 
 - `.kiro/` - Kiro SDD working directory
   - `specs/` - Active feature specifications and implementations
   - `steering/` - Project steering documents
+- `projects/` - Generated project implementations
+  - `tech-blog-website/` - 技術ブログWebサイト実装
+  - `todo-app/` - TODOアプリ実装 (予定)
+  - `tetris-game/` - テトリスゲーム実装 (予定)
+  - `schedule-app/` - スケジュールアプリ実装 (予定)
 - `docs/` - Project documentation
   - `claude-code/` - Claude Code specific documentation and guides
   - `kiro/` - Kiro SDD examples and references

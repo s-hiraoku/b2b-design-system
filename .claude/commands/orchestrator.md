@@ -26,7 +26,7 @@ This command serves as the single entry point for all development workflows by:
 
 1. **TDD実装前**: 実装タスクの承認が必要
 2. **次ワークフロー前**: 現在のワークフロー完了の承認が必要  
-3. **実装ディレクトリ**: すべてのコードは `src/` ディレクトリに作成、`.kiro/` は禁止
+3. **実装ディレクトリ**: すべてのコードは `projects/{project-name}/src/` ディレクトリに作成、`.kiro/` は禁止
 
 ### 承認確認プロセス:
 - 現在のフェーズが承認を必要とするかチェック
