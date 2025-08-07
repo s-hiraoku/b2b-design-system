@@ -13,11 +13,9 @@ This command initiates and manages the refactoring workflow, which improves code
 
 ## Workflow Execution
 
-⚠️ **承認が必要です**
+⚠️ **Approval Required**
 
-このワークフローは承認チェックポイントに従います。承認後、自動的に testing ワークフローに進行します。
-
-**次フェーズ**: 承認後、自動的に testing ワークフローに進行します
+After approval, automatically proceeds to testing workflow.
 
 ## Refactoring Workflow Phases
 

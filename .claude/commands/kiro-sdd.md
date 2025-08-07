@@ -13,17 +13,17 @@ This command initiates and manages the Kiro SDD workflow, which transforms user 
 
 ## Workflow Execution
 
-⚠️ **承認が必要です**
+⚠️ **Approval Required**
 
-このワークフローは `.cc-deck/config/workflows/kiro-sdd.yaml` で定義された承認チェックポイントに従います。
+This workflow follows approval checkpoints defined in `.cc-deck/config/workflows/kiro-sdd.yaml`.
 
-実装タスクの明示的な承認なしには、TDD実装に進みません。
+Will not proceed to TDD implementation without explicit approval of implementation tasks.
 
 ### Execution Steps:
 
 1. **Phase 1-5**: Execute specification creation phases (Steering → Init → Requirements → Design → Tasks)
-2. **Phase 6: 承認チェックポイント** - 実装タスクの承認確認
-3. **Phase 7**: Only after approval, proceed to TDD implementation with proper src/ directory structure
+2. **Phase 6**: Approval checkpoint - Review implementation tasks
+3. **Phase 7**: After approval, proceed to TDD implementation with proper projects/ directory structure
 
 ### Implementation Directory Structure:
 

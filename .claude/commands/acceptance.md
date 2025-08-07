@@ -17,11 +17,9 @@ This command initiates and manages the acceptance workflow, which facilitates hu
 
 ## Workflow Execution
 
-⚠️ **最終承認が必要です**
+⚠️ **Final Approval Required**
 
-このワークフローは完全な開発フローの最終段階です。承認により、全プロジェクトが正式に完了となります。
-
-**最終フェーズ**: 承認により、完全なプロジェクト開発サイクルが完了します 🎉
+This is the final stage of the complete development flow. Approval marks formal project completion.
 
 ```python
 # Execute Acceptance Workflow

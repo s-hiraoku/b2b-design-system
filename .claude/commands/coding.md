@@ -21,11 +21,11 @@ This command initiates and manages the coding workflow, which transforms specifi
 
 ## Workflow Execution
 
-⚠️ **承認が必要です**
+⚠️ **Approval Required**
 
-このワークフローは `.cc-deck/config/workflows/coding.yaml` で定義された承認チェックポイントに従います。
+This workflow follows approval checkpoints defined in `.cc-deck/config/workflows/coding.yaml`.
 
-明示的な承認なしには、リファクタリングワークフローに自動進行しません。
+Will not automatically proceed to refactoring workflow without explicit approval.
 
 ### Implementation Directory Structure:
 
@@ -50,10 +50,8 @@ projects/{project-name}/
 ### Execution Steps:
 
 1. **Phases 1-7**: Execute TDD implementation cycle (Research → Planning → Serena Setup → TDD → Implementation → Testing → Documentation)
-2. **Phase 8: 承認チェックポイント** - 完了した実装の承認確認
-3. **Phase 9**: 承認後、自動的に refactoring ワークフローを実行
-
-**次フェーズ**: 承認後、自動的に refactoring ワークフローに進行します
+2. **Phase 8**: Approval checkpoint - Review completed implementation
+3. **Phase 9**: After approval, automatically proceed to refactoring workflow
 
 ## TDD-Unified Coding Workflow Phases
 

@@ -13,11 +13,9 @@ This command initiates and manages the PR workflow, which automates pull request
 
 ## Workflow Execution
 
-⚠️ **承認が必要です**
+⚠️ **Approval Required**
 
-このワークフローは承認チェックポイントに従います。承認後、自動的に acceptance ワークフローに進行します。
-
-**次フェーズ**: 承認後、自動的に acceptance ワークフローに進行します
+After approval, automatically proceeds to acceptance workflow.
 feature_name = extract_pr_context_from_input(user_input)
 arguments = parse_arguments(user_input)
 

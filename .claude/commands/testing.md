@@ -13,11 +13,9 @@ This command initiates and manages the testing workflow, which ensures system qu
 
 ## Workflow Execution
 
-⚠️ **承認が必要です**
+⚠️ **Approval Required**
 
-このワークフローは承認チェックポイントに従います。承認後、自動的に pr ワークフローに進行します。
-
-**次フェーズ**: 承認後、自動的に pr ワークフローに進行します
+After approval, automatically proceeds to pr workflow.
 feature_name = extract_testing_scope_from_input(user_input)
 arguments = parse_arguments(user_input)
 

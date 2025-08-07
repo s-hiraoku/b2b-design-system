@@ -8,6 +8,12 @@ allowed-tools: Task, Read, Write, Edit, MultiEdit, Bash, Glob, Grep, LS
 
 Intelligent orchestrator that automatically detects project state and continues development workflow from the appropriate phase using task-based progression.
 
+## Quality Commitment
+
+**We make no compromises in creating high-quality products. We build exceptional products that adhere to specifications with uncompromising excellence.**
+
+This orchestrator is designed to deliver enterprise-grade development workflows with the highest standards of quality, testing, and architectural integrity.
+
 ## Purpose
 
 This command serves as the single entry point for all development workflows by:
@@ -18,36 +24,36 @@ This command serves as the single entry point for all development workflows by:
 4. **Delegating to appropriate agent** (executing the right workflow)
 5. **Maintaining continuity** (preserving context between phases)
 
-## 🚨 承認チェックポイント管理
+## 🚨 Approval Management
 
-**基本ルール**: このオーケストレーターは明示的な承認なしに実装や次のワークフローに進みません。
+**Core Rule**: Never proceed to implementation or next workflow without explicit human approval.
 
-### 承認チェックポイント要件:
+### Approval Requirements:
 
-1. **TDD実装前**: 実装タスクの承認が必要
-2. **次ワークフロー前**: 現在のワークフロー完了の承認が必要  
-3. **実装ディレクトリ**: すべてのコードは `projects/{project-name}/src/` ディレクトリに作成、`.kiro/` は禁止
+1. **Before TDD Implementation**: Implementation task approval required
+2. **Before Next Workflow**: Current workflow completion approval required  
+3. **Implementation Directory**: All code must be created in `projects/{project-name}/src/` directory
 
-### 承認確認プロセス:
-- 現在のフェーズが承認を必要とするかチェック
-- ユーザーに包括的なレビュー資料を提示
-- 明示的な「はい」または「承認」の確認を待機
-- 承認受領後のみ進行
-- すべての承認決定を監査ログに記録
+### Approval Process:
+- Check if current phase requires approval
+- Present comprehensive review materials to user
+- Wait for explicit "yes" or "approved" confirmation
+- Proceed only after receiving approval
+- Log all approval decisions for audit trail
 
-## 🔄 完全なワークフロー管理
+## 🔄 Complete Workflow Management
 
-**完全な開発フロー**: kiro-sdd → coding → refactoring → testing → pr → acceptance
+**Full Development Flow**: kiro-sdd → coding → refactoring → testing → pr → acceptance
 
-このオーケストレーターは単一ワークフローで停止せず、承認を経て全フローを完結まで実行します。
+This orchestrator executes the complete flow through approvals, never stopping at single workflow.
 
-1. **ワークフロー完了検出**: 各フェーズの承認完了を検出
-2. **自動的な次フェーズ開始**: 承認後、即座に次のワークフローを実行
-3. **進行状況の可視化**: 現在位置と残りフェーズを常時表示
-4. **acceptance完了まで継続**: 最終承認まで停止しない
+1. **Workflow Completion Detection**: Detect approval completion of each phase
+2. **Automatic Next Phase Start**: Execute next workflow immediately after approval
+3. **Progress Visualization**: Display current position and remaining phases
+4. **Continue Until Acceptance**: Never stop before final acceptance approval
 
 ```
-🎯 フロー進行状況: [✅ kiro-sdd] [✅ coding] [🔄 refactoring] [ ] testing [ ] pr [ ] acceptance
+🎯 Flow Progress: [✅ kiro-sdd] [✅ coding] [🔄 refactoring] [ ] testing [ ] pr [ ] acceptance
 ```
 
 ## Intelligent State Detection & Dynamic Agent Selection
@@ -197,13 +203,13 @@ Project State Analysis:
 ### Basic Continuation
 
 ```bash
-# Continue from where you left off - 完全フロー実行
+# Continue from where you left off - executes complete flow
 /orchestrator
 
 # Force specific phase
 /orchestrator "continue coding user-auth-system"
 
-# Start new feature - 自動的にkiro-sdd → coding → refactoring → testing → pr → acceptanceまで実行
+# Start new feature - automatically executes kiro-sdd → coding → refactoring → testing → pr → acceptance
 /orchestrator "Build a real-time chat application"
 ```
 
