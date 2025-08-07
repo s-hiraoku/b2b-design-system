@@ -51,7 +51,22 @@ projects/{project-name}/
 
 1. **Phases 1-7**: Execute TDD implementation cycle (Research → Planning → Serena Setup → TDD → Implementation → Testing → Documentation)
 2. **Phase 8: 承認チェックポイント** - 完了した実装の承認確認
-3. **Phase 9**: Only after approval, proceed to refactoring workflow
+3. **Phase 9**: 承認後、自動的に refactoring ワークフローを実行
+
+### 🔄 自動フロー継続
+
+**重要**: このワークフローは単体で終了せず、承認後自動的に次のワークフロー（refactoring → testing → pr → acceptance）に進行します。
+
+完全フロー: coding → refactoring → testing → pr → acceptance
+
+### 継続実行の表示:
+
+```
+✅ coding ワークフロー完了
+🔄 次のフェーズ: refactoring ワークフローを開始します...
+
+進行状況: [✅ coding] [🔄 refactoring] [ ] testing [ ] pr [ ] acceptance
+```
 
 ## TDD-Unified Coding Workflow Phases
 

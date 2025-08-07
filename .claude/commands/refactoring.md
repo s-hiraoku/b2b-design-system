@@ -13,15 +13,23 @@ This command initiates and manages the refactoring workflow, which improves code
 
 ## Workflow Execution
 
-When invoked, execute the CC-Deck Workflow Engine with the `refactoring-workflow`:
+⚠️ **承認が必要です**
 
-```python
-# Execute Refactoring Workflow
-workflow_name = "refactoring"
-feature_name = extract_refactoring_scope_from_input(user_input)
-arguments = parse_arguments(user_input)
+このワークフローは承認チェックポイントに従います。承認後、自動的に testing ワークフローに進行します。
 
-execute_workflow_engine(workflow_name, feature_name, arguments)
+### 🔄 自動フロー継続
+
+**重要**: このワークフローは単体で終了せず、承認後自動的に次のワークフロー（testing → pr → acceptance）に進行します。
+
+完全フロー: coding → refactoring → testing → pr → acceptance
+
+### 継続実行の表示:
+
+```
+✅ refactoring ワークフロー完了
+🔄 次のフェーズ: testing ワークフローを開始します...
+
+進行状況: [✅ coding] [✅ refactoring] [🔄 testing] [ ] pr [ ] acceptance
 ```
 
 ## Refactoring Workflow Phases

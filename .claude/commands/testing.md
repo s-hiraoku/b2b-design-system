@@ -13,11 +13,24 @@ This command initiates and manages the testing workflow, which ensures system qu
 
 ## Workflow Execution
 
-When invoked, execute the CC-Deck Workflow Engine with the `testing-workflow`:
+⚠️ **承認が必要です**
 
-```python
-# Execute Testing Workflow
-workflow_name = "testing"
+このワークフローは承認チェックポイントに従います。承認後、自動的に pr ワークフローに進行します。
+
+### 🔄 自動フロー継続
+
+**重要**: このワークフローは単体で終了せず、承認後自動的に次のワークフロー（pr → acceptance）に進行します。
+
+完全フロー: coding → refactoring → testing → pr → acceptance
+
+### 継続実行の表示:
+
+```
+✅ testing ワークフロー完了
+🔄 次のフェーズ: pr ワークフローを開始します...
+
+進行状況: [✅ coding] [✅ refactoring] [✅ testing] [🔄 pr] [ ] acceptance
+```
 feature_name = extract_testing_scope_from_input(user_input)
 arguments = parse_arguments(user_input)
 

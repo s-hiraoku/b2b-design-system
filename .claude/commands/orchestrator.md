@@ -35,6 +35,27 @@ This command serves as the single entry point for all development workflows by:
 - 承認受領後のみ進行
 - すべての承認決定を監査ログに記録
 
+## 🔄 完全なワークフロー管理
+
+**完全な開発フロー**: kiro-sdd → coding → refactoring → testing → pr → acceptance
+
+### 継続実行の動作:
+
+1. **各ワークフロー完了時**: 自動的に次のワークフローを検出して実行提案
+2. **承認後の自動進行**: 承認取得後、即座に次フェーズに移行
+3. **全フロー完結**: acceptance フェーズ完了まで継続実行
+4. **進行状況の可視化**: 現在位置と残りフェーズを常時表示
+
+### フロー継続管理:
+
+```
+現在位置の表示例:
+🎯 フロー進行状況: [✅ kiro-sdd] [✅ coding] [🔄 refactoring] [ ] testing [ ] pr [ ] acceptance
+
+次のフェーズ自動実行:
+"refactoring フェーズが承認されました。testing フェーズを開始します..."
+```
+
 ## Intelligent State Detection & Dynamic Agent Selection
 
 ### Automatic Project Analysis
@@ -182,14 +203,38 @@ Project State Analysis:
 ### Basic Continuation
 
 ```bash
-# Continue from where you left off
+# Continue from where you left off - 完全フロー実行
 /orchestrator
 
 # Force specific phase
 /orchestrator "continue coding user-auth-system"
 
-# Start new feature
+# Start new feature - 自動的にkiro-sdd → coding → refactoring → testing → pr → acceptanceまで実行
 /orchestrator "Build a real-time chat application"
+```
+
+## 🔄 完全フロー実行の実装
+
+**重要**: このオーケストレーターは単一ワークフローで停止せず、完全なフロー（kiro-sdd → coding → refactoring → testing → pr → acceptance）を実行します。
+
+### 実装ロジック:
+
+1. **ワークフロー完了検出**: 各ワークフローの承認完了を検出
+2. **次フェーズ自動開始**: 承認後、即座に次のワークフローを実行
+3. **進行状況表示**: ユーザーに現在位置と残りフェーズを表示
+4. **最終完了まで継続**: acceptance フェーズ完了まで停止しない
+
+### 実行例:
+
+```
+🎯 開発フロー開始: tech-blog-website
+
+[✅ kiro-sdd 完了] → [🔄 coding 実行中...]
+coding承認後 → [✅ coding 完了] → [🔄 refactoring 実行中...]  
+refactoring承認後 → [✅ refactoring 完了] → [🔄 testing 実行中...]
+testing承認後 → [✅ testing 完了] → [🔄 pr 実行中...]
+pr承認後 → [✅ pr 完了] → [🔄 acceptance 実行中...]
+acceptance承認後 → [✅ 全フロー完了! 🎉]
 ```
 
 ### Phase-Specific Execution
