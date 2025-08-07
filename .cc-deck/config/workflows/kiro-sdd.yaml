@@ -88,9 +88,35 @@ phases:
       - file_exists: ".kiro/specs/${feature_name}/tasks.md"
       - content_validation: tasks_format
     approval_required: true
-    next_phase: implementation
+    next_phase: human_approval_tasks
 
-  # Phase 6: Task-Driven Implementation
+  # Phase 6: Human Approval for Implementation Tasks
+  - name: human_approval_tasks
+    type: human_interaction
+    description: "Human review and approval of implementation tasks before proceeding to TDD implementation"
+    approval_scope:
+      - "Implementation task breakdown and sequencing appropriateness"
+      - "Task complexity and effort estimation accuracy"
+      - "Technical approach and architectural decisions"
+      - "Dependencies and prerequisite task identification"
+      - "Testing strategy integration within tasks"
+    review_materials:
+      - tasks_document
+      - implementation_roadmap
+      - design_document
+      - requirements_document
+    decision_options: [approved, approved_with_conditions, rejected, deferred]
+    stakeholders:
+      required: [technical_lead]
+      optional: [senior_developer, product_owner]
+    timeout: 48 # hours
+    on_approval: 
+      next_phase: implementation
+    on_rejection:
+      rollback_to_phase: tasks
+      feedback_collection: true
+
+  # Phase 7: Task-Driven Implementation
   - name: implementation
     type: task_driven
     description: "Execute implementation tasks with progress tracking"
@@ -132,7 +158,7 @@ phases:
     
     next_phase: validation
 
-  # Phase 7: Final Validation and Status Update
+  # Phase 8: Final Validation and Status Update
   - name: validation
     agent: kiro-spec-status
     description: "Validate completion and update project status"
@@ -146,7 +172,7 @@ phases:
       - quality_gates_passed: true
     next_phase: human_approval_kiro_sdd
 
-  # Phase 8: Human Approval Checkpoint
+  # Phase 9: Human Approval Checkpoint
   - name: human_approval_kiro_sdd
     type: human_interaction
     description: "Human review and approval of Kiro SDD workflow completion before proceeding to next development phase"
