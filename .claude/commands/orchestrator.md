@@ -562,31 +562,31 @@ Execute complete development workflows with research, planning, implementation, 
 /orchestrator "Build user management system with comprehensive coding workflow"
 ```
 
-### Coding Sub-Agent
+### Multi-Agent Coding Integration
 
-- **Sub-agent**: `Coding`
-- **Responsibility**: Complete development workflow orchestration from research to documentation
+- **Primary Agents**: `research-agent`, `planning-agent`, `serena-onboarding-agent`, `tdd-agent`, `implementation-agent`, `testing-agent`, `documentation-agent`
+- **Responsibility**: Complete development workflow orchestration from research to documentation using specialized agents
 - **Benefits**: End-to-end development automation with MCP integration and best practices
 
 ### TDD-First Development Integration
 
 ```bash
-# Test-Driven Development with t-wada methodology (delegates to coding agent with TDD approach)
+# Test-Driven Development with t-wada methodology (orchestrator delegates through coding workflow)
 /orchestrator "tdd 'Implement OAuth2 authentication'"
 
-# TDD with specific testing framework (coding agent manages TDD internally)
+# TDD with specific testing framework (orchestrator manages multi-agent TDD workflow)
 /orchestrator "tdd 'Build payment processing' --framework jest"
 
-# Complete TDD cycle with Red-Green-Refactor (coding agent orchestrates with tdd-agent)
+# Complete TDD cycle with Red-Green-Refactor (orchestrator coordinates all agents including tdd-agent)
 /orchestrator "tdd 'Create user management system' --full-cycle"
 ```
 
 ### TDD Integration Architecture
 
-- **Primary Orchestrator**: `coding` - Manages complete implementation workflow and delegates TDD practices internally
-- **TDD Specialist**: `tdd-agent` (formerly tdd-t-wada-agent) - Provides TDD guidance when invoked by coding agent
-- **Responsibility**: Coding agent handles implementation planning and orchestration, using tdd-agent for TDD methodology
-- **Benefits**: Proper separation of concerns between implementation orchestration and TDD practices
+- **Primary Orchestrator**: `/orchestrator` - Manages complete implementation workflow through multiple specialized agents
+- **TDD Specialist**: `tdd-agent` - Executes Red-Green-Refactor cycles within the coding workflow
+- **Responsibility**: Orchestrator coordinates all agents (research → planning → serena-onboarding → TDD → implementation → testing → documentation)
+- **Benefits**: Proper separation of concerns between orchestration and specialized agent responsibilities
 
 ### Coding Integration Points
 
@@ -594,7 +594,7 @@ Execute complete development workflows with research, planning, implementation, 
 # Research-driven development
 /orchestrator "coding 'Implement OAuth2 authentication' --research-first"
 
-# Implementation with TDD approach (coding agent automatically uses tdd-agent internally)
+# Implementation with TDD approach (orchestrator automatically coordinates tdd-agent within coding workflow)
 /orchestrator "coding 'Build payment processing' --tdd-approach"
 
 # Documentation-heavy development
