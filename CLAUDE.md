@@ -26,21 +26,13 @@ See [docs/ATTRIBUTION.md](docs/ATTRIBUTION.md) for detailed acknowledgments.
 
 All specifications are stored in the `.kiro/specs/` directory:
 
-- `tetris-game` - クラシックなテトリスゲームのWebブラウザ実装 (初期化済み)
-- `todo-app` - Modern web-based TODO application with task management, filtering, and persistent storage (初期化済み)
-- `schedule-app` - 日程管理とタスク管理を統合したWebアプリケーション (初期化済み)
-- `tech-blog-website` - エンジニア向けの技術ブログWebサイト。記事管理、Markdownエディタ、SEO最適化機能を備えたモダンなブログプラットフォーム (実装済み)
-
 ## Project Structure
 
 - `.kiro/` - Kiro SDD working directory
   - `specs/` - Active feature specifications and implementations
   - `steering/` - Project steering documents
 - `projects/` - Generated project implementations
-  - `tech-blog-website/` - 技術ブログWebサイト実装
-  - `todo-app/` - TODOアプリ実装 (予定)
-  - `tetris-game/` - テトリスゲーム実装 (予定)
-  - `schedule-app/` - スケジュールアプリ実装 (予定)
+
 - `docs/` - Project documentation
   - `claude-code/` - Claude Code specific documentation and guides
   - `kiro/` - Kiro SDD examples and references
@@ -86,11 +78,12 @@ Use `/orchestrator` for all development workflows - it provides intelligent stat
 This project now includes the **CC-Deck Workflow Engine**, an advanced workflow orchestration system that realizes the ARCHITECTURE.md design through:
 
 - **Workflow Composition Pattern**: Hierarchical workflow definitions with phase management
-- **Smart Context Propagation**: Context sharing between agents and phases  
+- **Smart Context Propagation**: Context sharing between agents and phases
 - **Kiro SDD Integration**: Seamless integration with `.kiro/specs/*/tasks.md` files
 - **Agent Orchestration**: Intelligent agent selection and delegation
 
 #### Key Features
+
 - **Enhanced `/orchestrator`**: Main entry point with intelligent workflow selection
 - **Workflow Definitions**: YAML-based workflows in `.cc-deck/workflows/`
 - **Smart Context**: Persistent state management in `.cc-deck/context/`
@@ -98,6 +91,7 @@ This project now includes the **CC-Deck Workflow Engine**, an advanced workflow 
 - **Error Recovery**: Comprehensive error handling with checkpoints
 
 #### Usage Examples
+
 ```bash
 # Intelligent workflow selection
 /orchestrator
@@ -151,6 +145,7 @@ When creating or updating custom slash commands and sub-agents, **ALWAYS** verif
 ### ✅ Compliance Status
 
 **All sub-agents have been updated to comply with Anthropic specifications**:
+
 - Removed `Task` tool from all sub-agent definitions
 - Updated agent descriptions to reflect orchestrator delegation
 - All agent coordination now happens through CC-Deck Workflow Engine
