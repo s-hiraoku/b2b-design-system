@@ -17,20 +17,7 @@ This command initiates and manages the PR workflow, which automates pull request
 
 このワークフローは承認チェックポイントに従います。承認後、自動的に acceptance ワークフローに進行します。
 
-### 🔄 自動フロー継続
-
-**重要**: このワークフローは単体で終了せず、承認後自動的に最終ワークフロー（acceptance）に進行します。
-
-完全フロー: coding → refactoring → testing → pr → acceptance
-
-### 継続実行の表示:
-
-```
-✅ pr ワークフロー完了
-🔄 次のフェーズ: acceptance ワークフローを開始します...
-
-進行状況: [✅ coding] [✅ refactoring] [✅ testing] [✅ pr] [🔄 acceptance]
-```
+**次フェーズ**: 承認後、自動的に acceptance ワークフローに進行します
 feature_name = extract_pr_context_from_input(user_input)
 arguments = parse_arguments(user_input)
 

@@ -17,20 +17,7 @@ This command initiates and manages the refactoring workflow, which improves code
 
 このワークフローは承認チェックポイントに従います。承認後、自動的に testing ワークフローに進行します。
 
-### 🔄 自動フロー継続
-
-**重要**: このワークフローは単体で終了せず、承認後自動的に次のワークフロー（testing → pr → acceptance）に進行します。
-
-完全フロー: coding → refactoring → testing → pr → acceptance
-
-### 継続実行の表示:
-
-```
-✅ refactoring ワークフロー完了
-🔄 次のフェーズ: testing ワークフローを開始します...
-
-進行状況: [✅ coding] [✅ refactoring] [🔄 testing] [ ] pr [ ] acceptance
-```
+**次フェーズ**: 承認後、自動的に testing ワークフローに進行します
 
 ## Refactoring Workflow Phases
 

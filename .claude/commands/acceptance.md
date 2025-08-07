@@ -21,20 +21,7 @@ This command initiates and manages the acceptance workflow, which facilitates hu
 
 このワークフローは完全な開発フローの最終段階です。承認により、全プロジェクトが正式に完了となります。
 
-### 🏁 最終フロー完了
-
-**重要**: このワークフローは開発フローの最終段階です。承認により、完全なプロジェクト開発サイクルが完了します。
-
-完全フロー: coding → refactoring → testing → pr → **acceptance** 🎉
-
-### 最終完了の表示:
-
-```
-✅ acceptance ワークフロー完了
-🎉 全開発フロー完了! プロジェクト正式リリース
-
-進行状況: [✅ coding] [✅ refactoring] [✅ testing] [✅ pr] [✅ acceptance] 🚀
-```
+**最終フェーズ**: 承認により、完全なプロジェクト開発サイクルが完了します 🎉
 
 ```python
 # Execute Acceptance Workflow
