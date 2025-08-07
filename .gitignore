@@ -72,6 +72,7 @@ coverage/
 BLOG.md
 
 # Claude Code
+.cc-deck/runtime/
 
 # Kiroのdoc関連ファイル
 docs/kiro/prompt/
@@ -80,6 +81,15 @@ docs/kiro/prompt/
 .serena/cache/
 .serena/memories/
 .serena/logs/
+
+# Project-specific ignores for generated projects
+projects/*/node_modules/
+projects/*/.next/
+projects/*/out/
+projects/*/dist/
+projects/*/build/
+projects/*/.env*
+projects/*/coverage/
 
 # 通知関連
 .notifications/
