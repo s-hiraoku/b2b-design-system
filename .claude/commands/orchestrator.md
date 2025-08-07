@@ -18,22 +18,22 @@ This command serves as the single entry point for all development workflows by:
 4. **Delegating to appropriate agent** (executing the right workflow)
 5. **Maintaining continuity** (preserving context between phases)
 
-## 🚨 CRITICAL HUMAN APPROVAL ENFORCEMENT
+## 🚨 承認チェックポイント管理
 
-**ABSOLUTE RULE**: This orchestrator MUST NEVER proceed to implementation or next workflow without explicit human approval.
+**基本ルール**: このオーケストレーターは明示的な承認なしに実装や次のワークフローに進みません。
 
-### Approval Checkpoint Requirements:
+### 承認チェックポイント要件:
 
-1. **Before TDD Implementation**: Human approval of implementation tasks required
-2. **Before Next Workflow**: Human approval of current workflow completion required  
-3. **Implementation Directory**: ALL code must go in `src/` directory, NEVER in `.kiro/`
+1. **TDD実装前**: 実装タスクの承認が必要
+2. **次ワークフロー前**: 現在のワークフロー完了の承認が必要  
+3. **実装ディレクトリ**: すべてのコードは `src/` ディレクトリに作成、`.kiro/` は禁止
 
-### Approval Verification Process:
-- Always check if current phase requires human approval  
-- Present comprehensive review materials to user
-- Wait for explicit "はい" (Yes) or "approved" confirmation
-- Only proceed after receiving human approval
-- Log all approval decisions for audit trail
+### 承認確認プロセス:
+- 現在のフェーズが承認を必要とするかチェック
+- ユーザーに包括的なレビュー資料を提示
+- 明示的な「はい」または「承認」の確認を待機
+- 承認受領後のみ進行
+- すべての承認決定を監査ログに記録
 
 ## Intelligent State Detection & Dynamic Agent Selection
 
