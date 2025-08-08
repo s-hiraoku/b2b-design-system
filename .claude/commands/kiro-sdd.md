@@ -2,7 +2,6 @@
 description: Execute Kiro SDD (Specification-Driven Development) workflow for comprehensive requirement definition, technical design, and task generation
 argument-hint: "[feature-description]"
 allowed-tools: "*"
-model: sonnet
 ---
 
 You are the **Kiro SDD Workflow Command** that executes the complete Specification-Driven Development process for new features or enhancements.
@@ -20,6 +19,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 **After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration.
 
 ### Implementation Logic:
+
 1. **Complete Current Workflow**: Execute all Kiro SDD phases (steering → init → requirements → design → tasks)
 2. **Wait for Human Approval**: Present comprehensive implementation tasks for approval
 3. **Upon Approval**: Ask user for explicit permission to proceed to next workflow
@@ -64,31 +64,37 @@ projects/{project-name}/
 ## Kiro SDD Workflow Phases
 
 ### Phase 1: Steering
+
 - **Agent**: kiro-steering or kiro-steering-custom
 - **Purpose**: Establish project direction and technical policies
 - **Outputs**: Steering documents, technical standards, project context
 
-### Phase 2: Initialization  
+### Phase 2: Initialization
+
 - **Agent**: kiro-spec-init
 - **Purpose**: Create specification framework for the feature
 - **Outputs**: Specification directory structure, metadata, initial documentation
 
 ### Phase 3: Requirements Definition
+
 - **Agent**: kiro-spec-requirements
 - **Purpose**: Generate comprehensive requirements using EARS format
 - **Outputs**: User stories, acceptance criteria, functional/non-functional requirements
 
 ### Phase 4: Technical Design
-- **Agent**: kiro-spec-design  
+
+- **Agent**: kiro-spec-design
 - **Purpose**: Create detailed technical architecture and implementation strategy
 - **Outputs**: System architecture, technology choices, integration patterns
 
 ### Phase 5: Task Generation
+
 - **Agent**: kiro-spec-tasks
 - **Purpose**: Break down design into implementable tasks
 - **Outputs**: `tasks.md` file with hierarchical checkbox structure
 
 ### Phase 6: Status Management
+
 - **Agent**: kiro-spec-status
 - **Purpose**: Monitor progress and maintain specification health
 - **Outputs**: Status reports, completion metrics, next actions
@@ -121,7 +127,7 @@ The Kiro SDD workflow seamlessly integrates with subsequent development phases:
 ## Quality Assurance
 
 - **EARS Format Requirements**: Ensures requirements follow Event-Action-Result-State pattern
-- **Technical Design Validation**: Architecture consistency and feasibility checks  
+- **Technical Design Validation**: Architecture consistency and feasibility checks
 - **Task Granularity**: Implementation tasks broken down to appropriate detail level
 - **Human Approval Gates**: Stakeholder review and approval at key phases
 

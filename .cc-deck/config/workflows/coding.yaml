@@ -26,6 +26,9 @@ phases:
   - name: research
     agent: research-agent
     description: "Technology research using MCP integrations"
+    available_agents:
+      - research-agent: "Comprehensive technology research"
+      - deepwiki-research-solver: "Specialized technical problem research and solutions"
     inputs: [project_requirements]
     outputs:
       - research_context
@@ -198,6 +201,18 @@ parallel_groups:
     condition: "context.allow_parallel === true"
     phases: [implementation, testing]
     coordination: shared_context
+
+# Supplementary Agents
+# These agents are available throughout the workflow for specific needs
+supplementary_agents:
+  - name: deepwiki-research-solver
+    description: "Research technical issues and find solutions during any phase"
+    availability: all_phases
+    use_cases:
+      - "Troubleshooting implementation errors"
+      - "Finding best practices for specific technologies"
+      - "Researching library-specific solutions"
+      - "Understanding framework patterns and conventions"
 
 # Integration Points
 integrations:

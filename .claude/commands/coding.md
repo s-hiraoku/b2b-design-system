@@ -1,8 +1,7 @@
 ---
 description: Execute TDD-unified coding workflow with comprehensive development from research to documentation
 argument-hint: "[implementation-description]"
-allowed-tools: "*"  
-model: sonnet
+allowed-tools: "*"
 ---
 
 You are the **Coding Workflow Command** that executes the complete TDD-unified development process following t-wada methodology.
@@ -16,7 +15,7 @@ This command initiates and manages the coding workflow, which transforms specifi
 **ALL development must follow Test-Driven Development** - no exceptions. Every implementation goes through:
 
 1. **serena-onboarding-agent**: TDD environment setup and pattern establishment
-2. **tdd-agent**: Strict Red-Green-Refactor cycle execution  
+2. **tdd-agent**: Strict Red-Green-Refactor cycle execution
 3. **implementation-agent**: TDD-foundation completion and optimization
 
 ## Workflow Execution
@@ -28,6 +27,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 **After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration.
 
 ### Implementation Logic:
+
 1. **Complete Current Workflow**: Execute all coding phases (research → planning → serena-onboarding → tdd → implementation → testing → documentation)
 2. **Wait for Human Approval**: Present comprehensive review materials
 3. **Upon Approval**: Ask user for explicit permission to proceed to next workflow
@@ -80,33 +80,38 @@ projects/{project-name}/
 ## TDD-Unified Coding Workflow Phases
 
 ### Phase 1: Research
+
 - **Agent**: research-agent
 - **Purpose**: Technology research using MCP integrations
 - **MCP Tools**: DeepWiki (GitHub docs), Context7 (library docs), Web Search
 - **Outputs**: Research context, technology recommendations, best practices
 
 ### Phase 2: Strategic Planning
-- **Agent**: planning-agent  
+
+- **Agent**: planning-agent
 - **Purpose**: Develop architecture and implementation strategy
 - **Inputs**: Research findings, project requirements
 - **Outputs**: Architecture design, implementation roadmap, technology stack
 
 ### Phase 3: Serena Onboarding & TDD Environment Setup
+
 - **Agent**: serena-onboarding-agent
 - **Purpose**: Initialize Serena MCP with TDD-specific patterns and environment
 - **Configuration**: TDD-focused, AAA pattern, Given-When-Then structure
 - **Outputs**: TDD environment, coding standards, test framework configuration
 
 ### Phase 4: TDD Red-Green-Refactor Cycle
+
 - **Agent**: tdd-agent (t-wada methodology)
 - **Purpose**: Execute strict TDD cycles with test-first approach
-- **Process**: 
+- **Process**:
   - **Red**: Write failing tests that express desired behavior
   - **Green**: Write minimal code to make tests pass
   - **Refactor**: Improve code quality while maintaining test coverage
 - **Outputs**: Test suite, minimal implementations, refactored foundation
 
-### Phase 5: Complete TDD-Based Implementation  
+### Phase 5: Complete TDD-Based Implementation
+
 - **Agent**: implementation-agent
 - **Purpose**: Build complete implementation on TDD foundation
 - **Focus**: Maintain ALL existing tests while expanding functionality
@@ -114,12 +119,14 @@ projects/{project-name}/
 - **Outputs**: Complete production code with 95%+ test coverage
 
 ### Phase 6: Comprehensive Testing
+
 - **Agent**: testing-agent
 - **Purpose**: Add integration and E2E testing to TDD foundation
 - **Test Types**: Integration tests, E2E tests (conditional)
 - **Outputs**: Complete test suite, coverage reports
 
 ### Phase 7: Documentation Generation
+
 - **Agent**: documentation-agent
 - **Purpose**: Generate comprehensive documentation
 - **Outputs**: API documentation, usage examples, tutorials
@@ -143,7 +150,7 @@ projects/{project-name}/
 ## TDD Quality Guarantees
 
 - **100% TDD Coverage**: Every line of production code driven by tests
-- **95%+ Test Coverage**: Comprehensive test suite with high coverage metrics  
+- **95%+ Test Coverage**: Comprehensive test suite with high coverage metrics
 - **t-wada Methodology**: Strict adherence to proven TDD principles
 - **Design Quality**: Test-first approach naturally leads to better design
 - **Regression Protection**: Complete test suite prevents future breaks

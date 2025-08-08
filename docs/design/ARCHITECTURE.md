@@ -80,9 +80,11 @@ graph TD
 
     %% Research Phase
     ResearchPhase --> ResearchAgent[🔬 research-agent]
+    ResearchPhase --> DeepWikiSolver[🔍 deepwiki-research-solver]
     ResearchAgent --> DeepWiki[📖 DeepWiki MCP]
     ResearchAgent --> Context7[🔍 Context7 MCP]
     ResearchAgent --> WebSearch[🌐 Web Search]
+    DeepWikiSolver --> DeepWiki
 
     %% Planning Phase
     PlanningPhase --> PlanningAgent[📐 planning-agent]
@@ -247,9 +249,10 @@ graph LR
         KiroStatus[kiro-spec-status]
     end
 
-    subgraph "💻 Coding Cluster (8 agents)"
+    subgraph "💻 Coding Cluster (9 agents)"
         Coding[coding - 統合管理]
         Research[research-agent - MCP連携調査]
+        DeepWikiSolver[deepwiki-research-solver - 技術問題解決]
         Planning[planning-agent - 戦略設計]
         Implementation[implementation-agent - Serena統合実装]
         TDD[tdd-agent - Red-Green-Refactor]
@@ -320,7 +323,7 @@ graph LR
 **YAML定義ワークフローによる宣言的エージェント連携システム**：
 
 ```yaml
-# .cc-deck/workflows/coding.yaml の構造例
+# .cc-deck/config/workflows/coding.yaml の構造例
 workflow_name: "coding"
 description: "TDD統一による包括的開発ワークフロー"
 phases:
@@ -412,16 +415,16 @@ graph TD
 
 ### CC-Deck Workflow Engine 完全構成
 
-- **総エージェント数**: 40+個の高度専門化サブエージェント
-- **メインワークフロー**: 6つのYAML定義宣言的ワークフロー (.cc-deck/workflows/)
-- **カスタムコマンド**: 6つの専用スラッシュコマンド (/.claude/commands/)
+- **総エージェント数**: 37個の高度専門化サブエージェント
+- **メインワークフロー**: 6つのYAML定義宣言的ワークフロー (.cc-deck/config/workflows/)
+- **カスタムコマンド**: 8つの専用スラッシュコマンド (/.claude/commands/)
 - **TDD統一ポリシー**: 全開発フローがTest-Driven Development必須
 - **人間承認必須**: 全変更に人間ステークホルダー承認強制 (品質保証)
 - **MCP統合**: 4つのMCPサーバー統合 (DeepWiki, Context7, Serena, Playwright)
 
 ### 🎯 ワークフロー実行統計
 
-- **直接実行コマンド**: `/kiro-sdd`, `/coding`, `/refactoring`, `/testing`, `/pr`, `/acceptance`
+- **直接実行コマンド**: `/kiro-sdd`, `/coding`, `/refactoring`, `/testing`, `/pr`, `/acceptance`, `/orchestrator`, `/sync-status`
 - **インテリジェント統合**: `/orchestrator` による状態検出・自動ワークフロー選択
 - **Smart Context**: `.cc-deck/context/` クロスエージェント状態継承システム
 - **Task連携**: `.kiro/specs/*/tasks.md` リアルタイム双方向同期
@@ -436,7 +439,7 @@ graph TD
 - **Orchestrator**: 1 個 (統合管理)
 - **Core Agents**: 7 個 (仕様作成プロセス)
 
-#### 💻 Coding Cluster (8 agents)
+#### 💻 Coding Cluster (9 agents)
 
 **TDD統一ポリシーによる包括的高品質開発**
 
@@ -444,9 +447,10 @@ graph TD
   - serena-onboarding-agent (TDD環境・Serena MCP初期化)
   - tdd-agent ([t-wada](https://github.com/t-wada) 方法論・Red-Green-Refactor厳格実行)
   - implementation-agent (TDD基盤完成・本格実装)
-- **Workflow Support**: 5つの支援エージェント
+- **Workflow Support**: 6つの支援エージェント
   - coding (統合管理・フロー調整)
   - research-agent (MCP技術調査)
+  - deepwiki-research-solver (技術問題解決・DeepWiki特化)
   - planning-agent (戦略的アーキテクチャ)
   - testing-agent (包括テスト戦略)
   - documentation-agent (API・仕様ドキュメント)

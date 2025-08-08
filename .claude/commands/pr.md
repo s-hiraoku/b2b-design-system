@@ -2,7 +2,6 @@
 description: Execute comprehensive pull request workflow including creation, analysis, validation, and safe merging
 argument-hint: "[pr-description or merge-instruction]"
 allowed-tools: "*"
-model: sonnet  
 ---
 
 You are the **Pull Request Workflow Command** that executes complete PR lifecycle management from creation through safe merging and post-merge activities.
@@ -20,6 +19,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 **After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration.
 
 ### Implementation Logic:
+
 1. **Complete Current Workflow**: Execute all PR phases
 2. **Wait for Human Approval**: Present comprehensive review materials
 3. **Upon Approval**: Ask user for explicit permission to proceed to next workflow
@@ -28,7 +28,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 
 ```bash
 # After pr workflow completion and approval:
-# 1. Read .cc-deck/config/workflows/pr.yaml 
+# 1. Read .cc-deck/config/workflows/pr.yaml
 # 2. Find "next_workflow: acceptance" in the approval section
 # 3. Immediately execute the next workflow command: /acceptance
 # 4. Continue until acceptance workflow completes
@@ -52,6 +52,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 ## PR Workflow Phases
 
 ### Phase 1: Change Analysis
+
 - **Agent**: pr-analyzer
 - **Purpose**: Comprehensive analysis of code changes and impact assessment
 - **Analysis Scope**:
@@ -62,6 +63,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 - **Outputs**: Change analysis report, impact assessment, risk classification
 
 ### Phase 2: PR Content Generation
+
 - **Agent**: pr-generator
 - **Purpose**: Generate high-quality PR titles, descriptions, and metadata
 - **Generation Capabilities**:
@@ -72,6 +74,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 - **Outputs**: PR title, description, test plan, review checklist
 
 ### Phase 3: PR Validation
+
 - **Agent**: pr-validator
 - **Purpose**: Comprehensive PR quality validation before creation
 - **Validation Checks**:
@@ -82,6 +85,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 - **Outputs**: Validation report, quality metrics, approval readiness assessment
 
 ### Phase 4: PR Creation
+
 - **Integration**: GitHub CLI (`gh`) for PR creation
 - **Process**: Automated PR creation with generated content
 - **Features**: Label assignment, reviewer suggestions, milestone linking
@@ -89,6 +93,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 ## PR Merging Workflow
 
 ### Phase 5: Merge Approval Process
+
 - **Agent**: merge-approver
 - **Purpose**: Facilitate human approval process for PR merging
 - **Approval Features**:
@@ -98,6 +103,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
   - **Risk Communication**: Clear communication of merge risks and benefits
 
 ### Phase 6: Safe Merge Execution
+
 - **Agent**: merge-executor
 - **Purpose**: Execute safe PR merge with comprehensive validation
 - **Safety Measures**:
@@ -108,7 +114,8 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 - **Outputs**: Merge execution results, rollback procedures, success confirmation
 
 ### Phase 7: Post-Merge Management
-- **Agent**: post-merge-manager  
+
+- **Agent**: post-merge-manager
 - **Purpose**: Comprehensive post-merge activities and cleanup
 - **Activities**:
   - **Repository Cleanup**: Branch deletion and tag management
@@ -139,18 +146,21 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 ## Quality Assurance Features
 
 ### Pre-Creation Validation
+
 - **Code Quality Checks**: Automated linting, formatting, and convention validation
 - **Test Coverage Analysis**: Ensure new code has adequate test coverage
 - **Documentation Consistency**: Verify docs match code changes
 - **Security Scanning**: Basic vulnerability and security issue detection
 
 ### Merge Safety Measures
+
 - **Comprehensive Validation**: All CI/CD checks must pass before merge
 - **Conflict Detection**: Automatic identification and resolution guidance
 - **Rollback Readiness**: Prepared rollback procedures for every merge
 - **Stakeholder Approval**: Human approval required for all merges
 
 ### Post-Merge Quality
+
 - **Integration Verification**: Post-merge integration testing
 - **Performance Monitoring**: Performance impact assessment
 - **Documentation Updates**: Automatic documentation synchronization
@@ -159,12 +169,14 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 ## GitHub Integration
 
 ### PR Creation Features
+
 - **Smart Templates**: Intelligent PR template selection and population
 - **Automated Labels**: Automatic label assignment based on change analysis
 - **Reviewer Suggestions**: AI-powered reviewer recommendation
 - **Milestone Linking**: Automatic milestone and project board integration
 
 ### Merge Management
+
 - **Branch Protection**: Integration with GitHub branch protection rules
 - **Status Checks**: Coordination with CI/CD pipeline status checks
 - **Review Requirements**: Enforcement of review and approval requirements

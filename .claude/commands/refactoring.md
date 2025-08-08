@@ -2,7 +2,6 @@
 description: Execute semantic analysis-driven refactoring workflow for code quality improvement and technical debt reduction
 argument-hint: "[refactoring-scope-description]"
 allowed-tools: "*"
-model: sonnet
 ---
 
 You are the **Refactoring Workflow Command** that executes comprehensive code refactoring using semantic analysis and pattern detection.
@@ -20,15 +19,16 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 **After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration.
 
 ### Implementation Logic:
+
 1. **Complete Current Workflow**: Execute all refactoring phases
-2. **Wait for Human Approval**: Present comprehensive review materials  
+2. **Wait for Human Approval**: Present comprehensive review materials
 3. **Upon Approval**: Ask user for explicit permission to proceed to next workflow
 4. **Request Confirmation**: "Proceed to testing workflow? (yes/no)"
 5. **Wait for Permission**: Only continue after clear user confirmation
 
 ```bash
 # After refactoring workflow completion and approval:
-# 1. Read .cc-deck/config/workflows/refactoring.yaml 
+# 1. Read .cc-deck/config/workflows/refactoring.yaml
 # 2. Find "next_workflow: testing" in the approval section
 # 3. Immediately execute the next workflow command: /testing
 # 4. Continue until acceptance workflow completes
@@ -39,10 +39,10 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 **CRITICAL**: Execute ALL phases sequentially using the specified agents. Do NOT skip phases.
 
 1. **Phase 1**: pattern-detector (Identify duplicate and similar code patterns)
-2. **Phase 2**: code-analyzer (Analyze code structure and dependencies)  
+2. **Phase 2**: code-analyzer (Analyze code structure and dependencies)
 3. **Phase 3**: Intelligent routing to appropriate refactoring agent:
    - serena-mcp-refactoring (Complex semantic analysis)
-   - similarity-refactoring (Pattern-based consolidation)  
+   - similarity-refactoring (Pattern-based consolidation)
    - refactoring-implementer (Standard code improvements)
 4. **Phase 4**: quality-validator (Comprehensive validation of results)
 5. **Phase 5**: Human approval checkpoint - Review completed workflow
@@ -52,6 +52,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 ## Refactoring Workflow Phases
 
 ### Phase 1: Code Analysis
+
 - **Agents**: pattern-detector, code-analyzer
 - **Purpose**: Comprehensive codebase analysis for refactoring opportunities
 - **Analysis Types**:
@@ -61,6 +62,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 - **Outputs**: Analysis reports, refactoring opportunities, impact assessments
 
 ### Phase 2: Refactoring Execution
+
 - **Agent Selection**: Intelligent routing based on refactoring type
 - **Execution Strategies**:
   - **Serena MCP Refactoring** (`serena-mcp-refactoring`): Advanced semantic analysis
@@ -70,6 +72,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 - **Outputs**: Refactored code, transformation logs, change documentation
 
 ### Phase 3: Quality Validation
+
 - **Agent**: quality-validator
 - **Purpose**: Comprehensive validation of refactoring results
 - **Validation Checks**:
@@ -82,18 +85,21 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 ## Refactoring Specializations
 
 ### 🤖 Serena MCP Refactoring
+
 - **Use Case**: Complex semantic transformations
 - **Capabilities**: Context-aware code understanding and improvement
 - **Strengths**: Advanced pattern recognition, architectural improvements
 - **Integration**: Full Serena MCP memory and symbol analysis
 
-### 🔄 Similarity-Based Refactoring  
+### 🔄 Similarity-Based Refactoring
+
 - **Use Case**: Duplicate code consolidation and pattern extraction
 - **Capabilities**: Identify and merge similar code structures
 - **Strengths**: DRY principle enforcement, pattern abstraction
 - **Reference**: Based on [mizchi/similarity](https://github.com/mizchi/similarity) concepts
 
 ### ⚙️ General Refactoring Implementation
+
 - **Use Case**: Standard code quality improvements
 - **Capabilities**: Code cleanup, naming improvements, structure optimization
 - **Strengths**: Broad applicability, safe transformations
@@ -104,7 +110,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 # General code quality improvement
 /refactoring "Improve code quality and reduce technical debt in user authentication module"
 
-# Duplicate code elimination  
+# Duplicate code elimination
 /refactoring "Consolidate similar API endpoint handlers and extract common patterns"
 
 # Architecture improvement
@@ -120,12 +126,14 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 ## Quality Assurance
 
 ### Safety Guarantees
+
 - **Test Preservation**: All existing tests must continue to pass
 - **Functionality Integrity**: No behavioral changes to external interfaces
 - **Incremental Changes**: Small, reviewable transformations
 - **Rollback Support**: Ability to revert changes if issues arise
 
 ### Quality Metrics
+
 - **Maintainability Index**: Measurable improvement in code maintainability
 - **Cyclomatic Complexity**: Reduction in code complexity metrics
 - **Duplication Ratio**: Decreased code duplication percentage

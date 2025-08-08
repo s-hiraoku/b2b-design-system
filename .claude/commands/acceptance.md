@@ -1,8 +1,7 @@
 ---
 description: Execute human approval and feedback management workflow with comprehensive review processes and rollback coordination
 argument-hint: "[approval-scope-description]"
-allowed-tools: "*" 
-model: sonnet
+allowed-tools: "*"
 ---
 
 You are the **Acceptance Workflow Command** that executes comprehensive human approval processes with AI-assisted review preparation and feedback-driven coordination.
@@ -24,6 +23,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 **Final Stage**: This is the completion of the complete development workflow chain. Approval marks formal project completion.
 
 ### Implementation Logic:
+
 1. **Complete Current Workflow**: Execute all acceptance phases
 2. **Wait for Human Approval**: Present comprehensive review materials
 3. **Upon Approval**: Project formally completed
@@ -31,7 +31,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 
 ```bash
 # After acceptance workflow completion and approval:
-# 1. Read .cc-deck/config/workflows/acceptance.yaml 
+# 1. Read .cc-deck/config/workflows/acceptance.yaml
 # 2. Complete final approval process
 # 3. Project development workflow chain is complete
 # 4. Document final completion status
@@ -55,6 +55,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 ## Acceptance Workflow Phases
 
 ### Phase 1: Review Preparation
+
 - **Agent**: acceptance-reviewer
 - **Purpose**: Prepare comprehensive review materials for human stakeholders
 - **Preparation Scope**:
@@ -65,6 +66,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 - **Outputs**: Review package, quality metrics, demonstration materials, risk reports
 
 ### Phase 2: Human Review Process
+
 - **Type**: human_interaction (72-hour window)
 - **Purpose**: Structured human review with stakeholder participation
 - **Review Process**:
@@ -75,16 +77,18 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 - **Participants**: Product Owner (required), Technical Lead (required), QA Lead (optional)
 
 ### Phase 3: Decision Processing
+
 - **Type**: Conditional routing based on approval decision
 - **Routing Logic**:
   - **Approved**: → Acceptance Completion
-  - **Approved with Conditions**: → Condition Addressing  
+  - **Approved with Conditions**: → Condition Addressing
   - **Rejected**: → Feedback Analysis
   - **Deferred**: → Deferral Management
 
 ## Rejection Handling Workflow
 
 ### Phase 4: Feedback Analysis
+
 - **Agent**: feedback-analyzer
 - **Purpose**: Systematic analysis of rejection feedback and root cause identification
 - **Analysis Categories**:
@@ -96,6 +100,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 - **Outputs**: Categorized feedback, root cause analysis, phase impact mapping
 
 ### Phase 5: Phase Coordination
+
 - **Agent**: phase-coordinator
 - **Purpose**: Coordinate rollback and re-execution of development phases
 - **Coordination Activities**:
@@ -109,6 +114,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
   - Quality Issues → Rollback to `refactoring-workflow` or `testing-workflow`
 
 ### Phase 6: Re-execution Monitoring
+
 - **Agent**: phase-coordinator
 - **Purpose**: Monitor and guide re-execution of development phases
 - **Monitoring Scope**:
@@ -120,6 +126,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 ## Approval Path Workflows
 
 ### Conditional Approval Path
+
 - **Phase**: Condition Addressing
 - **Agent**: acceptance-reviewer
 - **Purpose**: Address specific conditions for conditional approval
@@ -127,6 +134,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 - **Outcome**: → Acceptance Completion
 
 ### Deferral Management Path
+
 - **Phase**: Deferral Management
 - **Agent**: acceptance-reviewer
 - **Purpose**: Manage deferred acceptance with follow-up scheduling
@@ -134,6 +142,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 - **Outcome**: Rescheduled review process
 
 ### Acceptance Completion
+
 - **Phase**: Final completion and documentation
 - **Agent**: acceptance-reviewer
 - **Purpose**: Complete acceptance process and document outcomes
@@ -162,12 +171,14 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 ## Human Interaction Management
 
 ### Stakeholder Coordination
+
 - **Required Participants**: Product Owner, Technical Lead
 - **Optional Participants**: QA Lead, Business Stakeholders (conditional)
 - **Review Format**: Structured demo, comprehensive documentation, facilitated Q&A
 - **Decision Criteria**: Functional completeness, quality standards, user experience, performance
 
 ### Review Timeline
+
 - **Initial Review Window**: 72 hours for stakeholder review
 - **Escalation Process**: Project management notification if delayed
 - **Reminder Schedule**: 24h, 48h, 60h automated reminders
@@ -176,12 +187,14 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 ## Quality Tracking and Improvement
 
 ### Acceptance Metrics
+
 - **Acceptance Rate**: Percentage of approvals vs rejections
 - **Feedback Volume**: Average feedback items per review
 - **Resolution Time**: Time from feedback to resolution
 - **Re-review Success**: Second attempt approval rates
 
 ### Process Improvement
+
 - **Feedback Analysis**: Systematic analysis of rejection patterns
 - **Process Optimization**: Continuous improvement of review processes
 - **Stakeholder Satisfaction**: Regular satisfaction surveys and feedback

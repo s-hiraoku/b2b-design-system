@@ -2,7 +2,6 @@
 description: Execute comprehensive testing workflow including integration tests, E2E tests, and test automation strategies
 argument-hint: "[testing-scope-description]"
 allowed-tools: "*"
-model: sonnet
 ---
 
 You are the **Testing Workflow Command** that executes comprehensive testing strategies including integration tests, end-to-end tests, and test environment management.
@@ -20,6 +19,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 **After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration.
 
 ### Implementation Logic:
+
 1. **Complete Current Workflow**: Execute all testing phases
 2. **Wait for Human Approval**: Present comprehensive review materials
 3. **Upon Approval**: Ask user for explicit permission to proceed to next workflow
@@ -28,7 +28,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 
 ```bash
 # After testing workflow completion and approval:
-# 1. Read .cc-deck/config/workflows/testing.yaml 
+# 1. Read .cc-deck/config/workflows/testing.yaml
 # 2. Find "next_workflow: pr" in the approval section
 # 3. Immediately execute the next workflow command: /pr
 # 4. Continue until acceptance workflow completes
@@ -43,7 +43,7 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 3. **Phase 3**: Intelligent routing to appropriate testing agent:
    - integration-test (API testing, service integration testing)
    - e2e-test (End-to-end user journey testing)
-4. **Phase 4**: test-executor (Execute tests with monitoring and recovery)  
+4. **Phase 4**: test-executor (Execute tests with monitoring and recovery)
 5. **Phase 5**: test-reporter (Generate comprehensive test reports and analysis)
 6. **Phase 6**: Human approval checkpoint - Review completed workflow
 
@@ -54,11 +54,13 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 The workflow intelligently routes to appropriate testing strategies based on requirements:
 
 ### 🔗 Integration Testing Path
+
 - **Use Case**: System integration validation, API testing, service interaction testing
 - **Agents**: integration-test cluster (5 agents)
 - **Focus**: Component integration, data flow validation, service communication
 
-### 🎭 E2E Testing Path  
+### 🎭 E2E Testing Path
+
 - **Use Case**: User journey validation, UI automation, end-to-end workflows
 - **Agents**: e2e-test cluster (3 agents)
 - **Focus**: User experience validation, complete workflow testing, browser automation
@@ -66,15 +68,17 @@ The workflow intelligently routes to appropriate testing strategies based on req
 ## Integration Testing Workflow
 
 ### Phase 1: Test Strategy Planning
+
 - **Agent**: test-strategy-planner
 - **Purpose**: Develop comprehensive integration testing strategy
-- **Activities**: 
+- **Activities**:
   - Test scope definition and boundary identification
   - Integration point mapping and dependency analysis
   - Test data requirements and environment specifications
 - **Outputs**: Test strategy document, execution plan, resource requirements
 
 ### Phase 2: Test Environment Management
+
 - **Agent**: test-environment-manager
 - **Purpose**: Provision and configure testing infrastructure
 - **Activities**:
@@ -84,6 +88,7 @@ The workflow intelligently routes to appropriate testing strategies based on req
 - **Outputs**: Configured test environments, test data sets, infrastructure documentation
 
 ### Phase 3: Test Execution
+
 - **Agent**: test-executor
 - **Purpose**: Execute integration tests with monitoring and recovery
 - **Capabilities**:
@@ -93,6 +98,7 @@ The workflow intelligently routes to appropriate testing strategies based on req
 - **Outputs**: Test execution results, performance metrics, failure reports
 
 ### Phase 4: Test Reporting and Analysis
+
 - **Agent**: test-reporter
 - **Purpose**: Comprehensive analysis and actionable insights
 - **Activities**:
@@ -104,6 +110,7 @@ The workflow intelligently routes to appropriate testing strategies based on req
 ## E2E Testing Workflow
 
 ### Phase 1: E2E Test Planning
+
 - **Agent**: e2e-test-planner
 - **Purpose**: Design comprehensive user journey testing scenarios
 - **Activities**:
@@ -112,7 +119,8 @@ The workflow intelligently routes to appropriate testing strategies based on req
   - Browser and device compatibility requirements
 - **Outputs**: E2E test scenarios, coverage matrix, execution specifications
 
-### Phase 2: E2E Test Execution  
+### Phase 2: E2E Test Execution
+
 - **Agent**: e2e-test-runner
 - **Purpose**: Execute browser-based end-to-end testing
 - **Capabilities**:
@@ -146,6 +154,7 @@ The workflow intelligently routes to appropriate testing strategies based on req
 ## MCP Integration
 
 ### 🎭 Playwright MCP Integration
+
 - **Purpose**: Advanced browser automation and E2E testing
 - **Capabilities**: Multi-browser support, visual testing, performance monitoring
 - **Use Cases**: UI automation, user journey validation, cross-browser compatibility
@@ -153,12 +162,14 @@ The workflow intelligently routes to appropriate testing strategies based on req
 ## Quality Metrics and Reporting
 
 ### Integration Testing Metrics
+
 - **Test Coverage**: Component and integration coverage percentages
 - **Pass Rate**: Test success rate and trend analysis
 - **Performance**: Response times and throughput measurements
 - **Reliability**: Test stability and flakiness metrics
 
 ### E2E Testing Metrics
+
 - **User Journey Coverage**: Critical path validation completeness
 - **Cross-Browser Compatibility**: Multi-browser test success rates
 - **Visual Consistency**: Screenshot comparison and regression detection
@@ -167,12 +178,14 @@ The workflow intelligently routes to appropriate testing strategies based on req
 ## Test Environment Management
 
 ### Environment Provisioning
+
 - **Infrastructure**: Automated test environment setup
 - **Configuration**: Service configuration and dependency management
 - **Data Management**: Test data lifecycle and cleanup procedures
 - **Isolation**: Environment isolation and parallel execution support
 
 ### Recovery and Monitoring
+
 - **Failure Detection**: Real-time test failure identification
 - **Automatic Recovery**: Intelligent retry mechanisms and error handling
 - **Resource Monitoring**: Environment health and resource utilization
