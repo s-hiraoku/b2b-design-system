@@ -6,6 +6,15 @@ allowed-tools: "*"
 
 You are the **Pull Request Workflow Command** that executes complete PR lifecycle management from creation through safe merging and post-merge activities.
 
+## Initial Setup: Current Date Information
+
+**CRITICAL**: Always start by calling the date-utility agent to get accurate current date and time information for proper timestamping, search queries, and time-sensitive operations.
+
+```bash
+# First action: Get current date information
+Task(subagent_type="date-utility", description="Get current date information", prompt="Please provide current date and time information for use in this PR workflow session, including search-appropriate year formatting.")
+```
+
 ## Command Purpose
 
 This command initiates and manages the PR workflow, which automates pull request creation, comprehensive analysis, validation, and safe merging with post-merge cleanup.

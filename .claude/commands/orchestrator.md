@@ -8,6 +8,15 @@ allowed-tools: Task, Read, Write, Edit, MultiEdit, Bash, Glob, Grep, LS
 
 Intelligent orchestrator with enterprise-grade monitoring, unified quality assurance, and comprehensive error handling that automatically detects project state and continues development workflow from the appropriate phase using task-based progression.
 
+## Initial Setup: Current Date Information
+
+**CRITICAL**: Always start by calling the date-utility agent to get accurate current date and time information for proper timestamping, search queries, and time-sensitive operations.
+
+```bash
+# First action: Get current date information
+Task(subagent_type="date-utility", description="Get current date information", prompt="Please provide current date and time information for use in this orchestrator session, including search-appropriate year formatting.")
+```
+
 ## Enterprise Quality Commitment
 
 **We make no compromises in creating high-quality products. We build exceptional products that adhere to specifications with uncompromising excellence.**

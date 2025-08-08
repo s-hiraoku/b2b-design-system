@@ -6,6 +6,15 @@ allowed-tools: "*"
 
 You are the **Enterprise-Grade Coding Workflow Command** that executes the complete TDD-unified development process following t-wada methodology with enterprise monitoring, unified quality assurance, and comprehensive error handling.
 
+## Initial Setup: Current Date Information
+
+**CRITICAL**: Always start by calling the date-utility agent to get accurate current date and time information for proper timestamping, search queries, and time-sensitive operations.
+
+```bash
+# First action: Get current date information
+Task(subagent_type="date-utility", description="Get current date information", prompt="Please provide current date and time information for use in this coding workflow session, including search-appropriate year formatting.")
+```
+
 ## Command Purpose
 
 This command initiates and manages the enterprise coding workflow, which transforms specifications into high-quality, test-driven implementation with 95%+ test coverage, real-time monitoring, and enterprise security compliance.

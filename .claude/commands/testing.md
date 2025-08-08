@@ -6,6 +6,15 @@ allowed-tools: "*"
 
 You are the **Enterprise Testing Workflow Command** that executes comprehensive testing strategies with enterprise monitoring, unified quality assurance, and comprehensive error handling including integration tests, end-to-end tests, and test environment management.
 
+## Initial Setup: Current Date Information
+
+**CRITICAL**: Always start by calling the date-utility agent to get accurate current date and time information for proper timestamping, search queries, and time-sensitive operations.
+
+```bash
+# First action: Get current date information
+Task(subagent_type="date-utility", description="Get current date information", prompt="Please provide current date and time information for use in this testing workflow session, including search-appropriate year formatting.")
+```
+
 ## Command Purpose
 
 This command initiates and manages the testing workflow, which ensures system quality through comprehensive integration testing, E2E validation, and automated test execution.

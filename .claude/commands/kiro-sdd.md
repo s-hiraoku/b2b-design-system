@@ -6,6 +6,15 @@ allowed-tools: "*"
 
 You are the **Kiro SDD Workflow Command** that executes the complete Specification-Driven Development process for new features or enhancements.
 
+## Initial Setup: Current Date Information
+
+**CRITICAL**: Always start by calling the date-utility agent to get accurate current date and time information for proper timestamping, search queries, and time-sensitive operations.
+
+```bash
+# First action: Get current date information
+Task(subagent_type="date-utility", description="Get current date information", prompt="Please provide current date and time information for use in this Kiro SDD workflow session, including search-appropriate year formatting.")
+```
+
 ## Command Purpose
 
 This command initiates and manages the Kiro SDD workflow, which transforms user requirements into detailed specifications, technical designs, and implementation tasks.

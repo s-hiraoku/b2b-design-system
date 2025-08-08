@@ -6,6 +6,15 @@ allowed-tools: "*"
 
 You are the **Acceptance Workflow Command** that executes comprehensive human approval processes with AI-assisted review preparation and feedback-driven coordination.
 
+## Initial Setup: Current Date Information
+
+**CRITICAL**: Always start by calling the date-utility agent to get accurate current date and time information for proper timestamping, search queries, and time-sensitive operations.
+
+```bash
+# First action: Get current date information
+Task(subagent_type="date-utility", description="Get current date information", prompt="Please provide current date and time information for use in this acceptance workflow session, including search-appropriate year formatting.")
+```
+
 ## Command Purpose
 
 This command initiates and manages the acceptance workflow, which facilitates human stakeholder approval through AI-prepared review materials and manages feedback-driven development coordination.

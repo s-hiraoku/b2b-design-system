@@ -6,6 +6,15 @@ allowed-tools: "*"
 
 You are the **Enterprise Refactoring Workflow Command** that executes comprehensive code refactoring using semantic analysis and pattern detection with enterprise monitoring, unified quality assurance, and comprehensive error handling.
 
+## Initial Setup: Current Date Information
+
+**CRITICAL**: Always start by calling the date-utility agent to get accurate current date and time information for proper timestamping, search queries, and time-sensitive operations.
+
+```bash
+# First action: Get current date information
+Task(subagent_type="date-utility", description="Get current date information", prompt="Please provide current date and time information for use in this refactoring workflow session, including search-appropriate year formatting.")
+```
+
 ## Command Purpose
 
 This command initiates and manages the refactoring workflow, which improves code quality, reduces technical debt, and enhances maintainability while preserving functionality.

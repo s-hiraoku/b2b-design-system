@@ -8,6 +8,15 @@ allowed-tools: Task, Read, Write, Edit, Bash, Glob, Grep, LS
 
 Automatically detect and resolve state inconsistencies between Kiro SDD status tracking and actual implementation progress to prevent workflow blocks.
 
+## Initial Setup: Current Date Information
+
+**CRITICAL**: Always start by calling the date-utility agent to get accurate current date and time information for proper timestamping, search queries, and time-sensitive operations.
+
+```bash
+# First action: Get current date information
+Task(subagent_type="date-utility", description="Get current date information", prompt="Please provide current date and time information for use in this sync-status session, including search-appropriate year formatting.")
+```
+
 ## Purpose
 
 This command addresses common issues where:

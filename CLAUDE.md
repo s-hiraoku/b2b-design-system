@@ -26,9 +26,6 @@ See [docs/ATTRIBUTION.md](docs/ATTRIBUTION.md) for detailed acknowledgments.
 
 All specifications are stored in the `.kiro/specs/` directory:
 
-- **stylish-cafe-website** - スタイリッシュでモダンなカフェWebサイト (初期化済み)
-- **next-generation-calendar-app** - 次世代カレンダーアプリケーション (初期化済み)
-
 ## Project Structure
 
 - `.kiro/` - Kiro SDD working directory
@@ -67,17 +64,20 @@ This project mandates Test-Driven Development for ALL implementations following 
 ## Enterprise-Grade Workflow Enhancements
 
 ### 🎛️ Unified Monitoring System
+
 - **Real-time Metrics**: Phase performance, TDD compliance, quality scores, MCP integration status
 - **Proactive Alerts**: Quality degradation (>5% drop), performance anomalies (>150% baseline), TDD violations (<95%)
 - **Comprehensive Reporting**: HTML dashboards, JSON APIs, Markdown documentation, CSV exports
 
 ### ⚡ Advanced Error Handling & Recovery
+
 - **Checkpoint System**: Before each phase with 72h retention
 - **Circuit Breakers**: MCP services, quality gates, human approval processes
 - **Automatic Recovery**: Service fallbacks, data restoration, workflow continuation
 - **Escalation Management**: Technical lead → Engineering manager → CTO office
 
 ### 🔒 Quality Assurance Integration
+
 - **5-Dimension Quality Framework**: Functional, Technical, Process, UX, Operational quality
 - **Unified Quality Gates**: Entry gates, progress gates, exit gates with blocking enforcement
 - **Automated Validation**: Static analysis, dynamic testing, compliance checking
