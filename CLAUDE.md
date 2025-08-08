@@ -26,6 +26,8 @@ See [docs/ATTRIBUTION.md](docs/ATTRIBUTION.md) for detailed acknowledgments.
 
 All specifications are stored in the `.kiro/specs/` directory:
 
+- **stylish-cafe-website** - スタイリッシュでモダンなカフェWebサイト (初期化済み)
+
 ## Project Structure
 
 - `.kiro/` - Kiro SDD working directory

@@ -17,13 +17,26 @@ This command initiates and manages the Kiro SDD workflow, which transforms user 
 
 This workflow follows approval checkpoints defined in `.cc-deck/config/workflows/kiro-sdd.yaml`.
 
-Will not proceed to TDD implementation without explicit approval of implementation tasks.
+**After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration.
+
+### Implementation Logic:
+1. **Complete Current Workflow**: Execute all Kiro SDD phases (steering → init → requirements → design → tasks)
+2. **Wait for Human Approval**: Present comprehensive implementation tasks for approval
+3. **Upon Approval**: Read `.cc-deck/config/workflows/kiro-sdd.yaml` and find `next_workflow: coding`
+4. **Immediately Execute**: Run `/coding` command to continue workflow chain
+
+```bash
+# After kiro-sdd workflow completion and approval:
+# 1. Read .cc-deck/config/workflows/kiro-sdd.yaml 
+# 2. Find "next_workflow: coding" in the approval section
+# 3. Immediately execute the next workflow command: /coding
+# 4. Continue until acceptance workflow completes
+```
 
 ### Execution Steps:
 
 1. **Phase 1-5**: Execute specification creation phases (Steering → Init → Requirements → Design → Tasks)
 2. **Phase 6**: Approval checkpoint - Review implementation tasks
-3. **Phase 7**: After approval, proceed to TDD implementation with proper projects/ directory structure
 
 ### Implementation Directory Structure:
 

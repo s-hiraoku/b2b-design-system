@@ -15,7 +15,38 @@ This command initiates and manages the refactoring workflow, which improves code
 
 ⚠️ **Approval Required**
 
-After approval, automatically proceeds to testing workflow.
+This workflow follows approval checkpoints defined in `.cc-deck/config/workflows/refactoring.yaml`.
+
+**After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration.
+
+### Implementation Logic:
+1. **Complete Current Workflow**: Execute all refactoring phases
+2. **Wait for Human Approval**: Present comprehensive review materials  
+3. **Upon Approval**: Read `.cc-deck/config/workflows/refactoring.yaml` and find `next_workflow: testing`
+4. **Immediately Execute**: Run `/testing` command to continue workflow chain
+
+```bash
+# After refactoring workflow completion and approval:
+# 1. Read .cc-deck/config/workflows/refactoring.yaml 
+# 2. Find "next_workflow: testing" in the approval section
+# 3. Immediately execute the next workflow command: /testing
+# 4. Continue until acceptance workflow completes
+```
+
+### Execution Steps:
+
+**CRITICAL**: Execute ALL phases sequentially using the specified agents. Do NOT skip phases.
+
+1. **Phase 1**: pattern-detector (Identify duplicate and similar code patterns)
+2. **Phase 2**: code-analyzer (Analyze code structure and dependencies)  
+3. **Phase 3**: Intelligent routing to appropriate refactoring agent:
+   - serena-mcp-refactoring (Complex semantic analysis)
+   - similarity-refactoring (Pattern-based consolidation)  
+   - refactoring-implementer (Standard code improvements)
+4. **Phase 4**: quality-validator (Comprehensive validation of results)
+5. **Phase 5**: Human approval checkpoint - Review completed workflow
+
+**Important**: Each phase must be completed by the designated agent before proceeding to the next phase.
 
 ## Refactoring Workflow Phases
 

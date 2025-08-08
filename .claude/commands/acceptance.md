@@ -19,15 +19,22 @@ This command initiates and manages the acceptance workflow, which facilitates hu
 
 ⚠️ **Final Approval Required**
 
-This is the final stage of the complete development flow. Approval marks formal project completion.
+This workflow follows approval checkpoints defined in `.cc-deck/config/workflows/acceptance.yaml`.
 
-```python
-# Execute Acceptance Workflow
-workflow_name = "acceptance"
-feature_name = extract_acceptance_scope_from_input(user_input)
-arguments = parse_arguments(user_input)
+**Final Stage**: This is the completion of the complete development workflow chain. Approval marks formal project completion.
 
-execute_workflow_engine(workflow_name, feature_name, arguments)
+### Implementation Logic:
+1. **Complete Current Workflow**: Execute all acceptance phases
+2. **Wait for Human Approval**: Present comprehensive review materials
+3. **Upon Approval**: Project formally completed
+4. **Final Status**: Development workflow chain completed successfully
+
+```bash
+# After acceptance workflow completion and approval:
+# 1. Read .cc-deck/config/workflows/acceptance.yaml 
+# 2. Complete final approval process
+# 3. Project development workflow chain is complete
+# 4. Document final completion status
 ```
 
 ## Acceptance Workflow Phases

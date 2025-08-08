@@ -67,7 +67,17 @@ This orchestrator executes the complete flow through approvals, never stopping a
 - **Phase 7**: documentation-agent (generate comprehensive documentation)
 - **Phase 8**: Human approval checkpoint
 
-**CRITICAL**: Do NOT execute only tdd-agent. Execute the COMPLETE workflow sequence using ALL specified agents in the correct order.
+### Refactoring Workflow Example:
+- **Phase 1**: pattern-detector (identify duplicate and similar code patterns)
+- **Phase 2**: code-analyzer (analyze code structure and dependencies)
+- **Phase 3**: Intelligent routing to refactoring agent:
+  - serena-mcp-refactoring (complex semantic analysis)
+  - similarity-refactoring (pattern-based consolidation)
+  - refactoring-implementer (standard code improvements)
+- **Phase 4**: quality-validator (comprehensive validation of results)
+- **Phase 5**: Human approval checkpoint
+
+**CRITICAL**: Do NOT execute only quality-validator. Execute the COMPLETE workflow sequence using ALL specified agents in the correct order.
 
 ## 🔄 Automatic Workflow Progression
 

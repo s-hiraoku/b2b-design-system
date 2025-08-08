@@ -15,11 +15,22 @@ This command initiates and manages the testing workflow, which ensures system qu
 
 ⚠️ **Approval Required**
 
-After approval, automatically proceeds to pr workflow.
-feature_name = extract_testing_scope_from_input(user_input)
-arguments = parse_arguments(user_input)
+This workflow follows approval checkpoints defined in `.cc-deck/config/workflows/testing.yaml`.
 
-execute_workflow_engine(workflow_name, feature_name, arguments)
+**After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration.
+
+### Implementation Logic:
+1. **Complete Current Workflow**: Execute all testing phases
+2. **Wait for Human Approval**: Present comprehensive review materials
+3. **Upon Approval**: Read `.cc-deck/config/workflows/testing.yaml` and find `next_workflow: pr`
+4. **Immediately Execute**: Run `/pr` command to continue workflow chain
+
+```bash
+# After testing workflow completion and approval:
+# 1. Read .cc-deck/config/workflows/testing.yaml 
+# 2. Find "next_workflow: pr" in the approval section
+# 3. Immediately execute the next workflow command: /pr
+# 4. Continue until acceptance workflow completes
 ```
 
 ## Testing Workflow Types

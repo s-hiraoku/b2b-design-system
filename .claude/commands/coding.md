@@ -25,7 +25,21 @@ This command initiates and manages the coding workflow, which transforms specifi
 
 This workflow follows approval checkpoints defined in `.cc-deck/config/workflows/coding.yaml`.
 
-Will not automatically proceed to refactoring workflow without explicit approval.
+**After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration.
+
+### Implementation Logic:
+1. **Complete Current Workflow**: Execute all coding phases (research → planning → serena-onboarding → tdd → implementation → testing → documentation)
+2. **Wait for Human Approval**: Present comprehensive review materials
+3. **Upon Approval**: Read `.cc-deck/config/workflows/coding.yaml` and find `next_workflow: refactoring`
+4. **Immediately Execute**: Run `/refactoring` command to continue workflow chain
+
+```bash
+# After coding workflow completion and approval:
+# 1. Read .cc-deck/config/workflows/coding.yaml 
+# 2. Find "next_workflow: refactoring" in the approval section
+# 3. Immediately execute the next workflow command: /refactoring
+# 4. Continue until acceptance workflow completes
+```
 
 ### Implementation Directory Structure:
 
@@ -59,7 +73,6 @@ projects/{project-name}/
 6. **Phase 6**: testing-agent (Comprehensive testing strategy)
 7. **Phase 7**: documentation-agent (Generate comprehensive documentation)
 8. **Phase 8**: Human approval checkpoint - Review completed workflow
-9. **Phase 9**: After approval, automatically proceed to refactoring workflow
 
 **Important**: Each phase must be completed by the designated agent before proceeding to the next phase.
 
