@@ -68,76 +68,71 @@ graph TD
 
 ### 2. 💻 Coding Workflow (`/coding`) 
 
-**TDD統一による包括的開発ワークフロー** - 全実装がTest-Driven Developmentで統一され、95%+テストカバレッジを保証します。
+**TDD統一による高品質開発ワークフロー** - 全実装がTest-Driven Developmentで統一され、95%+テストカバレッジを保証する7段階プロセス。
 
 ```mermaid
 graph TD
-    CodingMain[💻 coding] --> ResearchPhase[🔍 Phase 1: Research]
-    CodingMain --> PlanningPhase[📋 Phase 2: Planning]
-    CodingMain --> ImplementPhase[⚡ Phase 3: Implementation]
-    CodingMain --> TestPhase[🧪 Phase 4: Testing]
-    CodingMain --> DocPhase[📚 Phase 5: Documentation]
+    CodingMain[💻 /coding] --> Phase1[🔍 Phase 1: Research<br/>research-agent]
+    Phase1 --> Phase2[📋 Phase 2: Planning<br/>planning-agent]
+    Phase2 --> Phase3[🤖 Phase 3: Serena Onboarding<br/>serena-onboarding-agent]
+    Phase3 --> Phase4[🔴 Phase 4: TDD Cycle<br/>tdd-agent]
+    Phase4 --> Phase5[⚡ Phase 5: Full Implementation<br/>implementation-agent]
+    Phase5 --> Phase6[🧪 Phase 6: Testing<br/>testing-agent]
+    Phase6 --> Phase7[📚 Phase 7: Documentation<br/>documentation-agent]
+    Phase7 --> Approval[✅ Phase 8: Human Approval]
 
-    %% Research Phase
-    ResearchPhase --> ResearchAgent[🔬 research-agent]
-    ResearchPhase --> DeepWikiSolver[🔍 deepwiki-research-solver]
-    ResearchAgent --> DeepWiki[📖 DeepWiki MCP]
-    ResearchAgent --> Context7[🔍 Context7 MCP]
-    ResearchAgent --> WebSearch[🌐 Web Search]
-    DeepWikiSolver --> DeepWiki
-
-    %% Planning Phase
-    PlanningPhase --> PlanningAgent[📐 planning-agent]
-
-    %% Implementation Phase (TDD統一フロー)
-    ImplementPhase --> SerenaOnboard[🤖 Phase 3: Serena Onboarding<br/>TDD環境構築]
-    SerenaOnboard --> TDDCycle[🔴 Phase 4: TDD Cycle<br/>Red-Green-Refactor]
-    TDDCycle --> FullImpl[⚙️ Phase 5: Full Implementation<br/>TDD基盤拡張]
-
-    %% Serena MCP Integration
-    SerenaOnboard --> SerenaMCP[🧠 Serena MCP<br/>コンテキスト管理]
-    TDDCycle --> SerenaMCP
-    FullImpl --> SerenaMCP
-
-    %% Testing Phase
-    TestPhase --> TestingAgent[🧪 testing-agent]
-
-    %% Documentation Phase
-    DocPhase --> DocumentationAgent[📝 documentation-agent]
+    %% MCP Integrations
+    Phase1 --> DeepWiki[📖 DeepWiki MCP]
+    Phase1 --> Context7[🔍 Context7 MCP]
+    Phase3 --> SerenaMCP[🧠 Serena MCP]
+    Phase4 --> SerenaMCP
+    Phase5 --> SerenaMCP
+    Phase5 --> DeepWiki
+    Phase5 --> Context7
 ```
 
-#### 🔴 TDD Trilogy: 3段階エージェント連携システム
+#### 🚀 7段階ワークフロー詳細
 
-**すべての実装がTDD統一ポリシーに従い、以下の3つのエージェントが順次連携動作します：**
+**Phase 1: Research** (research-agent)
+- MCP統合による技術調査（DeepWiki, Context7, WebSearch）
+- 最新技術とベストプラクティスの収集
+- セキュリティ考慮事項の調査
 
-##### Phase 3: serena-onboarding-agent (TDD環境構築)
+**Phase 2: Strategic Planning** (planning-agent)
+- アーキテクチャ設計と実装戦略
+- 技術スタック決定
+- 実装ロードマップ作成
 
-- **TDD専用環境**: Serena MCPにTDD特化プロジェクトコンテキストを登録
-- **テストパターン**: AAA (Arrange-Act-Assert) パターン、Given-When-Then構造の設定
-- **フレームワーク**: テストファースト開発のための完全ツールチェーン初期化  
-- **標準化**: TDD専用コーディング規約とベストプラクティスの確立
+**Phase 3: Serena Onboarding** (serena-onboarding-agent)
+- Serena MCPによるTDD環境構築
+- AAA・Given-When-Thenパターン設定
+- テストファースト開発環境の初期化
 
-##### Phase 4: tdd-agent (Red-Green-Refactor実行)
+**Phase 4: TDD Cycle** (tdd-agent)
+- **Red**: 失敗テスト作成（仕様駆動設計）
+- **Green**: 最小限実装でテスト通過
+- **Refactor**: 品質向上と設計洗練
+- t-wada方法論による厳格なTDD実行
 
-- **Red Phase**: 要求仕様を満たす失敗テストの作成（テスト駆動設計）
-- **Green Phase**: テストを通過する最小限実装（YAGNI原則徹底）
-- **Refactor Phase**: コード品質向上と設計洗練（DRY、SOLID原則適用）
-- **厳格性**: [t-wada](https://github.com/t-wada) 方法論による妥協なきTDDサイクル実施
+**Phase 5: Full Implementation** (implementation-agent)
+- TDD基盤上での完全実装展開（Serena + Context7 + DeepWiki MCP統合）
+- エッジケース・エラー処理の実装
+- パフォーマンス最適化とプロダクション対応
 
-##### Phase 5: implementation-agent (TDD基盤完成)
+**Phase 6: Testing** (testing-agent)
+- 統合テスト・E2Eテストの追加
+- テストカバレッジ95%+の達成確認
 
-- **基盤拡張**: TDD作成テスト群を完全に維持したまま本格実装へ展開
-- **エッジケース**: 境界値・異常系・エラー処理の包括的実装
-- **パフォーマンス**: 本番環境要件を満たすスケーラブル・高効率実装
-- **品質保証**: Serena MCP活用による保守性・拡張性の高い最終コード生成
+**Phase 7: Documentation** (documentation-agent)
+- API仕様書・使用例・チュートリアル生成
+- 包括的ドキュメント作成
 
-#### 🏆 TDD統一による品質保証効果
+#### 🏆 TDD統一による品質保証
 
-- **100%テスト駆動**: 全プロダクションコードがテスト先行で作成される完全TDD
-- **設計自然導出**: テストファースト開発による低結合・高凝集設計の自動的実現  
-- **継続的品質**: 全リファクタリングが既存テストにより安全性確保される
-- **生きた仕様**: テストコードが実行可能仕様書・APIドキュメントとして機能
-- **95%+カバレッジ**: 定量的品質指標による客観的品質保証の実現
+- **100%テスト駆動**: 全実装がテストファーストで作成
+- **95%+カバレッジ**: Line 95%+, Branch 90%+, Function 95%+
+- **継続的品質**: テストによる設計安全性確保
+- **実行可能仕様**: テストが生きたドキュメントとして機能
 
 ### 3. 🔧 Refactoring Workflow (`/refactoring`)
 
@@ -440,18 +435,18 @@ graph TD
 
 #### 💻 Coding Cluster (8 agents)
 
-**TDD統一ポリシーによる包括的高品質開発**
+**TDD統一7段階ワークフローによる高品質開発**
 
-- **TDD Trilogy Core**: 3つの連携特化エージェント
-  - serena-onboarding-agent (TDD環境・Serena MCP初期化)
-  - tdd-agent ([t-wada](https://github.com/t-wada) 方法論・Red-Green-Refactor厳格実行)
-  - implementation-agent (TDD基盤完成・本格実装)
-- **Workflow Support**: 5つの支援エージェント
-  - research-agent (MCP技術調査)
+- **コア実装エージェント**: TDD統一プロセスの主要エージェント
+  - serena-onboarding-agent (Phase 3: TDD環境・Serena MCP初期化)
+  - tdd-agent (Phase 4: t-wada方法論・Red-Green-Refactor厳格実行)
+  - implementation-agent (Phase 5: TDD基盤完成・本格実装)
+- **支援エージェント**: ワークフロー支援の専門エージェント
+  - research-agent (Phase 1: MCP技術調査)
   - deepwiki-research-solver (技術問題解決・DeepWiki特化)
-  - planning-agent (戦略的アーキテクチャ)
-  - testing-agent (包括テスト戦略)
-  - documentation-agent (API・仕様ドキュメント)
+  - planning-agent (Phase 2: 戦略的アーキテクチャ)
+  - testing-agent (Phase 6: 統合・E2Eテスト)
+  - documentation-agent (Phase 7: API・仕様ドキュメント)
 
 #### 🔧 Refactoring Cluster (6 agents)
 
