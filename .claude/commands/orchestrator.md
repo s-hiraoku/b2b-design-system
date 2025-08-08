@@ -43,9 +43,10 @@ This command serves as the single entry point for all development workflows by:
 
 ## 🔄 Complete Workflow Management
 
-**Full Development Flow**: kiro-sdd → coding → refactoring → testing → pr → acceptance
+**New Projects Flow**: kiro-sdd → coding → refactoring → testing → pr → acceptance
+**Existing Projects Flow**: refactoring → testing → pr → acceptance (or coding → ... if major features)
 
-This orchestrator executes the complete flow through approvals, never stopping at single workflow.
+This orchestrator executes the complete flow through approvals, never stopping at single workflow. It automatically detects existing projects in the `projects/` directory and adapts workflow selection accordingly.
 
 1. **Workflow Completion Detection**: Detect approval completion of each phase
 2. **Multi-Agent Phase Execution**: Execute ALL defined phases within each workflow using appropriate agents
@@ -356,6 +357,12 @@ Project State Analysis:
 
 # Start new feature - automatically executes kiro-sdd → coding → refactoring → testing → pr → acceptance
 /orchestrator "Build a real-time chat application"
+
+# Enhance existing project - automatically starts with refactoring workflow
+/orchestrator "Improve stylish-cafe-website performance and add new features"
+
+# Add features to existing project
+/orchestrator "Add user authentication to existing e-commerce site"
 ```
 
 
@@ -1077,10 +1084,13 @@ The orchestrator uses intelligent analysis to select appropriate workflows:
 ```yaml
 Workflow Selection Rules:
   project_analysis:
-    - has_kiro_specs: kiro-sdd-workflow
+    - has_incomplete_tasks: coding-workflow
+    - has_existing_projects + needs_enhancement: refactoring-workflow  
+    - has_kiro_specs (new project): kiro-sdd-workflow
     - code_quality_issues: refactoring-workflow
     - test_coverage_low: testing-workflow
     - new_development: coding-workflow
+    - existing_project_default: refactoring-workflow
     - pr_creation_needed: pr-workflow
     - stakeholder_review_required: acceptance-workflow
 
@@ -1806,26 +1816,36 @@ def select_workflow(workflow_hint, project_state):
         return f"{workflow_hint}-workflow"
 
     # Default workflow selection based on project state
-    if project_state.get('has_kiro_specs'):
-        return 'kiro-sdd-workflow'
+    if project_state.get('has_incomplete_tasks'):
+        return 'coding-workflow'  # Continue incomplete implementation
+    elif project_state.get('needs_enhancement') and project_state.get('has_existing_projects'):
+        # Existing project enhancement - start with refactoring for quality improvement
+        return 'refactoring-workflow'
+    elif project_state.get('has_kiro_specs') and not project_state.get('has_existing_projects'):
+        return 'kiro-sdd-workflow'  # New project specification
     elif project_state.get('needs_implementation'):
         return 'coding-workflow'
     elif project_state.get('code_quality_issues'):
         return 'refactoring-workflow'
+    elif project_state.get('has_existing_projects'):
+        # Default for existing projects - start with code quality assessment  
+        return 'refactoring-workflow'
     else:
-        return 'kiro-sdd-workflow'  # Default to Kiro SDD
+        return 'kiro-sdd-workflow'  # Default to Kiro SDD for new projects
 
 def analyze_project_state():
     """Analyze current project state for workflow selection"""
     state = {
         'has_kiro_specs': file_exists('.kiro/specs') and len(glob_pattern('.kiro/specs/*')) > 0,
+        'has_existing_projects': file_exists('projects') and len(glob_pattern('projects/*')) > 0,
         'has_incomplete_tasks': False,
         'code_quality_issues': False,
         'needs_implementation': False,
+        'needs_enhancement': False,
         'multiple_active_features': False
     }
 
-    # Check for incomplete tasks
+    # Check for incomplete tasks in Kiro specs
     if state['has_kiro_specs']:
         for spec_dir in glob_pattern('.kiro/specs/*'):
             tasks_file = f"{spec_dir}/tasks.md"
@@ -1835,6 +1855,21 @@ def analyze_project_state():
                     state['has_incomplete_tasks'] = True
                     state['needs_implementation'] = True
                     break
+
+    # Check for existing projects that might need enhancement
+    if state['has_existing_projects']:
+        for project_dir in glob_pattern('projects/*'):
+            # Check if project has package.json, requirements.txt, or other project files
+            project_files = [
+                f"{project_dir}/package.json",
+                f"{project_dir}/requirements.txt", 
+                f"{project_dir}/Cargo.toml",
+                f"{project_dir}/go.mod",
+                f"{project_dir}/pom.xml"
+            ]
+            if any(file_exists(f) for f in project_files):
+                state['needs_enhancement'] = True
+                break
 
     return state
 
