@@ -112,6 +112,46 @@ This orchestrator executes the complete flow through approvals, never stopping a
 
 **After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration:
 
+## 🤔 Interactive Workflow Confirmation
+
+**Enhanced User Experience**: The orchestrator now presents workflow analysis and requests confirmation before execution.
+
+### Confirmation Process:
+1. **Project Analysis**: Analyze current project state and available options
+2. **Workflow Recommendations**: Present recommended workflow with clear rationale  
+3. **Alternative Options**: Show alternative workflows with explanations
+4. **User Confirmation**: Wait for explicit user choice before proceeding
+5. **Execution**: Run confirmed workflow with full transparency
+
+### Example Confirmation Flow:
+
+```
+📊 Project Analysis Complete
+
+Current State:
+- Existing projects detected: stylish-cafe-website/
+- Project files found: package.json, tailwind.config.js, next.config.js
+- Kiro specs: 1 active specification 
+- Code quality: Assessment needed
+
+🎯 Recommended Workflow: REFACTORING
+Rationale: Existing project detected with established codebase. Starting with code quality assessment and improvements will establish baseline before adding new features.
+
+Alternative Options:
+1. CODING - Add new features immediately (skip quality assessment)
+2. KIRO-SDD - Create new specification for major feature additions  
+3. TESTING - Focus on comprehensive testing first
+
+❓ Which workflow would you like to execute?
+[1] Proceed with REFACTORING (recommended)
+[2] Use CODING workflow  
+[3] Use KIRO-SDD workflow
+[4] Use TESTING workflow
+[5] Show detailed analysis
+
+Please select 1-5 or type workflow name:
+```
+
 ### Workflow Chain Execution:
 ```
 coding workflow approval → IMMEDIATELY start refactoring workflow
@@ -349,19 +389,19 @@ Project State Analysis:
 ### Basic Continuation
 
 ```bash
-# Continue from where you left off - executes complete flow
+# Interactive workflow selection with project analysis and confirmation
 /orchestrator
 
-# Force specific phase
+# Force specific phase (skips confirmation)
 /orchestrator "continue coding user-auth-system"
 
-# Start new feature - automatically executes kiro-sdd → coding → refactoring → testing → pr → acceptance
+# Start new feature - shows analysis and asks for confirmation before execution
 /orchestrator "Build a real-time chat application"
 
-# Enhance existing project - automatically starts with refactoring workflow
+# Enhance existing project - analyzes current state and recommends workflow  
 /orchestrator "Improve stylish-cafe-website performance and add new features"
 
-# Add features to existing project
+# Add features to existing project - presents options and rationale
 /orchestrator "Add user authentication to existing e-commerce site"
 ```
 
@@ -1754,8 +1794,8 @@ def main_orchestrator_logic(arguments=None):
 
     # Determine if workflow engine should be used
     if should_use_workflow_engine(workflow_hint, project_state):
-        # Route to CC-Deck Workflow Engine
-        workflow_name = select_workflow(workflow_hint, project_state)
+        # Route to CC-Deck Workflow Engine with user confirmation
+        workflow_name = select_workflow_with_confirmation(workflow_hint, project_state, arguments)
         return execute_workflow_engine(workflow_name, feature_name, arguments)
     else:
         # Use traditional orchestrator logic (existing functionality)
@@ -1810,8 +1850,42 @@ def should_use_workflow_engine(workflow_hint, project_state):
 
     return any(complexity_indicators)
 
-def select_workflow(workflow_hint, project_state):
-    """Select appropriate workflow based on hints and project analysis"""
+def select_workflow_with_confirmation(workflow_hint, project_state, arguments):
+    """Select workflow with user confirmation based on project analysis"""
+    
+    # 1. Present project analysis
+    analysis_summary = generate_project_analysis_summary(project_state)
+    print(f"📊 Project Analysis Complete\n\n{analysis_summary}")
+    
+    # 2. Get recommended workflow
+    recommended_workflow = get_recommended_workflow(workflow_hint, project_state)
+    rationale = get_workflow_rationale(recommended_workflow, project_state)
+    
+    # 3. Present recommendation and alternatives
+    print(f"🎯 Recommended Workflow: {recommended_workflow.upper()}")
+    print(f"Rationale: {rationale}\n")
+    
+    # 4. Show alternative options
+    alternatives = get_workflow_alternatives(recommended_workflow, project_state)
+    print("Alternative Options:")
+    for i, (workflow, description) in enumerate(alternatives, 1):
+        print(f"{i}. {workflow.upper()} - {description}")
+    
+    # 5. Request user confirmation
+    print(f"\n❓ Which workflow would you like to execute?")
+    print(f"[1] Proceed with {recommended_workflow.upper()} (recommended)")
+    for i, (workflow, _) in enumerate(alternatives, 2):
+        print(f"[{i}] Use {workflow.upper()} workflow")
+    print(f"[{len(alternatives) + 2}] Show detailed analysis")
+    
+    # 6. Get user choice
+    user_choice = input("\nPlease select option number or type workflow name: ").strip()
+    
+    # 7. Process user choice
+    return process_workflow_choice(user_choice, recommended_workflow, alternatives)
+
+def get_recommended_workflow(workflow_hint, project_state):
+    """Get recommended workflow based on hints and project analysis"""
     if workflow_hint:
         return f"{workflow_hint}-workflow"
 
@@ -1872,6 +1946,93 @@ def analyze_project_state():
                 break
 
     return state
+
+def generate_project_analysis_summary(project_state):
+    """Generate human-readable project analysis summary"""
+    summary_lines = ["Current State:"]
+    
+    if project_state.get('has_existing_projects'):
+        projects = glob_pattern('projects/*')
+        project_names = [p.split('/')[-1] for p in projects]
+        summary_lines.append(f"- Existing projects detected: {', '.join(project_names)}")
+        
+        # Check for project files
+        project_files = []
+        for project_dir in projects:
+            files = ['package.json', 'requirements.txt', 'Cargo.toml', 'go.mod', 'pom.xml', 
+                    'tailwind.config.js', 'next.config.js', 'tsconfig.json']
+            found_files = [f.split('/')[-1] for f in files if file_exists(f"{project_dir}/{f.split('/')[-1]}")]
+            if found_files:
+                project_files.extend(found_files)
+        if project_files:
+            summary_lines.append(f"- Project files found: {', '.join(set(project_files))}")
+    
+    if project_state.get('has_kiro_specs'):
+        specs = glob_pattern('.kiro/specs/*')
+        spec_count = len(specs)
+        summary_lines.append(f"- Kiro specs: {spec_count} active specification{'s' if spec_count != 1 else ''}")
+    
+    if project_state.get('has_incomplete_tasks'):
+        summary_lines.append("- Status: Incomplete implementation tasks found")
+    elif project_state.get('needs_enhancement'):
+        summary_lines.append("- Code quality: Assessment needed")
+    else:
+        summary_lines.append("- Status: Ready for new development")
+    
+    return '\n'.join(summary_lines)
+
+def get_workflow_rationale(workflow, project_state):
+    """Get rationale for recommended workflow"""
+    rationales = {
+        'refactoring-workflow': "Existing project detected with established codebase. Starting with code quality assessment and improvements will establish baseline before adding new features.",
+        'coding-workflow': "Active implementation tasks found. Continuing development workflow to complete pending features.",
+        'kiro-sdd-workflow': "New project development. Creating comprehensive specifications before implementation ensures clear requirements and architecture.",
+        'testing-workflow': "Focus on comprehensive testing to ensure quality and reliability of existing implementation.",
+        'pr-workflow': "Code ready for review and integration. Prepare pull request for stakeholder review and merge.",
+        'acceptance-workflow': "Final stakeholder approval and project completion review process."
+    }
+    return rationales.get(workflow, "Workflow selected based on current project analysis.")
+
+def get_workflow_alternatives(recommended_workflow, project_state):
+    """Get alternative workflow options with descriptions"""
+    all_workflows = {
+        'kiro-sdd': "Create new specification for major feature additions",
+        'coding': "Add new features immediately (skip quality assessment)",
+        'refactoring': "Code quality assessment and improvements", 
+        'testing': "Focus on comprehensive testing first",
+        'pr': "Prepare pull request and code review",
+        'acceptance': "Final stakeholder approval process"
+    }
+    
+    # Remove recommended workflow from alternatives
+    recommended_key = recommended_workflow.replace('-workflow', '')
+    alternatives = [(k, v) for k, v in all_workflows.items() if k != recommended_key]
+    
+    return alternatives[:3]  # Return top 3 alternatives
+
+def process_workflow_choice(user_choice, recommended_workflow, alternatives):
+    """Process user workflow choice and return selected workflow"""
+    if user_choice.lower() in ['1', '']:
+        return recommended_workflow
+    
+    try:
+        choice_num = int(user_choice)
+        if choice_num == len(alternatives) + 2:
+            # Show detailed analysis (placeholder)
+            print("📋 Detailed Analysis: [Implementation would show comprehensive project analysis]")
+            return process_workflow_choice(input("Please select workflow: "), recommended_workflow, alternatives)
+        elif 2 <= choice_num <= len(alternatives) + 1:
+            selected_workflow = alternatives[choice_num - 2][0]
+            return f"{selected_workflow}-workflow"
+    except ValueError:
+        # User typed workflow name
+        workflow_name = user_choice.lower().replace('-workflow', '')
+        if workflow_name in ['kiro-sdd', 'coding', 'refactoring', 'testing', 'pr', 'acceptance']:
+            return f"{workflow_name}-workflow"
+    
+    # Default fallback
+    print(f"Invalid choice. Proceeding with recommended workflow: {recommended_workflow}")
+    return recommended_workflow
 
 def glob_pattern(pattern):
     """Simple glob pattern matching"""
