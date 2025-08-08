@@ -33,6 +33,21 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 # 4. Continue until acceptance workflow completes
 ```
 
+### Execution Steps:
+
+**CRITICAL**: Execute ALL phases sequentially using the specified agents. Do NOT skip phases.
+
+1. **Phase 1**: pr-analyzer (Analyze code changes and assess impact for PR creation)
+2. **Phase 2**: pr-generator (Generate high-quality PR content based on change analysis)
+3. **Phase 3**: pr-validator (Validate PR quality and readiness for review)
+4. **Phase 4**: pr-create (Create pull request with generated content and metadata)
+5. **Phase 5**: merge-approver (Prepare for merge and facilitate human approval process)
+6. **Phase 6**: merge-executor (Execute safe PR merge with comprehensive validation)
+7. **Phase 7**: post-merge-manager (Comprehensive post-merge activities and cleanup)
+8. **Phase 8**: Human approval checkpoint - Review completed workflow
+
+**Important**: Each phase must be completed by the designated agent before proceeding to the next phase.
+
 ## PR Workflow Phases
 
 ### Phase 1: Change Analysis

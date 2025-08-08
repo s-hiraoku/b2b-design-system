@@ -77,7 +77,35 @@ This orchestrator executes the complete flow through approvals, never stopping a
 - **Phase 4**: quality-validator (comprehensive validation of results)
 - **Phase 5**: Human approval checkpoint
 
-**CRITICAL**: Do NOT execute only quality-validator. Execute the COMPLETE workflow sequence using ALL specified agents in the correct order.
+### Testing Workflow Example:
+- **Phase 1**: test-strategy-planner (develop comprehensive testing strategy)
+- **Phase 2**: test-environment-manager (set up and configure test environments)
+- **Phase 3**: Intelligent routing to testing agent:
+  - integration-test (API testing, service integration)
+  - e2e-test (end-to-end user journey testing)
+- **Phase 4**: test-executor (execute tests with monitoring and recovery)
+- **Phase 5**: test-reporter (generate comprehensive test reports and analysis)
+- **Phase 6**: Human approval checkpoint
+
+### PR Workflow Example:
+- **Phase 1**: pr-analyzer (analyze code changes and assess impact)
+- **Phase 2**: pr-generator (generate high-quality PR content)
+- **Phase 3**: pr-validator (validate PR quality and readiness)
+- **Phase 4**: pr-create (create pull request with metadata)
+- **Phase 5**: merge-approver (prepare for merge and facilitate approval)
+- **Phase 6**: merge-executor (execute safe PR merge)
+- **Phase 7**: post-merge-manager (post-merge activities and cleanup)
+- **Phase 8**: Human approval checkpoint
+
+### Acceptance Workflow Example:
+- **Phase 1**: acceptance-reviewer (prepare comprehensive review materials)
+- **Phase 2**: Human review and decision (72-hour stakeholder review)
+- **Phase 3**: Conditional routing (approved → completion, rejected → feedback analysis)
+- **Phase 4**: feedback-analyzer (systematic rejection feedback analysis)
+- **Phase 5**: phase-coordinator (coordinate rollback and re-execution)
+- **Phase 6**: Final completion or re-execution monitoring
+
+**CRITICAL**: Do NOT execute only the final agent in each workflow. Execute the COMPLETE workflow sequence using ALL specified agents in the correct order.
 
 ## 🔄 Automatic Workflow Progression
 

@@ -37,6 +37,21 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 # 4. Document final completion status
 ```
 
+### Execution Steps:
+
+**CRITICAL**: Execute ALL phases sequentially using the specified agents. Do NOT skip phases.
+
+1. **Phase 1**: acceptance-reviewer (Prepare comprehensive review materials for human acceptance)
+2. **Phase 2**: Human review and decision process (72-hour structured stakeholder review)
+3. **Phase 3**: Conditional routing based on decision:
+   - **Approved**: → Project completion
+   - **Rejected**: → Phase 4 (Feedback analysis)
+4. **Phase 4**: feedback-analyzer (Systematic analysis of rejection feedback and root cause identification)
+5. **Phase 5**: phase-coordinator (Coordinate rollback and re-execution of development phases)
+6. **Phase 6**: Final completion or re-execution monitoring
+
+**Important**: Each phase must be completed by the designated agent before proceeding to the next phase.
+
 ## Acceptance Workflow Phases
 
 ### Phase 1: Review Preparation

@@ -33,6 +33,21 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 # 4. Continue until acceptance workflow completes
 ```
 
+### Execution Steps:
+
+**CRITICAL**: Execute ALL phases sequentially using the specified agents. Do NOT skip phases.
+
+1. **Phase 1**: test-strategy-planner (Develop comprehensive testing strategy)
+2. **Phase 2**: test-environment-manager (Set up and configure test environments)
+3. **Phase 3**: Intelligent routing to appropriate testing agent:
+   - integration-test (API testing, service integration testing)
+   - e2e-test (End-to-end user journey testing)
+4. **Phase 4**: test-executor (Execute tests with monitoring and recovery)  
+5. **Phase 5**: test-reporter (Generate comprehensive test reports and analysis)
+6. **Phase 6**: Human approval checkpoint - Review completed workflow
+
+**Important**: Each phase must be completed by the designated agent before proceeding to the next phase.
+
 ## Testing Workflow Types
 
 The workflow intelligently routes to appropriate testing strategies based on requirements:
