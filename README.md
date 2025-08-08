@@ -226,12 +226,13 @@ $ /orchestrator "認証機能の実装を続ける"
 ## 📚 詳細ドキュメント
 
 ### 技術仕様
-- **[Interactive Workflow Guide](docs/INTERACTIVE-WORKFLOW.md)**: インテリジェントワークフロー選択システム完全ガイド
-- **[ARCHITECTURE.md](docs/ARCHITECTURE.md)**: 40+エージェント・6ワークフローの技術仕様
-- **[CC-Deck Workflow Engine](docs/CC-DECK-DESIGN.md)**: YAML定義・Smart Context詳細
-- **[TDD Implementation](docs/TDD-METHODOLOGY.md)**: t-wada方式実装詳細
+- **[Interactive Workflow Guide](docs/design/INTERACTIVE-WORKFLOW.md)**: インテリジェントワークフロー選択システム完全ガイド
+- **[System Architecture](docs/design/ARCHITECTURE.md)**: 40+エージェント・6ワークフローの技術仕様
+- **[CC-Deck Workflow Engine](docs/design/CC-DECK-DESIGN.md)**: YAML定義・Smart Context詳細
+- **[Design Documentation Index](docs/design/)**: 全設計書一覧とナビゲーション
 
 ### 開発者リソース
+- **[Installation Guide](docs/setup/INSTALLATION.md)**: 詳細インストール手順・環境構築
 - **[API Reference](docs/API.md)**: 全コマンド・エージェント仕様
 - **[Custom Workflow](docs/CUSTOM-WORKFLOW.md)**: 独自ワークフロー作成ガイド
 - **[Integration Guide](docs/INTEGRATION.md)**: 既存プロジェクト統合手順
@@ -264,4 +265,4 @@ $ /orchestrator "認証機能の実装を続ける"
 - **[t-wada](https://github.com/t-wada)** - TDD方法論とベストプラクティス  
 - **[mizchi/similarity](https://github.com/mizchi/similarity)** - コード類似性解析ツール
 
-**ライセンス**: MIT License - 詳細は [ATTRIBUTION.md](docs/ATTRIBUTION.md) 参照
+**ライセンス**: MIT License - 詳細は [ATTRIBUTION.md](ATTRIBUTION.md) 参照
