@@ -69,6 +69,59 @@ This orchestrator executes the complete flow through approvals, never stopping a
 
 **CRITICAL**: Do NOT execute only tdd-agent. Execute the COMPLETE workflow sequence using ALL specified agents in the correct order.
 
+## 🔄 Automatic Workflow Progression
+
+**After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration:
+
+### Workflow Chain Execution:
+```
+coding workflow approval → IMMEDIATELY start refactoring workflow
+refactoring workflow approval → IMMEDIATELY start testing workflow  
+testing workflow approval → IMMEDIATELY start pr workflow
+pr workflow approval → IMMEDIATELY start acceptance workflow
+acceptance workflow approval → Project completion
+```
+
+### Implementation Logic:
+1. **Complete Current Workflow**: Execute all phases within current workflow
+2. **Wait for Human Approval**: Present comprehensive review materials
+3. **Upon Approval**: Immediately execute the `next_workflow` specified in YAML config
+4. **Repeat Until Acceptance**: Continue this cycle until acceptance workflow completes
+
+**NEVER** stop after a single workflow completion. Always check the YAML configuration for `next_workflow` and execute it immediately after approval.
+
+### Practical Implementation:
+```bash
+# After coding workflow completion and approval:
+# 1. Read .cc-deck/config/workflows/coding.yaml 
+# 2. Find "next_workflow: refactoring" in the approval section
+# 3. Immediately execute the next workflow command: /refactoring
+# 4. Continue until acceptance workflow completes
+
+# Example execution flow:
+coding → approval → refactoring → approval → testing → approval → pr → approval → acceptance → completion
+```
+
+### Workflow Configuration Reading:
+Always reference the YAML files in `.cc-deck/config/workflows/` to determine the next workflow:
+- `coding.yaml` → `next_workflow: refactoring` → Execute `/refactoring` command
+- `refactoring.yaml` → `next_workflow: testing` → Execute `/testing` command
+- `testing.yaml` → `next_workflow: pr` → Execute `/pr` command
+- `pr.yaml` → `next_workflow: acceptance` → Execute `/acceptance` command
+- `acceptance.yaml` → No next workflow (final completion)
+
+### Automatic Workflow Execution Commands:
+After each approval, immediately execute the corresponding workflow command:
+```bash
+# Workflow progression commands:
+/refactoring    # After coding approval
+/testing       # After refactoring approval  
+/pr            # After testing approval
+/acceptance    # After pr approval
+```
+
+**Important**: Use these custom slash commands, not Task() calls, for workflow progression.
+
 ### Agent Selection Criteria:
 
 **When to use research-agent**:
