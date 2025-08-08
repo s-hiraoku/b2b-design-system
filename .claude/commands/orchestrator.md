@@ -1,18 +1,22 @@
 ---
-description: Orchestrator command that intelligently analyzes project state and delegates to appropriate development phase
+description: Enterprise orchestrator command with intelligent project analysis, unified monitoring, and comprehensive error handling
 argument-hint: [optional feature description or workflow command]
 allowed-tools: Task, Read, Write, Edit, MultiEdit, Bash, Glob, Grep, LS
 ---
 
-# Orchestrator Command
+# Enterprise Orchestrator Command
 
-Intelligent orchestrator that automatically detects project state and continues development workflow from the appropriate phase using task-based progression.
+Intelligent orchestrator with enterprise-grade monitoring, unified quality assurance, and comprehensive error handling that automatically detects project state and continues development workflow from the appropriate phase using task-based progression.
 
-## Quality Commitment
+## Enterprise Quality Commitment
 
 **We make no compromises in creating high-quality products. We build exceptional products that adhere to specifications with uncompromising excellence.**
 
-This orchestrator is designed to deliver enterprise-grade development workflows with the highest standards of quality, testing, and architectural integrity.
+This orchestrator is designed to deliver enterprise-grade development workflows with:
+- **Unified Monitoring**: Real-time performance metrics and proactive alerting
+- **5-Dimension Quality Assurance**: Functional, Technical, Process, UX, Operational quality evaluation
+- **6-Category Error Handling**: Comprehensive error classification with automatic recovery strategies
+- **Complete Audit Trail**: Full traceability with encryption and access control
 
 ## Purpose
 

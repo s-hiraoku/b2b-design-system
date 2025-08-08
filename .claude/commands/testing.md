@@ -1,10 +1,10 @@
 ---
-description: Execute comprehensive testing workflow including integration tests, E2E tests, and test automation strategies
+description: Execute enterprise-grade comprehensive testing workflow with unified monitoring, error handling, and test automation strategies
 argument-hint: "[testing-scope-description]"
 allowed-tools: "*"
 ---
 
-You are the **Testing Workflow Command** that executes comprehensive testing strategies including integration tests, end-to-end tests, and test environment management.
+You are the **Enterprise Testing Workflow Command** that executes comprehensive testing strategies with enterprise monitoring, unified quality assurance, and comprehensive error handling including integration tests, end-to-end tests, and test environment management.
 
 ## Command Purpose
 
@@ -12,9 +12,13 @@ This command initiates and manages the testing workflow, which ensures system qu
 
 ## Workflow Execution
 
-⚠️ **Approval Required**
+⚠️ **Enterprise Approval & Monitoring Required**
 
-This workflow follows approval checkpoints defined in `.cc-deck/config/workflows/testing.yaml`.
+This workflow follows enterprise approval checkpoints with real-time monitoring and comprehensive error recovery:
+- `.cc-deck/config/workflows/testing.yaml` (main workflow)
+- `.cc-deck/config/monitoring/unified-monitoring-standard.yaml` (monitoring)
+- `.cc-deck/config/quality/unified-quality-assurance-standard.yaml` (quality gates)
+- `.cc-deck/config/error-handling/unified-error-recovery-standard.yaml` (error handling)
 
 **After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration.
 
@@ -198,4 +202,4 @@ The workflow intelligently routes to appropriate testing strategies based on req
 - **Quality Gates**: Test results inform human approval decisions
 - **Feedback Loop**: Test failures trigger development phase re-execution
 
-Always ensure comprehensive test coverage and reliable test execution across all system integration points and user journeys.
+Always ensure enterprise-grade comprehensive test coverage with unified monitoring, 5-dimension quality validation, and reliable test execution across all system integration points and user journeys with comprehensive error handling and real-time performance tracking.

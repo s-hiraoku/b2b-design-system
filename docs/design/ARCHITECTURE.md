@@ -2,7 +2,7 @@
 
 ## 概要
 
-CC-Deck (Claude Code Deck) は、Claude Code を活用した **CC-Deck Workflow Engine** による革新的なAI駆動開発プラットフォームです。40+の専門サブエージェントが6つのYAMLワークフローで協調動作し、TDD統一による高品質開発、人間承認必須による品質保証、Kiro SDD仕様駆動開発の完全自動化を実現します。
+CC-Deck (Claude Code Deck) は、Claude Code を活用した **CC-Deck Workflow Engine** による革新的なAI駆動開発プラットフォームです。37個の専門サブエージェントが6つのYAMLワークフローで協調動作し、TDD統一による高品質開発、人間承認必須による品質保証、Kiro SDD仕様駆動開発の完全自動化を実現します。
 
 ## CC-Deck Workflow Engine の革新的特徴
 
@@ -228,7 +228,7 @@ graph TD
     RollbackDecision -->|No| Approved[✅ Approved]
 ```
 
-## 🤖 40+エージェント・マルチクラスター・アーキテクチャ
+## 🤖 37エージェント・マルチクラスター・アーキテクチャ
 
 ### エージェント統合連携マトリックス
 
@@ -432,14 +432,13 @@ graph TD
 
 ### 🛠️ クラスター別詳細
 
-#### 📋 Kiro SDD Cluster (8 agents)
+#### 📋 Kiro SDD Cluster (7 agents)
 
 仕様駆動開発の完全自動化
 
-- **Orchestrator**: 1 個 (統合管理)
 - **Core Agents**: 7 個 (仕様作成プロセス)
 
-#### 💻 Coding Cluster (9 agents)
+#### 💻 Coding Cluster (8 agents)
 
 **TDD統一ポリシーによる包括的高品質開発**
 
@@ -447,19 +446,17 @@ graph TD
   - serena-onboarding-agent (TDD環境・Serena MCP初期化)
   - tdd-agent ([t-wada](https://github.com/t-wada) 方法論・Red-Green-Refactor厳格実行)
   - implementation-agent (TDD基盤完成・本格実装)
-- **Workflow Support**: 6つの支援エージェント
-  - coding (統合管理・フロー調整)
+- **Workflow Support**: 5つの支援エージェント
   - research-agent (MCP技術調査)
   - deepwiki-research-solver (技術問題解決・DeepWiki特化)
   - planning-agent (戦略的アーキテクチャ)
   - testing-agent (包括テスト戦略)
   - documentation-agent (API・仕様ドキュメント)
 
-#### 🔧 Refactoring Cluster (7 agents)
+#### 🔧 Refactoring Cluster (6 agents)
 
 **セマンティック解析・パターン検出による高度リファクタリング**
 
-- **統合管理**: refactoring (フロー統括・戦略選択)
 - **解析エンジン**: 2つの分析特化エージェント
   - pattern-detector (重複・類似パターン検出)
   - code-analyzer (構造・依存関係・品質分析)
@@ -469,29 +466,35 @@ graph TD
   - refactoring-implementer (汎用品質改善・構造最適化)
 - **品質保証**: quality-validator (変換結果検証・機能保持確認)
 
-#### 🧪 Testing Cluster (9 agents)
+#### 🧪 Testing Cluster (6 agents)
 
 統合・E2E テスト自動化
 
-- **Integration**: 5 個 (統合テスト完全自動化)
-- **E2E**: 3 個 (エンドツーエンドテスト)
-- **Main Orchestrator**: 1 個 (integration-test)
+- **Integration**: 4 個 (統合テスト完全自動化)
+- **E2E**: 2 個 (エンドツーエンドテスト)
 
-#### 📤 PR Cluster (8 agents)
+#### 📤 PR Cluster (6 agents)
 
 プルリクエスト自動化
 
-- **Creation**: 4 個 (pr-create, pr-analyzer, pr-generator, pr-validator)
-- **Merge**: 4 個 (pr-merge, merge-approver, merge-executor, post-merge-manager)
+- **Creation**: 3 個 (pr-analyzer, pr-generator, pr-validator)
+- **Merge**: 3 個 (merge-approver, merge-executor, post-merge-manager)
 
-#### ✅ Acceptance Cluster (4 agents)
+#### ✅ Acceptance Cluster (3 agents)
 
 人間承認・フィードバックワークフロー
 
-- **Main**: 1 個 (acceptance)
 - **Sub-processes**: 3 個 (acceptance-reviewer, feedback-analyzer, phase-coordinator)
 
-### 🎯 Main Orchestration System (2 agents)
+#### 🛠️ Utility Cluster (1 agent)
+
+システム支援ユーティリティ
+
+- **date-utility**: 日付・時間情報提供エージェント
+
+### 🎯 Main Orchestration System
+
+**Note**: orchestratorとsync-statusはカスタムコマンドとして実装されており、個別のサブエージェントファイルは存在しない
 
 - **orchestrator**: インテリジェント統合管理・状態検出・ワークフロー自動選択
 - **sync-status**: Kiro SDD状態整合性・タスク進捗・実装同期管理
@@ -507,7 +510,7 @@ CC-Deck Workflow Engine (YAML実行)
     ↓
 Smart Context (状態管理・エージェント連携)
     ↓
-Multi-Agent Execution (40+ agents)
+Multi-Agent Execution (37 agents)
     ↓
 Tasks.md Sync (リアルタイム進捗)
     ↓
@@ -540,7 +543,7 @@ Feedback Loop (承認拒否時巻き戻し)
 
 ### 🎯 高度専門化アーキテクチャ
 
-- **Domain Expertise**: 40+エージェントが各々高度専門領域を担当
+- **Domain Expertise**: 37エージェントが各々高度専門領域を担当
 - **Quality Specialization**: TDD・リファクタリング・テスト・承認各領域の深い専門性
 - **MCP Integration**: 外部知識ソース統合による最新技術・ドキュメント連携
 - **Reusable Components**: エージェント・ワークフローの高い再利用性
@@ -552,6 +555,27 @@ Feedback Loop (承認拒否時巻き戻し)
 - **Smart Context Continuity**: フェーズ間コンテキスト継承・状態一貫性保証
 - **Quality Consistency**: 人間承認による品質基準統一・ブレ防止
 
+### 📈 エンタープライズグレード運用基盤
+
+- **統一監視システム**: 全ワークフロー共通の包括的監視・メトリクス収集
+- **高可用性アーキテクチャ**: チェックポイント・サーキットブレーカー・自動復旧
+- **品質保証統一基準**: 5次元品質評価による一貫した品質保証
+- **包括的エラーハンドリング**: 6カテゴリエラー分類・階層的復旧戦略
+
+### 📊 運用統計・監視機能
+
+- **リアルタイム監視**: フェーズ別パフォーマンス・品質メトリクス・MCP統合状況
+- **予防的アラート**: 品質劣化・パフォーマンス異常・統合問題の早期検出
+- **包括的レポート**: HTML・JSON・Markdown・CSV形式での多角的分析レポート
+- **継続的改善**: データ駆動による品質標準・プロセス最適化
+
+### 🛡️ エンタープライズセキュリティ・コンプライアンス
+
+- **データ保護**: 転送・保存時暗号化、ロールベースアクセス制御
+- **監査証跡**: 全承認判断・品質評価・エラー対応の完全追跡可能性
+- **コンプライアンス**: GDPR準拠・データ保持ポリシー・規制要件対応
+- **インシデント対応**: 重要度別エスカレーション・緊急時対応手順
+
 ### 📈 無限拡張可能性
 
 - **MCP Ecosystem**: 新MCPサーバー追加による機能拡張無制限
@@ -559,6 +583,72 @@ Feedback Loop (承認拒否時巻き戻し)
 - **Workflow Composition**: 新YAML定義による独自ワークフロー構築可能
 - **Project Customization**: `.kiro/steering/` プロジェクト固有カスタマイズ完全対応
 
+## 🔧 統一標準アーキテクチャ
+
+### 📋 統一標準ファイル構造
+
+```
+.cc-deck/config/
+├── monitoring/
+│   └── unified-monitoring-standard.yaml    # 統一監視標準
+├── quality/
+│   └── unified-quality-assurance-standard.yaml    # 品質保証統一基準
+├── error-handling/
+│   └── unified-error-recovery-standard.yaml    # エラーハンドリング統一標準
+└── workflows/
+    ├── coding.yaml          # エンタープライズグレード開発ワークフロー
+    ├── refactoring.yaml     # 高度リファクタリングワークフロー
+    ├── testing.yaml         # 包括的テストワークフロー
+    ├── kiro-sdd.yaml       # 仕様駆動開発ワークフロー
+    ├── pr.yaml             # プルリクエスト管理ワークフロー
+    └── acceptance.yaml      # 人間承認・品質保証ワークフロー
+```
+
+### 🎛️ 統一監視システム
+
+**全ワークフローで一貫した監視パターン実装**
+
+- **標準メトリクス**: Phase Performance, Quality Metrics, Resource Utilization, Human Interaction, Integration Performance
+- **統一アラート**: Performance Degradation, Quality Regression, Integration Issues (自動重要度判定・エスカレーション)
+- **標準レポーティング**: Real-time Dashboard, Hourly Summaries, Daily Quality Reports, Weekly Trend Analysis, Monthly Executive Summaries
+
+### 🔒 品質保証統一基準
+
+**5次元品質評価フレームワーク**
+
+1. **Functional Quality**: 要件適合性・機能完全性 (100%)
+2. **Technical Quality**: コード品質・アーキテクチャ準拠 (8.0/10+, 95%+ Coverage)
+3. **Process Quality**: ワークフロー準拠・文書化完全性 (95%+)
+4. **User Experience Quality**: ユーザビリティ・アクセシビリティ (8.5/10+, WCAG 2.1 AA)
+5. **Operational Quality**: 本番運用品質・監視カバレッジ (99.9%+)
+
+### ⚡ エラーハンドリング統一標準
+
+**6カテゴリエラー分類・対応システム**
+
+1. **Transient Errors**: 自動リトライ・指数バックオフ
+2. **Configuration Errors**: 即座に人間エスカレーション
+3. **Data Errors**: データ修正・バックアップ復元・チェックポイント復帰
+4. **Business Logic Errors**: プロセス修正・承認必須
+5. **Integration Errors**: フォールバック・サーキットブレーカー
+6. **Critical System Errors**: 即座停止・緊急エスカレーション
+
 ### 🌟 革新的統合価値
 
-**CC-Deck Workflow Engine は、従来の単発AI支援を超越し、人間とAIの協調による持続可能で高品質な開発エコシステムを実現します。40+エージェントの専門性、6つのYAMLワークフローの柔軟性、TDD統一による品質保証、人間承認による信頼性が統合され、次世代のAI駆動開発プラットフォームとして機能します。**
+**CC-Deck Workflow Engine は、従来の単発AI支援を超越し、人間とAIの協調による持続可能で高品質な開発エコシステムを実現します。37エージェントの専門性、6つのYAMLワークフローの柔軟性、TDD統一による品質保証、人間承認による信頼性、統一標準による運用基盤が統合され、真のエンタープライズグレードAI駆動開発プラットフォームとして機能します。**
+
+## 📈 運用統計・パフォーマンス指標
+
+### 🎯 品質保証実績
+
+- **Zero Compromise Policy**: 品質に一切の妥協なし・仕様準拠100%
+- **TDD統一ポリシー**: 全開発フローでTest-Driven Development必須・95%+テストカバレッジ
+- **Human Approval Mandatory**: 全変更で人間ステークホルダー承認強制・品質保証徹底
+- **Continuous Monitoring**: リアルタイム品質監視・予防的問題検出
+
+### 📊 システム可用性・信頼性
+
+- **High Availability**: チェックポイント・自動復旧による高可用性設計
+- **Fault Tolerance**: サーキットブレーカー・フォールバック・グレースフル劣化
+- **Recovery Automation**: 平均復旧時間最小化・自動復旧率最大化
+- **Scalability**: 負荷増加・複雑性拡大に対応する拡張可能アーキテクチャ

@@ -46,10 +46,11 @@ All specifications are stored in the `.kiro/specs/` directory:
 The project follows the Kiro SDD (Specification-Driven Development) process with automated orchestration and TDD-first approach:
 
 1. Kiro SDD specification creation in `.kiro/specs/`
-2. Test-Driven Development (TDD) using t-wada methodology with Red-Green-Refactor cycle
-3. Task-based implementation with progress tracking through tasks.md
-4. Human approval workflows for quality assurance
-5. Comprehensive testing and deployment
+2. **Enterprise-Grade Coding Workflow**: Enhanced with unified monitoring, error handling, and quality assurance
+3. Test-Driven Development (TDD) using t-wada methodology with Red-Green-Refactor cycle
+4. Task-based implementation with progress tracking through tasks.md
+5. Human approval workflows for quality assurance
+6. Comprehensive testing and deployment with full observability
 
 ## TDD-First Development Policy
 
@@ -58,9 +59,29 @@ This project mandates Test-Driven Development for ALL implementations following 
 - **TDD-Only Policy**: ALL code must be developed using strict TDD approach
 - **Dedicated TDD Agent**: `tdd-agent` enforces Red-Green-Refactor cycles
 - **No Shortcuts Allowed**: Test-first development is mandatory
-- **Quality Guarantee**: 95%+ test coverage and design-driven development
+- **Enhanced Quality Guarantee**: 95%+ test coverage (line coverage 95%+, branch coverage 90%+, function coverage 95%+)
 - **Unified Workflow**: Single TDD-based implementation path for consistency
 - **Multi-Agent TDD**: serena-onboarding → tdd-agent → implementation-agent sequence
+- **Real-time Quality Monitoring**: Continuous TDD compliance tracking and quality metrics collection
+
+## Enterprise-Grade Workflow Enhancements
+
+### 🎛️ Unified Monitoring System
+- **Real-time Metrics**: Phase performance, TDD compliance, quality scores, MCP integration status
+- **Proactive Alerts**: Quality degradation (>5% drop), performance anomalies (>150% baseline), TDD violations (<95%)
+- **Comprehensive Reporting**: HTML dashboards, JSON APIs, Markdown documentation, CSV exports
+
+### ⚡ Advanced Error Handling & Recovery
+- **Checkpoint System**: Before each phase with 72h retention
+- **Circuit Breakers**: MCP services, quality gates, human approval processes
+- **Automatic Recovery**: Service fallbacks, data restoration, workflow continuation
+- **Escalation Management**: Technical lead → Engineering manager → CTO office
+
+### 🔒 Quality Assurance Integration
+- **5-Dimension Quality Framework**: Functional, Technical, Process, UX, Operational quality
+- **Unified Quality Gates**: Entry gates, progress gates, exit gates with blocking enforcement
+- **Automated Validation**: Static analysis, dynamic testing, compliance checking
+- **Human Quality Reviews**: Peer review, expert review, stakeholder validation
 
 ## Main Command
 
@@ -68,11 +89,13 @@ Use `/orchestrator` for all development workflows - it provides intelligent stat
 
 ## Key Technologies
 
-- Kiro SDD (Specification-Driven Development)
-- Claude Code integration with custom slash commands
-- MCP (Model Context Protocol) servers: DeepWiki, Context7, Serena
-- Automated task management and progress tracking
-- GitHub integration for issue management
+- **Kiro SDD (Specification-Driven Development)**: Complete specification-driven development process
+- **Claude Code integration**: Custom slash commands with enterprise-grade functionality
+- **MCP (Model Context Protocol) servers**: DeepWiki, Context7, Serena, Playwright with monitoring
+- **Unified Standards**: Monitoring, Quality Assurance, Error Handling standardization
+- **Enterprise Observability**: Real-time monitoring, alerting, comprehensive reporting
+- **Advanced Error Recovery**: Multi-layer error handling with automatic recovery
+- **Quality Assurance Framework**: 5-dimension quality evaluation with automated enforcement
 
 ## CC-Deck Workflow Engine
 
@@ -80,18 +103,21 @@ Use `/orchestrator` for all development workflows - it provides intelligent stat
 
 This project now includes the **CC-Deck Workflow Engine**, an advanced workflow orchestration system that realizes the ARCHITECTURE.md design through:
 
-- **Workflow Composition Pattern**: Hierarchical workflow definitions with phase management
-- **Smart Context Propagation**: Context sharing between agents and phases
+- **Enterprise-Grade Workflow Management**: Production-ready orchestration with monitoring and recovery
+- **Unified Standards Compliance**: All workflows follow monitoring, quality, and error handling standards
+- **Smart Context Propagation**: Advanced context sharing between agents and phases with audit trails
 - **Kiro SDD Integration**: Seamless integration with `.kiro/specs/*/tasks.md` files
-- **Agent Orchestration**: Intelligent agent selection and delegation
+- **Intelligent Agent Orchestration**: Smart agent selection with performance monitoring
 
 #### Key Features
 
-- **Enhanced `/orchestrator`**: Main entry point with intelligent workflow selection
-- **Workflow Definitions**: YAML-based workflows in `.cc-deck/workflows/`
-- **Smart Context**: Persistent state management in `.cc-deck/context/`
-- **Task-Driven Execution**: Automatic tasks.md parsing and checkbox management
-- **Error Recovery**: Comprehensive error handling with checkpoints
+- **Enhanced `/orchestrator`**: Main entry point with intelligent workflow selection and state management
+- **Workflow Definitions**: YAML-based workflows in `.cc-deck/config/workflows/` with unified standards
+- **Smart Context**: Persistent state management with checkpoints and rollback capabilities
+- **Task-Driven Execution**: Automatic tasks.md parsing with real-time progress tracking
+- **Advanced Error Recovery**: Multi-layer error handling with automatic recovery and escalation
+- **Comprehensive Monitoring**: Real-time metrics, alerts, and reporting across all workflows
+- **Quality Assurance Integration**: 5-dimension quality framework with automated enforcement
 
 #### Usage Examples
 
@@ -108,7 +134,7 @@ This project now includes the **CC-Deck Workflow Engine**, an advanced workflow 
 /orchestrator "resume user-authentication-system"
 ```
 
-For detailed documentation, see `docs/CC-DECK-DESIGN.md`.
+For detailed documentation, see `docs/design/ARCHITECTURE.md` and `docs/design/cc-deck-config.md`.
 
 ## Custom Development Guidelines
 

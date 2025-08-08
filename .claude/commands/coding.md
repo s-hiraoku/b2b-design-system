@@ -1,14 +1,14 @@
 ---
-description: Execute TDD-unified coding workflow with comprehensive development from research to documentation
+description: Execute enterprise-grade TDD-unified coding workflow with comprehensive monitoring, error handling, and quality assurance
 argument-hint: "[implementation-description]"
 allowed-tools: "*"
 ---
 
-You are the **Coding Workflow Command** that executes the complete TDD-unified development process following t-wada methodology.
+You are the **Enterprise-Grade Coding Workflow Command** that executes the complete TDD-unified development process following t-wada methodology with enterprise monitoring, unified quality assurance, and comprehensive error handling.
 
 ## Command Purpose
 
-This command initiates and manages the coding workflow, which transforms specifications into high-quality, test-driven implementation with 95%+ test coverage.
+This command initiates and manages the enterprise coding workflow, which transforms specifications into high-quality, test-driven implementation with 95%+ test coverage, real-time monitoring, and enterprise security compliance.
 
 ## TDD-First Development Policy
 
@@ -20,9 +20,13 @@ This command initiates and manages the coding workflow, which transforms specifi
 
 ## Workflow Execution
 
-⚠️ **Approval Required**
+⚠️ **Enterprise Approval & Monitoring Required**
 
-This workflow follows approval checkpoints defined in `.cc-deck/config/workflows/coding.yaml`.
+This workflow follows enterprise approval checkpoints with real-time monitoring, quality gates, and comprehensive error recovery as defined in:
+- `.cc-deck/config/workflows/coding.yaml` (main workflow)
+- `.cc-deck/config/monitoring/unified-monitoring-standard.yaml` (monitoring)
+- `.cc-deck/config/quality/unified-quality-assurance-standard.yaml` (quality gates)
+- `.cc-deck/config/error-handling/unified-error-recovery-standard.yaml` (error handling)
 
 **After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration.
 
@@ -147,13 +151,15 @@ projects/{project-name}/
 /coding "Add payment processing to e-commerce checkout flow"
 ```
 
-## TDD Quality Guarantees
+## Enterprise TDD Quality Guarantees
 
 - **100% TDD Coverage**: Every line of production code driven by tests
-- **95%+ Test Coverage**: Comprehensive test suite with high coverage metrics
-- **t-wada Methodology**: Strict adherence to proven TDD principles
-- **Design Quality**: Test-first approach naturally leads to better design
-- **Regression Protection**: Complete test suite prevents future breaks
+- **95%+ Test Coverage**: Comprehensive test suite with high coverage metrics (Line 95%+, Branch 90%+, Function 95%+)
+- **t-wada Methodology**: Strict adherence to proven TDD principles with Red-Green-Refactor documentation
+- **5-Dimension Quality**: Functional (100%), Technical (8.0/10+), Process (95%+), UX (8.5/10+), Operational (99.9%+)
+- **Real-time Monitoring**: Performance metrics, quality trends, TDD compliance tracking
+- **Error Recovery**: 6-category error handling with automatic retry, checkpoint rollback, circuit breaker
+- **Security Compliance**: Encryption, access control, complete audit trail
 
 ## Integration Points
 
@@ -162,11 +168,14 @@ projects/{project-name}/
 - **Smart Context**: Maintains context across all development phases
 - **Human Approval**: Quality gates ensure stakeholder approval before proceeding
 
-## Error Handling
+## Enterprise Error Handling & Recovery
 
-- **TDD Violation Prevention**: Strict enforcement of test-first development
-- **Quality Checkpoints**: Automated validation at each phase
-- **Rollback Support**: Ability to return to previous phases based on feedback
-- **Test Failure Handling**: Immediate attention to failing tests
+- **TDD Violation Prevention**: Strict enforcement of test-first development with compliance monitoring
+- **6-Category Error Classification**: Transient, Configuration, Data, Business Logic, Integration, Critical System
+- **Automatic Recovery Strategies**: Retry with exponential backoff, checkpoint rollback, circuit breaker, fallback services
+- **Quality Checkpoints**: 5-dimension quality gates with automated validation at each phase
+- **Proactive Monitoring**: Real-time alerts for performance degradation, quality regression, TDD violations
+- **Human Escalation**: Structured escalation path (Technical Lead → Engineering Manager → CTO)
+- **Rollback Support**: Comprehensive checkpoint system with 72-hour retention
 
-Always ensure that TDD principles are strictly followed and that all code is driven by comprehensive, well-designed tests.
+Always ensure that enterprise TDD principles are strictly followed with comprehensive monitoring, unified quality assurance, and robust error handling. All code must be driven by well-designed tests with real-time quality tracking and proactive issue prevention.

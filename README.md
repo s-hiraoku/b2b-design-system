@@ -1,18 +1,19 @@
-# 🚀 CC-Deck: AI-Driven Development Platform
+# 🚀 CC-Deck: Enterprise AI-Driven Development Platform
 
-**Claude Code を使った統合開発ワークフローシステム**
+**Claude Code を使ったエンタープライズグレード統合開発ワークフローシステム**
 
 ## 🎯 概要
 
-CC-Deck は **要件定義から本番デプロイまでの開発プロセス全体** をAIが管理する統合開発プラットフォームです。一つのコマンドで、仕様策定・TDD実装・品質改善・テスト・PR作成・承認までの完全な開発フローを自動実行します。
+CC-Deck は **要件定義から本番デプロイまでの開発プロセス全体** をAIが管理するエンタープライズグレード統合開発プラットフォームです。一つのコマンドで、仕様策定・TDD実装・品質改善・テスト・PR作成・承認までの完全な開発フローを自動実行します。
 
 ### 🌟 核心機能
 
-- **🔄 完全統合ワークフロー**: 要件定義→設計→実装→テスト→デプロイの一貫自動化
-- **🤖 40+ 専門AIエージェント**: 各工程に特化したエキスパートAIが協働
+- **🔄 Enterprise-Grade統合ワークフロー**: 要件定義→設計→実装→テスト→デプロイの一貫自動化
+- **🤖 37専門AIエージェント**: 各工程に特化したエキスパートAIが協働
 - **🔴 TDD統一品質保証**: 全コードが100%テスト駆動開発で作成（95%+カバレッジ）
-- **🤔 インテリジェント選択**: プロジェクト状況を分析して最適なワークフローを提案・確認
-- **🔒 人間中心の品質管理**: 重要な決定は人間が承認、AIは作業を代行
+- **📊 統一監視・品質保証**: リアルタイム品質監視・予防的アラート・包括的レポート
+- **⚡ 高可用性エラーハンドリング**: 自動復旧・チェックポイント・サーキットブレーカー
+- **🔒 エンタープライズセキュリティ**: 暗号化・アクセス制御・完全監査証跡
 
 ## 🛠️ セットアップ
 
@@ -164,8 +165,8 @@ cc-deck/
 │   │   └── workflows/           # ワークフロー定義（YAML）
 │   └── context/                 # Smart Context（状態管理）
 ├── .claude/
-│   ├── commands/                # カスタムスラッシュコマンド
-│   └── agents/                  # 40+ 専門AIエージェント
+│   ├── commands/                # カスタムスラッシュコマンド (8個)
+│   └── agents/                  # 37専門AIエージェント
 ├── .kiro/                       # Kiro SDD作業ディレクトリ
 │   ├── specs/                   # 機能仕様とタスク
 │   └── steering/                # プロジェクト指針文書
@@ -181,27 +182,31 @@ cc-deck/
 ```bash
 $ /orchestrator "TODOアプリを作りたい"
 
-📊 Project Analysis: 新規プロジェクト検出
+📊 Enterprise Analysis: 新規プロジェクト検出
 🎯 Recommended: KIRO-SDD (要件定義から)
 ✅ 要件書・設計書・タスク生成 → 承認 → TDD実装開始
+📈 監視: リアルタイム品質メトリクス・予防的アラート有効化
 ```
 
 ### 既存プロジェクト改善
 ```bash
 $ /orchestrator "既存サイトのパフォーマンス改善"
 
-📊 Project Analysis: stylish-cafe-website 検出
+📊 Enterprise Analysis: stylish-cafe-website 検出
 🎯 Recommended: REFACTORING (品質改善から)  
 ✅ 品質分析→リファクタリング→テスト→PR→承認
+🔒 品質保証: 5次元品質評価・統一基準適用
+⚡ エラーハンドリング: 6カテゴリ分類・自動復旧戦略
 ```
 
 ### 継続開発
 ```bash
 $ /orchestrator "認証機能の実装を続ける"
 
-📊 Project Analysis: 未完了タスク67%検出
+📊 Enterprise Analysis: 未完了タスク67%検出
 🎯 Recommended: CODING (TDD継続)
 ✅ 前回の続きから自動継続→完成→テスト→デプロイ
+🛡️ セキュリティ: 暗号化・アクセス制御・完全監査証跡
 ```
 
 ## 🎯 主要機能詳細
@@ -218,17 +223,19 @@ $ /orchestrator "認証機能の実装を続ける"
 - **自動テスト生成**: 単体・統合・E2Eテストの包括実装
 - **95%+カバレッジ**: 妥協のない品質基準
 
-### Smart Context システム
-- **ワークフロー間連携**: 前段階の成果物を次段階で活用
-- **状態永続化**: 中断・再開に対応した進捗管理
-- **エージェント間通信**: 40+エージェントの効率的な情報共有
+### Enterprise Smart Context システム
+- **ワークフロー間連携**: 前段階の成果物を次段階で活用・統一標準による一貫性保証
+- **状態永続化**: 中断・再開に対応した進捗管理・チェックポイント自動作成
+- **エージェント間通信**: 37エージェントの効率的な情報共有・コンテキスト暗号化
+- **統一監視**: リアルタイムメトリクス・予防的アラート・包括的レポート
+- **エラーハンドリング**: 6カテゴリ分類・自動復旧・サーキットブレーカー
 
 ## 📚 詳細ドキュメント
 
 ### 技術仕様
 - **[Interactive Workflow Guide](docs/design/INTERACTIVE-WORKFLOW.md)**: インテリジェントワークフロー選択システム完全ガイド
-- **[System Architecture](docs/design/ARCHITECTURE.md)**: 40+エージェント・6ワークフローの技術仕様
-- **[CC-Deck Workflow Engine](docs/design/CC-DECK-DESIGN.md)**: YAML定義・Smart Context詳細
+- **[System Architecture](docs/design/ARCHITECTURE.md)**: 37エージェント・6エンタープライズワークフローの技術仕様
+- **[CC-Deck Workflow Engine](docs/design/cc-deck-config.md)**: YAML定義・統一標準・Smart Context詳細
 - **[Design Documentation Index](docs/design/)**: 全設計書一覧とナビゲーション
 
 ### 開発者リソース

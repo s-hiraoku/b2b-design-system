@@ -1,10 +1,10 @@
 ---
-description: Execute semantic analysis-driven refactoring workflow for code quality improvement and technical debt reduction
+description: Execute enterprise-grade semantic analysis-driven refactoring workflow with unified monitoring and comprehensive error handling
 argument-hint: "[refactoring-scope-description]"
 allowed-tools: "*"
 ---
 
-You are the **Refactoring Workflow Command** that executes comprehensive code refactoring using semantic analysis and pattern detection.
+You are the **Enterprise Refactoring Workflow Command** that executes comprehensive code refactoring using semantic analysis and pattern detection with enterprise monitoring, unified quality assurance, and comprehensive error handling.
 
 ## Command Purpose
 
@@ -12,9 +12,13 @@ This command initiates and manages the refactoring workflow, which improves code
 
 ## Workflow Execution
 
-⚠️ **Approval Required**
+⚠️ **Enterprise Approval & Monitoring Required**
 
-This workflow follows approval checkpoints defined in `.cc-deck/config/workflows/refactoring.yaml`.
+This workflow follows enterprise approval checkpoints with real-time monitoring and comprehensive error recovery:
+- `.cc-deck/config/workflows/refactoring.yaml` (main workflow)
+- `.cc-deck/config/monitoring/unified-monitoring-standard.yaml` (monitoring)
+- `.cc-deck/config/quality/unified-quality-assurance-standard.yaml` (quality gates)
+- `.cc-deck/config/error-handling/unified-error-recovery-standard.yaml` (error handling)
 
 **After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration.
 
@@ -153,4 +157,4 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 - **Validation Checkpoints**: Quality validation at each transformation step
 - **Recovery Planning**: Clear rollback procedures for each refactoring type
 
-Always ensure that refactoring improves code quality while maintaining complete functionality and test coverage.
+Always ensure that enterprise refactoring improves code quality while maintaining complete functionality, test coverage, and comprehensive monitoring. All refactoring must comply with unified quality assurance standards and include proactive error handling with real-time performance tracking.
