@@ -22,8 +22,9 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 ### Implementation Logic:
 1. **Complete Current Workflow**: Execute all testing phases
 2. **Wait for Human Approval**: Present comprehensive review materials
-3. **Upon Approval**: Read `.cc-deck/config/workflows/testing.yaml` and find `next_workflow: pr`
-4. **Immediately Execute**: Run `/pr` command to continue workflow chain
+3. **Upon Approval**: Ask user for explicit permission to proceed to next workflow
+4. **Request Confirmation**: "Proceed to PR workflow? (yes/no)"
+5. **Wait for Permission**: Only continue after clear user confirmation
 
 ```bash
 # After testing workflow completion and approval:

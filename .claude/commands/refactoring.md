@@ -22,8 +22,9 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 ### Implementation Logic:
 1. **Complete Current Workflow**: Execute all refactoring phases
 2. **Wait for Human Approval**: Present comprehensive review materials  
-3. **Upon Approval**: Read `.cc-deck/config/workflows/refactoring.yaml` and find `next_workflow: testing`
-4. **Immediately Execute**: Run `/testing` command to continue workflow chain
+3. **Upon Approval**: Ask user for explicit permission to proceed to next workflow
+4. **Request Confirmation**: "Proceed to testing workflow? (yes/no)"
+5. **Wait for Permission**: Only continue after clear user confirmation
 
 ```bash
 # After refactoring workflow completion and approval:

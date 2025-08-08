@@ -22,15 +22,16 @@ This workflow follows approval checkpoints defined in `.cc-deck/config/workflows
 ### Implementation Logic:
 1. **Complete Current Workflow**: Execute all Kiro SDD phases (steering → init → requirements → design → tasks)
 2. **Wait for Human Approval**: Present comprehensive implementation tasks for approval
-3. **Upon Approval**: Read `.cc-deck/config/workflows/kiro-sdd.yaml` and find `next_workflow: coding`
-4. **Immediately Execute**: Run `/coding` command to continue workflow chain
+3. **Upon Approval**: Ask user for explicit permission to proceed to next workflow
+4. **Request Confirmation**: "Proceed to coding workflow? (yes/no)"
+5. **Wait for Permission**: Only continue after clear user confirmation
 
 ```bash
 # After kiro-sdd workflow completion and approval:
-# 1. Read .cc-deck/config/workflows/kiro-sdd.yaml 
-# 2. Find "next_workflow: coding" in the approval section
-# 3. Immediately execute the next workflow command: /coding
-# 4. Continue until acceptance workflow completes
+# 1. Present completion summary to user
+# 2. Ask: "Kiro-SDD workflow completed successfully. Proceed to coding workflow? (yes/no)"
+# 3. Wait for explicit user confirmation
+# 4. Only if user confirms: execute /coding command
 ```
 
 ### Execution Steps:

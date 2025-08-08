@@ -108,9 +108,18 @@ This orchestrator executes the complete flow through approvals, never stopping a
 
 **CRITICAL**: Do NOT execute only the final agent in each workflow. Execute the COMPLETE workflow sequence using ALL specified agents in the correct order.
 
-## 🔄 Automatic Workflow Progression
+## 🔄 Manual Workflow Control
 
-**After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration:
+**After Each Workflow Approval**: Request explicit user confirmation before proceeding to the next workflow.
+
+### Controlled Progression Process:
+1. **Current Workflow Completion**: Complete all phases within the current workflow
+2. **Human Approval**: Present comprehensive review materials and wait for approval
+3. **Next Workflow Confirmation**: After approval, explicitly ask for permission to proceed to next workflow
+4. **User Decision**: Wait for clear "yes/proceed/continue" confirmation before starting next workflow
+5. **Next Workflow Start**: Only after explicit confirmation, execute the next workflow
+
+**CRITICAL**: Never automatically proceed to the next workflow without explicit user confirmation, even after approval.
 
 ## 🤔 Interactive Workflow Confirmation
 
@@ -152,30 +161,32 @@ Alternative Options:
 Please select 1-5 or type workflow name:
 ```
 
-### Workflow Chain Execution:
+### Controlled Workflow Chain:
 ```
-coding workflow approval → IMMEDIATELY start refactoring workflow
-refactoring workflow approval → IMMEDIATELY start testing workflow  
-testing workflow approval → IMMEDIATELY start pr workflow
-pr workflow approval → IMMEDIATELY start acceptance workflow
+coding workflow approval → ASK PERMISSION → refactoring workflow
+refactoring workflow approval → ASK PERMISSION → testing workflow  
+testing workflow approval → ASK PERMISSION → pr workflow
+pr workflow approval → ASK PERMISSION → acceptance workflow
 acceptance workflow approval → Project completion
 ```
 
 ### Implementation Logic:
 1. **Complete Current Workflow**: Execute all phases within current workflow
 2. **Wait for Human Approval**: Present comprehensive review materials
-3. **Upon Approval**: Immediately execute the `next_workflow` specified in YAML config
-4. **Repeat Until Acceptance**: Continue this cycle until acceptance workflow completes
+3. **Request Next Workflow Permission**: Ask user "Proceed to [next-workflow]? (yes/no)"
+4. **Wait for Explicit Confirmation**: Only continue after clear user confirmation
+5. **Execute Next Workflow**: Start next workflow only after permission granted
 
-**NEVER** stop after a single workflow completion. Always check the YAML configuration for `next_workflow` and execute it immediately after approval.
+**CRITICAL**: Always request explicit permission before starting any new workflow, even after successful approval of the previous workflow.
 
 ### Practical Implementation:
 ```bash
 # After coding workflow completion and approval:
-# 1. Read .cc-deck/config/workflows/coding.yaml 
-# 2. Find "next_workflow: refactoring" in the approval section
-# 3. Immediately execute the next workflow command: /refactoring
-# 4. Continue until acceptance workflow completes
+# 1. Present approval confirmation to user
+# 2. Ask: "Coding workflow completed successfully. Proceed to refactoring workflow? (yes/no)"
+# 3. Wait for explicit user confirmation  
+# 4. Only if user confirms: execute /refactoring command
+# 5. Repeat this process for each subsequent workflow
 
 # Example execution flow:
 coding → approval → refactoring → approval → testing → approval → pr → approval → acceptance → completion

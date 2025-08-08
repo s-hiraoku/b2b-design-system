@@ -145,15 +145,15 @@ Alternative Options:
 
 ## 🔄 自動ワークフロー連鎖
 
-承認完了後、自動的に次のワークフローに進行します：
+承認完了後、ユーザー確認を経て次のワークフローに進行します：
 
 ```
-KIRO-SDD → CODING → REFACTORING → TESTING → PR → ACCEPTANCE
-   ↓         ↓         ↓           ↓        ↓       ↓
- 要件設計   TDD実装   品質改善    テスト    PR     最終承認
+KIRO-SDD → [確認] → CODING → [確認] → REFACTORING → [確認] → TESTING → [確認] → PR → [確認] → ACCEPTANCE
+   ↓       ASK        ↓       ASK         ↓           ASK         ↓       ASK      ↓       ASK       ↓
+ 要件設計   許可   TDD実装   許可      品質改善      許可      テスト    許可     PR      許可   最終承認
 ```
 
-各段階で人間承認を経て、品質を担保しながら完全自動化を実現します。
+各段階で人間承認を経て、さらに **次ワークフローへの明示的な許可** を求めて進行します。
 
 ## 🏗️ プロジェクト構造
 
