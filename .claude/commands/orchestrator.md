@@ -1866,38 +1866,42 @@ def should_use_workflow_engine(workflow_hint, project_state):
     return any(complexity_indicators)
 
 def select_workflow_with_confirmation(workflow_hint, project_state, arguments):
-    """Select workflow with user confirmation based on project analysis"""
+    """Present task-based confirmation flow to user based on project analysis"""
     
-    # 1. Present project analysis
-    analysis_summary = generate_project_analysis_summary(project_state)
-    print(f"📊 Project Analysis Complete\n\n{analysis_summary}")
+    # 1. Analyze project and generate task proposal
+    project_info = analyze_detailed_project_state(project_state)
+    task_proposal = generate_task_proposal(project_info, arguments)
     
-    # 2. Get recommended workflow
-    recommended_workflow = get_recommended_workflow(workflow_hint, project_state)
-    rationale = get_workflow_rationale(recommended_workflow, project_state)
+    # 2. Present project analysis
+    print("📋 プロジェクト分析結果\n")
+    print(f"🏗️ プロジェクト: {project_info['project_name']}")
+    print(f"📍 現在の状態: {project_info['current_status']}\n")
     
-    # 3. Present recommendation and alternatives
-    print(f"🎯 Recommended Workflow: {recommended_workflow.upper()}")
-    print(f"Rationale: {rationale}\n")
+    # 3. Present specific tasks to be executed
+    print("📝 提案する実行タスク:")
+    for i, task in enumerate(task_proposal['tasks'], 1):
+        print(f"{i}. {task['description']}")
     
-    # 4. Show alternative options
-    alternatives = get_workflow_alternatives(recommended_workflow, project_state)
-    print("Alternative Options:")
-    for i, (workflow, description) in enumerate(alternatives, 1):
-        print(f"{i}. {workflow.upper()} - {description}")
+    if task_proposal['subtasks']:
+        print("\n   詳細作業:")
+        for subtask in task_proposal['subtasks']:
+            print(f"   • {subtask}")
     
-    # 5. Request user confirmation
-    print(f"\n❓ Which workflow would you like to execute?")
-    print(f"[1] Proceed with {recommended_workflow.upper()} (recommended)")
-    for i, (workflow, _) in enumerate(alternatives, 2):
-        print(f"[{i}] Use {workflow.upper()} workflow")
-    print(f"[{len(alternatives) + 2}] Show detailed analysis")
+    print(f"\n🎯 期待される成果:")
+    for outcome in task_proposal['expected_outcomes']:
+        print(f"- {outcome}")
     
-    # 6. Get user choice
-    user_choice = input("\nPlease select option number or type workflow name: ").strip()
+    print(f"\n⏱️ 実行時間目安: {task_proposal['estimated_time']}")
     
-    # 7. Process user choice
-    return process_workflow_choice(user_choice, recommended_workflow, alternatives)
+    # 4. Request user confirmation
+    user_response = input(f"\nこのタスクを実行しますか？ (yes/no): ").strip().lower()
+    
+    if user_response in ['yes', 'y', 'はい']:
+        print(f"\n✅ タスク実行を開始します...\n")
+        return task_proposal['workflow_name']
+    else:
+        print("\n❌ タスク実行をキャンセルしました。")
+        return None
 
 def get_recommended_workflow(workflow_hint, project_state):
     """Get recommended workflow based on hints and project analysis"""
@@ -1921,6 +1925,297 @@ def get_recommended_workflow(workflow_hint, project_state):
         return 'refactoring-workflow'
     else:
         return 'kiro-sdd-workflow'  # Default to Kiro SDD for new projects
+
+def analyze_detailed_project_state(basic_state):
+    """Analyze detailed project state for task proposal generation"""
+    project_info = {
+        'project_name': 'Unknown Project',
+        'current_status': 'Analysis in progress',
+        'project_type': 'unknown',
+        'completion_percentage': 0,
+        'active_features': [],
+        'technical_debt': [],
+        'next_priorities': []
+    }
+
+    # Identify main project
+    if basic_state.get('has_existing_projects'):
+        projects = glob_pattern('projects/*')
+        if projects:
+            # Use the most recently modified project
+            latest_project = max(projects, key=lambda p: os.path.getmtime(p) if os.path.exists(p) else 0)
+            project_info['project_name'] = os.path.basename(latest_project)
+            
+            # Analyze project type and status
+            project_info.update(analyze_project_details(latest_project))
+
+    # Analyze Kiro specs status
+    if basic_state.get('has_kiro_specs'):
+        spec_analysis = analyze_kiro_specs_status()
+        project_info.update(spec_analysis)
+
+    # Determine current status
+    project_info['current_status'] = determine_project_status(project_info, basic_state)
+
+    return project_info
+
+def analyze_project_details(project_dir):
+    """Analyze specific project details"""
+    details = {
+        'project_type': 'unknown',
+        'completion_percentage': 0,
+        'technical_debt': [],
+        'has_tests': False,
+        'has_docs': False
+    }
+
+    # Check project type
+    if file_exists(f"{project_dir}/package.json"):
+        details['project_type'] = 'Node.js/JavaScript'
+    elif file_exists(f"{project_dir}/requirements.txt"):
+        details['project_type'] = 'Python'
+    elif file_exists(f"{project_dir}/Cargo.toml"):
+        details['project_type'] = 'Rust'
+    elif file_exists(f"{project_dir}/go.mod"):
+        details['project_type'] = 'Go'
+
+    # Check for tests
+    test_dirs = ['tests/', 'test/', 'src/tests/', '__tests__/']
+    for test_dir in test_dirs:
+        if file_exists(f"{project_dir}/{test_dir}"):
+            details['has_tests'] = True
+            break
+
+    # Check for documentation
+    doc_files = ['README.md', 'docs/', 'documentation/']
+    for doc in doc_files:
+        if file_exists(f"{project_dir}/{doc}"):
+            details['has_docs'] = True
+            break
+
+    return details
+
+def analyze_kiro_specs_status():
+    """Analyze Kiro specifications status"""
+    spec_status = {
+        'active_features': [],
+        'completion_percentage': 0
+    }
+
+    spec_dirs = glob_pattern('.kiro/specs/*')
+    total_tasks = 0
+    completed_tasks = 0
+
+    for spec_dir in spec_dirs:
+        feature_name = os.path.basename(spec_dir)
+        tasks_file = f"{spec_dir}/tasks.md"
+        
+        if file_exists(tasks_file):
+            tasks = parse_tasks_md(tasks_file)
+            feature_total = len(tasks)
+            feature_completed = sum(1 for task in tasks if task.get('completed', False))
+            
+            total_tasks += feature_total
+            completed_tasks += feature_completed
+            
+            spec_status['active_features'].append({
+                'name': feature_name,
+                'progress': f"{feature_completed}/{feature_total}",
+                'percentage': int((feature_completed / feature_total * 100)) if feature_total > 0 else 0
+            })
+
+    if total_tasks > 0:
+        spec_status['completion_percentage'] = int((completed_tasks / total_tasks) * 100)
+
+    return spec_status
+
+def determine_project_status(project_info, basic_state):
+    """Determine human-readable project status"""
+    if basic_state.get('has_incomplete_tasks'):
+        return f"実装進行中 ({project_info.get('completion_percentage', 0)}%完了)"
+    elif basic_state.get('has_existing_projects') and not project_info.get('has_tests', False):
+        return "基本実装完了、品質改善が必要"
+    elif basic_state.get('has_existing_projects'):
+        return "実装完了、拡張・改善の検討段階"
+    elif basic_state.get('has_kiro_specs'):
+        return "仕様策定完了、実装開始準備"
+    else:
+        return "新規プロジェクト開始段階"
+
+def generate_task_proposal(project_info, user_arguments):
+    """Generate specific task proposal based on project analysis and user input"""
+    proposal = {
+        'workflow_name': 'coding-workflow',
+        'tasks': [],
+        'subtasks': [],
+        'expected_outcomes': [],
+        'estimated_time': '1-2時間'
+    }
+
+    # Generate tasks based on project status
+    if "実装進行中" in project_info['current_status']:
+        proposal.update(generate_implementation_tasks(project_info, user_arguments))
+    elif "品質改善が必要" in project_info['current_status']:
+        proposal.update(generate_refactoring_tasks(project_info, user_arguments))
+    elif "仕様策定完了" in project_info['current_status']:
+        proposal.update(generate_coding_tasks(project_info, user_arguments))
+    else:
+        proposal.update(generate_default_tasks(project_info, user_arguments))
+
+    return proposal
+
+def generate_implementation_tasks(project_info, user_arguments):
+    """Generate tasks for projects with incomplete implementation"""
+    return {
+        'workflow_name': 'coding-workflow',
+        'tasks': [
+            {'description': '未完了タスクの継続実装'},
+            {'description': 'TDD アプローチによる機能完成'},
+            {'description': '実装したコードのテスト追加'}
+        ],
+        'subtasks': [
+            'tasks.md ファイルから未完了タスクを特定',
+            'Red-Green-Refactor サイクルでの実装',
+            '95%以上のテストカバレッジ確保'
+        ],
+        'expected_outcomes': [
+            '指定機能の完全な実装',
+            '高品質なテストスイート',
+            '保守しやすいコードベース'
+        ],
+        'estimated_time': '2-4時間'
+    }
+
+def generate_refactoring_tasks(project_info, user_arguments):
+    """Generate tasks for projects needing quality improvement"""
+    return {
+        'workflow_name': 'refactoring-workflow',
+        'tasks': [
+            {'description': 'コード品質分析と改善点特定'},
+            {'description': 'リファクタリング実行'},
+            {'description': 'テストカバレッジの向上'},
+            {'description': 'ドキュメント整備'}
+        ],
+        'subtasks': [
+            'コードの複雑度・重複・パフォーマンス分析',
+            '設計パターンの適用と構造改善',
+            'ユニット・統合テストの追加',
+            'API仕様書・README更新'
+        ],
+        'expected_outcomes': [
+            '保守しやすい高品質なコードベース',
+            '95%以上のテストカバレッジ',
+            'パフォーマンス改善',
+            '完全なAPI仕様書'
+        ],
+        'estimated_time': '2-3時間'
+    }
+
+def generate_coding_tasks(project_info, user_arguments):
+    """Generate tasks for projects ready for implementation"""
+    return {
+        'workflow_name': 'coding-workflow',
+        'tasks': [
+            {'description': 'プロジェクト環境のセットアップ'},
+            {'description': 'TDD による核となる機能の実装'},
+            {'description': '包括的テストスイートの作成'},
+            {'description': 'API仕様書の生成'}
+        ],
+        'subtasks': [
+            'Kiro仕様に基づくプロジェクト構造作成',
+            'Red-Green-Refactor での段階的実装',
+            '統合テスト・E2Eテストの追加',
+            '使用例・チュートリアル作成'
+        ],
+        'expected_outcomes': [
+            '仕様に完全準拠した実装',
+            '高品質で拡張可能なアーキテクチャ',
+            '包括的なテストとドキュメント'
+        ],
+        'estimated_time': '3-5時間'
+    }
+
+def generate_default_tasks(project_info, user_arguments):
+    """Generate default tasks for new projects"""
+    # Analyze user arguments for project intent
+    if user_arguments and any(keyword in str(user_arguments).lower() for keyword in ['api', 'サービス', 'service']):
+        return generate_api_project_tasks()
+    elif user_arguments and any(keyword in str(user_arguments).lower() for keyword in ['web', 'サイト', 'website', 'frontend']):
+        return generate_web_project_tasks()
+    else:
+        return generate_general_project_tasks()
+
+def generate_api_project_tasks():
+    """Generate tasks for API projects"""
+    return {
+        'workflow_name': 'kiro-sdd-workflow',
+        'tasks': [
+            {'description': 'API仕様の策定'},
+            {'description': 'プロジェクト基盤の構築'},
+            {'description': 'RESTful API の実装'},
+            {'description': '認証・セキュリティの実装'}
+        ],
+        'subtasks': [
+            'エンドポイント設計・データモデル定義',
+            'フレームワーク選定・開発環境構築',
+            'CRUD操作・ビジネスロジック実装',
+            'JWT認証・入力検証・エラーハンドリング'
+        ],
+        'expected_outcomes': [
+            '本格運用可能なAPI',
+            '完全なAPI仕様書',
+            'セキュアで拡張可能な設計'
+        ],
+        'estimated_time': '4-6時間'
+    }
+
+def generate_web_project_tasks():
+    """Generate tasks for web projects"""
+    return {
+        'workflow_name': 'kiro-sdd-workflow',
+        'tasks': [
+            {'description': 'Webサイトの要件定義'},
+            {'description': 'UI/UX設計とプロトタイプ'},
+            {'description': 'フロントエンド実装'},
+            {'description': 'レスポンシブ対応・最適化'}
+        ],
+        'subtasks': [
+            'ユーザー要件・機能要件の整理',
+            'ワイヤーフレーム・デザインシステム作成',
+            'コンポーネント実装・状態管理',
+            'モバイル対応・パフォーマンス最適化'
+        ],
+        'expected_outcomes': [
+            'モダンでレスポンシブなWebサイト',
+            '優れたユーザーエクスペリエンス',
+            '高速で SEO 最適化されたサイト'
+        ],
+        'estimated_time': '3-5時間'
+    }
+
+def generate_general_project_tasks():
+    """Generate tasks for general projects"""
+    return {
+        'workflow_name': 'kiro-sdd-workflow',
+        'tasks': [
+            {'description': 'プロジェクト要件の整理'},
+            {'description': '技術選定とアーキテクチャ設計'},
+            {'description': '基本機能の実装'},
+            {'description': 'テストとドキュメント作成'}
+        ],
+        'subtasks': [
+            'ユーザーストーリー・受入基準策定',
+            'フレームワーク選定・システム設計',
+            'コア機能のプロトタイプ実装',
+            'ユニットテスト・利用手順書作成'
+        ],
+        'expected_outcomes': [
+            '明確な要件と設計書',
+            '実証可能なプロトタイプ',
+            '継続開発可能な基盤'
+        ],
+        'estimated_time': '2-4時間'
+    }
 
 def analyze_project_state():
     """Analyze current project state for workflow selection"""
