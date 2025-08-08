@@ -141,6 +141,70 @@ npm install
 /orchestrator "このコードをリファクタリングして改善したい"
 ```
 
+## 🤔 インテリジェント ワークフロー選択
+
+**CC-Deck の最新機能**: プロジェクト状況を自動分析し、最適なワークフローを **提案・確認** してから実行します。
+
+### 📊 自動プロジェクト分析
+```
+📊 Project Analysis Complete
+
+Current State:
+- Existing projects detected: stylish-cafe-website
+- Project files found: package.json, tailwind.config.js, next.config.js
+- Kiro specs: 1 active specification 
+- Code quality: Assessment needed
+
+🎯 Recommended Workflow: REFACTORING
+Rationale: 既存プロジェクトが検出されました。新機能追加前に
+コード品質評価とベースライン確立から始めることを推奨します。
+
+Alternative Options:
+1. CODING - 新機能をすぐに追加（品質評価をスキップ）
+2. KIRO-SDD - 大型機能追加用の新仕様を作成  
+3. TESTING - まず包括的テストに焦点を当てる
+
+❓ Which workflow would you like to execute?
+[1] Proceed with REFACTORING (recommended)
+[2] Use CODING workflow  
+[3] Use KIRO-SDD workflow
+[4] Use TESTING workflow
+[5] Show detailed analysis
+```
+
+### 🎯 インテリジェント推奨システム
+
+| プロジェクト状況 | 推奨ワークフロー | 理由 |
+|---------------|------------------|------|
+| **既存プロジェクト有り** | `REFACTORING` | コード品質ベースライン確立 |
+| **未完了タスク有り** | `CODING` | 継続実装でタスク完了 |
+| **新規プロジェクト** | `KIRO-SDD` | 要件定義・設計から開始 |
+| **テスト不足** | `TESTING` | 品質保証優先 |
+
+### 💡 使用例
+
+```bash
+# 既存プロジェクトの改善
+/orchestrator "stylish-cafe-website のパフォーマンス向上"
+# → REFACTORING推奨（コード品質改善→新機能追加）
+
+# 新規機能開発  
+/orchestrator "リアルタイムチャット機能を作りたい"
+# → KIRO-SDD推奨（仕様策定→実装）
+
+# 継続開発
+/orchestrator "認証システムの実装を続ける"
+# → CODING推奨（未完了タスクの継続）
+```
+
+**特徴**:
+- ✅ **完全インタラクティブ**: AIが分析・提案、人間が最終決定
+- ✅ **理由付き推奨**: なぜそのワークフローが最適か明確に説明
+- ✅ **柔軟な選択**: 推奨に従うことも、代替案を選ぶことも可能
+- ✅ **学習効果**: ワークフロー選択理由を理解してスキル向上
+
+詳細は **[Interactive Workflow Guide](docs/INTERACTIVE-WORKFLOW.md)** を参照してください。
+
 ## 🎮 主要コマンド
 
 ### 🎯 `/orchestrator` - メインコマンド（推奨）
@@ -298,6 +362,7 @@ npm install
 
 ### 技術的詳細（上級者向け）
 - **[ARCHITECTURE.md](docs/ARCHITECTURE.md)**: 40+エージェント・6ワークフローの技術仕様
+- **[Interactive Workflow Guide](docs/INTERACTIVE-WORKFLOW.md)**: インテリジェントワークフロー選択システム完全ガイド
 - **[CC-Deck Workflow Engine](docs/CC-DECK-DESIGN.md)**: YAML定義・Smart Context詳細
 - **[TDD Implementation](docs/TDD-METHODOLOGY.md)**: t-wada方式実装詳細
 
