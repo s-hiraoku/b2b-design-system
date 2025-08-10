@@ -68,8 +68,11 @@ graph TD
     B -->|No| D{既存プロジェクトあり？}
     D -->|Yes| E[REFACTORING WORKFLOW]
     D -->|No| F{Kiro仕様あり？}
-    F -->|Yes| G[KIRO-SDD WORKFLOW]
+    F -->|Yes| G{Kiro仕様完了？}
     F -->|No| H[KIRO-SDD WORKFLOW<br/>デフォルト]
+    G -->|Yes, approved| I[DEV-ENV-SETUP WORKFLOW ✨]
+    G -->|No| J[KIRO-SDD WORKFLOW]
+    I --> K[CODING WORKFLOW<br/>with enhanced agents]
 ```
 
 ### 各ワークフローの推奨理由
@@ -111,6 +114,20 @@ TDDワークフローで継続開発を進めることを推奨します。
 ✅ 技術設計書の作成
 ✅ 実装タスクの詳細化
 ✅ プロジェクト成功率の向上
+```
+
+#### 🛠️ DEV-ENV-SETUP WORKFLOW ✨ NEW
+**推奨条件**: Kiro SDD完了 + 実装開始前の最適化
+```
+理由: Kiro SDD仕様が完了しました。技術スタックに基づいて
+プロジェクト固有のMCP SubAgentを生成し、開発環境を最適化します。
+
+効果:
+✅ 技術スタック自動分析（Next.js、Vercel、Supabase等）
+✅ 最適MCP統合エージェント推奨・生成
+✅ プロジェクト固有の開発ツール作成
+✅ Enhanced Coding Workflowで実装効率向上
+✅ Dynamic Agent Integration（vercel-agent、nextjs-optimizer等）
 ```
 
 #### 🧪 TESTING WORKFLOW
@@ -162,7 +179,49 @@ Please select 1-4 or type workflow name: 1
 ✅ Starting REFACTORING workflow...
 ```
 
-### 例2: 新規機能開発
+### 例2: Kiro SDD完了後のDev Environment Setup ✨ NEW
+
+```bash
+$ /orchestrator "liquid-glass-tech-blog 開発を開始"
+
+📊 Project Analysis Complete
+
+Current State:
+- Kiro specs: liquid-glass-tech-blog (✅ Requirements, ✅ Design, ✅ Tasks)
+- Technology Stack: Next.js 15, React 19, Tailwind CSS 4, TypeScript 5.x
+- Status: Ready for implementation with development environment optimization
+
+🎯 Recommended Workflow: DEV-ENV-SETUP
+Rationale: Kiro SDD仕様が完了し、実装準備完了です。
+検出された技術スタック（Next.js + Vercel + Tailwind）に基づいて
+プロジェクト固有のMCP SubAgentを生成し、開発環境を最適化します。
+
+Detected Technology Stack:
+- Next.js 15 (App Router) → nextjs-optimizer agent候補
+- Vercel deployment → vercel-agent agent候補  
+- Tailwind CSS 4 → tailwind-helper agent候補
+- TypeScript 5.x → typescript-enhancer agent候補
+
+Alternative Options:
+1. CODING - 標準環境で即座に実装開始（最適化なし）
+2. REFACTORING - 既存実装の品質分析から
+3. TESTING - まず技術検証から
+
+❓ Which workflow would you like to execute?
+[1] Proceed with DEV-ENV-SETUP (recommended) ← 最適化されたMCP agents生成
+[2] Use CODING workflow  ← 標準環境で実装
+[3] Use REFACTORING workflow
+[4] Use TESTING workflow
+[5] Show detailed analysis
+
+Please select 1-4 or type workflow name: 1
+
+✅ Starting DEV-ENV-SETUP workflow...
+🔍 Analyzing technology stack from Kiro SDD specifications...
+🛠️ Generating liquid-glass-tech-blog-specific MCP agents...
+```
+
+### 例3: 新規機能開発
 
 ```bash
 $ /orchestrator "リアルタイムチャット機能を作りたい"
@@ -380,13 +439,32 @@ projects/
 
 #### 効率的な組み合わせ
 ```bash
-# 大型プロジェクトの場合
+# 大型プロジェクト（新規開発）の場合 ✨ UPDATED
 1. KIRO-SDD → 要件・設計の確立
-2. CODING → TDD実装
-3. REFACTORING → 品質最適化
-4. TESTING → 包括的検証
-5. PR → レビュー・マージ
-6. ACCEPTANCE → 最終承認
+2. DEV-ENV-SETUP → 技術スタック最適化・MCP agents生成 ✨ NEW
+3. CODING → Enhanced TDD実装（最適化されたagents使用）
+4. REFACTORING → 品質最適化
+5. TESTING → 包括的検証
+6. PR → レビュー・マージ
+7. ACCEPTANCE → 最終承認
+```
+
+```bash
+# 最適化された開発フロー例 ✨ NEW
+# プロジェクト: liquid-glass-tech-blog
+1. KIRO-SDD → 
+   ✅ liquid glass技術ブログの要件・設計完了
+   
+2. DEV-ENV-SETUP →
+   ✅ liquid-glass-tech-blog-vercel-agent 生成
+   ✅ liquid-glass-tech-blog-nextjs-optimizer 生成  
+   ✅ liquid-glass-tech-blog-tailwind-helper 生成
+   ✅ Enhanced Coding workflow設定完成
+   
+3. CODING (Enhanced) →
+   🚀 プロジェクト固有のMCP agents活用
+   🚀 Vercel最適化、Next.js App Router最適化
+   🚀 Tailwind CSS 4最適化で高効率実装
 ```
 
 ## 📚 技術仕様
