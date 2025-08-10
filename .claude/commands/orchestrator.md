@@ -197,21 +197,58 @@ acceptance workflow approval → Project completion
 
 1. **Complete Current Workflow**: Execute all phases within current workflow
 2. **Wait for Human Approval**: Present comprehensive review materials
-3. **Request Next Workflow Permission**: Ask user "Proceed to [next-workflow]? (yes/no)"
-4. **Wait for Explicit Confirmation**: Only continue after clear user confirmation
-5. **Execute Next Workflow**: Start next workflow only after permission granted
+3. **Present Clear Options**: Display Y/R/S choices with explanations
+4. **Wait for User Selection**: Accept Y, R, or S response from user
+5. **Execute Based on Choice**: 
+   - Y: Start next workflow immediately
+   - R: Rollback to specification revision phase
+   - S: Save state and terminate session for later resumption
 
-**CRITICAL**: Always request explicit permission before starting any new workflow, even after successful approval of the previous workflow.
+**CRITICAL**: Always use the standardized Y/R/S options format for workflow transitions.
+
+### Standardized Transition Message Format
+
+For ALL workflow completions, use this exact format:
+
+```
+✅ [Workflow Name] completed successfully!
+Ready to [next action]?
+
+[Y] Yes, [proceed with next workflow]
+[R] Review [current workflow] (regenerate/revise current phase)
+[S] Save and resume later (auto-detect with next /orchestrator)
+```
+
+**Examples for different workflows:**
+- Kiro SDD → Coding: "Ready to start implementation?"
+- Coding → Refactoring: "Ready to improve code quality?"  
+- Refactoring → Testing: "Ready to run comprehensive tests?"
+- Testing → PR: "Ready to create pull request?"
 
 ### Practical Implementation:
 
 ```bash
-# After coding workflow completion and approval:
-# 1. Present approval confirmation to user
-# 2. Ask: "Coding workflow completed successfully. Proceed to refactoring workflow? (yes/no)"
-# 3. Wait for explicit user confirmation
-# 4. Only if user confirms: execute /refactoring command
-# 5. Repeat this process for each subsequent workflow
+# After Kiro SDD workflow completion and approval:
+# 1. Present completion confirmation with standardized Y/R/S format:
+
+✅ Kiro SDD specification completed successfully!
+Ready to start implementation?
+
+[Y] Yes, start implementation
+[R] Review specifications (regenerate Requirements/Design)  
+[S] Save and resume later (auto-detect with next /orchestrator)
+
+# 2. Wait for Y, R, or S selection
+# 3. Execute appropriate action:
+#    - Y: Execute /coding workflow immediately
+#    - R: Rollback to kiro-spec-requirements or kiro-spec-design phase
+#    - S: Save workflow state to .cc-deck/runtime/checkpoints/ and terminate session
+#
+# 4. For [S] option, display confirmation message:
+💾 Workflow state saved successfully!
+Next time, run /orchestrator to auto-detect and resume.
+
+Session terminated...
 
 # Example execution flow:
 coding → approval → refactoring → approval → testing → approval → pr → approval → acceptance → completion
