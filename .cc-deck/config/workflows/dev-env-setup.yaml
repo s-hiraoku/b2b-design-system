@@ -1,0 +1,370 @@
+# Development Environment Setup Workflow
+# Dynamic MCP agent generation for project-specific development optimization
+
+name: dev-env-setup-workflow
+description: Dynamic MCP agent generation and Coding workflow integration for project-specific development optimization
+version: "1.0.0"
+
+# Smart Context Schema
+context_schema:
+  project_analysis:
+    project_id: string
+    technology_stack: object
+    integration_opportunities: array
+    development_context: object
+  mcp_recommendations:
+    recommended_agents: array
+    research_summary: object
+    confidence_level: string
+  generated_configuration:
+    extension_config: object
+    merged_workflow: object
+    agent_files: array
+
+# Workflow Definition
+phases:
+  # Phase 1: Specification Analysis
+  - name: spec_analysis
+    agent: spec-analyzer
+    required: true
+    description: "Analyze Kiro SDD specifications to extract technology stack and development requirements"
+    inputs: []
+    outputs:
+      - project_analysis
+      - technology_stack
+      - integration_opportunities
+      - development_context
+    success_criteria:
+      - project_id_identified: true
+      - technology_stack_extracted: true
+      - specifications_analyzed: true
+    next_phase: mcp_recommendation
+
+  # Phase 2: MCP Recommendation
+  - name: mcp_recommendation
+    agent: mcp-recommender
+    description: "Research and recommend optimal MCP agents for the project technology stack"
+    inputs: [project_analysis, technology_stack, integration_opportunities]
+    outputs:
+      - recommended_mcp_agents
+      - usage_rationale
+      - research_summary
+    mcp_integrations:
+      - brave_search: "Research latest MCP tools and integrations"
+      - deepwiki: "Analyze successful project patterns"
+      - context7: "Validate tool documentation and compatibility"
+    success_criteria:
+      - recommendations_generated: true
+      - research_completed: true
+      - rationale_provided: true
+    next_phase: user_approval
+
+  # Phase 3: User Approval
+  - name: user_approval
+    type: human_interaction
+    description: "User review and approval of recommended MCP agents"
+    approval_scope:
+      - "MCP agent relevance and utility for the project"
+      - "Resource usage and complexity considerations"
+      - "Integration with existing development workflow"
+      - "Development efficiency impact assessment"
+    review_materials:
+      - recommended_mcp_agents
+      - usage_rationale
+      - research_summary
+      - project_analysis
+    decision_options: [approved, approved_with_modifications, rejected, deferred]
+    stakeholders:
+      required: [developer]
+      optional: [technical_lead, project_owner]
+    timeout: 48 # hours
+    on_approval:
+      next_phase: agent_generation
+    on_rejection:
+      rollback_to_phase: mcp_recommendation
+      feedback_collection: true
+
+  # Phase 4: Dynamic Agent Generation  
+  - name: agent_generation
+    agent: agent-generator
+    description: "Generate approved MCP SubAgents with proper configuration and naming"
+    inputs: [approved_mcp_agents, project_analysis, technology_stack]
+    outputs:
+      - generated_agents
+      - agent_file_list
+      - generation_summary
+    agent_generation_rules:
+      naming_convention: "{project_id}-{agent_purpose}"
+      directory_structure: ".cc-deck/config/workflows/dynamic/{project_id}/agents/"
+      template_compliance: "cc_deck_subagent_standard"
+    success_criteria:
+      - all_approved_agents_generated: true
+      - naming_convention_followed: true
+      - files_created_successfully: true
+      - proper_structure_maintained: true
+    next_phase: workflow_integration
+
+  # Phase 5: Workflow Integration
+  - name: workflow_integration
+    agent: workflow-integrator
+    description: "Create extension configuration and merge with base Coding workflow"
+    inputs: [generated_agents, agent_file_list, project_analysis]
+    outputs:
+      - extension_configuration
+      - merged_workflow_config
+      - integration_summary
+    integration_strategy:
+      merge_method: "array_addition"
+      target_workflow: "coding"
+      target_phases: ["full_implementation"]
+      fallback_handling: "graceful_degradation"
+    directory_structure:
+      extensions: ".cc-deck/config/workflows/dynamic/{project_id}/extensions/"
+      generated: ".cc-deck/config/workflows/dynamic/{project_id}/generated/"
+    success_criteria:
+      - extension_config_created: true
+      - merged_workflow_generated: true
+      - directory_structure_correct: true
+      - yaml_syntax_valid: true
+    next_phase: human_approval_dev_env
+
+  # Phase 6: Human Approval
+  - name: human_approval_dev_env
+    type: human_interaction
+    description: "Review generated development environment setup before proceeding to Coding workflow"
+    approval_scope:
+      - "Generated MCP agents functionality and configuration quality"
+      - "Coding workflow integration completeness and correctness"
+      - "Development environment readiness and optimization potential"
+      - "Agent naming and organization appropriateness"
+    review_materials:
+      - generation_summary
+      - integration_summary
+      - extension_configuration
+      - merged_workflow_config
+      - generated_agent_list
+    decision_options: [approved, approved_with_conditions, rejected, deferred]
+    stakeholders:
+      required: [developer, technical_lead]
+      optional: [project_owner]
+    timeout: 24 # hours
+    on_approval:
+      next_workflow: coding
+    on_rejection:
+      rollback_to_phase: agent_generation
+      feedback_collection: true
+
+# Error Handling and Recovery
+error_handling:
+  retry_policy:
+    max_retries: 3
+    retry_delay: 10s
+    exponential_backoff: true
+
+  recovery_strategies:
+    # Analysis Phase Failures
+    specification_read_failure:
+      action: verify_kiro_sdd_completion
+      escalation: notify_user_missing_specs
+      
+    technology_extraction_failure:
+      action: request_manual_tech_stack_input
+      fallback: use_generic_recommendations
+      
+    # Research Phase Failures
+    mcp_research_failure:
+      action: fallback_to_cached_recommendations
+      fallback_sources: [built_in_patterns, default_mcps]
+      
+    brave_search_timeout:
+      action: use_context7_and_deepwiki_only
+      timeout_threshold: 30s
+      
+    context7_unavailable:
+      action: use_deepwiki_and_brave_search
+      
+    deepwiki_unavailable:
+      action: use_context7_and_brave_search
+      
+    # Generation Phase Failures
+    agent_generation_failure:
+      action: retry_with_simplified_config
+      preserve_user_approval: true
+      
+    file_creation_failure:
+      action: check_permissions_and_retry
+      escalation_after: 2_attempts
+      
+    directory_creation_failure:
+      action: create_parent_directories_recursively
+      fallback: use_temp_directory
+      
+    # Integration Phase Failures  
+    workflow_merge_failure:
+      action: validate_base_workflow_and_retry
+      fallback: create_standalone_extension
+      
+    yaml_syntax_error:
+      action: regenerate_with_validation
+      max_attempts: 3
+      
+    # Human Approval Failures
+    approval_timeout:
+      action: send_reminder_notification
+      escalation_after: 48h
+      
+    approval_rejection:
+      action: collect_detailed_feedback
+      enable_iterative_improvement: true
+
+  # Circuit Breaker Pattern
+  circuit_breakers:
+    mcp_services:
+      failure_threshold: 5
+      timeout: 30s
+      recovery_timeout: 60s
+      
+    file_operations:
+      consecutive_failure_threshold: 3
+      escalation_required: true
+      
+    user_approval:
+      timeout_threshold: 72h
+      auto_escalation: true
+
+# Graceful Degradation Strategy
+graceful_degradation:
+  mcp_service_failures:
+    brave_search_failure:
+      fallback: "Use Context7 and DeepWiki for research"
+      impact: "Reduced external tool discovery"
+      
+    context7_failure:
+      fallback: "Use DeepWiki and Brave Search"
+      impact: "Limited official documentation access"
+      
+    deepwiki_failure:
+      fallback: "Use Context7 and Brave Search"
+      impact: "No repository pattern analysis"
+      
+    all_mcp_failures:
+      fallback: "Use built-in recommendation templates"
+      impact: "Generic recommendations instead of researched ones"
+      
+  agent_generation_failures:
+    partial_generation:
+      action: "Continue with successfully generated agents"
+      notification: "Some agents could not be generated"
+      
+    complete_generation_failure:
+      action: "Proceed to Coding workflow with default agents"
+      notification: "Using standard Coding workflow without enhancements"
+
+# Quality Gates
+quality_gates:
+  spec_analysis:
+    minimum_technology_stack_items: 3
+    required_project_metadata: ["project_id", "primary_framework"]
+    
+  mcp_recommendations:
+    minimum_recommendations: 1
+    maximum_recommendations: 8
+    research_confidence_threshold: "medium"
+    
+  agent_generation:
+    file_validation: "yaml_syntax_valid"
+    naming_convention_compliance: true
+    directory_structure_validation: true
+    
+  workflow_integration:
+    merged_yaml_validation: true
+    agent_reference_validation: true
+    no_circular_dependencies: true
+
+# Monitoring and Analytics
+monitoring:
+  metrics:
+    # Phase Performance
+    - spec_analysis_duration
+    - mcp_research_duration
+    - agent_generation_duration
+    - workflow_integration_duration
+    
+    # Quality Metrics
+    - recommendation_accuracy_rate
+    - user_approval_success_rate
+    - generated_agent_quality_score
+    - integration_success_rate
+    
+    # Usage Metrics
+    - most_recommended_mcp_types
+    - technology_stack_patterns
+    - user_approval_patterns
+    - generated_agent_utilization
+    
+    # Error Metrics
+    - mcp_service_failure_rate
+    - generation_failure_rate
+    - integration_error_rate
+
+  alerts:
+    # Performance Alerts
+    - phase_duration_anomaly: "> 200% of baseline"
+    - mcp_research_timeout: "> 5 minutes"
+    - file_generation_delays: "> 30 seconds"
+    
+    # Quality Alerts
+    - low_recommendation_confidence: "< medium"
+    - repeated_user_rejections: "> 2 for same project"
+    - integration_validation_failures: "> 1"
+    
+    # System Alerts
+    - mcp_service_degradation: "> 3 failures in 10 minutes"
+    - file_system_issues: "any permission errors"
+    - workflow_corruption: "yaml validation failures"
+
+  notifications:
+    # Phase Completions
+    - spec_analysis_complete
+    - recommendations_ready_for_approval
+    - agents_generated_successfully
+    - workflow_integration_complete
+    
+    # Issues
+    - mcp_service_unavailable
+    - user_approval_required
+    - generation_errors_occurred
+    - manual_intervention_needed
+
+# Integration Points
+integration_points:
+  # Input from previous workflows
+  kiro_sdd_output:
+    specifications_directory: ".kiro/specs/{project_id}/"
+    required_files: ["requirements.md", "design.md", "tasks.md"]
+    metadata_file: "kiro_status.json"
+    
+  # Output to next workflows
+  coding_workflow_enhancement:
+    enhanced_configuration: ".cc-deck/config/workflows/dynamic/{project_id}/generated/coding-merged.yaml"
+    generated_agents: ".cc-deck/config/workflows/dynamic/{project_id}/agents/"
+    integration_metadata: "dev_env_setup_results.json"
+
+# Success Metrics
+success_criteria:
+  completion_indicators:
+    - all_phases_executed_successfully: true
+    - user_approval_obtained: true
+    - agents_generated_and_validated: true
+    - workflow_integration_completed: true
+    
+  quality_indicators:
+    - recommendation_relevance: "> 80%"
+    - user_satisfaction: "> 4.0/5.0"
+    - agent_utilization_rate: "> 60%"
+    - integration_stability: "no_errors"
+    
+  performance_indicators:
+    - total_workflow_duration: "< 30 minutes"
+    - user_interaction_time: "< 10 minutes"
+    - file_generation_speed: "< 5 seconds per agent"
