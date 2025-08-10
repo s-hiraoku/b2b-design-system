@@ -5,8 +5,12 @@
 ## 📑 設計書一覧
 
 ### 🎯 システム全体設計
-- **[ARCHITECTURE.md](ARCHITECTURE.md)**: システムアーキテクチャ・40+エージェント・6ワークフロー仕様
+- **[ARCHITECTURE.md](ARCHITECTURE.md)**: システムアーキテクチャ・40+エージェント・7ワークフロー仕様 ✨ UPDATED
 - **[CC-DECK-DESIGN.md](CC-DECK-DESIGN.md)**: CC-Deck Workflow Engine・YAML定義・Smart Context詳細
+- **[cc-deck-config.md](cc-deck-config.md)**: ワークフロー設定詳細・監視・品質保証統一基準
+
+### 🛠️ 新機能設計 ✨ NEW
+- **[dev-env-setup-flow.md](dev-env-setup-flow.md)**: Development Environment Setup Flow・動的MCP SubAgent生成システム
 
 ### 🤔 ユーザーインタラクション設計  
 - **[INTERACTIVE-WORKFLOW.md](INTERACTIVE-WORKFLOW.md)**: インテリジェントワークフロー選択システム完全ガイド
@@ -16,7 +20,8 @@
 ### 新規開発者向け学習パス
 1. **[ARCHITECTURE.md](ARCHITECTURE.md)** → システム全体の理解
 2. **[CC-DECK-DESIGN.md](CC-DECK-DESIGN.md)** → ワークフローエンジンの詳細
-3. **[INTERACTIVE-WORKFLOW.md](INTERACTIVE-WORKFLOW.md)** → ユーザーインタラクション
+3. **[dev-env-setup-flow.md](dev-env-setup-flow.md)** → 動的MCP SubAgent生成システム ✨ NEW
+4. **[INTERACTIVE-WORKFLOW.md](INTERACTIVE-WORKFLOW.md)** → ユーザーインタラクション
 
 ### 機能別アクセス
 
@@ -24,6 +29,7 @@
 - **エージェント仕様**: [ARCHITECTURE.md](ARCHITECTURE.md#agents-specification)
 - **エージェント間通信**: [CC-DECK-DESIGN.md](CC-DECK-DESIGN.md#smart-context-propagation)
 - **マルチエージェント実行**: [ARCHITECTURE.md](ARCHITECTURE.md#multi-agent-orchestration)
+- **動的SubAgent生成**: [dev-env-setup-flow.md](dev-env-setup-flow.md) ✨ NEW
 
 #### 🔄 ワークフローシステム
 - **ワークフロー定義**: [CC-DECK-DESIGN.md](CC-DECK-DESIGN.md#workflow-composition-pattern)
@@ -39,6 +45,11 @@
 - **プロジェクト分析**: [INTERACTIVE-WORKFLOW.md](INTERACTIVE-WORKFLOW.md#project-analysis-engine)
 - **ワークフロー推奨**: [INTERACTIVE-WORKFLOW.md](INTERACTIVE-WORKFLOW.md#workflow-recommendation-logic)
 - **学習効果**: [INTERACTIVE-WORKFLOW.md](INTERACTIVE-WORKFLOW.md#learning-benefits)
+
+#### 🛠️ 開発テンプレート・ガイド ✨ NEW
+- **SubAgent Template**: [../claude-code/subagent-template.md](../claude-code/subagent-template.md) - 動的SubAgent生成テンプレート
+- **MCP統合パターン**: [dev-env-setup-flow.md](dev-env-setup-flow.md#mcp-integration-strategy)
+- **技術スタック最適化**: [dev-env-setup-flow.md](dev-env-setup-flow.md#technical-design-decisions)
 
 ## 🔍 設計書の読み方
 
@@ -63,6 +74,8 @@
 - **ARCHITECTURE.md**: システム構造変更時
 - **CC-DECK-DESIGN.md**: ワークフローエンジン機能追加時
 - **INTERACTIVE-WORKFLOW.md**: UI/UX・推奨ロジック変更時
+- **dev-env-setup-flow.md**: 動的SubAgent生成・MCP統合変更時 ✨ NEW
+- **cc-deck-config.md**: ワークフロー設定・品質保証基準変更時
 
 ### 更新ルール
 1. **下位互換性**: 既存設計との整合性維持
