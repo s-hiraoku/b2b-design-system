@@ -1,0 +1,49 @@
+{
+  "feature_name": "liquid-glass-tech-blog",
+  "project_description": "液体ガラス技術に特化した技術ブログウェブサイトの包括的な実装。Liquid Glass（リキッドグラス）およびGlasmorphism（グラスモルフィズム）デザイン手法のショーケースと実装技術を提供する高性能プラットフォーム。Next.js 15、React 19、Tailwind CSS 4、TypeScript 5.xを使用したモダンなフルスタック開発。ブログCMS統合、インタラクティブデモ、コンポーネントライブラリ、リアルタイムエフェクトエディタを含む完全なソリューション。",
+  "created_at": "2025-08-10T01:37:00Z",
+  "updated_at": "2025-08-10T16:20:00Z",
+  "language": "japanese",
+  "phase": "tasks-generated",
+  "approvals": {
+    "requirements": {
+      "generated": true,
+      "approved": true
+    },
+    "design": {
+      "generated": true,
+      "approved": true
+    },
+    "tasks": {
+      "generated": true,
+      "approved": false
+    }
+  },
+  "ready_for_implementation": false,
+  "steering_context": {
+    "product_overview": "Liquid Glass Tech Blogは、Liquid Glass（リキッドグラス）およびGlasmorphism（グラスモルフィズム）デザイン手法に特化した技術ブログプラットフォーム",
+    "target_audience": ["UI/UXデザイナー", "フロントエンド開発者", "デザインエンジニア", "デザイン愛好者"],
+    "technology_stack": {
+      "framework": "Next.js 15 (App Router)",
+      "ui_library": "React 19 with TypeScript 5.x",
+      "styling": "Tailwind CSS 4 + CSS-in-JS",
+      "content_management": "MDX + Headless CMS",
+      "animation": "Framer Motion + Custom CSS Transforms",
+      "testing": "Vitest + React Testing Library + Playwright"
+    },
+    "key_features": [
+      "テクニカルブログ機能（MDXベース記事管理）",
+      "Liquid Glassショーケース（インタラクティブギャラリー）",
+      "エフェクトライブラリ（再利用可能コンポーネント）",
+      "ライブコードエディタとリアルタイムプレビュー",
+      "パフォーマンス最適化されたエフェクト実装"
+    ]
+  },
+  "quality_requirements": {
+    "performance": "Core Web Vitals最適化、95%+ Lighthouse Score",
+    "accessibility": "WCAG 2.1 AA準拠、フルキーボードナビゲーション",
+    "browser_support": "Chrome 76+, Firefox 103+, Safari 14+",
+    "responsive_design": "全デバイス対応、アダプティブレイアウト",
+    "seo_optimization": "構造化データ、Open Graph、Twitter Cards対応"
+  }
+}
