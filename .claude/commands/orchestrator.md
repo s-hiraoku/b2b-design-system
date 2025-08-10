@@ -58,7 +58,7 @@ This command serves as the single entry point for all development workflows by:
 
 ## 🔄 Complete Workflow Management
 
-**New Projects Flow**: kiro-sdd → coding → refactoring → testing → pr → acceptance
+**New Projects Flow**: kiro-sdd → dev-env-setup → coding → refactoring → testing → pr → acceptance
 **Existing Projects Flow**: refactoring → testing → pr → acceptance (or coding → ... if major features)
 
 This orchestrator executes the complete flow through approvals, never stopping at single workflow. It automatically detects existing projects in the `projects/` directory and adapts workflow selection accordingly.
@@ -258,6 +258,8 @@ coding → approval → refactoring → approval → testing → approval → pr
 
 Always reference the YAML files in `.cc-deck/config/workflows/` to determine the next workflow:
 
+- `kiro-sdd.yaml` → `next_workflow: dev-env-setup` → Execute `/dev-env-setup` command
+- `dev-env-setup.yaml` → `next_workflow: coding` → Execute `/coding` command
 - `coding.yaml` → `next_workflow: refactoring` → Execute `/refactoring` command
 - `refactoring.yaml` → `next_workflow: testing` → Execute `/testing` command
 - `testing.yaml` → `next_workflow: pr` → Execute `/pr` command
@@ -270,7 +272,9 @@ After each approval, immediately execute the corresponding workflow command:
 
 ```bash
 # Workflow progression commands:
-/refactoring    # After coding approval
+/dev-env-setup  # After kiro-sdd approval
+/coding        # After dev-env-setup approval
+/refactoring   # After coding approval
 /testing       # After refactoring approval
 /pr            # After testing approval
 /acceptance    # After pr approval
