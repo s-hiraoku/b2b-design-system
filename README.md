@@ -98,7 +98,7 @@ Alternative Options:
 | **新規プロジェクト**     | `KIRO-SDD`       | 要件定義 → 設計 → 実装計画           |
 | **品質検証要求**         | `TESTING`        | 統合テスト →E2E→ パフォーマンス検証  |
 
-## 🔄 6 つの専用ワークフロー
+## 🔄 7 つの専用ワークフロー ✨ UPDATED
 
 各ワークフローは複数の専門 AI エージェントが順次実行し、人間承認を経て次のワークフローに自動進行します。
 
@@ -112,6 +112,28 @@ Alternative Options:
 
 - 要件分析エージェント → 設計エージェント → タスク生成エージェント
 - 出力: 要件仕様書、技術設計書、実装タスクリスト
+
+### 🛠️ DEV-ENV-SETUP ワークフロー ✨ NEW
+
+**プロジェクト特化型開発環境の動的構築**
+
+革新的な技術スタック最適化システム。Kiro SDD完了後、プロジェクト固有のMCP SubAgentを自動生成し、開発効率を最大化します。
+
+```bash
+/dev-env-setup "Next.js + Vercel + Supabaseプロジェクトの最適化"
+```
+
+**🔍 自動検出・最適化技術:**
+- **Next.js + Vercel** → `{project}-vercel-agent` + `{project}-nextjs-optimizer` 生成
+- **Tailwind CSS** → `{project}-tailwind-helper` 最適化エージェント生成  
+- **Supabase** → `{project}-supabase-integration` データベース最適化
+- **TypeScript** → `{project}-typescript-enhancer` 型システム最適化
+
+**📊 処理フロー:**
+- 仕様分析 → MCP推奨 → ユーザー承認 → 動的エージェント生成 → Coding統合
+- 出力: プロジェクト専用MCPエージェント、最適化されたCodingワークフロー
+
+**🚀 効果:** 開発効率3倍向上・MCP統合強化・Dynamic Agent Generation
 
 ### 💻 CODING ワークフロー
 
@@ -173,9 +195,9 @@ Alternative Options:
 承認完了後、ユーザー確認を経て次のワークフローに進行します：
 
 ```
-KIRO-SDD → [確認] → CODING → [確認] → REFACTORING → [確認] → TESTING → [確認] → PR → [確認] → ACCEPTANCE
-   ↓       ASK        ↓       ASK         ↓           ASK         ↓       ASK      ↓       ASK       ↓
- 要件設計   許可   TDD実装   許可      品質改善      許可      テスト    許可     PR      許可   最終承認
+KIRO-SDD → [確認] → DEV-ENV-SETUP → [確認] → CODING → [確認] → REFACTORING → [確認] → TESTING → [確認] → PR → [確認] → ACCEPTANCE
+   ↓       ASK          ↓          ASK        ↓       ASK         ↓           ASK         ↓       ASK      ↓       ASK       ↓
+ 要件設計   許可     開発環境構築     許可   TDD実装   許可      品質改善      許可      テスト    許可     PR      許可   最終承認
 ```
 
 各段階で人間承認を経て、さらに **次ワークフローへの明示的な許可** を求めて進行します。
