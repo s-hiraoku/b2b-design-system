@@ -13,6 +13,7 @@
 └── workflows/                 # ワークフロー定義ファイル
     ├── acceptance.yaml        # 受け入れワークフロー
     ├── coding.yaml            # コーディングワークフロー
+    ├── dev-env-setup.yaml     # 開発環境セットアップワークフロー ✨ NEW
     ├── kiro-sdd.yaml          # Kiro SDD ワークフロー
     ├── pr.yaml                # プルリクエストワークフロー
     ├── refactoring.yaml       # リファクタリングワークフロー
@@ -94,13 +95,65 @@ monitoring: {}           # モニタリング設定
 6. `human_approval_tasks` - タスク承認
 7. `implementation` - タスク駆動実装
 8. `validation` - 最終検証
-9. `human_approval_kiro_sdd` - 最終承認
+9. `human_approval_kiro_sdd` - 最終承認 → **次: dev-env-setup**
 
 **特徴:**
 - タスク駆動実装（`tasks.md` 統合）
 - 人間承認ポイント
 - エラーハンドリングと復旧戦略
 - 進捗チェックポイント
+- **ワークフローチェーン**: `kiro-sdd` → `dev-env-setup` → `coding`
+
+### dev-env-setup.yaml ✨ NEW
+
+**開発環境セットアップワークフロー**
+
+Kiro SDD完了後とCoding開始前の橋渡しフェーズ。プロジェクト固有のMCP SubAgentを動的生成し、技術スタックに最適化された開発環境を構築。
+
+**主要フェーズ:**
+1. `spec_analysis` - 仕様分析（spec-analyzer）
+2. `mcp_recommendation` - MCP推奨（mcp-recommender）
+3. `user_approval` - ユーザー承認（人間インタラクション）
+4. `agent_generation` - エージェント生成（agent-generator）
+5. `workflow_integration` - ワークフロー統合（workflow-integrator）
+6. `human_approval_dev_env` - 最終承認 → **次: coding**
+
+**革新的特徴:**
+- **動的MCP SubAgent生成**: プロジェクト固有の最適化エージェント作成
+- **技術スタック分析**: Next.js、Vercel、Supabase等の自動検出と最適化
+- **ハイブリッドファイル生成**: Extensions + Generated設定管理
+- **Smart Context Propagation**: エージェント間のインテリジェントなコンテキスト共有
+- **Graceful Degradation**: MCPサービス障害時の優雅な縮退動作
+
+**動的ディレクトリ構造:**
+```bash
+.cc-deck/config/workflows/dynamic/{project_id}/
+├── extensions/                    # 拡張設定
+│   └── coding-extension.yaml     # Codingワークフロー拡張
+├── generated/                     # 統合設定
+│   └── coding-merged.yaml        # 最終統合ワークフロー
+└── agents/                       # 生成されたSubAgent
+    ├── {project_id}-vercel-agent.md
+    ├── {project_id}-nextjs-optimizer.md
+    └── {project_id}-tailwind-helper.md
+```
+
+**MCP統合戦略:**
+- **Brave Search**: 最新MCP技術・ツール調査
+- **DeepWiki MCP**: 成功プロジェクトパターン分析
+- **Context7 MCP**: 公式ツールドキュメント検証
+- **Triple MCP Research**: 包括的な技術調査による最適推奨
+
+**エラーハンドリング & Graceful Degradation:**
+```yaml
+graceful_degradation:
+  mcp_service_failures:
+    brave_search_failure: "Context7とDeepWikiで研究継続"
+    all_mcp_failures: "組み込み推奨テンプレート使用"
+  agent_generation_failures:
+    partial_generation: "成功したエージェントで継続"
+    complete_failure: "標準Codingワークフローで実行"
+```
 
 ### coding.yaml
 
