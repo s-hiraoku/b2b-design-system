@@ -194,7 +194,7 @@ phases:
       optional: [qa_lead, business_stakeholder]
     timeout: 72 # hours
     on_approval: 
-      next_workflow: coding
+      next_workflow: dev-env-setup
     on_rejection:
       rollback_to_phase: requirements
       feedback_collection: true
