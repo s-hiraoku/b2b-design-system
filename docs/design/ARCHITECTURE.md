@@ -2,7 +2,7 @@
 
 ## 概要
 
-CC-Deck (Claude Code Deck) は、Claude Code を活用した **CC-Deck Workflow Engine** による革新的なAI駆動開発プラットフォームです。37個の専門サブエージェントが6つのYAMLワークフローで協調動作し、TDD統一による高品質開発、人間承認必須による品質保証、Kiro SDD仕様駆動開発の完全自動化を実現します。
+CC-Deck (Claude Code Deck) は、Claude Code を活用した **CC-Deck Workflow Engine** による革新的なAI駆動開発プラットフォームです。37個の専門サブエージェントが7つのYAMLワークフローで協調動作し、TDD統一による高品質開発、人間承認必須による品質保証、Kiro SDD仕様駆動開発の完全自動化を実現します。
 
 ## CC-Deck Workflow Engine の革新的特徴
 
@@ -12,7 +12,7 @@ CC-Deck (Claude Code Deck) は、Claude Code を活用した **CC-Deck Workflow 
 - **人間承認必須**: 全変更に人間ステークホルダー承認が必須の厳格品質管理
 - **Workflow Composition Pattern**: YAML定義による宣言的ワークフロー管理と動的実行
 - **Smart Context Propagation**: エージェント間コンテキスト共有とクロスフェーズ状態継承
-- **カスタムスラッシュコマンド**: 6つの専用コマンドによる直接ワークフロー実行
+- **カスタムスラッシュコマンド**: 7つの専用コマンドによる直接ワークフロー実行
 - **Task-Driven Execution**: `.kiro/specs/*/tasks.md`ファイルとの完全統合とリアルタイム同期
 - **MCP統合エコシステム**: DeepWiki、Context7、Serena、Playwright MCP連携
 
@@ -27,6 +27,7 @@ graph TD
 
     %% 各フェーズへの委任
     StateDetection --> KiroFlow[📋 Kiro SDD フロー]
+    StateDetection --> DevEnvFlow[🛠️ Dev Environment Setup フロー]
     StateDetection --> CodingFlow[💻 Coding フロー]
     StateDetection --> RefactorFlow[🔧 Refactoring フロー]
     StateDetection --> TestFlow[🧪 Testing フロー]
@@ -39,7 +40,7 @@ graph TD
     StateSync --> TaskProgress[📝 Task Progress 同期]
 ```
 
-## CC-Deck Workflow Engine: 6つのメインワークフロー
+## CC-Deck Workflow Engine: 7つのメインワークフロー
 
 ### 1. 📋 Kiro SDD Workflow (`/kiro-sdd`)
 
@@ -66,9 +67,34 @@ graph TD
     StateCheck -->|Yes| NextPhase[➡️ Next Phase]
 ```
 
-### 2. 💻 Coding Workflow (`/coding`) 
+### 2. 🛠️ Development Environment Setup Workflow (`/dev-env-setup`)
 
-**TDD統一による高品質開発ワークフロー** - 全実装がTest-Driven Developmentで統一され、95%+テストカバレッジを保証する7段階プロセス。
+**プロジェクト特化型開発環境の動的構築ワークフロー** - Kiro SDD仕様を基にプロジェクトに最適化されたMCPサブエージェントを動的生成し、Codingワークフローを強化する5段階プロセス。
+
+```mermaid
+graph TD
+    DevEnvMain[🛠️ /dev-env-setup] --> Phase1[📋 Phase 1: Spec Analysis<br/>spec-analyzer]
+    Phase1 --> Phase2[🤖 Phase 2: MCP Recommendation<br/>mcp-recommender]  
+    Phase2 --> Phase3[👤 Phase 3: User Approval<br/>human interaction]
+    Phase3 --> Phase4[⚙️ Phase 4: Agent Generation<br/>agent-generator]
+    Phase4 --> Phase5[🔧 Phase 5: Workflow Integration<br/>workflow-integrator]
+    Phase5 --> ApprovalDev[✅ Phase 6: Human Approval]
+    
+    %% MCP Integrations
+    Phase2 --> BraveSearch[🔍 Brave Search MCP]
+    Phase2 --> DeepWiki[📖 DeepWiki MCP]
+    Phase2 --> Context7[🔍 Context7 MCP]
+    
+    %% Dynamic Agent Generation
+    Phase4 --> GeneratedAgents[🤖 Generated Agents<br/>project-vercel-agent<br/>project-nextjs-optimizer<br/>project-tailwind-helper]
+    
+    %% Integration Output
+    Phase5 --> EnhancedCoding[💻 Enhanced Coding Workflow<br/>with project-specific agents]
+```
+
+### 3. 💻 Coding Workflow (`/coding`) 
+
+**TDD統一による高品質開発ワークフロー** - 全実装がTest-Driven Developmentで統一され、95%+テストカバレッジを保証する7段階プロセス。動的に生成されたMCPサブエージェントを活用してプロジェクト特化型の最適化を実現。
 
 ```mermaid
 graph TD
@@ -134,7 +160,7 @@ graph TD
 - **継続的品質**: テストによる設計安全性確保
 - **実行可能仕様**: テストが生きたドキュメントとして機能
 
-### 3. 🔧 Refactoring Workflow (`/refactoring`)
+### 4. 🔧 Refactoring Workflow (`/refactoring`)
 
 **セマンティック解析による高度リファクタリングワークフロー**
 
@@ -158,7 +184,7 @@ graph TD
     ValidatePhase --> QualityValidator[✅ quality-validator]
 ```
 
-### 4. 🧪 Testing Workflow (`/testing`)
+### 5. 🧪 Testing Workflow (`/testing`)
 
 **統合テスト・E2Eテスト自動化ワークフロー**
 
@@ -180,7 +206,7 @@ graph TD
     E2ETest --> E2ETestRunner[⚡ e2e-test-runner]
 ```
 
-### 5. 📤 PR Workflow (`/pr`)
+### 6. 📤 PR Workflow (`/pr`)
 
 **プルリクエストライフサイクル完全管理ワークフロー**
 
@@ -202,7 +228,7 @@ graph TD
     PRMerge --> PostMergeManager[📋 post-merge-manager]
 ```
 
-### 6. ✅ Acceptance Workflow (`/acceptance`)
+### 7. ✅ Acceptance Workflow (`/acceptance`)
 
 **人間承認・フィードバック処理ワークフロー**
 
@@ -411,7 +437,7 @@ graph TD
 ### CC-Deck Workflow Engine 完全構成
 
 - **総エージェント数**: 37個の高度専門化サブエージェント
-- **メインワークフロー**: 6つのYAML定義宣言的ワークフロー (.cc-deck/config/workflows/)
+- **メインワークフロー**: 7つのYAML定義宣言的ワークフロー (.cc-deck/config/workflows/)
 - **カスタムコマンド**: 8つの専用スラッシュコマンド (/.claude/commands/)
 - **TDD統一ポリシー**: 全開発フローがTest-Driven Development必須
 - **人間承認必須**: 全変更に人間ステークホルダー承認強制 (品質保証)
@@ -630,7 +656,7 @@ Feedback Loop (承認拒否時巻き戻し)
 
 ### 🌟 革新的統合価値
 
-**CC-Deck Workflow Engine は、従来の単発AI支援を超越し、人間とAIの協調による持続可能で高品質な開発エコシステムを実現します。37エージェントの専門性、6つのYAMLワークフローの柔軟性、TDD統一による品質保証、人間承認による信頼性、統一標準による運用基盤が統合され、真のエンタープライズグレードAI駆動開発プラットフォームとして機能します。**
+**CC-Deck Workflow Engine は、従来の単発AI支援を超越し、人間とAIの協調による持続可能で高品質な開発エコシステムを実現します。37エージェントの専門性、7つのYAMLワークフローの柔軟性、TDD統一による品質保証、人間承認による信頼性、統一標準による運用基盤が統合され、真のエンタープライズグレードAI駆動開発プラットフォームとして機能します。**
 
 ## 📈 運用統計・パフォーマンス指標
 
