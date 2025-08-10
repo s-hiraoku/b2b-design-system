@@ -93,3 +93,5 @@ projects/*/coverage/
 
 # 通知関連
 .notifications/
+*storybook.log
+storybook-static
