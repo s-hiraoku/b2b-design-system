@@ -2,7 +2,6 @@
 name: pattern-detector
 description: Specialized agent for identifying duplicate and similar code patterns using semantic analysis and pattern matching techniques.
 tools: Read, Bash, Grep, Glob
-model: sonnet
 color: gray
 ---
 

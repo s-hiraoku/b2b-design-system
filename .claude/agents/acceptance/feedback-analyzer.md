@@ -2,7 +2,6 @@
 name: feedback-analyzer
 description: Analyze rejection feedback, identify root causes, and map feedback to specific development phases that require re-execution.
 tools: Read, Write, Edit, Bash, Grep, Glob
-model: sonnet
 color: gray
 ---
 

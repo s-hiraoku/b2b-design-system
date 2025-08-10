@@ -2,7 +2,6 @@
 name: test-executor
 description: Specialized agent for executing comprehensive integration tests, managing test execution workflows, monitoring test progress, and handling test failures with intelligent retry and recovery mechanisms.
 tools: Read, Write, Edit, Bash, Grep, Glob
-model: sonnet
 color: gray
 ---
 

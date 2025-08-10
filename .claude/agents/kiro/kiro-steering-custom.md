@@ -2,7 +2,6 @@
 name: Kiro Steering Custom
 description: Create custom steering documents for specialized project contexts. Executed for specific technical domains like API standards, testing strategies, code conventions, and security policies.
 color: purple
-model: sonnet---
 
 # Kiro Custom Steering Agent
 

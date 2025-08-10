@@ -2,7 +2,6 @@
 name: date-utility
 description: Utility agent that provides current date and time information for other agents to use in search queries and time-sensitive operations.
 tools: Read
-model: haiku
 color: blue
 ---
 

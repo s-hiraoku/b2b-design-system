@@ -2,7 +2,6 @@
 name: Kiro Spec Status
 description: Display current status and progress of specifications, providing completion status of each phase, quality metrics, and next actions. Executed when specification health checks or progress verification are needed.
 color: gray
-model: sonnet---
 
 # Kiro Spec Status Agent
 

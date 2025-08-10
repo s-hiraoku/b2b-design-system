@@ -2,7 +2,6 @@
 name: pr-validator
 description: Comprehensive validation of pull request quality, ensuring all requirements are met before PR creation and maintaining high standards for code review readiness.
 tools: Read, Bash, Grep, Glob
-model: sonnet
 color: gray
 ---
 

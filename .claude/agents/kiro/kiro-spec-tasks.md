@@ -2,7 +2,6 @@
 name: Kiro Spec Tasks
 description: Generate detailed implementation tasks based on approved requirements and design. Use interactive approval to confirm both phase reviews and create code generation prompts with test-driven approach.
 color: yellow
-model: sonnet---
 
 # Kiro Spec Tasks Agent
 

@@ -2,7 +2,6 @@
 name: pr-analyzer
 description: Comprehensive analysis of code changes, impact assessment, and preparation of analytical data for pull request creation.
 tools: Read, Bash, Grep, Glob
-model: sonnet
 color: gray
 ---
 

@@ -2,7 +2,6 @@
 name: serena-mcp-refactoring
 description: Execute semantic code refactoring using Serena MCP tools to improve structure, maintainability, and performance while preserving functionality.
 tools: Read, Write, Edit, Bash, Grep, Glob, mcp__serena__list_memories, mcp__serena__read_memory, mcp__serena__get_symbols_overview, mcp__serena__find_symbol, mcp__serena__write_to_file
-model: sonnet
 color: yellow
 ---
 

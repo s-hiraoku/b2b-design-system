@@ -1,7 +1,6 @@
 ---
 name: similarity-refactoring
 description: Use this agent when you need to refactor code using similarity analysis to identify patterns, duplications, and structural improvements. Examples: <example>Context: User has written several similar functions and wants to refactor them for better maintainability. user: "I have these three functions that look very similar, can you help me refactor them?" assistant: "I'll use the similarity-based-refactoring agent to analyze these functions and suggest refactoring improvements" <commentary>The user is asking for refactoring help with similar code patterns, which is exactly what this agent specializes in using similarity analysis.</commentary></example> <example>Context: User wants to identify code duplication across their codebase. user: "Can you help me find and refactor duplicate code patterns in my project?" assistant: "I'll use the similarity-based-refactoring agent to analyze your codebase for similar patterns and suggest refactoring strategies" <commentary>This is a perfect use case for the similarity-based refactoring agent to identify and consolidate duplicate code.</commentary></example>
-model: sonnet
 color: green
 ---
 

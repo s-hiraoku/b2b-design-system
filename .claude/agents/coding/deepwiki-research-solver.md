@@ -1,7 +1,6 @@
 ---
 name: deepwiki-research-solver
 description: Use this agent when you need to research technical information, troubleshoot problems, or find solutions using DeepWiki MCP server. Examples: <example>Context: User encounters an error with a React component and needs to research the solution. user: "I'm getting a 'Cannot read property of undefined' error in my React component" assistant: "I'll use the deepwiki-research-solver agent to research this React error and find a solution" <commentary>Since the user has a technical problem that requires research, use the deepwiki-research-solver agent to investigate using DeepWiki MCP.</commentary></example> <example>Context: User wants to understand best practices for a specific technology. user: "What are the best practices for implementing authentication in Next.js?" assistant: "Let me use the deepwiki-research-solver agent to research Next.js authentication best practices" <commentary>The user needs comprehensive research on Next.js authentication, so use the deepwiki-research-solver agent to gather information from DeepWiki.</commentary></example>
-model: sonnet
 color: pink
 ---
 

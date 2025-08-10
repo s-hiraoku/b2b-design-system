@@ -2,7 +2,6 @@
 name: acceptance-reviewer
 description: Facilitate human review processes, prepare comprehensive review materials, and collect structured acceptance decisions from stakeholders.
 tools: Read, Write, Edit, Bash, Grep, Glob
-model: sonnet
 color: gray
 ---
 

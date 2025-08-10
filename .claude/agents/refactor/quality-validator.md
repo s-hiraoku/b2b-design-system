@@ -2,7 +2,6 @@
 name: quality-validator
 description: Comprehensive validation of refactoring results to ensure functionality preservation, quality improvement, and successful transformation outcomes.
 tools: Read, Bash, Grep, Glob
-model: sonnet
 color: gray
 ---
 
