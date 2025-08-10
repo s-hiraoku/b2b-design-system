@@ -22,6 +22,7 @@ Task(subagent_type="date-utility", description="Get current date information", p
 **We make no compromises in creating high-quality products. We build exceptional products that adhere to specifications with uncompromising excellence.**
 
 This orchestrator is designed to deliver enterprise-grade development workflows with:
+
 - **Unified Monitoring**: Real-time performance metrics and proactive alerting
 - **5-Dimension Quality Assurance**: Functional, Technical, Process, UX, Operational quality evaluation
 - **6-Category Error Handling**: Comprehensive error classification with automatic recovery strategies
@@ -32,7 +33,7 @@ This orchestrator is designed to deliver enterprise-grade development workflows 
 This command serves as the single entry point for all development workflows by:
 
 1. **Analyzing project state** (checking existing specifications, tasks.md files, code)
-2. **Determining next phase** (identifying what needs to be done next)  
+2. **Determining next phase** (identifying what needs to be done next)
 3. **Enforcing human approval checkpoints** (NEVER bypassing approval gates)
 4. **Delegating to appropriate agent** (executing the right workflow)
 5. **Maintaining continuity** (preserving context between phases)
@@ -44,10 +45,11 @@ This command serves as the single entry point for all development workflows by:
 ### Approval Requirements:
 
 1. **Before TDD Implementation**: Implementation task approval required
-2. **Before Next Workflow**: Current workflow completion approval required  
+2. **Before Next Workflow**: Current workflow completion approval required
 3. **Implementation Directory**: All code must be created in `projects/{project-name}/src/` directory
 
 ### Approval Process:
+
 - Check if current phase requires approval
 - Present comprehensive review materials to user
 - Wait for explicit "yes" or "approved" confirmation
@@ -72,6 +74,7 @@ This orchestrator executes the complete flow through approvals, never stopping a
 **Within Each Workflow**: Execute ALL defined phases sequentially using the specified agents:
 
 ### Coding Workflow Example:
+
 - **Phase 1**: research-agent (technology research using MCP integrations)
 - **Phase 2**: planning-agent (architecture and implementation strategy)
 - **Phase 3**: serena-onboarding-agent (Serena MCP initialization)
@@ -82,6 +85,7 @@ This orchestrator executes the complete flow through approvals, never stopping a
 - **Phase 8**: Human approval checkpoint
 
 ### Refactoring Workflow Example:
+
 - **Phase 1**: pattern-detector (identify duplicate and similar code patterns)
 - **Phase 2**: code-analyzer (analyze code structure and dependencies)
 - **Phase 3**: Intelligent routing to refactoring agent:
@@ -92,6 +96,7 @@ This orchestrator executes the complete flow through approvals, never stopping a
 - **Phase 5**: Human approval checkpoint
 
 ### Testing Workflow Example:
+
 - **Phase 1**: test-strategy-planner (develop comprehensive testing strategy)
 - **Phase 2**: test-environment-manager (set up and configure test environments)
 - **Phase 3**: Intelligent routing to testing agent:
@@ -102,6 +107,7 @@ This orchestrator executes the complete flow through approvals, never stopping a
 - **Phase 6**: Human approval checkpoint
 
 ### PR Workflow Example:
+
 - **Phase 1**: pr-analyzer (analyze code changes and assess impact)
 - **Phase 2**: pr-generator (generate high-quality PR content)
 - **Phase 3**: pr-validator (validate PR quality and readiness)
@@ -112,6 +118,7 @@ This orchestrator executes the complete flow through approvals, never stopping a
 - **Phase 8**: Human approval checkpoint
 
 ### Acceptance Workflow Example:
+
 - **Phase 1**: acceptance-reviewer (prepare comprehensive review materials)
 - **Phase 2**: Human review and decision (72-hour stakeholder review)
 - **Phase 3**: Conditional routing (approved → completion, rejected → feedback analysis)
@@ -126,6 +133,7 @@ This orchestrator executes the complete flow through approvals, never stopping a
 **After Each Workflow Approval**: Request explicit user confirmation before proceeding to the next workflow.
 
 ### Controlled Progression Process:
+
 1. **Current Workflow Completion**: Complete all phases within the current workflow
 2. **Human Approval**: Present comprehensive review materials and wait for approval
 3. **Next Workflow Confirmation**: After approval, explicitly ask for permission to proceed to next workflow
@@ -139,8 +147,9 @@ This orchestrator executes the complete flow through approvals, never stopping a
 **Enhanced User Experience**: The orchestrator now presents workflow analysis and requests confirmation before execution.
 
 ### Confirmation Process:
+
 1. **Project Analysis**: Analyze current project state and available options
-2. **Workflow Recommendations**: Present recommended workflow with clear rationale  
+2. **Workflow Recommendations**: Present recommended workflow with clear rationale
 3. **Alternative Options**: Show alternative workflows with explanations
 4. **User Confirmation**: Wait for explicit user choice before proceeding
 5. **Execution**: Run confirmed workflow with full transparency
@@ -153,7 +162,7 @@ This orchestrator executes the complete flow through approvals, never stopping a
 Current State:
 - Existing projects detected: stylish-cafe-website/
 - Project files found: package.json, tailwind.config.js, next.config.js
-- Kiro specs: 1 active specification 
+- Kiro specs: 1 active specification
 - Code quality: Assessment needed
 
 🎯 Recommended Workflow: REFACTORING
@@ -161,12 +170,12 @@ Rationale: Existing project detected with established codebase. Starting with co
 
 Alternative Options:
 1. CODING - Add new features immediately (skip quality assessment)
-2. KIRO-SDD - Create new specification for major feature additions  
+2. KIRO-SDD - Create new specification for major feature additions
 3. TESTING - Focus on comprehensive testing first
 
 ❓ Which workflow would you like to execute?
 [1] Proceed with REFACTORING (recommended)
-[2] Use CODING workflow  
+[2] Use CODING workflow
 [3] Use KIRO-SDD workflow
 [4] Use TESTING workflow
 [5] Show detailed analysis
@@ -175,15 +184,17 @@ Please select 1-5 or type workflow name:
 ```
 
 ### Controlled Workflow Chain:
+
 ```
 coding workflow approval → ASK PERMISSION → refactoring workflow
-refactoring workflow approval → ASK PERMISSION → testing workflow  
+refactoring workflow approval → ASK PERMISSION → testing workflow
 testing workflow approval → ASK PERMISSION → pr workflow
 pr workflow approval → ASK PERMISSION → acceptance workflow
 acceptance workflow approval → Project completion
 ```
 
 ### Implementation Logic:
+
 1. **Complete Current Workflow**: Execute all phases within current workflow
 2. **Wait for Human Approval**: Present comprehensive review materials
 3. **Request Next Workflow Permission**: Ask user "Proceed to [next-workflow]? (yes/no)"
@@ -193,11 +204,12 @@ acceptance workflow approval → Project completion
 **CRITICAL**: Always request explicit permission before starting any new workflow, even after successful approval of the previous workflow.
 
 ### Practical Implementation:
+
 ```bash
 # After coding workflow completion and approval:
 # 1. Present approval confirmation to user
 # 2. Ask: "Coding workflow completed successfully. Proceed to refactoring workflow? (yes/no)"
-# 3. Wait for explicit user confirmation  
+# 3. Wait for explicit user confirmation
 # 4. Only if user confirms: execute /refactoring command
 # 5. Repeat this process for each subsequent workflow
 
@@ -206,7 +218,9 @@ coding → approval → refactoring → approval → testing → approval → pr
 ```
 
 ### Workflow Configuration Reading:
+
 Always reference the YAML files in `.cc-deck/config/workflows/` to determine the next workflow:
+
 - `coding.yaml` → `next_workflow: refactoring` → Execute `/refactoring` command
 - `refactoring.yaml` → `next_workflow: testing` → Execute `/testing` command
 - `testing.yaml` → `next_workflow: pr` → Execute `/pr` command
@@ -214,11 +228,13 @@ Always reference the YAML files in `.cc-deck/config/workflows/` to determine the
 - `acceptance.yaml` → No next workflow (final completion)
 
 ### Automatic Workflow Execution Commands:
+
 After each approval, immediately execute the corresponding workflow command:
+
 ```bash
 # Workflow progression commands:
 /refactoring    # After coding approval
-/testing       # After refactoring approval  
+/testing       # After refactoring approval
 /pr            # After testing approval
 /acceptance    # After pr approval
 ```
@@ -228,36 +244,43 @@ After each approval, immediately execute the corresponding workflow command:
 ### Agent Selection Criteria:
 
 **When to use research-agent**:
+
 - New features requiring technology research
 - Need to evaluate libraries, frameworks, or best practices
 - Complex projects requiring architectural decisions
 
 **When to use planning-agent**:
+
 - After research phase completion
 - Need to create implementation strategy
 - Architecture design required
 
 **When to use serena-onboarding-agent**:
+
 - Before any implementation begins
 - Need to establish project context in Serena MCP
 - Setting up TDD development environment
 
 **When to use tdd-agent**:
+
 - After Serena onboarding completion
 - Implementing core functionality using Red-Green-Refactor cycles
 - Building test-driven foundation
 
 **When to use implementation-agent**:
+
 - After TDD cycles create foundation
 - Need to complete full production implementation
 - Expanding functionality while maintaining tests
 
 **When to use testing-agent**:
+
 - After implementation completion
 - Need comprehensive testing strategy beyond TDD
 - Integration and E2E test requirements
 
 **When to use documentation-agent**:
+
 - After implementation and testing completion
 - Need API documentation, tutorials, examples
 - Final documentation before approval
@@ -422,13 +445,12 @@ Project State Analysis:
 # Start new feature - shows analysis and asks for confirmation before execution
 /orchestrator "Build a real-time chat application"
 
-# Enhance existing project - analyzes current state and recommends workflow  
+# Enhance existing project - analyzes current state and recommends workflow
 /orchestrator "Improve stylish-cafe-website performance and add new features"
 
 # Add features to existing project - presents options and rationale
 /orchestrator "Add user authentication to existing e-commerce site"
 ```
-
 
 ### Phase-Specific Execution
 
@@ -1149,7 +1171,7 @@ The orchestrator uses intelligent analysis to select appropriate workflows:
 Workflow Selection Rules:
   project_analysis:
     - has_incomplete_tasks: coding-workflow
-    - has_existing_projects + needs_enhancement: refactoring-workflow  
+    - has_existing_projects + needs_enhancement: refactoring-workflow
     - has_kiro_specs (new project): kiro-sdd-workflow
     - code_quality_issues: refactoring-workflow
     - test_coverage_low: testing-workflow
@@ -1248,12 +1270,12 @@ def execute_interactive_selection(phase_def, context):
                 if option["id"] == selected_option:
                     context.update_selection_result(phase_def["name"], option)
                     return option["next_phase"]
-    
+
     # Build interactive prompt
     prompt = f"\n{'='*60}\n"
     prompt += f"📋 {phase_def['description']}\n"
     prompt += f"{'='*60}\n\n"
-    
+
     # Add context-based recommendations
     selection_context = phase_def.get("selection_context", {})
     for key, condition in selection_context.items():
@@ -1264,26 +1286,26 @@ def execute_interactive_selection(phase_def, context):
             elif key == "standard_suitable":
                 prompt += "⚡ Standard approach is SUITABLE for this project based on:\n"
                 prompt += "   • Rapid prototyping or simple CRUD requirements detected\n\n"
-    
+
     # Display options
     prompt += "Available implementation approaches:\n\n"
     for i, option in enumerate(phase_def.options, 1):
         prompt += f"{i}. **{option['name']}**\n"
         prompt += f"   {option['description']}\n"
-        
+
         if option.get("recommended_when"):
             prompt += f"   📌 Recommended when:\n"
             for item in option["recommended_when"]:
                 prompt += f"      • {item}\n"
-        
+
         if option.get("benefits"):
             prompt += f"   ✅ Benefits:\n"
             for item in option["benefits"]:
                 prompt += f"      • {item}\n"
         prompt += "\n"
-    
+
     prompt += "Please select an approach (1 or 2): "
-    
+
     # Present to user and get selection
     print(prompt)
     try:
@@ -1291,10 +1313,10 @@ def execute_interactive_selection(phase_def, context):
         if 0 <= selection < len(phase_def.options):
             selected_option = phase_def.options[selection]
             context.update_selection_result(phase_def["name"], selected_option)
-            
+
             print(f"\n✅ Selected: {selected_option['name']}")
             print(f"Proceeding to: {selected_option['next_phase']}")
-            
+
             return selected_option["next_phase"]
         else:
             print("❌ Invalid selection. Defaulting to first option.")
@@ -1390,9 +1412,9 @@ def evaluate_condition(condition_str, context):
         # Simple condition evaluation - in production this should be more secure
         # Replace context references with actual values
         context_data = context.data.get("context_data", {})
-        
+
         # Replace common patterns
-        condition_str = condition_str.replace("context.complexity === 'high'", 
+        condition_str = condition_str.replace("context.complexity === 'high'",
                                             str(context_data.get("complexity") == "high"))
         condition_str = condition_str.replace("context.security_critical === true",
                                             str(context_data.get("security_critical") == True))
@@ -1406,10 +1428,10 @@ def evaluate_condition(condition_str, context):
                                             str(context_data.get("implementation_approach") is not None))
         condition_str = condition_str.replace("context.implementation_approach",
                                             f"'{context_data.get('implementation_approach', '')}'")
-        
+
         # Handle OR conditions
         condition_str = condition_str.replace(" OR ", " or ")
-        
+
         # Evaluate the condition
         return eval(condition_str)
     except Exception as e:
@@ -1502,14 +1524,14 @@ class SmartContext:
         """Update context with user selection results"""
         if "user_selections" not in self.data:
             self.data["user_selections"] = {}
-        
+
         self.data["user_selections"][phase_name] = {
             "selected_id": selected_option["id"],
             "selected_name": selected_option["name"],
             "next_phase": selected_option["next_phase"],
             "timestamp": datetime.now().isoformat()
         }
-        
+
         # Update context data for future condition evaluations
         if selected_option["id"] == "tdd_approach":
             self.data["context_data"]["implementation_approach"] = "tdd"
@@ -1876,35 +1898,35 @@ def should_use_workflow_engine(workflow_hint, project_state):
 
 def select_workflow_with_confirmation(workflow_hint, project_state, arguments):
     """Present task-based confirmation flow to user based on project analysis"""
-    
+
     # 1. Analyze project and generate task proposal
     project_info = analyze_detailed_project_state(project_state)
     task_proposal = generate_task_proposal(project_info, arguments)
-    
+
     # 2. Present project analysis
     print("📋 プロジェクト分析結果\n")
     print(f"🏗️ プロジェクト: {project_info['project_name']}")
     print(f"📍 現在の状態: {project_info['current_status']}\n")
-    
+
     # 3. Present specific tasks to be executed
     print("📝 提案する実行タスク:")
     for i, task in enumerate(task_proposal['tasks'], 1):
         print(f"{i}. {task['description']}")
-    
+
     if task_proposal['subtasks']:
         print("\n   詳細作業:")
         for subtask in task_proposal['subtasks']:
             print(f"   • {subtask}")
-    
+
     print(f"\n🎯 期待される成果:")
     for outcome in task_proposal['expected_outcomes']:
         print(f"- {outcome}")
-    
+
     print(f"\n⏱️ 実行時間目安: {task_proposal['estimated_time']}")
-    
+
     # 4. Request user confirmation
     user_response = input(f"\nこのタスクを実行しますか？ (yes/no): ").strip().lower()
-    
+
     if user_response in ['yes', 'y', 'はい']:
         print(f"\n✅ タスク実行を開始します...\n")
         return task_proposal['workflow_name']
@@ -1930,7 +1952,7 @@ def get_recommended_workflow(workflow_hint, project_state):
     elif project_state.get('code_quality_issues'):
         return 'refactoring-workflow'
     elif project_state.get('has_existing_projects'):
-        # Default for existing projects - start with code quality assessment  
+        # Default for existing projects - start with code quality assessment
         return 'refactoring-workflow'
     else:
         return 'kiro-sdd-workflow'  # Default to Kiro SDD for new projects
@@ -1954,7 +1976,7 @@ def analyze_detailed_project_state(basic_state):
             # Use the most recently modified project
             latest_project = max(projects, key=lambda p: os.path.getmtime(p) if os.path.exists(p) else 0)
             project_info['project_name'] = os.path.basename(latest_project)
-            
+
             # Analyze project type and status
             project_info.update(analyze_project_details(latest_project))
 
@@ -2018,15 +2040,15 @@ def analyze_kiro_specs_status():
     for spec_dir in spec_dirs:
         feature_name = os.path.basename(spec_dir)
         tasks_file = f"{spec_dir}/tasks.md"
-        
+
         if file_exists(tasks_file):
             tasks = parse_tasks_md(tasks_file)
             feature_total = len(tasks)
             feature_completed = sum(1 for task in tasks if task.get('completed', False))
-            
+
             total_tasks += feature_total
             completed_tasks += feature_completed
-            
+
             spec_status['active_features'].append({
                 'name': feature_name,
                 'progress': f"{feature_completed}/{feature_total}",
@@ -2255,7 +2277,7 @@ def analyze_project_state():
             # Check if project has package.json, requirements.txt, or other project files
             project_files = [
                 f"{project_dir}/package.json",
-                f"{project_dir}/requirements.txt", 
+                f"{project_dir}/requirements.txt",
                 f"{project_dir}/Cargo.toml",
                 f"{project_dir}/go.mod",
                 f"{project_dir}/pom.xml"
@@ -2269,35 +2291,35 @@ def analyze_project_state():
 def generate_project_analysis_summary(project_state):
     """Generate human-readable project analysis summary"""
     summary_lines = ["Current State:"]
-    
+
     if project_state.get('has_existing_projects'):
         projects = glob_pattern('projects/*')
         project_names = [p.split('/')[-1] for p in projects]
         summary_lines.append(f"- Existing projects detected: {', '.join(project_names)}")
-        
+
         # Check for project files
         project_files = []
         for project_dir in projects:
-            files = ['package.json', 'requirements.txt', 'Cargo.toml', 'go.mod', 'pom.xml', 
+            files = ['package.json', 'requirements.txt', 'Cargo.toml', 'go.mod', 'pom.xml',
                     'tailwind.config.js', 'next.config.js', 'tsconfig.json']
             found_files = [f.split('/')[-1] for f in files if file_exists(f"{project_dir}/{f.split('/')[-1]}")]
             if found_files:
                 project_files.extend(found_files)
         if project_files:
             summary_lines.append(f"- Project files found: {', '.join(set(project_files))}")
-    
+
     if project_state.get('has_kiro_specs'):
         specs = glob_pattern('.kiro/specs/*')
         spec_count = len(specs)
         summary_lines.append(f"- Kiro specs: {spec_count} active specification{'s' if spec_count != 1 else ''}")
-    
+
     if project_state.get('has_incomplete_tasks'):
         summary_lines.append("- Status: Incomplete implementation tasks found")
     elif project_state.get('needs_enhancement'):
         summary_lines.append("- Code quality: Assessment needed")
     else:
         summary_lines.append("- Status: Ready for new development")
-    
+
     return '\n'.join(summary_lines)
 
 def get_workflow_rationale(workflow, project_state):
@@ -2317,23 +2339,23 @@ def get_workflow_alternatives(recommended_workflow, project_state):
     all_workflows = {
         'kiro-sdd': "Create new specification for major feature additions",
         'coding': "Add new features immediately (skip quality assessment)",
-        'refactoring': "Code quality assessment and improvements", 
+        'refactoring': "Code quality assessment and improvements",
         'testing': "Focus on comprehensive testing first",
         'pr': "Prepare pull request and code review",
         'acceptance': "Final stakeholder approval process"
     }
-    
+
     # Remove recommended workflow from alternatives
     recommended_key = recommended_workflow.replace('-workflow', '')
     alternatives = [(k, v) for k, v in all_workflows.items() if k != recommended_key]
-    
+
     return alternatives[:3]  # Return top 3 alternatives
 
 def process_workflow_choice(user_choice, recommended_workflow, alternatives):
     """Process user workflow choice and return selected workflow"""
     if user_choice.lower() in ['1', '']:
         return recommended_workflow
-    
+
     try:
         choice_num = int(user_choice)
         if choice_num == len(alternatives) + 2:
@@ -2348,7 +2370,7 @@ def process_workflow_choice(user_choice, recommended_workflow, alternatives):
         workflow_name = user_choice.lower().replace('-workflow', '')
         if workflow_name in ['kiro-sdd', 'coding', 'refactoring', 'testing', 'pr', 'acceptance']:
             return f"{workflow_name}-workflow"
-    
+
     # Default fallback
     print(f"Invalid choice. Proceeding with recommended workflow: {recommended_workflow}")
     return recommended_workflow

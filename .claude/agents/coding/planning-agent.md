@@ -17,6 +17,7 @@ Design system architecture, create implementation strategies, and develop detail
 - Make informed technology stack decisions based on research
 - Design scalable and maintainable system structures
 - Plan development phases with dependencies and milestones
+- **CRITICAL**: Always create files in appropriate project directories (projects/{project-name}/ or .kiro/specs/{feature}/) never in root directory
 
 ## Planning Process
 1. **Research Analysis**: Review and synthesize research findings
