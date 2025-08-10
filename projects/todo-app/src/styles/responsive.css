@@ -1,0 +1,259 @@
+/**
+ * Responsive Design - Task 5.2
+ * Mobile and tablet optimizations
+ */
+
+/* Mobile-first responsive breakpoints */
+
+/* Small devices (phones, 640px and down) */
+@media (max-width: 640px) {
+  :root {
+    --space-4: 0.75rem; /* Reduce spacing on mobile */
+    --space-6: 1rem;
+    --space-8: 1.5rem;
+  }
+  
+  /* Typography adjustments */
+  body {
+    font-size: var(--font-size-sm);
+  }
+  
+  h1 {
+    font-size: var(--font-size-2xl);
+  }
+  
+  h2 {
+    font-size: var(--font-size-xl);
+  }
+  
+  h3 {
+    font-size: var(--font-size-lg);
+  }
+  
+  /* Touch-friendly button sizes */
+  button {
+    min-height: 48px; /* Increased for touch */
+    padding: var(--space-4) var(--space-5);
+  }
+  
+  /* Form elements */
+  input,
+  textarea,
+  select {
+    min-height: 48px;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+  
+  /* Container adjustments */
+  .container {
+    padding: 0 var(--space-3);
+  }
+}
+
+/* Medium devices (tablets, 768px and down) */
+@media (max-width: 768px) {
+  /* Stack layouts vertically */
+  .sidebar-layout {
+    flex-direction: column;
+  }
+  
+  .flex-layout {
+    flex-direction: column;
+  }
+  
+  .flex-layout--mobile-row {
+    flex-direction: row;
+  }
+  
+  /* Grid adjustments */
+  .grid--responsive {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Modal adjustments */
+  .modal {
+    margin: var(--space-4);
+    max-height: calc(100vh - var(--space-8));
+  }
+  
+  /* Text alignment on mobile */
+  .text-center-mobile {
+    text-align: center;
+  }
+}
+
+/* Large tablets and small desktops */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .grid--responsive {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .sidebar-layout__sidebar {
+    flex: 0 0 250px;
+  }
+}
+
+/* Desktop and up */
+@media (min-width: 1025px) {
+  .grid--responsive {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  /* Show desktop-only elements */
+  .desktop-only {
+    display: block;
+  }
+  
+  /* Enhanced hover effects on desktop */
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1280px) {
+  .container {
+    max-width: var(--container-xl);
+  }
+  
+  .grid--responsive {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Orientation-based styles */
+@media (orientation: landscape) and (max-height: 600px) {
+  /* Optimize for landscape mobile phones */
+  .modal {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .header--compact {
+    padding: var(--space-2) 0;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Crisp borders on high DPI */
+  .border-crisp {
+    border-width: 0.5px;
+  }
+}
+
+/* Print styles */
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-break {
+    page-break-before: always;
+  }
+  
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+  
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+  
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+  
+  thead {
+    display: table-header-group;
+  }
+  
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+  
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .hover-lift:hover {
+    transform: none;
+  }
+}
+
+/* High contrast preferences */
+@media (prefers-contrast: high) {
+  /* Increase border thickness */
+  .border,
+  input,
+  textarea,
+  select,
+  button {
+    border-width: 2px;
+  }
+  
+  /* Ensure text contrast */
+  body {
+    background: white;
+    color: black;
+  }
+  
+  /* Focus indicators */
+  :focus {
+    outline: 3px solid black;
+    outline-offset: 2px;
+  }
+}
+
+/* Color scheme preferences */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #1f2937;
+    --color-background-secondary: #111827;
+    --color-text: #f9fafb;
+    --color-text-secondary: #d1d5db;
+    --color-text-muted: #9ca3af;
+    --color-border: #374151;
+  }
+  
+  .card {
+    background-color: var(--color-background);
+  }
+  
+  /* Adjust shadows for dark mode */
+  .shadow-base {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  }
+}

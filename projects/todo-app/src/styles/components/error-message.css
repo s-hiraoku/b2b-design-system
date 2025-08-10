@@ -1,0 +1,82 @@
+/**
+ * ErrorMessage Component Styles
+ */
+
+.error-message {
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.error-message--warning {
+  background-color: var(--color-warning-light);
+  border: 1px solid var(--color-warning);
+  color: var(--color-warning);
+}
+
+.error-message--error {
+  background-color: var(--color-danger-light);
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger);
+}
+
+.error-message__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.error-message__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.error-message__title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.error-message__dismiss {
+  margin-left: auto;
+  background: none;
+  border: none;
+  font-size: var(--font-size-lg);
+  color: inherit;
+  cursor: pointer;
+  padding: var(--space-1);
+  border-radius: var(--radius-base);
+  min-height: 32px;
+  min-width: 32px;
+}
+
+.error-message__description {
+  font-size: var(--font-size-sm);
+  margin: 0;
+}
+
+.error-message__details {
+  margin-top: var(--space-2);
+}
+
+.error-message__details-summary {
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  padding: var(--space-2);
+}
+
+.error-message__details-data {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: var(--space-3);
+  border-radius: var(--radius-base);
+  overflow-x: auto;
+  margin-top: var(--space-2);
+}
+
+.error-message__timestamp {
+  font-size: var(--font-size-xs);
+  opacity: 0.8;
+}

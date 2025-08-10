@@ -1,0 +1,21 @@
+/**
+ * App Component Styles
+ * Root application container
+ */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    135deg,
+    var(--color-background) 0%,
+    var(--color-background-secondary) 100%
+  );
+}
+
+@media (max-width: 768px) {
+  .app {
+    background: var(--color-background-secondary);
+  }
+}

@@ -1,0 +1,85 @@
+/**
+ * LoadingSpinner Component Styles
+ */
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.loading-spinner--inline {
+  flex-direction: row;
+  padding: 0;
+}
+
+.loading-spinner--small .loading-spinner__svg {
+  width: 16px;
+  height: 16px;
+}
+
+.loading-spinner--medium .loading-spinner__svg {
+  width: 24px;
+  height: 24px;
+}
+
+.loading-spinner--large .loading-spinner__svg {
+  width: 32px;
+  height: 32px;
+}
+
+.loading-spinner__svg {
+  animation: spin 1s linear infinite;
+}
+
+.loading-spinner__track {
+  stroke: var(--color-gray-200);
+}
+
+.loading-spinner__progress {
+  stroke: var(--color-primary);
+  stroke-dasharray: 31.416;
+  stroke-dashoffset: 25.133;
+  animation: progress 1.5s ease-in-out infinite;
+}
+
+.loading-spinner__text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes progress {
+  0% {
+    stroke-dashoffset: 31.416;
+  }
+  50% {
+    stroke-dashoffset: 7.854;
+  }
+  100% {
+    stroke-dashoffset: 31.416;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner__svg {
+    animation: none;
+  }
+  
+  .loading-spinner__progress {
+    animation: none;
+    stroke-dashoffset: 15.708;
+  }
+}

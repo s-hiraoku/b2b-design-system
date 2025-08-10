@@ -1,0 +1,177 @@
+/**
+ * TodoItem Component Styles
+ */
+
+.todo-item {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.todo-item:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-gray-300);
+}
+
+.todo-item--completed {
+  opacity: 0.7;
+  background-color: var(--color-background-secondary);
+}
+
+.todo-item__content {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.todo-item__checkbox {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  accent-color: var(--color-primary);
+}
+
+.todo-item__details {
+  flex: 1;
+  min-width: 0;
+}
+
+.todo-item__title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+  line-height: var(--line-height-tight);
+}
+
+.todo-item--completed .todo-item__title {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+}
+
+.todo-item__description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-3);
+  line-height: var(--line-height-relaxed);
+}
+
+.todo-item__metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.todo-item__due-date--overdue {
+  color: var(--color-overdue);
+  font-weight: var(--font-weight-medium);
+}
+
+.todo-item__due-date--today {
+  color: var(--color-due-today);
+  font-weight: var(--font-weight-medium);
+}
+
+.todo-item__due-date--soon {
+  color: var(--color-due-soon);
+  font-weight: var(--font-weight-medium);
+}
+
+.todo-item__actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+.todo-item__button {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-fast);
+  min-height: 36px;
+}
+
+.todo-item__button--edit {
+  background-color: var(--color-secondary);
+  color: white;
+  border: 1px solid var(--color-secondary);
+}
+
+.todo-item__button--delete {
+  background-color: var(--color-danger);
+  color: white;
+  border: 1px solid var(--color-danger);
+}
+
+.todo-item__edit {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.todo-item__edit-input,
+.todo-item__edit-textarea,
+.todo-item__edit-date {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+}
+
+.todo-item__edit-actions {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+.todo-item__delete-confirm {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo-item__delete-confirm-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.todo-item__delete-confirm-content {
+  background-color: var(--color-background);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-xl);
+  max-width: 400px;
+  margin: var(--space-4);
+}
+
+@media (max-width: 768px) {
+  .todo-item {
+    padding: var(--space-3);
+  }
+  
+  .todo-item__content {
+    gap: var(--space-3);
+    flex-direction: column;
+  }
+  
+  .todo-item__actions {
+    margin-left: 0;
+    justify-content: flex-end;
+  }
+}

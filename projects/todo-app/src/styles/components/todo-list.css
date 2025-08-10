@@ -1,0 +1,98 @@
+/**
+ * TodoList Component Styles
+ */
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.todo-list__sort {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background-color: var(--color-background-secondary);
+  border-radius: var(--radius-md);
+  flex-wrap: wrap;
+}
+
+.todo-list__sort-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.todo-list__sort-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-sm);
+  min-height: 36px;
+}
+
+.todo-list__sort-button:hover {
+  background-color: var(--color-gray-100);
+  border-color: var(--color-gray-300);
+}
+
+.todo-list__sort-button--active {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.todo-list__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.todo-list__empty {
+  text-align: center;
+  padding: var(--space-12) var(--space-4);
+}
+
+.todo-list__empty-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.todo-list__empty-message {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.todo-list__empty-suggestion {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.todo-list__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .todo-list__sort {
+    padding: var(--space-3);
+    gap: var(--space-2);
+  }
+  
+  .todo-list__sort-button {
+    font-size: var(--font-size-xs);
+    padding: var(--space-1) var(--space-2);
+  }
+}
