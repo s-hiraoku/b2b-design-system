@@ -36,6 +36,7 @@ graph TB
     
     subgraph "Workflow Definitions"
         KiroWorkflow[📝 kiro-sdd.yaml]
+        DevEnvWorkflow[🛠️ dev-env-setup.yaml] %% NEW
         CodingWorkflow[💻 coding.yaml]
         RefactorWorkflow[🔧 refactoring.yaml]
         TestingWorkflow[🧪 testing.yaml]
@@ -48,6 +49,7 @@ graph TB
     end
     
     WorkflowLoader --> KiroWorkflow
+    WorkflowLoader --> DevEnvWorkflow
     WorkflowLoader --> CodingWorkflow
     WorkflowLoader --> RefactorWorkflow
     WorkflowLoader --> TestingWorkflow
@@ -77,6 +79,65 @@ phases:
   - name: implementation
     type: task_driven  # tasks.mdベースの実行
     source: ".kiro/specs/${feature_name}/tasks.md"
+    
+  # 完了後のワークフローチェーン
+  next_workflow: dev-env-setup  # ✨ NEW: Dev Environment Setup Flow
+```
+
+```yaml
+# .cc-deck/workflows/dev-env-setup.yaml ✨ NEW
+name: dev-env-setup-workflow
+description: "動的MCP SubAgent生成による開発環境最適化"
+
+context_schema:
+  project_analysis:
+    project_id: string
+    technology_stack: object
+    integration_opportunities: array
+  mcp_recommendations:
+    recommended_agents: array
+    research_summary: object
+  generated_configuration:
+    extension_config: object
+    merged_workflow: object
+
+phases:
+  - name: spec_analysis
+    agent: spec-analyzer
+    description: "仕様分析による技術スタック抽出"
+    inputs: []
+    outputs: [project_analysis, technology_stack]
+    
+  - name: mcp_recommendation  
+    agent: mcp-recommender
+    description: "MCP統合による最適エージェント推奨"
+    inputs: [project_analysis, technology_stack]
+    outputs: [recommended_mcp_agents, research_summary]
+    mcp_integrations: [brave_search, deepwiki, context7]
+    
+  - name: user_approval
+    type: human_interaction
+    description: "推奨エージェントの人間承認"
+    approval_scope: ["MCP agent relevance", "Resource considerations"]
+    decision_options: [approved, approved_with_modifications, rejected]
+    
+  - name: agent_generation
+    agent: agent-generator
+    description: "承認されたSubAgentファイルの動的生成"
+    inputs: [approved_mcp_agents, project_analysis]
+    outputs: [generated_agents, agent_file_list]
+    naming_convention: "{project_id}-{agent_purpose}"
+    directory: ".cc-deck/config/workflows/dynamic/{project_id}/agents/"
+    
+  - name: workflow_integration
+    agent: workflow-integrator
+    description: "Codingワークフローとの統合設定作成"
+    inputs: [generated_agents, project_analysis]
+    outputs: [extension_config, merged_workflow_config]
+    integration_strategy: "array_addition"
+    
+  # 完了後のワークフローチェーン
+  next_workflow: coding  # Enhanced Coding Workflow with generated agents
 ```
 
 #### 主要機能
@@ -84,6 +145,43 @@ phases:
 - **条件分岐**: 状況に応じた動的なフロー制御
 - **並列実行**: 独立したタスクの同時実行サポート
 - **エラーハンドリング**: 失敗時の回復戦略
+- **🛠️ 動的SubAgent生成**: プロジェクト固有のMCP統合エージェント自動作成 ✨ NEW
+
+#### Dev Environment Setup Workflow の革新的特徴 ✨ NEW
+
+**1. 技術スタック自動検出**
+- Kiro SDD仕様からNext.js、Vercel、Supabase等を自動識別
+- フレームワークバージョンと互換性分析
+- 最適化機会の発見
+
+**2. Triple MCP Research Integration**
+- **Brave Search**: 最新ツール・MCP統合技術調査
+- **DeepWiki MCP**: 成功プロジェクトパターン分析  
+- **Context7 MCP**: 公式ドキュメント検証
+
+**3. Dynamic Agent Generation**
+```bash
+# 生成される動的ディレクトリ構造
+.cc-deck/config/workflows/dynamic/{project_id}/
+├── extensions/                    # 拡張設定
+│   └── coding-extension.yaml     # Coding workflow拡張
+├── generated/                     # 統合設定
+│   └── coding-merged.yaml        # 最終統合workflow
+└── agents/                       # 生成SubAgent
+    ├── {project_id}-vercel-agent.md
+    ├── {project_id}-nextjs-optimizer.md
+    └── {project_id}-tailwind-helper.md
+```
+
+**4. Hybrid File Generation Strategy**
+- **Extensions**: 手動/自動生成の設定オーバーライド
+- **Generated**: 完全統合されたworkflow定義
+- **Agents**: プロジェクト固有の最適化エージェント
+
+**5. Graceful Degradation System**
+- MCP service障害時の段階的縮退
+- 部分的生成でも継続可能
+- 標準workflowへのfallback保証
 
 ### 2. Smart Context Propagation
 
