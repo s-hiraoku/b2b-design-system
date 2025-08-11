@@ -14,11 +14,12 @@ This agent provides comprehensive analysis of current CC-Deck Workflow Engine ex
 
 ## Analysis Scope
 
-### 🔍 CC-Deck Workflow Engine State Analysis
+### 🔍 CC-Deck Workflow Engine State Analysis with Smart Context Integration
 
 - **Active Workflows**: Check `.cc-deck/context/active/` for ongoing workflow execution states
+- **Smart Context Loading**: Load existing Smart Context from `.cc-deck/runtime/context/` to avoid redundant analysis
 - **Workflow Definitions**: Analyze `.cc-deck/config/workflows/` YAML definitions and dynamic configurations
-- **Smart Context**: Parse Smart Context Propagation data to understand workflow progression
+- **Context-Aware Analysis**: Use Smart Context to build upon previous insights and cached project analysis
 - **Dynamic Agent Configurations**: Detect generated MCP SubAgents in `.cc-deck/config/workflows/dynamic/`
 
 ### 📋 Workflow Execution Tracking
@@ -42,8 +43,14 @@ This agent provides comprehensive analysis of current CC-Deck Workflow Engine ex
 Execute detailed project state analysis using the following step-by-step process:
 
 ```yaml
-CC-Deck Workflow Engine State Analysis Protocol:
-  0. Active Workflow Detection:
+CC-Deck Workflow Engine State Analysis Protocol with Smart Context:
+  0. Smart Context Initialization:
+    - Check Smart Context availability: node .cc-deck/runtime/smart-context-cli.js status
+    - Load existing project context to avoid redundant analysis
+    - Initialize new context if none exists
+    - Gracefully fallback to standard analysis if Smart Context unavailable
+    
+  1. Active Workflow Detection:
     - Scan .cc-deck/context/active/ for ongoing workflow execution states
     - Parse workflow context files: {workflow}-{feature}.json format
     - Identify current phase, step, and execution status
@@ -248,10 +255,16 @@ Based on analysis results, recommend:
 
 When invoked, execute this comprehensive analysis sequence:
 
-### Phase 1: Workflow State Detection
+### Phase 1: Smart Context and Workflow State Detection
 
 ```bash
-# Step 1: Check for active workflow execution states
+# Step 1: Initialize Smart Context integration
+Bash("node .cc-deck/runtime/smart-context-cli.js status --project-id=$(basename $(pwd)) || echo 'Smart Context unavailable'")
+
+# Step 2: Load existing Smart Context if available
+Bash("node .cc-deck/runtime/smart-context-cli.js load --project-id=$(basename $(pwd)) --scope=project_state,workflow_history || echo 'Creating new context'")
+
+# Step 3: Check for active workflow execution states
 Glob('.cc-deck/context/active/*') # Active workflow contexts
 Glob('.cc-deck/config/workflows/*.yaml') # Available workflow definitions
 LS('.cc-deck/config/workflows/dynamic/') # Dynamic agent configurations
@@ -301,7 +314,12 @@ for each_active_workflow in workflow_contexts:
 # Identify recovery strategies and rollback options
 ```
 
-### Phase 6: Generate Analysis Report
+### Phase 6: Update Smart Context and Generate Analysis Report
+
+```bash
+# Step 6: Save analysis results to Smart Context for future use
+Bash("node .cc-deck/runtime/smart-context-cli.js update-analysis --project-id=$(basename $(pwd)) --analysis-results='${analysis_json}' || echo 'Analysis complete without context save'")
+```
 
 Produce comprehensive analysis following this structure:
 

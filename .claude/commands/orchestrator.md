@@ -24,14 +24,17 @@ This orchestrator has clear and focused responsibilities:
 **CRITICAL**: Always call these agents in sequence at the start of every execution.
 
 ```bash
-# 1. Get current date information
+# 1. Initialize Smart Context system (graceful degradation if unavailable)
+Bash: "node .cc-deck/runtime/smart-context-cli.js init --project-id=$(basename $(pwd)) || echo 'Smart Context unavailable, continuing with standard analysis'"
+
+# 2. Get current date information
 Task(subagent_type="date-utility", description="Get current date information", prompt="Please provide current date and time information for use in this orchestrator session, including search-appropriate year formatting.")
 
-# 2. User interaction guidelines reminder
+# 3. User interaction guidelines reminder
 Task(subagent_type="user-interaction-reminder", description="User interaction guidelines", prompt="Provide critical reminders about proper user interaction protocols for this orchestration session.")
 
-# 3. Comprehensive project state analysis with workflow recommendations
-Task(subagent_type="project-state-analyzer", description="Comprehensive project state analysis", prompt="Perform comprehensive project state analysis including Kiro specs status, implementation progress, task completion, and workflow recommendations. Provide Interactive Workflow selection recommendations based on current project state.")
+# 4. Comprehensive project state analysis with Smart Context integration
+Task(subagent_type="project-state-analyzer", description="Comprehensive project state analysis", prompt="Perform comprehensive project state analysis with Smart Context integration. Load existing Smart Context from .cc-deck/context/ if available to avoid redundant analysis and build upon previous insights. If Smart Context is unavailable, perform complete analysis and provide workflow recommendations based on current project state. Include Kiro specs status, implementation progress, task completion analysis, and Interactive Workflow selection recommendations.")
 ```
 
 ## 🤔 Interactive Workflow Selection
@@ -77,7 +80,12 @@ Please select 1-4:
 
 ## 🔄 Workflow Command Execution
 
-After user confirmation, execute the appropriate specialized workflow command:
+After user confirmation, save workflow selection to Smart Context and execute the appropriate specialized workflow command:
+
+```bash
+# Save workflow selection and execution start to Smart Context (graceful fallback)
+Bash: "node .cc-deck/runtime/smart-context-cli.js update-workflow --project-id=$(basename $(pwd)) --workflow=[selected_workflow] --status=started || echo 'Workflow started: [selected_workflow] (Smart Context unavailable)'"
+```
 
 ### CC-Deck Workflow Commands:
 
@@ -105,10 +113,14 @@ kiro-sdd → dev-env-setup → coding → refactoring → testing → pr → acc
 ### Automatic Workflow Progression:
 
 1. **Current Workflow Completion**: Wait for specialized command completion
-2. **Human Approval**: Present approval options (Y/R/S format)
-3. **Next Workflow Detection**: Determine next workflow from CC-Deck chain
-4. **User Confirmation**: Explicit confirmation before proceeding
-5. **Next Workflow Execution**: Execute next specialized command
+2. **Context Update**: Save completion status to Smart Context (graceful fallback)
+   ```bash
+   Bash: "node .cc-deck/runtime/smart-context-cli.js complete-workflow --project-id=$(basename $(pwd)) --workflow=[completed_workflow] --success=true || echo 'Workflow completed: [completed_workflow] (Smart Context unavailable)'"
+   ```
+3. **Human Approval**: Present approval options (Y/R/S format)
+4. **Next Workflow Detection**: Determine next workflow from CC-Deck chain
+5. **User Confirmation**: Explicit confirmation before proceeding
+6. **Next Workflow Execution**: Execute next specialized command with Smart Context
 
 ### Approval Format (Y/R/S):
 
@@ -133,10 +145,15 @@ Ready to [next action]?
 
 ### Context Preservation:
 
-- **Smart Context**: Cross-workflow state sharing via `.cc-deck/context/`
-- **Progress Tracking**: Real-time task completion monitoring
-- **Resume Capability**: Automatic detection of interrupted workflows
-- **Audit Trail**: Complete execution history and decision tracking
+- **Smart Context**: Active cross-workflow state sharing via `.cc-deck/context/`
+  - Project state persistence and analysis caching
+  - Workflow history and transition tracking  
+  - Agent memory and cross-agent communication
+  - User preference learning and adaptation
+  - Quality metrics and continuous improvement
+- **Progress Tracking**: Real-time task completion monitoring via Smart Context
+- **Resume Capability**: Automatic detection of interrupted workflows from context state
+- **Audit Trail**: Complete execution history and decision tracking in Smart Context
 
 ## 🎯 Usage Examples
 
@@ -154,14 +171,30 @@ Ready to [next action]?
 
 ### Advanced Usage:
 ```bash
-# New feature development
+# New feature development (Smart Context creates new project context)
 /orchestrator "Build user management system with authentication"
 
-# Existing project enhancement
+# Existing project enhancement (Smart Context loads existing state)
 /orchestrator "Improve performance and add real-time features"
 
-# Specific workflow continuation
+# Specific workflow continuation (Smart Context resumes from saved state)
 /orchestrator "continue coding user-auth-system"
+
+# Resume from exact interruption point using Smart Context
+/orchestrator "resume"
+```
+
+### Smart Context Integration Points:
+
+```bash
+# Check Smart Context status
+Bash: "node .cc-deck/runtime/smart-context-cli.js status --project-id=$(basename $(pwd))"
+
+# Load specific context data for analysis
+Bash: "node .cc-deck/runtime/smart-context-cli.js load --project-id=$(basename $(pwd)) --scope=project_state,workflow_history"
+
+# Update user preferences based on selection
+Bash: "node .cc-deck/runtime/smart-context-cli.js update-preferences --project-id=$(basename $(pwd)) --workflow-choice=[user_choice] --recommended=[ai_recommendation]"
 ```
 
 ## 🛡️ Quality Assurance
