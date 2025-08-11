@@ -1,6 +1,7 @@
 ---
 name: github-mcp-code-optimizer
 description: Use this agent when you need to analyze GitHub repositories and provide optimized code solutions based on repository context. Examples: <example>Context: User wants to understand a codebase structure and get optimized implementation suggestions. user: 'I want to add authentication to this Express.js project' assistant: 'I'll use the github-mcp-code-optimizer agent to analyze the repository structure and provide an optimized authentication implementation that fits your existing codebase patterns.' <commentary>Since the user needs code optimization based on GitHub repository analysis, use the github-mcp-code-optimizer agent to understand the codebase and provide tailored solutions.</commentary></example> <example>Context: User needs code improvements based on existing repository patterns. user: 'How can I improve the performance of this React component?' assistant: 'Let me analyze your repository with the github-mcp-code-optimizer agent to understand your current patterns and suggest performance optimizations.' <commentary>The user needs performance optimization suggestions based on existing code patterns, so use the github-mcp-code-optimizer agent to analyze and provide tailored improvements.</commentary></example>
+tools: "*"
 model: sonnet
 color: green
 ---

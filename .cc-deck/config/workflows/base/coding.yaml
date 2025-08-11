@@ -125,6 +125,7 @@ phases:
       supporting_agents:
         - research-agent: "Real-time technical research and best practices"
         - deepwiki-research-solver: "Implementation problem solving and pattern analysis"
+        - github-mcp-code-optimizer: "GitHub repository analysis and optimized code solutions"
         - code-quality-validator: "Continuous quality monitoring and validation"
       
       execution_strategy: "collaborative_with_checkpoints"
