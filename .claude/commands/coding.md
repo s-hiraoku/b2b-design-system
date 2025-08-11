@@ -19,6 +19,26 @@ Task(subagent_type="date-utility", description="Get current date information", p
 
 This command initiates and manages the enterprise coding workflow, which transforms specifications into high-quality, test-driven implementation with 95%+ test coverage, real-time monitoring, and enterprise security compliance.
 
+## Project-Specific Workflow Loading
+
+**Dynamic Configuration**: This command automatically detects and loads project-specific merged workflow configurations:
+
+1. **First Priority**: `.cc-deck/config/workflows/dynamic/{project-id}/generated/coding-merged.yaml`
+2. **Fallback**: `.cc-deck/config/workflows/coding.yaml`
+
+### Automatic Project Detection:
+
+The command detects the current project context using:
+- Dynamic workflow directories (`.cc-deck/config/workflows/dynamic/*`)
+- Active projects (`projects/*`)
+- Kiro specifications (`.kiro/specs/*`)
+
+When a project-specific merged workflow is found, it automatically uses enhanced configurations with:
+- **Project-Specific MCP Agents**: Custom agents for the specific technology stack
+- **Enhanced Monitoring**: Project-tailored performance metrics and alerts
+- **Specialized Quality Gates**: Requirements specific to the project domain
+- **Custom Error Handling**: Project-specific recovery strategies
+
 ## TDD-First Development Policy
 
 **ALL development must follow Test-Driven Development** - no exceptions. Every implementation goes through:
@@ -37,15 +57,16 @@ This workflow follows enterprise approval checkpoints with real-time monitoring,
 - `.cc-deck/config/quality/unified-quality-assurance-standard.yaml` (quality gates)
 - `.cc-deck/config/error-handling/unified-error-recovery-standard.yaml` (error handling)
 
-**After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the YAML configuration.
+**After Each Workflow Approval**: Immediately proceed to the next workflow as defined in the project-specific YAML configuration.
 
 ### Implementation Logic:
 
-1. **Complete Current Workflow**: Execute all coding phases (research → planning → serena-onboarding → tdd → implementation → testing → documentation)
-2. **Wait for Human Approval**: Present comprehensive review materials
-3. **Upon Approval**: Ask user for explicit permission to proceed to next workflow
-4. **Request Confirmation**: "Proceed to refactoring workflow? (yes/no)"
-5. **Wait for Permission**: Only continue after clear user confirmation
+1. **Load Project-Specific Workflow**: Automatically detect and load merged workflow configuration if available (e.g., `coding-merged.yaml`)
+2. **Complete Current Workflow**: Execute all coding phases using project-specific agents and configuration
+3. **Wait for Human Approval**: Present comprehensive review materials
+4. **Upon Approval**: Ask user for explicit permission to proceed to next workflow
+5. **Request Confirmation**: "Proceed to refactoring workflow? (yes/no)"
+6. **Wait for Permission**: Only continue after clear user confirmation
 
 ```bash
 # After coding workflow completion and approval:
@@ -77,8 +98,31 @@ projects/{project-name}/
 
 ### Execution Steps:
 
-**CRITICAL**: Execute ALL phases sequentially using the specified agents. Do NOT skip phases.
+**CRITICAL**: Execute ALL phases sequentially using the agents specified in the loaded workflow configuration. Do NOT skip phases.
 
+**Project-Specific Execution**:
+```python
+# Automatic workflow loading with project detection
+def load_coding_workflow():
+    project_id = detect_project_id()
+    
+    if project_id:
+        merged_path = f".cc-deck/config/workflows/dynamic/{project_id}/generated/coding-merged.yaml"
+        if file_exists(merged_path):
+            print(f"🎯 Using project-specific coding workflow: {merged_path}")
+            return load_workflow_from_yaml(merged_path)
+    
+    # Fallback to base workflow
+    base_path = ".cc-deck/config/workflows/coding.yaml"  
+    print(f"📋 Using base coding workflow: {base_path}")
+    return load_workflow_from_yaml(base_path)
+
+# Execute workflow phases based on loaded configuration
+workflow_config = load_coding_workflow()
+execute_workflow_phases(workflow_config)
+```
+
+**Standard Phases** (when using base workflow):
 1. **Phase 1**: research-agent (Technology research using MCP integrations)
 2. **Phase 2**: planning-agent (Develop architecture and implementation strategy)
 3. **Phase 3**: serena-onboarding-agent (Initialize Serena MCP and establish TDD environment)
@@ -88,7 +132,14 @@ projects/{project-name}/
 7. **Phase 7**: documentation-agent (Generate comprehensive documentation)
 8. **Phase 8**: Human approval checkpoint - Review completed workflow
 
-**Important**: Each phase must be completed by the designated agent before proceeding to the next phase.
+**Enhanced Phases** (when using project-specific merged workflow):
+- All standard phases **PLUS** project-specific sub-agents integrated into Phase 5:
+  - `{project-id}-vercel-optimizer`: Deployment optimization
+  - `{project-id}-ai-image-manager`: AI content generation  
+  - `{project-id}-playwright-tester`: E2E testing automation
+  - `{project-id}-performance-monitor`: Real-time performance tracking
+
+**Important**: Each phase must be completed by the designated agent(s) before proceeding to the next phase.
 
 ## TDD-Unified Coding Workflow Phases
 

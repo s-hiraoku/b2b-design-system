@@ -1258,8 +1258,8 @@ When workflow execution is triggered, the orchestrator implements the following 
 
 ```python
 def execute_workflow_engine(workflow_name, feature_name, arguments):
-    # 1. Load workflow definition
-    workflow_def = load_workflow_definition(f".cc-deck/config/workflows/{workflow_name}.yaml")
+    # 1. Load workflow definition (check for project-specific merged version first)
+    workflow_def = load_project_specific_workflow(workflow_name, feature_name)
 
     # 2. Initialize or load Smart Context
     context = SmartContext(workflow_name, feature_name)
@@ -1478,6 +1478,55 @@ def evaluate_condition(condition_str, context):
     except Exception as e:
         print(f"Warning: Failed to evaluate condition '{condition_str}': {e}")
         return False
+
+def load_project_specific_workflow(workflow_name, project_id=None):
+    """Load project-specific merged workflow if available, otherwise fallback to base workflow"""
+    
+    # Detect project ID if not provided
+    if not project_id:
+        project_id = detect_project_id()
+    
+    # Try project-specific merged workflow first
+    if project_id:
+        merged_path = f".cc-deck/config/workflows/dynamic/{project_id}/generated/{workflow_name}-merged.yaml"
+        if file_exists(merged_path):
+            print(f"🎯 Loading project-specific workflow: {merged_path}")
+            return load_workflow_definition(merged_path)
+    
+    # Fallback to base workflow
+    base_path = f".cc-deck/config/workflows/{workflow_name}.yaml"
+    print(f"📋 Loading base workflow: {base_path}")
+    return load_workflow_definition(base_path)
+
+def detect_project_id():
+    """Detect current project ID from various sources"""
+    
+    # Method 1: Check for existing dynamic workflow directories
+    dynamic_dirs = glob_pattern(".cc-deck/config/workflows/dynamic/*")
+    if dynamic_dirs:
+        # Use the most recently modified project
+        latest_project = max(dynamic_dirs, key=lambda p: os.path.getmtime(p) if os.path.exists(p) else 0)
+        project_id = os.path.basename(latest_project)
+        return project_id
+    
+    # Method 2: Check for existing projects in projects/ directory
+    project_dirs = glob_pattern("projects/*")
+    if project_dirs:
+        # Use the most recently modified project
+        latest_project = max(project_dirs, key=lambda p: os.path.getmtime(p) if os.path.exists(p) else 0)
+        project_id = os.path.basename(latest_project)
+        return project_id
+    
+    # Method 3: Check for active Kiro specs
+    spec_dirs = glob_pattern(".kiro/specs/*")
+    if spec_dirs:
+        # Use the most recently modified spec
+        latest_spec = max(spec_dirs, key=lambda p: os.path.getmtime(p) if os.path.exists(p) else 0)
+        project_id = os.path.basename(latest_spec)
+        return project_id
+    
+    # No project detected
+    return None
 
 def load_workflow_definition(workflow_path):
     """Load and validate workflow definition"""
