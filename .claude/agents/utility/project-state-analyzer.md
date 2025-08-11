@@ -16,11 +16,11 @@ This agent provides comprehensive analysis of current CC-Deck Workflow Engine ex
 
 ### 🔍 CC-Deck Workflow Engine State Analysis with Smart Context Integration
 
-- **Active Workflows**: Check `.cc-deck/context/active/` for ongoing workflow execution states
-- **Smart Context Loading**: Load existing Smart Context from `.cc-deck/runtime/context/` to avoid redundant analysis
+- **Active Workflows**: Check `.cc-deck/runtime/global/context/active/` for ongoing workflow execution states
+- **Smart Context Loading**: Load existing Smart Context from `.cc-deck/runtime/global/context/` to avoid redundant analysis
 - **Workflow Definitions**: Analyze `.cc-deck/config/workflows/` YAML definitions and dynamic configurations
 - **Context-Aware Analysis**: Use Smart Context to build upon previous insights and cached project analysis
-- **Dynamic Agent Configurations**: Detect generated MCP SubAgents in `.cc-deck/config/workflows/dynamic/`
+- **Dynamic Agent Configurations**: Detect generated MCP SubAgents in `.cc-deck/runtime/projects/`
 
 ### 📋 Workflow Execution Tracking
 
@@ -51,7 +51,7 @@ CC-Deck Workflow Engine State Analysis Protocol with Smart Context:
     - Gracefully fallback to standard analysis if Smart Context unavailable
     
   1. Active Workflow Detection:
-    - Scan .cc-deck/context/active/ for ongoing workflow execution states
+    - Scan .cc-deck/runtime/global/context/active/ for ongoing workflow execution states
     - Parse workflow context files: {workflow}-{feature}.json format
     - Identify current phase, step, and execution status
     - Detect workflow interruption points and available recovery options
@@ -59,7 +59,7 @@ CC-Deck Workflow Engine State Analysis Protocol with Smart Context:
   1. Workflow Definition Analysis:
     - Load corresponding workflow YAML from .cc-deck/config/workflows/
     - Validate workflow structure and phase dependencies
-    - Check for dynamic configurations in .cc-deck/config/workflows/dynamic/
+    - Check for dynamic configurations in .cc-deck/runtime/projects/
     - Assess generated MCP SubAgent availability and integration status
 
   2. Smart Context Validation:
@@ -75,7 +75,7 @@ CC-Deck Workflow Engine State Analysis Protocol with Smart Context:
     - Identify next executable tasks based on dependencies
 
   4. Checkpoint and Recovery Analysis:
-    - Check .cc-deck/checkpoints/ for recovery points
+    - Check .cc-deck/runtime/global/checkpoints/ for recovery points
     - Validate checkpoint data integrity and currency
     - Assess rollback options and safe continuation points
     - Determine recovery strategy based on failure point
@@ -113,11 +113,11 @@ When invoked, execute these specific analysis steps:
 
 ```bash
 # CC-Deck Workflow Engine state analysis
-- Glob('.cc-deck/context/active/*') → Active workflow execution states
+- Glob('.cc-deck/runtime/global/context/active/*') → Active workflow execution states
 - Glob('.cc-deck/config/workflows/*.yaml') → Available workflow definitions
-- Glob('.cc-deck/config/workflows/dynamic/*') → Dynamic agent configurations
-- Read('.cc-deck/context/active/{workflow}-{feature}.json') → Workflow state data
-- LS('.cc-deck/checkpoints/') → Available recovery checkpoints
+- Glob('.cc-deck/runtime/projects/*') → Dynamic agent configurations
+- Read('.cc-deck/runtime/global/context/active/{workflow}-{feature}.json') → Workflow state data
+- LS('.cc-deck/runtime/global/checkpoints/') → Available recovery checkpoints
 ```
 
 2. **Task Progress Deep Analysis**
@@ -125,7 +125,7 @@ When invoked, execute these specific analysis steps:
 ```python
 # CC-Deck workflow state analysis logic
 def analyze_workflow_execution_state():
-    active_workflows = glob_pattern('.cc-deck/context/active/*')
+    active_workflows = glob_pattern('.cc-deck/runtime/global/context/active/*')
     for workflow_context_file in active_workflows:
         workflow_context = parse_json(workflow_context_file)
         current_phase = workflow_context['current_state']['phase']
@@ -184,6 +184,42 @@ This agent provides structured analysis in the following format:
 Resume Command: /orchestrator "resume [workflow-name] [feature-name]"
 Required Context: [context-requirements]
 Estimated Duration: [time-estimate]
+
+❓ Interactive Workflow Selection:
+Which workflow would you like to execute?
+
+[1] [PRIMARY-WORKFLOW] (Recommended) - [clear rationale]
+[2] [ALTERNATIVE-1] - [when to choose this option] 
+[3] [ALTERNATIVE-2] - [when to choose this option]
+[4] [ALTERNATIVE-3] - [when to choose this option]
+
+Please select 1-4:
+```
+
+## 🎯 Critical Formatting Guidelines
+
+**IMPORTANT**: When presenting Interactive Workflow Selection options, ensure:
+
+1. **Each option on separate line**: Never concatenate options like "[1] Option1[2] Option2"
+2. **Clear spacing**: Use line breaks between each [N] option for readability  
+3. **Consistent numbering**: Always use [1], [2], [3], [4] format
+4. **Descriptive labels**: Include both workflow name and brief rationale
+5. **User-friendly prompt**: End with clear "Please select 1-X:" instruction
+
+**Example of CORRECT formatting:**
+```
+❓ Which workflow would you like to execute?
+
+[1] DEV-ENV-SETUP (Recommended) - Configure development environment
+[2] CODING - Begin TDD-driven implementation  
+[3] KIRO-SDD - Review existing specifications
+
+Please select 1-3:
+```
+
+**Example of INCORRECT formatting:**
+```
+[1] DEV-ENV-SETUP (Recommended)[2] CODING - Begin TDD[3] KIRO-SDD
 ```
 
 ## Usage Guidelines
@@ -216,7 +252,7 @@ This agent is the primary state detection component called by:
 
 ```bash
 # Analyze CC-Deck workflow execution state
-.cc-deck/context/active/
+.cc-deck/runtime/global/context/active/
 ├── {workflow}-{feature}.json     # Active workflow states
 ├── checkpoint-references.json    # Recovery point metadata
 └── execution-history.json        # Workflow execution logs
@@ -230,7 +266,7 @@ This agent is the primary state detection component called by:
     └── agents/                  # Generated MCP SubAgents
 
 # Check recovery and checkpoint data
-.cc-deck/checkpoints/
+.cc-deck/runtime/global/checkpoints/
 ├── {workflow}-{phase}-checkpoint.json
 └── recovery-metadata.json
 ```
@@ -267,14 +303,14 @@ Bash("node .cc-deck/src/cli/smart-context-cli.js load --project-id=$(basename $(
 # Step 3: Check for active workflow execution states
 Glob('.cc-deck/runtime/global/context/active/*') # Active workflow contexts
 Glob('.cc-deck/config/workflows/base/*.yaml') # Available workflow definitions
-LS('.cc-deck/config/workflows/dynamic/') # Dynamic agent configurations
+LS('.cc-deck/runtime/projects/') # Dynamic agent configurations
 ```
 
 ### Phase 2: Detailed Workflow Analysis
 
 ```bash
 # Step 2: Analyze each active workflow context
-for each_workflow in .cc-deck/context/active/*:
+for each_workflow in .cc-deck/runtime/global/context/active/*:
     Read('${each_workflow}')                         # Workflow execution state
     workflow_name = extract_workflow_name(each_workflow)
     Read('.cc-deck/config/workflows/${workflow_name}.yaml') # Workflow definition

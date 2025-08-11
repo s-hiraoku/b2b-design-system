@@ -40,13 +40,15 @@ agent_name: "vercel-agent"
 Create proper directory structure:
 
 ```bash
-.cc-deck/config/workflows/dynamic/{project_id}/
-├── extensions/                    # For workflow extensions
-├── generated/                     # For merged configurations (later)
-└── agents/                       # For generated SubAgents ← CREATE HERE
-    ├── {project_id}-vercel-agent.md
-    ├── {project_id}-nextjs-optimizer.md
-    └── {project_id}-tailwind-helper.md
+.cc-deck/runtime/projects/{project_id}/
+├── extensions/                    # For workflow extensions (Git tracked)
+├── agents/                       # For generated SubAgents ← CREATE HERE (Git tracked)
+│   ├── {project_id}-vercel-agent.md
+│   ├── {project_id}-nextjs-optimizer.md
+│   └── {project_id}-tailwind-helper.md
+├── workflows/generated/          # For merged configurations (Git ignored)
+├── context/                      # For runtime context data (Git ignored)
+└── logs/                         # For execution logs (Git ignored)
 ```
 
 ## Agent Generation Process
@@ -213,26 +215,26 @@ generation_date: "2025-08-10"
 
 generated_agents:
   - name: "liquid-glass-blog-vercel-agent"
-    file_path: ".cc-deck/config/workflows/dynamic/liquid-glass-blog/agents/liquid-glass-blog-vercel-agent.md"
+    file_path: ".cc-deck/runtime/projects/liquid-glass-blog/agents/liquid-glass-blog-vercel-agent.md"
     purpose: "Vercel deployment optimization"
     mcp_integrations: ["vercel"]
     priority: "high"
     
   - name: "liquid-glass-blog-nextjs-optimizer"  
-    file_path: ".cc-deck/config/workflows/dynamic/liquid-glass-blog/agents/liquid-glass-blog-nextjs-optimizer.md"
+    file_path: ".cc-deck/runtime/projects/liquid-glass-blog/agents/liquid-glass-blog-nextjs-optimizer.md"
     purpose: "Next.js performance optimization"
     mcp_integrations: ["context7"]
     priority: "high"
     
   - name: "liquid-glass-blog-tailwind-helper"
-    file_path: ".cc-deck/config/workflows/dynamic/liquid-glass-blog/agents/liquid-glass-blog-tailwind-helper.md"
+    file_path: ".cc-deck/runtime/projects/liquid-glass-blog/agents/liquid-glass-blog-tailwind-helper.md"
     purpose: "Tailwind CSS optimization"
     mcp_integrations: ["context7"]
     priority: "medium"
 
 directory_structure:
   created_directories:
-    - ".cc-deck/config/workflows/dynamic/liquid-glass-blog/agents/"
+    - ".cc-deck/runtime/projects/liquid-glass-blog/agents/"
     
   files_created: 3
   total_agents_generated: 3

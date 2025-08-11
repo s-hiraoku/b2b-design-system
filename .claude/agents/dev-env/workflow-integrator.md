@@ -18,7 +18,7 @@ Take generated MCP agents from `agent-generator` and create the necessary workfl
 Create extension files that add generated agents to workflows:
 
 ```yaml
-# .cc-deck/config/workflows/dynamic/{project_id}/extensions/coding-extension.yaml
+# .cc-deck/runtime/projects/{project_id}/extensions/coding-extension.yaml
 project_id: "{project_id}"
 base_workflow: "coding"
 
@@ -43,13 +43,13 @@ Create merged workflow configurations by combining base workflow with extensions
 Ensure proper directory structure:
 
 ```bash
-.cc-deck/config/workflows/dynamic/{project_id}/
-├── extensions/
+.cc-deck/runtime/projects/{project_id}/
+├── extensions/                   # Git tracked - project customizations
 │   └── coding-extension.yaml     # Extension config (CREATE)
-├── generated/  
-│   └── coding-merged.yaml        # Merged workflow (CREATE)
-└── agents/
-    └── {existing generated agents from agent-generator}
+├── agents/                      # Git tracked - generated MCP agents
+│   └── {existing generated agents from agent-generator}
+└── workflows/generated/         # Git ignored - runtime merged configs  
+    └── coding-merged.yaml        # Merged workflow (CREATE)
 ```
 
 ## Integration Process
@@ -154,9 +154,9 @@ metadata:
 ### Directory Creation Logic
 ```bash
 # Ensure directory structure exists
-1. Check if .cc-deck/config/workflows/dynamic/{project_id}/ exists
+1. Check if .cc-deck/runtime/projects/{project_id}/ exists
 2. Create extensions/ subdirectory if needed
-3. Create generated/ subdirectory if needed
+3. Create workflows/generated/ subdirectory if needed
 4. Validate agents/ subdirectory exists (from agent-generator)
 ```
 
@@ -190,11 +190,11 @@ project_id: "liquid-glass-blog"
 integration_date: "2025-08-10"
 
 created_files:
-  - path: ".cc-deck/config/workflows/dynamic/liquid-glass-blog/extensions/coding-extension.yaml"
+  - path: ".cc-deck/runtime/projects/liquid-glass-blog/extensions/coding-extension.yaml"
     type: "extension_configuration"
     purpose: "Define agent additions to base workflow"
     
-  - path: ".cc-deck/config/workflows/dynamic/liquid-glass-blog/generated/coding-merged.yaml"
+  - path: ".cc-deck/runtime/projects/liquid-glass-blog/workflows/generated/coding-merged.yaml"
     type: "merged_workflow"
     purpose: "Complete workflow with integrated agents"
 

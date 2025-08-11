@@ -28,14 +28,14 @@ This command initiates and manages the enterprise coding workflow, which transfo
 
 **Dynamic Configuration**: This command automatically detects and loads project-specific merged workflow configurations:
 
-1. **First Priority**: `.cc-deck/config/workflows/dynamic/{project-id}/generated/coding-merged.yaml`
+1. **First Priority**: `.cc-deck/runtime/projects/{project-id}/workflows/generated/coding-merged.yaml`
 2. **Fallback**: `.cc-deck/config/workflows/coding.yaml`
 
 ### Automatic Project Detection:
 
 The command detects the current project context using:
 
-- Dynamic workflow directories (`.cc-deck/config/workflows/dynamic/*`)
+- Dynamic workflow directories (`.cc-deck/runtime/projects/*`)
 - Active projects (`projects/*`)
 - Kiro specifications (`.kiro/specs/*`)
 
@@ -116,7 +116,7 @@ def load_coding_workflow():
     project_id = detect_project_id()
 
     if project_id:
-        merged_path = f".cc-deck/config/workflows/dynamic/{project_id}/generated/coding-merged.yaml"
+        merged_path = f".cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml"
         if file_exists(merged_path):
             print(f"🎯 Using project-specific coding workflow: {merged_path}")
             return load_workflow_from_yaml(merged_path)

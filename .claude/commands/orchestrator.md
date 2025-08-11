@@ -145,7 +145,7 @@ Ready to [next action]?
 
 ### Context Preservation:
 
-- **Smart Context**: Active cross-workflow state sharing via `.cc-deck/context/`
+- **Smart Context**: Active cross-workflow state sharing via `.cc-deck/runtime/global/context/`
   - Project state persistence and analysis caching
   - Workflow history and transition tracking  
   - Agent memory and cross-agent communication

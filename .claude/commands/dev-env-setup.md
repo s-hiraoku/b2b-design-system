@@ -91,7 +91,7 @@ The Development Environment Setup workflow bridges the gap between specification
 - **Agent**: agent-generator
 - **Purpose**: Generate approved MCP SubAgents with proper CC-Deck integration
 - **Naming Convention**: `{project_id}-{agent_purpose}`
-- **Output Directory**: `.cc-deck/config/workflows/dynamic/{project_id}/agents/`
+- **Output Directory**: `.cc-deck/runtime/projects/{project_id}/agents/`
 
 ### Phase 5: Workflow Integration
 
@@ -137,7 +137,7 @@ The Development Environment Setup workflow bridges the gap between specification
 
 ```bash
 # For Next.js + Vercel + Supabase project
-.cc-deck/config/workflows/dynamic/my-project/agents/
+.cc-deck/runtime/projects/my-project/agents/
 ├── my-project-vercel-agent.md          # Deployment optimization
 ├── my-project-nextjs-optimizer.md      # App Router performance
 ├── my-project-supabase-helper.md       # Database integration
@@ -147,10 +147,10 @@ The Development Environment Setup workflow bridges the gap between specification
 ### Workflow Integration Files
 
 ```bash
-.cc-deck/config/workflows/dynamic/my-project/
+.cc-deck/runtime/projects/my-project/
 ├── extensions/
 │   └── coding-extension.yaml           # Extension configuration
-└── generated/
+└── workflows/generated/
     └── coding-merged.yaml              # Enhanced Coding workflow
 ```
 
@@ -283,7 +283,7 @@ Scanning for active Kiro SDD projects...
 **DYNAMIC DIRECTORY STRUCTURE CREATED**
 
 ```
-.cc-deck/config/workflows/dynamic/liquid-glass-tech-blog/
+.cc-deck/runtime/projects/liquid-glass-tech-blog/
 ├── context/          # Smart Context for cross-phase communication
 ├── extensions/       # Workflow extension configurations
 ├── generated/        # Merged workflow configurations
@@ -294,7 +294,7 @@ Scanning for active Kiro SDD projects...
 
 - Project ID: `liquid-glass-tech-blog`
 - Workflow: `dev-env-setup-workflow v1.0.0`
-- Context file: Created at `.cc-deck/config/workflows/dynamic/liquid-glass-tech-blog/context/smart_context.json`
+- Context file: Created at `.cc-deck/runtime/projects/liquid-glass-tech-blog/context/smart_context.json`
 
 ### Step 2: Sequential Phase Execution
 
@@ -347,14 +347,14 @@ Once user approval is received, the workflow will automatically proceed with:
 # Will execute when user approves
 Task: Create project-specific MCP SubAgents with agent-generator
 Input: approved_mcp_agents + project_analysis + technology_stack
-Output: Generated agent files in .cc-deck/config/workflows/dynamic/liquid-glass-tech-blog/agents/
+Output: Generated agent files in .cc-deck/runtime/projects/liquid-glass-tech-blog/agents/
 ```
 
 **Expected Generated Files:**
 
 - Project-specific MCP agents based on dynamic research results
 - Naming convention: `{project_id}-{agent_purpose}.md`
-- Generated in `.cc-deck/config/workflows/dynamic/{project_id}/agents/`
+- Generated in `.cc-deck/runtime/projects/{project_id}/agents/`
 
 #### **🔗 PHASE 5: WORKFLOW INTEGRATION**
 
@@ -367,8 +367,8 @@ Output: Extension config + Merged workflow in extensions/ and generated/ directo
 
 **Expected Integration Files:**
 
-- `.cc-deck/config/workflows/dynamic/liquid-glass-tech-blog/extensions/coding-extension.yaml`
-- `.cc-deck/config/workflows/dynamic/liquid-glass-tech-blog/generated/coding-merged.yaml`
+- `.cc-deck/runtime/projects/liquid-glass-tech-blog/extensions/coding-extension.yaml`
+- `.cc-deck/runtime/projects/liquid-glass-tech-blog/workflows/generated/coding-merged.yaml`
 
 #### **✅ PHASE 6: HUMAN APPROVAL (FINAL)**
 
@@ -381,7 +381,7 @@ Decision: Final approval before proceeding to enhanced Coding workflow
 
 **WORKFLOW STATE TRACKING:**
 
-- Smart Context: `.cc-deck/config/workflows/dynamic/liquid-glass-tech-blog/context/smart_context.json`
+- Smart Context: `.cc-deck/runtime/projects/liquid-glass-tech-blog/context/smart_context.json`
 - Phase Progress: Automatically updated as phases complete
 - Error Recovery: Built-in retry and fallback mechanisms
 - Quality Gates: Validation at each phase transition
@@ -422,7 +422,7 @@ I'll now implement the live workflow execution engine to make this command actua
 **✅ DYNAMIC DIRECTORY STRUCTURE CREATED**
 
 ```bash
-.cc-deck/config/workflows/dynamic/liquid-glass-tech-blog/
+.cc-deck/runtime/projects/liquid-glass-tech-blog/
 ├── context/           # Smart Context JSON files ✅
 │   └── smart_context.json
 ├── extensions/        # Workflow extension configs (pending)
@@ -438,7 +438,7 @@ I'll now implement the live workflow execution engine to make this command actua
 
 **✅ SMART CONTEXT INITIALIZED**
 
-- Context File: `.cc-deck/config/workflows/dynamic/liquid-glass-tech-blog/context/smart_context.json`
+- Context File: `.cc-deck/runtime/projects/liquid-glass-tech-blog/context/smart_context.json`
 - Phase Progress: spec_analysis ✅, mcp_recommendation ✅, user_approval ⏳
 - Technology Stack: Extracted and validated
 
@@ -491,7 +491,7 @@ The workflow engine is now fully functional with the following components:
 4. **Dynamic Directory Creation**
    ```bash
    # Created project-specific structure
-   mkdir -p .cc-deck/config/workflows/dynamic/liquid-glass-tech-blog/{context,extensions,generated,agents}
+   mkdir -p .cc-deck/runtime/projects/liquid-glass-tech-blog/{context,extensions,workflows/generated,agents}
    ```
 
 ### 🚀 Ready for Execution: Phase 4-6
@@ -512,7 +512,7 @@ Task({
   },
   outputs: {
     directory:
-      ".cc-deck/config/workflows/dynamic/liquid-glass-tech-blog/agents/",
+      ".cc-deck/runtime/projects/liquid-glass-tech-blog/agents/",
     files: ["liquid-glass-tech-blog-vercel-agent.md", "..."],
   },
 });
