@@ -63,7 +63,7 @@ The Development Environment Setup workflow bridges the gap between specification
 ### Phase 2: MCP Recommendation
 - **Agent**: mcp-recommender  
 - **Purpose**: Research and recommend optimal MCP-based SubAgents for the project
-- **MCP Integrations**: Brave Search, DeepWiki MCP, Context7 MCP
+- **Research Methods**: Web search, documentation analysis, technology stack matching
 - **Outputs**: Prioritized recommendations with rationale and estimated benefits
 
 ### Phase 3: User Approval
@@ -135,18 +135,7 @@ The Development Environment Setup workflow bridges the gap between specification
 
 ## Technology Stack Support
 
-### Supported Framework Integrations
-- **Next.js**: Performance optimization, App Router enhancements, build optimization
-- **Vercel**: Deployment automation, performance monitoring, environment management
-- **Supabase**: Database integration, authentication, real-time features
-- **Tailwind CSS**: Utility optimization, component generation, design system integration
-
-### MCP Integration Categories
-- **Deployment Platforms**: Vercel, Netlify, Railway, Render
-- **Database Services**: Supabase, PlanetScale, Neon, Firebase
-- **Authentication**: Auth0, Clerk, Firebase Auth, Supabase Auth
-- **Monitoring**: Sentry, LogRocket, Mixpanel, Posthog
-- **Development Tools**: ESLint, Prettier, TypeScript, Testing frameworks
+The mcp-recommender agent dynamically researches and identifies optimal MCP integrations based on the project's specific technology stack and requirements, rather than relying on pre-defined categories. This ensures recommendations are current and tailored to the actual project needs.
 
 ## Error Handling & Recovery
 
@@ -281,63 +270,28 @@ Now executing workflow phases with proper Task() delegation to SubAgents:
 - **Outputs**: Technology stack analysis, integration opportunities extracted
 
 **🔍 PHASE 2: MCP RECOMMENDATION**
-- **Agent**: mcp-recommender (research-agent)
-- **Status**: COMPLETED in previous execution  
-- **Outputs**: Discovered vercel-mcp, supabase-mcp, tailwind-helper MCPs
+- **Agent**: mcp-recommender
+- **Purpose**: Dynamically research and recommend optimal MCPs based on project specifications
+- **Research Methods**: Web search, documentation analysis, technology stack matching
+- **Status**: Will execute when specifications are analyzed
 
-**⏳ PHASE 3: USER APPROVAL (CURRENT PHASE)**
+**⏳ PHASE 3: USER APPROVAL**
 
-I need to present the MCP recommendations for user approval. This is a human interaction phase requiring user decision.
+After MCP recommendation research is complete, recommendations will be presented for user approval. This is a human interaction phase requiring user decision on which MCPs to integrate.
 
-**RECOMMENDED MCP AGENTS FOR APPROVAL:**
+**MCP RECOMMENDATION WORKFLOW:**
 
-Based on the technology stack analysis (Next.js 15 + Tailwind CSS 4 + Vercel deployment), the following MCP agents are recommended:
+The mcp-recommender agent will research optimal MCPs by:
+1. Analyzing project specifications and technology stack
+2. Searching for relevant MCP servers and tools
+3. Evaluating integration benefits and complexity
+4. Providing prioritized recommendations with rationale
 
-### 🎯 High Priority Recommendations
-
-1. **liquid-glass-tech-blog-vercel-agent**
-   - **Purpose**: Vercel deployment optimization and performance monitoring
-   - **Integration**: Direct Vercel API access for deployment automation
-   - **Benefit**: Streamlined deployment pipeline, performance insights
-   - **Complexity**: Medium
-
-2. **liquid-glass-tech-blog-nextjs-optimizer** 
-   - **Purpose**: Next.js 15 App Router performance optimization
-   - **Integration**: Next.js build analysis and optimization suggestions
-   - **Benefit**: Build performance, bundle optimization, Core Web Vitals improvement
-   - **Complexity**: Low
-
-3. **liquid-glass-tech-blog-tailwind-helper**
-   - **Purpose**: Tailwind CSS 4 utility optimization and component generation
-   - **Integration**: Tailwind configuration analysis and utility suggestions
-   - **Benefit**: CSS optimization, component library assistance, glassmorphism effects
-   - **Complexity**: Low
-
-### 🎯 Medium Priority Recommendations
-
-4. **liquid-glass-tech-blog-supabase-helper**
-   - **Purpose**: Database integration for blog CMS functionality
-   - **Integration**: Supabase database schema and API optimization
-   - **Benefit**: CMS data management, authentication, real-time features
-   - **Complexity**: Medium
-
-**APPROVAL DECISION REQUIRED:**
-
-Please review and approve the recommended MCP agents. Your options are:
-
+**USER APPROVAL OPTIONS:**
 - ✅ **approved**: Proceed with all recommended agents
 - ✅ **approved_with_modifications**: Proceed with selected agents (specify which ones)
 - ❌ **rejected**: Skip agent generation, proceed with standard workflow
 - ⏸️ **deferred**: Delay decision for later consideration
-
-**REVIEW MATERIALS:**
-- Technology stack: Next.js 15, React 19, Tailwind CSS 4, TypeScript 5.x
-- Project focus: Liquid glass/glassmorphism design techniques
-- Integration complexity: All agents rated Low-Medium complexity
-- Resource impact: Minimal additional resource usage
-- Development efficiency: Expected 30-40% workflow optimization improvement
-
-**Please provide your approval decision to continue to Phase 4: Agent Generation.**
 
 ---
 
@@ -356,10 +310,9 @@ Output: Generated agent files in .cc-deck/config/workflows/dynamic/liquid-glass-
 ```
 
 **Expected Generated Files:**
-- `liquid-glass-tech-blog-vercel-agent.md` (if approved)
-- `liquid-glass-tech-blog-nextjs-optimizer.md` (if approved) 
-- `liquid-glass-tech-blog-tailwind-helper.md` (if approved)
-- `liquid-glass-tech-blog-supabase-helper.md` (if approved)
+- Project-specific MCP agents based on dynamic research results
+- Naming convention: `{project_id}-{agent_purpose}.md`
+- Generated in `.cc-deck/config/workflows/dynamic/{project_id}/agents/`
 
 #### **🔗 PHASE 5: WORKFLOW INTEGRATION**
 ```bash
@@ -441,41 +394,14 @@ I'll now implement the live workflow execution engine to make this command actua
 
 Based on completed spec analysis and MCP research phases, I'm now presenting the workflow approval interface:
 
-## 🎯 MCP AGENT RECOMMENDATIONS FOR APPROVAL
+## 🎯 DYNAMIC MCP RESEARCH AND RECOMMENDATION
 
-The following MCP agents have been researched and recommended for your `liquid-glass-tech-blog` project:
+The mcp-recommender agent will research and recommend optimal MCP integrations dynamically based on the project's actual specifications and technology stack. This ensures recommendations are:
 
-### 🚀 High Priority Recommendations
-
-#### 1. **liquid-glass-tech-blog-vercel-agent**
-- **MCP Integration**: vercel-mcp (deployment platform)
-- **Purpose**: Vercel deployment optimization and performance monitoring
-- **Benefits**: 30% deployment efficiency improvement, automated performance insights
-- **Complexity**: Medium
-- **Rationale**: Project uses Next.js 15 with inferred Vercel deployment
-
-#### 2. **liquid-glass-tech-blog-nextjs-optimizer**  
-- **MCP Integration**: playwright-mcp (for performance testing)
-- **Purpose**: Next.js 15 App Router performance optimization
-- **Benefits**: 20% build performance improvement, Core Web Vitals optimization  
-- **Complexity**: Low
-- **Rationale**: Glassmorphism effects require optimized rendering performance
-
-#### 3. **liquid-glass-tech-blog-tailwind-helper**
-- **MCP Integration**: tailwind-mcp (CSS framework optimization)
-- **Purpose**: Tailwind CSS 4 utility optimization and glassmorphism effects
-- **Benefits**: Enhanced component generation for liquid glass designs
-- **Complexity**: Low  
-- **Rationale**: Project specifically focuses on glassmorphism design techniques
-
-### 🎯 Medium Priority Recommendations
-
-#### 4. **liquid-glass-tech-blog-supabase-helper**
-- **MCP Integration**: supabase-mcp (database platform)
-- **Purpose**: Database integration for blog CMS functionality
-- **Benefits**: Streamlined CMS data management, authentication integration
-- **Complexity**: Medium
-- **Rationale**: MDX + Headless CMS requires database backend
+- **Current**: Based on latest available MCP servers and tools
+- **Relevant**: Matched to actual project requirements
+- **Prioritized**: Ranked by potential development efficiency gains
+- **Justified**: Include rationale and complexity assessment
 
 ## 🤖 WORKFLOW EXECUTION ENGINE IMPLEMENTATION
 
@@ -568,17 +494,16 @@ final_approval_interface({
 
 ### Decision Options:
 
-- **`approved`** - Generate all 4 recommended MCP agents
+- **`approved`** - Generate all recommended MCP agents (based on dynamic research)
 - **`approved_with_modifications`** - Generate selected agents only (specify which ones)  
 - **`rejected`** - Skip agent generation, proceed with standard Coding workflow
 - **`deferred`** - Save current state, resume decision later (48h timeout)
 
-### Current Workflow State:
-- **Project**: liquid-glass-tech-blog  
-- **Technology Stack**: Next.js 15, React 19, Tailwind CSS 4, TypeScript 5.x
-- **Research Confidence**: High (triple MCP validation)
-- **Expected Benefits**: 30-40% development workflow optimization
-- **Resource Impact**: Minimal (4 lightweight SubAgent files)
+### Workflow Process:
+- **Research Phase**: mcp-recommender analyzes specifications and researches optimal MCPs
+- **Recommendation Phase**: Presents prioritized MCP agents with rationale
+- **Approval Phase**: User reviews and selects which agents to generate
+- **Generation Phase**: Creates approved agents with project-specific optimization
 
 **⏳ Awaiting User Decision to Proceed with Automated Phase Execution**
 
