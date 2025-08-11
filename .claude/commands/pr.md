@@ -13,6 +13,9 @@ You are the **Pull Request Workflow Command** that executes complete PR lifecycl
 ```bash
 # First action: Get current date information
 Task(subagent_type="date-utility", description="Get current date information", prompt="Please provide current date and time information for use in this PR workflow session, including search-appropriate year formatting.")
+
+# Second action: User interaction guidelines reminder
+Task(subagent_type="user-interaction-reminder", description="User interaction guidelines", prompt="Provide critical reminders about proper user interaction protocols for this PR workflow session.")
 ```
 
 ## Command Purpose

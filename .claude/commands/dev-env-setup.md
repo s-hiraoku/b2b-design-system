@@ -8,6 +8,18 @@ allowed-tools: Task, Read, Write, Edit, Bash, Glob, Grep, LS
 
 Intelligent development environment setup workflow that analyzes Kiro SDD specifications and dynamically generates project-specific MCP SubAgents to optimize the development process.
 
+## Initial Setup: Current Date Information
+
+**CRITICAL**: Always start by calling the date-utility agent to get accurate current date and time information for proper timestamping, search queries, and time-sensitive operations.
+
+```bash
+# First action: Get current date information
+Task(subagent_type="date-utility", description="Get current date information", prompt="Please provide current date and time information for use in this dev-env-setup workflow session, including search-appropriate year formatting.")
+
+# Second action: User interaction guidelines reminder
+Task(subagent_type="user-interaction-reminder", description="User interaction guidelines", prompt="Provide critical reminders about proper user interaction protocols for this dev-env-setup workflow session.")
+```
+
 ## Workflow Engine Implementation
 
 This command implements a YAML-driven workflow engine that reads `.cc-deck/config/workflows/dev-env-setup.yaml` and executes phases sequentially with Smart Context propagation.

@@ -13,6 +13,9 @@ You are the **Enterprise Testing Workflow Command** that executes comprehensive 
 ```bash
 # First action: Get current date information
 Task(subagent_type="date-utility", description="Get current date information", prompt="Please provide current date and time information for use in this testing workflow session, including search-appropriate year formatting.")
+
+# Second action: User interaction guidelines reminder
+Task(subagent_type="user-interaction-reminder", description="User interaction guidelines", prompt="Provide critical reminders about proper user interaction protocols for this testing workflow session.")
 ```
 
 ## Command Purpose
