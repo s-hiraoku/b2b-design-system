@@ -20,6 +20,9 @@ Task(subagent_type="date-utility", description="Get current date information", p
 Task(subagent_type="user-interaction-reminder", description="User interaction guidelines", prompt="Provide critical reminders about proper user interaction protocols for this dev-env-setup workflow session.")
 ```
 
+# Third action: Comprehensive project state analysis
+Task(subagent_type="project-state-analyzer", description="Project state analysis", prompt="Perform comprehensive project state analysis including Kiro specs status, implementation progress, task completion, and workflow recommendations for this dev-env-setup workflow session.")
+
 ## Workflow Engine Implementation
 
 This command implements a YAML-driven workflow engine that reads `.cc-deck/config/workflows/dev-env-setup.yaml` and executes phases sequentially with Smart Context propagation.

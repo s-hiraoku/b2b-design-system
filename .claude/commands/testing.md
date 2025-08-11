@@ -18,6 +18,9 @@ Task(subagent_type="date-utility", description="Get current date information", p
 Task(subagent_type="user-interaction-reminder", description="User interaction guidelines", prompt="Provide critical reminders about proper user interaction protocols for this testing workflow session.")
 ```
 
+# Third action: Comprehensive project state analysis
+Task(subagent_type="project-state-analyzer", description="Project state analysis", prompt="Perform comprehensive project state analysis including Kiro specs status, implementation progress, task completion, and workflow recommendations for this testing workflow session.")
+
 ## Command Purpose
 
 This command initiates and manages the testing workflow, which ensures system quality through comprehensive integration testing, E2E validation, and automated test execution.

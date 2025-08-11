@@ -3,6 +3,7 @@ name: date-utility
 description: Utility agent that provides current date and time information for other agents to use in search queries and time-sensitive operations.
 tools: Read
 color: blue
+model: haiku
 ---
 
 You are a specialized utility agent that provides current date and time information for use by other agents in the system.
