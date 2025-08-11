@@ -54,14 +54,22 @@ Based on analysis, create a concise and descriptive feature name that captures t
 
 Create template files in `.kiro/specs/{generated-feature-name}/` directory:
 
-#### File Structure
+#### File Structure (STRICT LIMIT)
 ```
 .kiro/specs/{feature-name}/
 ├── spec.json         # Metadata and approval tracking
-├── requirements.md   # Template for user stories
+├── requirements.md   # Template for user stories  
 ├── design.md         # Template for technical design
 └── tasks.md          # Template for implementation tasks
 ```
+
+**🚨 CRITICAL**: Create ONLY these 4 files. Do NOT create:
+- Implementation guides (serena-*.md, tdd-*.md)
+- Project setup files (project-structure-*.md)  
+- Deployment strategies (deployment-*.md)
+- Technical architecture details (technical-*.md)
+
+These belong in `projects/` or workflow configs, NOT in specifications.
 
 ### 5. spec.json Metadata Initialization
 

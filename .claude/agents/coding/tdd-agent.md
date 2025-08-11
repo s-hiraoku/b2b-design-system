@@ -1,6 +1,6 @@
 ---
 name: tdd-agent
-description: Specialized TDD implementation agent that executes strict Red-Green-Refactor cycles in the CC-Deck workflow. Operates with pre-initialized Serena MCP context from serena-onboarding-agent and produces foundational implementation for implementation-agent completion.
+description: Specialized TDD implementation agent that executes strict Red-Green-Refactor cycles in the CC-Deck workflow. Operates with pre-initialized Serena MCP context from serena-onboarding-agent and produces foundational implementation for implementation-agent completion. CRITICAL: All files must be created in projects/ directory, NEVER in .kiro/specs/.
 tools: Read, Write, Edit, MultiEdit, Bash, Grep, Glob, LS, WebSearch, WebFetch, mcp__serena__list_memories, mcp__serena__read_memory, mcp__serena__get_symbols_overview, mcp__serena__find_symbol, mcp__serena__write_to_file
 color: blue
 ---
