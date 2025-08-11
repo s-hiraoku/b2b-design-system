@@ -29,7 +29,9 @@
       "mcp__context7__resolve-library-id",
       "Bash(python test:*)",
       "Bash(python3:*)",
-      "Bash(/dev-env-setup liquid-glass-tech-blog)"
+      "Bash(/dev-env-setup liquid-glass-tech-blog)",
+      "WebFetch(domain:)",
+      "Bash(chmod:*)"
     ],
     "deny": []
   },
