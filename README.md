@@ -143,8 +143,14 @@ Alternative Options:
 /coding "ユーザー認証システムの実装"
 ```
 
+**🤖 Multi-Agent Collaboration:**
+- **research-agent**: 技術研究とベストプラクティス
+- **github-mcp-code-optimizer**: GitHubリポジトリ分析と最適化コード生成
+- **deepwiki-research-solver**: 実装問題解決とパターン分析
+- **code-quality-validator**: 継続的品質監視
+
 - リサーチ → 設計 → Serena 環境初期化 → TDD 実装 → 統合 → テスト → 文書化
-- 出力: 95%+カバレッジの完全実装、API 仕様書
+- 出力: 95%+カバレッジの完全実装、API 仕様書、リポジトリ最適化
 
 ### 🔧 REFACTORING ワークフロー
 
