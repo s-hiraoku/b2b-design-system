@@ -127,7 +127,7 @@ Kiro SDD完了後とCoding開始前の橋渡しフェーズ。プロジェクト
 
 **動的ディレクトリ構造:**
 ```bash
-.cc-deck/config/workflows/dynamic/{project_id}/
+.cc-deck/runtime/projects/{project_id}/
 ├── extensions/                    # 拡張設定
 │   └── coding-extension.yaml     # Codingワークフロー拡張
 ├── generated/                     # 統合設定
@@ -362,7 +362,7 @@ context_schema:
 ```
 
 ### Context 管理
-- **永続化**: `.cc-deck/context/{workflow}-{feature}.json`
+- **永続化**: `.cc-deck/runtime/global/context/{workflow}-{feature}.json`
 - **共有**: フェーズ間でのデータ受け渡し
 - **継承**: ワークフロー間でのコンテキスト継承
 
@@ -568,7 +568,7 @@ CC-Deck Workflow Engine のメインエントリーポイント：
 **Context ファイル破損**
 ```bash
 # Context ファイル再初期化
-rm .cc-deck/context/{workflow}-{feature}.json
+rm .cc-deck/runtime/global/context/{workflow}-{feature}.json
 /orchestrator "resume {feature}"
 ```
 

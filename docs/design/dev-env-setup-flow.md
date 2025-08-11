@@ -74,7 +74,7 @@ Instead of using only default MCP integrations (DeepWiki, Context7, Serena), the
 
 #### ✅ 4. Dynamic Agent Generation (agent-generator SubAgent)
 **Status**: Agent defined, execution engine missing
-- Create SubAgent files in `.cc-deck/config/workflows/dynamic/{project_id}/agents/`
+- Create SubAgent files in `.cc-deck/runtime/projects/{project_id}/agents/`
 - Generate with proper naming: `{project_id}-{agent_name}`
 - Include appropriate MCP tool integrations and usage patterns
 
@@ -95,10 +95,10 @@ Instead of using only default MCP integrations (DeepWiki, Context7, Serena), the
 
 ### Directory Layout
 ```bash
-.cc-deck/config/workflows/dynamic/{project_id}/
+.cc-deck/runtime/projects/{project_id}/
 ├── extensions/                    # Extension configs (manual/generated)
 │   └── coding-extension.yaml     # Coding workflow extensions
-├── generated/                     # Merged configs (auto-generated)
+├── workflows/generated/           # Merged configs (auto-generated)
 │   └── coding-merged.yaml        # Final workflow configuration
 └── agents/                       # Generated SubAgents
     ├── {project_id}-vercel-agent.md
@@ -258,7 +258,7 @@ phases:
 # Coding workflow reads merged configuration
 workflow_config_source: 
   - base: ".cc-deck/config/workflows/coding.yaml"
-  - dynamic: ".cc-deck/config/workflows/dynamic/{project_id}/generated/coding-merged.yaml"
+  - dynamic: ".cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml"
   - fallback: base_config_only
 ```
 

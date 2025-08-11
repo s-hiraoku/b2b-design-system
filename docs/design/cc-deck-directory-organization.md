@@ -369,11 +369,11 @@ mv .cc-deck/src/runtime/smart-context-cli.js .cc-deck/src/cli/ 2>/dev/null || ec
 
 # Phase 5: Move schemas (Source Code)
 echo "📁 Moving schemas..."
-mv .cc-deck/context/schemas/* .cc-deck/config/schemas/ 2>/dev/null || echo "No schemas to move"
+mv .cc-deck/runtime/global/context/schemas/* .cc-deck/config/schemas/ 2>/dev/null || echo "No schemas to move"
 
 # Phase 6: Handle dynamic project files with proper categorization
 echo "📁 Processing dynamic project files..."
-for project_dir in .cc-deck/config/workflows/dynamic/*/; do
+for project_dir in .cc-deck/runtime/projects/*/; do
     if [ -d "$project_dir" ]; then
         project_name=$(basename "$project_dir")
         target_dir=".cc-deck/runtime/projects/$project_name"
@@ -469,7 +469,7 @@ echo "5. Run validation tests"
 3. **Update schema paths**:
 
    ```javascript
-   OLD: ".cc-deck/context/schemas/context-schema.json";
+   OLD: ".cc-deck/runtime/global/context/schemas/context-schema.json";
    NEW: ".cc-deck/config/schemas/context-schema.json";
    ```
 

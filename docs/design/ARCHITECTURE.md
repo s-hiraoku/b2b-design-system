@@ -379,7 +379,7 @@ phases:
 
 **クロスエージェント状態共有とコンテキスト継承メカニズム**
 
-#### A. 統合状態管理 (.cc-deck/context/)
+#### A. 統合状態管理 (.cc-deck/runtime/global/context/)
 
 - **SmartContext**: 全エージェント共通参照可能な実行状態ストア
 - **ContextChain**: フェーズ間でのコンテキスト自動継承とバージョン管理
@@ -447,7 +447,7 @@ graph TD
 
 - **直接実行コマンド**: `/kiro-sdd`, `/coding`, `/refactoring`, `/testing`, `/pr`, `/acceptance`, `/orchestrator`, `/sync-status`
 - **インテリジェント統合**: `/orchestrator` による状態検出・自動ワークフロー選択
-- **Smart Context**: `.cc-deck/context/` クロスエージェント状態継承システム
+- **Smart Context**: `.cc-deck/runtime/global/context/` クロスエージェント状態継承システム
 - **Task連携**: `.kiro/specs/*/tasks.md` リアルタイム双方向同期
 - **品質保証**: 全フェーズでの人間承認・フィードバック統合
 

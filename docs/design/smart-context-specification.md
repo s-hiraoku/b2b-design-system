@@ -43,8 +43,8 @@ graph TB
     end
     
     subgraph "Storage Layer"
-        ContextFiles[.cc-deck/context/]
-        Checkpoints[.cc-deck/checkpoints/]
+        ContextFiles[.cc-deck/runtime/global/context/]
+        Checkpoints[.cc-deck/runtime/global/checkpoints/]
         WorkflowState[workflow-state.json]
     end
     
@@ -218,13 +218,13 @@ graph TB
         "agent_name": "user-auth-system-vercel-agent",
         "generated_at": "2024-08-11T11:30:00Z",
         "status": "active",
-        "file_path": ".cc-deck/config/workflows/dynamic/user-auth-system/agents/"
+        "file_path": ".cc-deck/runtime/projects/user-auth-system/agents/"
       }
     ]
   },
   "error_recovery": {
     "last_checkpoint": "2024-08-11T14:30:00Z",
-    "checkpoint_file": ".cc-deck/checkpoints/coding-phase3-checkpoint.json",
+    "checkpoint_file": ".cc-deck/runtime/global/checkpoints/coding-phase3-checkpoint.json",
     "recovery_points": []
   }
 }
@@ -257,7 +257,7 @@ graph TB
 ### Directory Structure
 
 ```
-.cc-deck/context/
+.cc-deck/runtime/global/context/
 ├── active/                          # Active workflow contexts
 │   ├── user-auth-system.json       # Current active context
 │   └── payment-system.json         # Another active context

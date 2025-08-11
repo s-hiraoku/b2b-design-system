@@ -54,6 +54,33 @@ When a project-specific merged workflow is found, it automatically uses enhanced
 2. **tdd-agent**: Strict Red-Green-Refactor cycle execution
 3. **implementation-agent**: TDD-foundation completion and optimization
 
+## Multi-Agent Collaboration
+
+### Supporting Agents in Full Implementation Phase
+
+The coding workflow leverages specialized supporting agents for comprehensive code optimization:
+
+- **research-agent**: Real-time technical research and best practices discovery
+- **deepwiki-research-solver**: Implementation problem solving and pattern analysis
+- **github-mcp-code-optimizer**: GitHub repository analysis and optimized code solutions based on existing codebase patterns
+- **code-quality-validator**: Continuous quality monitoring and validation
+
+### GitHub MCP Code Optimizer Integration
+
+The `github-mcp-code-optimizer` agent provides:
+
+- **Repository Analysis**: Deep understanding of existing codebase structure and patterns
+- **Context-Aware Solutions**: Code generation that seamlessly integrates with existing architecture
+- **Pattern Recognition**: Identification and adherence to established coding conventions
+- **Optimization Focus**: Performance, maintainability, and consistency improvements
+- **Quality Assurance**: Verification of compatibility and impact assessment
+
+This agent is automatically available during the full implementation phase and should be used when:
+- Adding new features to existing codebases
+- Optimizing existing code while maintaining consistency
+- Understanding and extending established patterns
+- Ensuring new implementations follow project conventions
+
 ## Workflow Execution
 
 ⚠️ **Enterprise Approval & Monitoring Required**

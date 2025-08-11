@@ -127,7 +127,7 @@ phases:
     inputs: [approved_mcp_agents, project_analysis]
     outputs: [generated_agents, agent_file_list]
     naming_convention: "{project_id}-{agent_purpose}"
-    directory: ".cc-deck/config/workflows/dynamic/{project_id}/agents/"
+    directory: ".cc-deck/runtime/projects/{project_id}/agents/"
     
   - name: workflow_integration
     agent: workflow-integrator
@@ -162,7 +162,7 @@ phases:
 **3. Dynamic Agent Generation**
 ```bash
 # 生成される動的ディレクトリ構造
-.cc-deck/config/workflows/dynamic/{project_id}/
+.cc-deck/runtime/projects/{project_id}/
 ├── extensions/                    # 拡張設定
 │   └── coding-extension.yaml     # Coding workflow拡張
 ├── generated/                     # 統合設定
@@ -255,6 +255,40 @@ implementation:
 3. **エージェント選択**: タスク内容に基づく適切なエージェントの選択
 4. **進捗更新**: タスク完了時のチェックボックス更新
 5. **状態同期**: Smart Contextへの結果反映
+
+### 4. Multi-Agent Collaboration
+
+#### Codingワークフローの支援エージェント
+
+```yaml
+# coding.yamlでの実装フェーズ設定
+full_implementation:
+  primary_agent: implementation-agent
+  supporting_agents:
+    - research-agent: "技術研究とベストプラクティス"
+    - deepwiki-research-solver: "実装問題の解決とパターン分析"
+    - github-mcp-code-optimizer: "GitHubリポジトリ分析と最適化されたコード生成"
+    - code-quality-validator: "継続的品質監視と検証"
+```
+
+#### GitHub MCP Code Optimizer
+
+新しく追加されたエージェントで、以下の機能を提供：
+
+- **リポジトリ分析**: 既存コードベースの構造とパターンの深い理解
+- **コンテキスト適応**: 既存アーキテクチャとの整合性を保ったコード生成
+- **パターン認識**: 確立されたコーディング規約の識別と遵守
+- **最適化提案**: パフォーマンス、保守性、一貫性の改善
+- **品質保証**: 互換性検証とインパクトアセスメント
+
+```mermaid
+graph LR
+    Implementation[implementation-agent] --> GitHub[github-mcp-code-optimizer]
+    GitHub --> Analysis[Repository Analysis]
+    Analysis --> CodeGen[Context-Aware Code Generation]
+    CodeGen --> Validation[Quality Verification]
+    Validation --> Implementation
+```
 
 ## 実装戦略
 
