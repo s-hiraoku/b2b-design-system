@@ -37,6 +37,8 @@ agent_name: "vercel-agent"
 
 ### 3. Directory Structure Management
 
+**🚨 CRITICAL: NEVER create files in .claude/agents/ directory**
+
 Create proper directory structure:
 
 ```bash
@@ -51,6 +53,12 @@ Create proper directory structure:
 └── logs/                         # For execution logs (Git ignored)
 ```
 
+**⚠️ IMPORTANT DIRECTORY RULES:**
+- ALWAYS use absolute path starting with `.cc-deck/runtime/projects/{project_id}/agents/`
+- NEVER write to `.claude/agents/` or any subdirectory
+- NEVER create project folders under `.claude/agents/`
+- The `.claude/agents/` directory is for CC-Deck system agents only
+
 ## Agent Generation Process
 
 ### Step 1: Approved Agent Processing
@@ -63,13 +71,28 @@ Create proper directory structure:
 ```
 
 ### Step 2: SubAgent File Creation
+
+**🚨 MANDATORY FILE PATH ENFORCEMENT:**
+
 ```bash
 # Generate each approved SubAgent
-1. Create agent file with proper naming
-2. Generate YAML frontmatter
-3. Write agent instructions and responsibilities
-4. Configure MCP integrations
-5. Define usage patterns and context integration
+1. ALWAYS create files with absolute path: `.cc-deck/runtime/projects/{project_id}/agents/{agent_name}.md`
+2. NEVER use relative paths or default directories
+3. CREATE directory structure if it doesn't exist
+4. Generate YAML frontmatter
+5. Write agent instructions and responsibilities
+6. Configure MCP integrations
+7. Define usage patterns and context integration
+```
+
+**✅ CORRECT FILE CREATION EXAMPLE:**
+```javascript
+// Always use this exact path pattern
+Write(`/full/absolute/path/.cc-deck/runtime/projects/${project_id}/agents/${project_id}-vercel-agent.md`, content)
+
+// NEVER use these patterns:
+// Write(`.claude/agents/${project_id}-vercel-agent.md`, content)  ❌ WRONG
+// Write(`${project_id}-vercel-agent.md`, content)                 ❌ WRONG
 ```
 
 ### Step 3: Integration Configuration
@@ -256,5 +279,32 @@ next_step: "Ready for workflow-integrator to create extension configuration"
 - **Invalid Agent Specs**: Validate before generation
 - **Directory Creation**: Ensure proper directory structure exists
 - **File Conflicts**: Check for existing files before creation
+
+## 🚨 CRITICAL EXECUTION INSTRUCTIONS
+
+### MANDATORY FILE PATH RULES
+
+When generating agent files, you MUST:
+
+1. **ALWAYS use absolute paths starting from project root:**
+   - Format: `.cc-deck/runtime/projects/{project_id}/agents/{agent_name}.md`
+   - Example: `.cc-deck/runtime/projects/liquid-glass-blog/agents/liquid-glass-blog-vercel-agent.md`
+
+2. **NEVER write to these locations:**
+   - `.claude/agents/` ❌ FORBIDDEN
+   - `.claude/agents/{project_id}/` ❌ FORBIDDEN
+   - Any relative paths without `.cc-deck/runtime/projects/` prefix ❌ FORBIDDEN
+
+3. **Directory Creation:**
+   - Check if `.cc-deck/runtime/projects/{project_id}/agents/` exists
+   - Create the full directory structure if needed
+   - Only then create the agent files
+
+4. **Validation:**
+   - Verify files are created in correct location
+   - Confirm no files were created in `.claude/agents/`
+   - Report actual file paths in generation summary
+
+**Remember: The `.claude/agents/` directory is ONLY for CC-Deck system agents, NEVER for project-specific generated agents.**
 
 Focus on generating high-quality, properly integrated SubAgent files that will enhance the development workflow for the specific project.

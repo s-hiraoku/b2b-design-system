@@ -75,38 +75,26 @@ Current Structure Issues:
 │       ├── file-utils.js
 │       ├── validation-utils.js
 │       └── logger.js
-├── runtime/                         # Runtime Execution Data (Git Ignored)
-│   ├── projects/                    # Project-specific runtime data
-│   │   └── {project-id}/            # Dynamic project directories
-│   │       ├── context/             # Smart Context data
-│   │       │   ├── project-state.json
-│   │       │   ├── workflow-history.json
-│   │       │   ├── agent-memory.json
-│   │       │   └── user-preferences.json
-│   │       ├── workflows/           # Dynamic workflow configurations
-│   │       │   ├── active/          # Currently executing workflows
-│   │       │   ├── generated/       # Generated workflow configurations
-│   │       │   └── agents/          # Project-specific generated agents
-│   │       ├── checkpoints/         # Recovery checkpoints
-│   │       └── logs/               # Execution logs
-│   ├── global/                     # System-wide runtime data
-│   │   ├── sessions/               # CLI session data
-│   │   ├── cache/                  # System cache
-│   │   └── metrics/               # System metrics
-│   └── temp/                       # Temporary files
-└── docs/                           # CC-Deck System Documentation (Source)
-    ├── README.md                   # Main CC-Deck documentation
-    ├── architecture/               # System architecture documentation
-    │   ├── workflow-engine.md
-    │   ├── smart-context.md
-    │   └── project-management.md
-    ├── api/                        # API documentation
-    │   ├── smart-context-api.md
-    │   └── workflow-api.md
-    └── guides/                     # User guides
-        ├── setup-guide.md
-        ├── workflow-guide.md
-        └── troubleshooting.md
+└├── runtime/                         # Runtime Execution Data (Git Ignored)
+    ├── projects/                    # Project-specific runtime data
+    │   └── {project-id}/            # Dynamic project directories
+    │       ├── context/             # Smart Context data
+    │       │   ├── project-state.json
+    │       │   ├── workflow-history.json
+    │       │   ├── agent-memory.json
+    │       │   └── user-preferences.json
+    │       ├── workflows/           # Dynamic workflow configurations
+    │       │   ├── active/          # Currently executing workflows
+    │       │   ├── generated/       # Generated workflow configurations
+    │       │   └── agents/          # Project-specific generated agents
+    │       ├── checkpoints/         # Recovery checkpoints
+    │       └── logs/               # Execution logs
+    ├── global/                     # System-wide runtime data
+    │   ├── sessions/               # CLI session data
+    │   ├── cache/                  # System cache
+    │   └── metrics/               # System metrics
+    └── temp/                       # Temporary files
+
 ```
 
 ## 🤔 Dynamic YAML Files Strategy
@@ -116,10 +104,12 @@ Current Structure Issues:
 The current system generates YAML files dynamically through the workflow process:
 
 **Source Files (Git Tracked)**:
+
 - `config/workflows/base/*.yaml` - Base workflow templates
-- `{project}/extensions/*.yaml` - Project-specific extensions  
+- `{project}/extensions/*.yaml` - Project-specific extensions
 
 **Generated Files (Runtime, Git Ignored)**:
+
 - `{project}/generated/*-merged.yaml` - Merged workflow configurations
 - `{project}/context/smart_context.json` - Runtime context data
 - `{project}/agents/*.md` - Project-specific agent definitions
@@ -127,6 +117,7 @@ The current system generates YAML files dynamically through the workflow process
 ### Dynamic File Categories
 
 1. **Template Files** (Source Code - Git Tracked)
+
    ```
    config/workflows/templates/
    ├── base-workflow-template.yaml
@@ -135,6 +126,7 @@ The current system generates YAML files dynamically through the workflow process
    ```
 
 2. **Extension Files** (Source Code - Git Tracked)
+
    ```
    runtime/projects/{project-id}/extensions/
    ├── coding-extension.yaml
@@ -159,25 +151,26 @@ graph TD
     C[MCP Agent Definitions] --> D
     D --> E[Generated Merged YAML]
     E --> F[Runtime Execution]
-    
+
     G[Template Files] --> H[Project Creation]
     H --> B
 ```
 
 ### File Lifecycle Management
 
-| Phase | File Type | Location | Git Status | Purpose |
-|-------|-----------|----------|------------|---------|
-| Development | Template | `config/templates/` | Tracked | Source templates |
-| Project Init | Extension | `runtime/projects/{id}/extensions/` | Tracked | Project-specific customizations |
-| Workflow Gen | Generated | `runtime/projects/{id}/workflows/generated/` | Ignored | Merged configurations |
-| Execution | Active | `runtime/projects/{id}/workflows/active/` | Ignored | Runtime state |
+| Phase        | File Type | Location                                     | Git Status | Purpose                         |
+| ------------ | --------- | -------------------------------------------- | ---------- | ------------------------------- |
+| Development  | Template  | `config/templates/`                          | Tracked    | Source templates                |
+| Project Init | Extension | `runtime/projects/{id}/extensions/`          | Tracked    | Project-specific customizations |
+| Workflow Gen | Generated | `runtime/projects/{id}/workflows/generated/` | Ignored    | Merged configurations           |
+| Execution    | Active    | `runtime/projects/{id}/workflows/active/`    | Ignored    | Runtime state                   |
 
 ## 🔄 Migration Strategy
 
 ### Phase 1: Create New Structure with Dynamic File Support
 
 1. **Create New Directories**
+
    - `config/workflows/base/` - Move existing YAML files
    - `config/standards/` - Consolidate unified standards
    - `config/schemas/` - Move schemas
@@ -211,7 +204,7 @@ context/schemas/context-schema.json → config/schemas/context-schema.json
 # ====================================
 
 # 1. Extension Files (Source Code - KEEP and TRACK)
-config/workflows/dynamic/liquid-glass-tech-blog/extensions/ 
+config/workflows/dynamic/liquid-glass-tech-blog/extensions/
 → runtime/projects/liquid-glass-tech-blog/extensions/
 
 # 2. Generated Agent Definitions (Source Code - KEEP and TRACK)
@@ -230,6 +223,7 @@ config/workflows/dynamic/liquid-glass-tech-blog/context/
 ### Dynamic File Migration Rules
 
 **Rule 1: Extension Files** (TRACK in Git)
+
 ```bash
 # These are project-specific customizations - treat as source code
 *.extension.yaml → runtime/projects/{project-id}/extensions/
@@ -237,15 +231,17 @@ config/workflows/dynamic/liquid-glass-tech-blog/context/
 # Reason: Project-specific customizations are development artifacts
 ```
 
-**Rule 2: Generated Agent Definitions** (TRACK in Git) 
+**Rule 2: Generated Agent Definitions** (TRACK in Git)
+
 ```bash
-# These are generated MCP agents - treat as generated source code  
+# These are generated MCP agents - treat as generated source code
 {project}-*.md → runtime/projects/{project-id}/agents/
 # Git: TRACK these files
 # Reason: Generated agents are valuable development artifacts
 ```
 
 **Rule 3: Merged Workflows** (IGNORE in Git)
+
 ```bash
 # These are runtime-generated merged configurations
 *-merged.yaml → runtime/projects/{project-id}/workflows/generated/
@@ -254,7 +250,8 @@ config/workflows/dynamic/liquid-glass-tech-blog/context/
 ```
 
 **Rule 4: Runtime Context** (IGNORE in Git)
-```bash  
+
+```bash
 # These are execution state and context data
 smart_context.json → runtime/projects/{project-id}/context/
 # Git: IGNORE these files
@@ -264,11 +261,13 @@ smart_context.json → runtime/projects/{project-id}/context/
 ### Phase 3: Update References
 
 1. **Update Source Code**
+
    - Update import paths in JavaScript files
    - Update CLI command paths
    - Update schema references
 
 2. **Update Configuration**
+
    - Update orchestrator.md paths
    - Update agent paths
    - Update workflow YAML references
@@ -280,6 +279,7 @@ smart_context.json → runtime/projects/{project-id}/context/
 ### Phase 4: Clean Up
 
 1. **Remove Old Structure**
+
    - Delete empty directories
    - Remove duplicate files
    - Clean up obsolete configurations
@@ -356,7 +356,7 @@ mkdir -p .cc-deck/{config/{workflows/{base,templates},standards,schemas},src/{ru
 echo "📁 Moving base workflows..."
 mv .cc-deck/config/workflows/*.yaml .cc-deck/config/workflows/base/ 2>/dev/null || echo "No base workflows to move"
 
-# Phase 3: Move standards (Source Code)  
+# Phase 3: Move standards (Source Code)
 echo "📁 Moving standards..."
 mv .cc-deck/config/monitoring/unified-monitoring-standard.yaml .cc-deck/config/standards/monitoring.yaml 2>/dev/null || echo "No monitoring standard"
 mv .cc-deck/config/quality/unified-quality-assurance-standard.yaml .cc-deck/config/standards/quality-assurance.yaml 2>/dev/null || echo "No quality standard"
@@ -377,34 +377,34 @@ for project_dir in .cc-deck/config/workflows/dynamic/*/; do
     if [ -d "$project_dir" ]; then
         project_name=$(basename "$project_dir")
         target_dir=".cc-deck/runtime/projects/$project_name"
-        
+
         echo "  📂 Processing project: $project_name"
         mkdir -p "$target_dir"/{extensions,agents,workflows/generated,context,checkpoints,logs}
-        
+
         # Rule 1: Extension files (Source Code - Git Tracked)
         if [ -d "$project_dir/extensions" ]; then
             echo "    ✅ Moving extensions (Git tracked)"
             mv "$project_dir/extensions" "$target_dir/"
         fi
-        
+
         # Rule 2: Agent definitions (Generated Source Code - Git Tracked)
         if [ -d "$project_dir/agents" ]; then
             echo "    ✅ Moving agent definitions (Git tracked)"
             mv "$project_dir/agents" "$target_dir/"
         fi
-        
+
         # Rule 3: Generated workflows (Runtime Data - Git Ignored)
         if [ -d "$project_dir/generated" ]; then
             echo "    ❌ Moving generated workflows (Git ignored)"
             mv "$project_dir/generated"/* "$target_dir/workflows/generated/" 2>/dev/null || echo "    No generated files"
         fi
-        
-        # Rule 4: Context data (Runtime Data - Git Ignored) 
+
+        # Rule 4: Context data (Runtime Data - Git Ignored)
         if [ -d "$project_dir/context" ]; then
             echo "    ❌ Moving context data (Git ignored)"
             mv "$project_dir/context"/* "$target_dir/context/" 2>/dev/null || echo "    No context files"
         fi
-        
+
         # Clean up empty source directory
         rmdir "$project_dir"/{extensions,agents,generated,context} 2>/dev/null || true
         rmdir "$project_dir" 2>/dev/null || true
@@ -436,7 +436,7 @@ echo "✅ CC-Deck directory reorganization complete!"
 echo ""
 echo "📊 Migration Summary:"
 echo "✅ Source code: Moved to src/"
-echo "✅ Configuration: Organized in config/"  
+echo "✅ Configuration: Organized in config/"
 echo "✅ Extensions: Tracked in runtime/projects/{id}/extensions/"
 echo "✅ Agents: Tracked in runtime/projects/{id}/agents/"
 echo "❌ Generated workflows: Ignored in runtime/projects/{id}/workflows/generated/"
@@ -444,7 +444,7 @@ echo "❌ Context data: Ignored in runtime/projects/{id}/context/"
 echo ""
 echo "⚠️  Next Steps:"
 echo "1. Update import paths in source files"
-echo "2. Update orchestrator.md CLI paths"  
+echo "2. Update orchestrator.md CLI paths"
 echo "3. Test Smart Context functionality"
 echo "4. Verify MCP agent generation"
 echo "5. Run validation tests"
@@ -453,63 +453,69 @@ echo "5. Run validation tests"
 ### Post-Migration Updates Required
 
 1. **Update orchestrator.md**:
+
    ```bash
    OLD: node .cc-deck/runtime/smart-context-cli.js
    NEW: node .cc-deck/src/cli/smart-context-cli.js
    ```
 
 2. **Update JavaScript imports**:
+
    ```javascript
-   OLD: require('.cc-deck/runtime/smart-context-manager.js')
-   NEW: require('.cc-deck/src/runtime/smart-context-manager.js')
+   OLD: require(".cc-deck/runtime/smart-context-manager.js");
+   NEW: require(".cc-deck/src/runtime/smart-context-manager.js");
    ```
 
 3. **Update schema paths**:
+
    ```javascript
-   OLD: '.cc-deck/context/schemas/context-schema.json'
-   NEW: '.cc-deck/config/schemas/context-schema.json'
+   OLD: ".cc-deck/context/schemas/context-schema.json";
+   NEW: ".cc-deck/config/schemas/context-schema.json";
    ```
 
 4. **Update .gitignore with Dynamic File Handling**:
+
    ```
    # Runtime data exclusions (Generated files)
    .cc-deck/runtime/projects/*/workflows/generated/
    .cc-deck/runtime/projects/*/context/
    .cc-deck/runtime/global/
    .cc-deck/runtime/temp/
-   
+
    # Keep project development artifacts (Extensions and Agents)
    !.cc-deck/runtime/projects/*/extensions/
    !.cc-deck/runtime/projects/*/agents/
-   
+
    # Keep all source code
    !.cc-deck/config/
-   !.cc-deck/src/  
+   !.cc-deck/src/
    !.cc-deck/docs/
    ```
 
 ### Updated Git Tracking Strategy
 
 **Git Tracked Files** (Source Code and Development Artifacts):
+
 ```
 .cc-deck/
 ├── config/              # ✅ System configuration
 ├── src/                # ✅ Source code components
-├── docs/               # ✅ Documentation  
-└── runtime/projects/   
+├── docs/               # ✅ Documentation
+└── runtime/projects/
     └── {project-id}/
         ├── extensions/  # ✅ Project customizations
         └── agents/      # ✅ Generated MCP agents
 ```
 
 **Git Ignored Files** (Runtime Data):
+
 ```
 .cc-deck/runtime/
 ├── projects/
 │   └── {project-id}/
 │       ├── workflows/generated/  # ❌ Generated merged YAML
 │       ├── context/             # ❌ Smart Context runtime data
-│       ├── checkpoints/         # ❌ Recovery checkpoints  
+│       ├── checkpoints/         # ❌ Recovery checkpoints
 │       └── logs/               # ❌ Execution logs
 ├── global/                     # ❌ System-wide runtime data
 └── temp/                       # ❌ Temporary files
@@ -520,7 +526,7 @@ echo "5. Run validation tests"
 ### After migration, the system should have:
 
 1. **Clean Separation**: Source code and runtime data clearly separated
-2. **Project Agnostic**: No hardcoded project names in system directories  
+2. **Project Agnostic**: No hardcoded project names in system directories
 3. **Predictable Paths**: All components in logical, consistent locations
 4. **Git Friendly**: Appropriate tracking of source vs. runtime files
 5. **Scalable Structure**: Easy to add new projects and components
@@ -530,7 +536,7 @@ echo "5. Run validation tests"
 
 - [ ] All CLI commands work with new paths
 - [ ] Smart Context system operational
-- [ ] Workflow execution functional  
+- [ ] Workflow execution functional
 - [ ] Agent generation works
 - [ ] Project isolation maintained
 - [ ] Git tracking appropriate
