@@ -1492,11 +1492,164 @@ def load_project_specific_workflow(workflow_name, project_id=None):
         if file_exists(merged_path):
             print(f"🎯 Loading project-specific workflow: {merged_path}")
             return load_workflow_definition(merged_path)
+        
+        # Check if dynamic workflow config directory exists
+        dynamic_config_dir = f".cc-deck/config/workflows/dynamic/{project_id}"
+        if not file_exists(dynamic_config_dir):
+            print(f"🔧 Dynamic workflow configuration not found for project: {project_id}")
+            print(f"📦 Triggering dev-env-setup workflow to create project-specific configuration...")
+            
+            # Execute dev-env-setup workflow to create dynamic config
+            execute_dev_env_setup_workflow(project_id, workflow_name)
+            
+            # Retry loading project-specific workflow after setup
+            if file_exists(merged_path):
+                print(f"✅ Project-specific workflow created: {merged_path}")
+                return load_workflow_definition(merged_path)
     
     # Fallback to base workflow
     base_path = f".cc-deck/config/workflows/{workflow_name}.yaml"
     print(f"📋 Loading base workflow: {base_path}")
     return load_workflow_definition(base_path)
+
+def execute_dev_env_setup_workflow(project_id, target_workflow_name):
+    """Execute dev-env-setup workflow to create dynamic configuration for project"""
+    
+    print(f"\n🚀 Starting dev-env-setup workflow for project: {project_id}")
+    print(f"🎯 Target workflow: {target_workflow_name}")
+    
+    # Create dynamic workflow directory structure
+    dynamic_dirs = [
+        f".cc-deck/config/workflows/dynamic/{project_id}",
+        f".cc-deck/config/workflows/dynamic/{project_id}/extensions",
+        f".cc-deck/config/workflows/dynamic/{project_id}/generated",
+        f".cc-deck/config/workflows/dynamic/{project_id}/agents"
+    ]
+    
+    for dir_path in dynamic_dirs:
+        ensure_directory_exists(dir_path)
+        print(f"📁 Created directory: {dir_path}")
+    
+    # Execute dev-env-setup command
+    try:
+        # Use Task to execute dev-env-setup workflow
+        from datetime import datetime
+        
+        setup_context = {
+            "project_id": project_id,
+            "target_workflow": target_workflow_name,
+            "dynamic_config_path": f".cc-deck/config/workflows/dynamic/{project_id}",
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        print(f"⚙️ Executing dev-env-setup workflow...")
+        
+        # This would execute the actual dev-env-setup workflow
+        # For now, we create a basic configuration structure
+        create_basic_dynamic_workflow_config(project_id, target_workflow_name, setup_context)
+        
+        print(f"✅ Dev-env-setup workflow completed for {project_id}")
+        
+    except Exception as e:
+        print(f"❌ Dev-env-setup workflow failed: {e}")
+        print(f"⚠️  Falling back to base workflow configuration")
+
+def create_basic_dynamic_workflow_config(project_id, workflow_name, context):
+    """Create basic dynamic workflow configuration when dev-env-setup is not available"""
+    
+    print(f"🔧 Creating basic dynamic configuration for {project_id}")
+    
+    # Create extension config
+    extension_config = f"""# {workflow_name.title()} Workflow Extension for {project_id}
+# Generated automatically by orchestrator
+
+name: "{workflow_name}-extension-{project_id}"
+description: "Project-specific extensions for {workflow_name} workflow"
+
+project_context:
+  project_id: "{project_id}"
+  generated_at: "{context['timestamp']}"
+  target_workflow: "{workflow_name}"
+
+# Project-specific customizations would be added here
+# This is a basic template - actual dev-env-setup would analyze project
+# and create comprehensive extensions
+
+workflow_extensions:
+  phases:
+    # Additional phases specific to this project
+    - name: "project-specific-setup"
+      description: "Project-specific setup tasks"
+      agent: "implementation-agent"
+      
+  task_execution:
+    # Project-specific agent selection rules
+    agent_selection_rules:
+      - pattern: "next\\.?js|react"
+        agent: "implementation-agent"
+      - pattern: "tailwind|css"
+        agent: "implementation-agent"
+      - pattern: "typescript|ts"
+        agent: "implementation-agent"
+"""
+    
+    extension_path = f".cc-deck/config/workflows/dynamic/{project_id}/extensions/{workflow_name}-extension.yaml"
+    
+    try:
+        with open(extension_path, 'w') as f:
+            f.write(extension_config)
+        print(f"📝 Created extension config: {extension_path}")
+    except Exception as e:
+        print(f"❌ Failed to create extension config: {e}")
+    
+    # Create merged workflow (basic version)
+    create_basic_merged_workflow(project_id, workflow_name, context)
+
+def create_basic_merged_workflow(project_id, workflow_name, context):
+    """Create basic merged workflow configuration"""
+    
+    # Load base workflow
+    base_path = f".cc-deck/config/workflows/{workflow_name}.yaml"
+    
+    if not file_exists(base_path):
+        print(f"⚠️  Base workflow not found: {base_path}")
+        return
+    
+    try:
+        import yaml
+        with open(base_path, 'r') as f:
+            base_workflow = yaml.safe_load(f)
+    except Exception as e:
+        print(f"❌ Failed to load base workflow: {e}")
+        return
+    
+    # Create merged workflow (for now, just copy base with project context)
+    merged_workflow = base_workflow.copy()
+    merged_workflow['project_context'] = {
+        'project_id': project_id,
+        'generated_at': context['timestamp'],
+        'config_source': 'basic-template'
+    }
+    
+    # Add project-specific metadata
+    if 'metadata' not in merged_workflow:
+        merged_workflow['metadata'] = {}
+    
+    merged_workflow['metadata'].update({
+        'project_id': project_id,
+        'dynamic_config': True,
+        'generated_by': 'orchestrator-basic-setup'
+    })
+    
+    merged_path = f".cc-deck/config/workflows/dynamic/{project_id}/generated/{workflow_name}-merged.yaml"
+    
+    try:
+        import yaml
+        with open(merged_path, 'w') as f:
+            yaml.dump(merged_workflow, f, default_flow_style=False, indent=2)
+        print(f"📋 Created merged workflow: {merged_path}")
+    except Exception as e:
+        print(f"❌ Failed to create merged workflow: {e}")
 
 def detect_project_id():
     """Detect current project ID from various sources"""
@@ -1983,8 +2136,14 @@ def should_use_workflow_engine(workflow_hint, project_state):
         project_state.get('multiple_active_features', False),
         project_state.get('requires_multi_agent_coordination', False)
     ]
+    
+    # Also use workflow engine when dynamic configuration might be beneficial
+    dynamic_config_indicators = [
+        project_state.get('has_existing_projects', False),
+        project_state.get('needs_project_specific_setup', False)
+    ]
 
-    return any(complexity_indicators)
+    return any(complexity_indicators) or any(dynamic_config_indicators)
 
 def select_workflow_with_confirmation(workflow_hint, project_state, arguments):
     """Present task-based confirmation flow to user based on project analysis"""
@@ -2347,7 +2506,9 @@ def analyze_project_state():
         'code_quality_issues': False,
         'needs_implementation': False,
         'needs_enhancement': False,
-        'multiple_active_features': False
+        'multiple_active_features': False,
+        'needs_project_specific_setup': False,
+        'has_dynamic_config': False
     }
 
     # Check for incomplete tasks in Kiro specs
@@ -2363,7 +2524,8 @@ def analyze_project_state():
 
     # Check for existing projects that might need enhancement
     if state['has_existing_projects']:
-        for project_dir in glob_pattern('projects/*'):
+        projects = glob_pattern('projects/*')
+        for project_dir in projects:
             # Check if project has package.json, requirements.txt, or other project files
             project_files = [
                 f"{project_dir}/package.json",
@@ -2374,9 +2536,56 @@ def analyze_project_state():
             ]
             if any(file_exists(f) for f in project_files):
                 state['needs_enhancement'] = True
+                
+                # Check if this project might benefit from dynamic configuration
+                project_id = os.path.basename(project_dir)
+                dynamic_config_path = f".cc-deck/config/workflows/dynamic/{project_id}"
+                
+                if file_exists(dynamic_config_path):
+                    state['has_dynamic_config'] = True
+                else:
+                    # Check if project is complex enough to warrant dynamic config
+                    project_complexity_indicators = [
+                        file_exists(f"{project_dir}/package.json") and check_modern_framework(project_dir),
+                        file_exists(f"{project_dir}/tsconfig.json"),
+                        file_exists(f"{project_dir}/tailwind.config.js"),
+                        file_exists(f"{project_dir}/next.config.js"),
+                        len(glob_pattern(f"{project_dir}/src/**/*.{{'ts','tsx','js','jsx'}}")) > 10
+                    ]
+                    
+                    if any(project_complexity_indicators):
+                        state['needs_project_specific_setup'] = True
+                
                 break
 
     return state
+
+def check_modern_framework(project_dir):
+    """Check if project uses modern frameworks that benefit from dynamic configuration"""
+    package_json_path = f"{project_dir}/package.json"
+    
+    if not file_exists(package_json_path):
+        return False
+    
+    try:
+        import json
+        with open(package_json_path, 'r') as f:
+            package_data = json.load(f)
+        
+        dependencies = {}
+        dependencies.update(package_data.get('dependencies', {}))
+        dependencies.update(package_data.get('devDependencies', {}))
+        
+        # Check for modern frameworks that benefit from dynamic config
+        modern_frameworks = [
+            'next', 'react', 'vue', 'nuxt', 'svelte', 'sveltekit',
+            'typescript', 'tailwindcss', 'vite', 'webpack'
+        ]
+        
+        return any(framework in dep for dep in dependencies.keys() for framework in modern_frameworks)
+        
+    except Exception:
+        return False
 
 def generate_project_analysis_summary(project_state):
     """Generate human-readable project analysis summary"""
