@@ -61,6 +61,7 @@ Evaluate potential MCP agents based on:
 ## Research Process
 
 ### Step 1: Project Specification Deep Analysis
+
 ```bash
 # Analyze actual project specifications
 1. Read all .md files in .kiro/specs/{project_name}/
@@ -71,6 +72,7 @@ Evaluate potential MCP agents based on:
 ```
 
 ### Step 2: MCP Landscape Research
+
 ```bash
 # Research available MCP integrations
 1. Use Brave Search for "MCP server [technology] integration"
@@ -80,6 +82,7 @@ Evaluate potential MCP agents based on:
 ```
 
 ### Step 3: Project-Specific MCP Mapping
+
 ```bash
 # Map MCPs to specific project needs based on specifications
 1. Next.js + Vercel deployment → Vercel MCP (deployment automation)
@@ -91,6 +94,7 @@ Evaluate potential MCP agents based on:
 ```
 
 ### Step 4: Utility Scoring
+
 ```bash
 # Score each potential MCP agent
 Score = (Relevance × 0.4) + (Impact × 0.3) + (Ease_of_Use × 0.2) + (Maintenance × 0.1)
@@ -99,29 +103,34 @@ Score = (Relevance × 0.4) + (Impact × 0.3) + (Ease_of_Use × 0.2) + (Maintenan
 ## Project-Specific Recommendation Framework
 
 ### Critical Priority (Score: 9.0-10.0)
+
 - **Addresses Major Pain Points**: Solves primary development bottlenecks identified in specs
 - **High Development Impact**: >50% speed improvement or accuracy enhancement
 - **Technology Stack Match**: Direct integration with primary frameworks/services
 - **Production Requirements**: Essential for meeting performance/deployment targets
 
 ### High Priority (Score: 7.5-8.9)
+
 - **Workflow Optimization**: Significantly improves development velocity
 - **Quality Assurance**: Enhances testing, monitoring, or error detection
 - **Integration Complexity**: Solves complex multi-service orchestration
 - **Performance Critical**: Required for meeting Core Web Vitals or performance targets
 
 ### Medium Priority (Score: 5.5-7.4)
+
 - **Developer Experience**: Improves day-to-day development comfort
 - **Secondary Features**: Enhances non-critical functionality
 - **Future-Proofing**: Valuable for project scaling or evolution
 - **Specialized Tools**: Useful for specific development phases
 
 ### Low Priority (Score: 3.0-5.4)
+
 - **Nice-to-Have**: Provides marginal improvements
 - **Experimental**: Cutting-edge but unproven benefits
 - **Phase-Specific**: Only useful during specific development phases
 
 ### Not Recommended (Score: < 3.0)
+
 - **No Project Match**: Irrelevant to current specifications
 - **Over-Engineering**: Adds complexity without proportional benefit
 - **Deprecated**: Unmaintained or superseded by better alternatives
@@ -165,7 +174,7 @@ recommended_agents:
       mcp_integrations: ["vercel"]
       addresses_pain_points: ["deployment", "performance_monitoring"]
       score: 9.5
-      
+
     - name: "ai-service-manager"
       description: "OpenAI DALL-E 3 and Leonardo AI integration optimization"
       rationale: "Project requires AI image generation with fallback strategies"
@@ -174,7 +183,7 @@ recommended_agents:
       mcp_integrations: ["openai", "leonardo-ai"]
       addresses_pain_points: ["ai_rate_limiting", "cost_management"]
       score: 9.2
-      
+
   high_priority:
     - name: "performance-monitor"
       description: "Core Web Vitals and performance optimization"
@@ -184,7 +193,7 @@ recommended_agents:
       mcp_integrations: ["vercel-analytics", "web-vitals"]
       addresses_pain_points: ["performance_targets"]
       score: 8.7
-      
+
     - name: "github-workflow-manager"
       description: "Advanced CI/CD and repository management"
       rationale: "Complex codebase with security requirements for admin features"
@@ -213,18 +222,19 @@ research_summary:
     - "Seasonal theme system needs weather API integration"
     - "Admin effect editor requires code sandboxing security"
     - "Performance budget: < 200KB initial bundle for TODO app"
-    
+
   technology_compatibility:
     - "Next.js 15 App Router patterns verified"
     - "Vercel Edge Runtime capabilities confirmed"
     - "AI service integration patterns validated"
-    
-  confidence_level: "high"  # Based on actual project specifications
+
+  confidence_level: "high" # Based on actual project specifications
 ```
 
 ## Best Practices
 
 ### Research Quality
+
 1. **Specification-Driven**: Base all recommendations on actual project requirements
 2. **Pain Point Focus**: Address specific development bottlenecks identified in specs
 3. **Technology Alignment**: Ensure MCP recommendations match exact tech stack versions
@@ -232,6 +242,7 @@ research_summary:
 5. **Implementation Roadmap**: Consider project phases and development priorities
 
 ### Project-Specific Analysis
+
 1. **Spec Deep-Dive**: Thoroughly analyze requirements, architecture, and implementation docs
 2. **Pain Point Mapping**: Map each recommendation to specific development challenges
 3. **ROI Calculation**: Estimate development time savings vs. MCP setup complexity
