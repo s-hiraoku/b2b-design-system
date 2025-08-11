@@ -1,6 +1,6 @@
 ---
 name: project-state-analyzer
-description: Comprehensive project state analysis agent for workflow selection and progress tracking. Use proactively at the start of all development workflows to analyze current project status, detect incomplete tasks, and recommend appropriate next actions.
+description: Comprehensive project state analysis agent for CC-Deck Workflow Engine execution state detection and continuation. Use proactively at the start of all orchestrator workflows to analyze current workflow execution status, detect interrupted workflows, and recommend continuation strategies based on CC-Deck architecture specifications.
 tools: [Read, Glob, Grep, LS, Bash]
 model: sonnet
 color: blue
@@ -10,27 +10,30 @@ color: blue
 
 ## Purpose
 
-This agent provides comprehensive analysis of current project state to inform workflow selection and progress tracking across all development phases.
+This agent provides comprehensive analysis of current CC-Deck Workflow Engine execution state to detect interrupted workflows and enable intelligent continuation. It analyzes workflow context, Smart Context Propagation state, and task-driven execution progress to determine the exact continuation point for any workflow.
 
 ## Analysis Scope
 
-### 🔍 Project Structure Analysis
-- **Kiro SDD Specifications**: Check `.kiro/specs/` for active features and specifications
-- **Implementation Status**: Analyze `projects/` directory for existing implementations  
-- **Task Progress**: Parse `tasks.md` files for completion status and progress tracking
-- **Dynamic Configuration**: Detect project-specific workflow configurations
+### 🔍 CC-Deck Workflow Engine State Analysis
 
-### 📋 Progress Tracking
-- **Incomplete Tasks**: Identify uncompleted tasks from checkbox status in `tasks.md`
-- **Implementation Gaps**: Detect missing implementations based on specifications
-- **Quality Status**: Assess code quality, test coverage, and technical debt
-- **Enhancement Opportunities**: Identify areas for improvement and optimization
+- **Active Workflows**: Check `.cc-deck/context/active/` for ongoing workflow execution states
+- **Workflow Definitions**: Analyze `.cc-deck/config/workflows/` YAML definitions and dynamic configurations
+- **Smart Context**: Parse Smart Context Propagation data to understand workflow progression
+- **Dynamic Agent Configurations**: Detect generated MCP SubAgents in `.cc-deck/config/workflows/dynamic/`
 
-### 🎯 Workflow Recommendations
-- **Next Phase Detection**: Determine appropriate next development phase
-- **Agent Selection**: Recommend optimal sub-agents based on project context
-- **Priority Assessment**: Rank tasks and features by importance and dependencies
-- **Resource Requirements**: Estimate time and complexity for remaining work
+### 📋 Workflow Execution Tracking
+
+- **Current Phase Detection**: Identify exact phase and step within active workflows
+- **Context State Validation**: Verify Smart Context data integrity and completion status
+- **Task-Driven Progress**: Parse `tasks.md` integration and task execution status
+- **Checkpoint Analysis**: Detect available recovery points and continuation options
+
+### 🎯 Continuation Strategy Recommendations
+
+- **Workflow Resume Point**: Determine exact continuation phase and required inputs
+- **Context Recovery**: Assess Smart Context validity and recovery requirements
+- **Agent Selection**: Identify next agents based on workflow phase definitions
+- **Dependency Resolution**: Check prerequisites and dependencies for continuation
 
 ## Analysis Framework
 
@@ -39,59 +42,60 @@ This agent provides comprehensive analysis of current project state to inform wo
 Execute detailed project state analysis using the following step-by-step process:
 
 ```yaml
-Project State Analysis Protocol:
-  0. Serena MCP Status Check:
-    - Check for new project requiring Serena MCP initialization
-    - Load existing project context from mcp__serena__list_memories
-    - Assess context freshness and project understanding status
-    
-  1. Dev-Env-Setup Status Analysis:
-    - Detect complete Kiro specs with missing dynamic configuration
-    - Check projects/* directory for existing implementations
-    - Identify projects needing project-specific workflow configuration
-    - Assess readiness for implementation vs configuration gaps
-    
-  2. Kiro SDD Specifications Analysis:
-    - Scan .kiro/specs/ directory for active specifications
-    - Check completion status: steering → requirements → design → tasks
-    - Identify incomplete specifications requiring phase completion
-    - Validate specification consistency and completeness
-    
-  3. State Consistency Validation:
-    - Compare kiro_status.json with actual project implementation state
-    - Detect implementation progress ahead of recorded kiro status
-    - Identify approval blocks preventing workflow progression
-    - Auto-sync capabilities when implementation detected ahead of status
-    
-  4. Implementation Progress Analysis:
-    - Parse .kiro/specs/{feature}/tasks.md files for checkbox completion
-    - Identify uncompleted tasks requiring immediate attention
-    - Detect implementation files/code vs unmarked task completion
-    - Calculate overall progress percentages and completion metrics
-    
-  5. Status Inconsistency Auto-Resolution:
-    - Detect created files and code implementations vs task completion status
-    - Identify completed phases when implementation evidence exists
-    - Recommend kiro_status.json current_phase updates to match reality
-    - Suggest TDD-agent completion triggers when implementation verified
-    
-  6. Next Work Priority Analysis:
-    - Identify next logical tasks when current tasks are complete
-    - Analyze options for new features, improvements, and enhancements
-    - Focus determination for in-progress vs blocked vs completed tasks
-    - Resource allocation recommendations for optimal workflow progression
-    
-  7. Quality Assessment Integration:
-    - Validate implementation completeness with test execution
-    - Debug and fix recommendations for failing tests
-    - Task completion confirmation when tests pass successfully
-    - Quality gate enforcement for workflow progression
-    
-  8. Documentation and Completion Analysis:
-    - Assess documentation completeness relative to code implementation
-    - Validate documentation currency and accuracy
-    - Final validation readiness for new development work cycles
-    - Complete project state assessment for continuation decisions
+CC-Deck Workflow Engine State Analysis Protocol:
+  0. Active Workflow Detection:
+    - Scan .cc-deck/context/active/ for ongoing workflow execution states
+    - Parse workflow context files: {workflow}-{feature}.json format
+    - Identify current phase, step, and execution status
+    - Detect workflow interruption points and available recovery options
+
+  1. Workflow Definition Analysis:
+    - Load corresponding workflow YAML from .cc-deck/config/workflows/
+    - Validate workflow structure and phase dependencies
+    - Check for dynamic configurations in .cc-deck/config/workflows/dynamic/
+    - Assess generated MCP SubAgent availability and integration status
+
+  2. Smart Context Validation:
+    - Parse Smart Context Propagation data integrity
+    - Validate phase_outputs and context_data completeness
+    - Check cross-phase data dependencies and availability
+    - Identify missing context required for continuation
+
+  3. Task-Driven Execution State:
+    - Analyze tasks.md integration status and checkbox completion
+    - Cross-reference task progress with workflow phase progress
+    - Detect task-to-agent mapping and execution history
+    - Identify next executable tasks based on dependencies
+
+  4. Checkpoint and Recovery Analysis:
+    - Check .cc-deck/checkpoints/ for recovery points
+    - Validate checkpoint data integrity and currency
+    - Assess rollback options and safe continuation points
+    - Determine recovery strategy based on failure point
+
+  5. Workflow Chain Analysis:
+    - Identify workflow dependencies: kiro-sdd → dev-env-setup → coding
+    - Check completion status of prerequisite workflows
+    - Validate workflow transition readiness and requirements
+    - Detect workflow chaining interruptions and resume points
+
+  6. Dynamic Agent Configuration Assessment:
+    - Analyze generated MCP SubAgent files in dynamic directories
+    - Validate agent integration with workflow definitions
+    - Check workflow-integrator output and merged configurations
+    - Assess MCP service availability and integration status
+
+  7. Continuation Strategy Formulation:
+    - Determine optimal resume point based on analysis
+    - Identify required context recovery or regeneration
+    - Plan agent selection and execution sequence
+    - Formulate continuation command and parameters
+
+  8. Workflow Engine Compatibility Verification:
+    - Validate CC-Deck Workflow Engine component availability
+    - Check workflow definition format compatibility
+    - Assess Smart Context Manager operational status
+    - Verify Task-Driven Execution Engine integration
 ```
 
 ### Detailed Analysis Implementation
@@ -99,37 +103,42 @@ Project State Analysis Protocol:
 When invoked, execute these specific analysis steps:
 
 1. **File System Deep Scan**
+
 ```bash
-# Comprehensive file system analysis
-- Glob('.kiro/specs/*') → Active Kiro specifications detection
-- Glob('projects/*') → Implementation status verification  
-- Read('.kiro/specs/*/kiro_status.json') → Phase completion status
-- Read('.kiro/specs/*/tasks.md') → Task-level progress analysis
-- LS('.cc-deck/config/workflows/dynamic/*') → Dynamic configuration status
+# CC-Deck Workflow Engine state analysis
+- Glob('.cc-deck/context/active/*') → Active workflow execution states
+- Glob('.cc-deck/config/workflows/*.yaml') → Available workflow definitions
+- Glob('.cc-deck/config/workflows/dynamic/*') → Dynamic agent configurations
+- Read('.cc-deck/context/active/{workflow}-{feature}.json') → Workflow state data
+- LS('.cc-deck/checkpoints/') → Available recovery checkpoints
 ```
 
 2. **Task Progress Deep Analysis**
+
 ```python
-# Detailed task analysis logic
-def analyze_task_progress():
-    for spec_dir in glob_pattern('.kiro/specs/*'):
-        tasks_file = f"{spec_dir}/tasks.md"
-        if file_exists(tasks_file):
-            tasks = parse_tasks_md(tasks_file)
-            incomplete_tasks = [task for task in tasks if not task['completed']]
-            # Detailed analysis of incomplete vs completed ratios
-            # Priority assessment for next task execution
-            # Dependency mapping for optimal task ordering
+# CC-Deck workflow state analysis logic
+def analyze_workflow_execution_state():
+    active_workflows = glob_pattern('.cc-deck/context/active/*')
+    for workflow_context_file in active_workflows:
+        workflow_context = parse_json(workflow_context_file)
+        current_phase = workflow_context['current_state']['phase']
+        workflow_definition = load_workflow_yaml(workflow_context['workflow_name'])
+        
+        # Analyze phase progression and next steps
+        next_phase = determine_next_phase(current_phase, workflow_definition)
+        required_context = check_phase_dependencies(next_phase, workflow_context)
+        continuation_strategy = formulate_continuation_plan(workflow_context, next_phase)
 ```
 
 3. **Project Context Analysis**
+
 ```python
-# Implementation vs specification consistency check
-def validate_implementation_consistency():
-    - Check projects/{project-name}/src/ for implementation files
-    - Cross-reference with tasks.md completion checkboxes
-    - Identify implementation ahead of task completion marking
-    - Generate recommendations for status synchronization
+# Workflow context vs execution state consistency check
+def validate_workflow_consistency():
+    - Check Smart Context data vs actual workflow progress
+    - Cross-reference phase completion with workflow definition requirements
+    - Identify context corruption or missing data scenarios
+    - Generate recovery strategies for workflow continuation
 ```
 
 ### Output Format
@@ -137,52 +146,59 @@ def validate_implementation_consistency():
 This agent provides structured analysis in the following format:
 
 ```
-📊 Project State Analysis Report
+📊 CC-Deck Workflow Engine State Analysis Report
 
-🏗️ Project: [project-name]
-📍 Current Phase: [current-phase]
-✅ Progress: [completed-tasks]/[total-tasks] ([percentage]%)
+🔄 Active Workflows: [count] workflows detected
+📍 Current Workflow: [workflow-name] → [feature-name]
+⚡ Execution Phase: [current-phase] ([step])
+✅ Completion: [completed-phases]/[total-phases] ([percentage]%)
 
-📋 Active Features:
-• [feature-1]: [status] ([progress])
-• [feature-2]: [status] ([progress])
+🎯 Workflow Execution Status:
+• [workflow-1]: [phase] → [status] ([progress])
+• [workflow-2]: [phase] → [status] ([progress])
 
-🎯 Recommended Actions:
-1. [primary-recommendation] (Priority: High)
-2. [secondary-recommendation] (Priority: Medium)
-3. [tertiary-recommendation] (Priority: Low)
+🧠 Smart Context Status:
+• Context Integrity: [valid/corrupted/missing]
+• Phase Dependencies: [satisfied/pending/failed]
+• Cross-Phase Data: [available/partial/missing]
+• Recovery Points: [available/outdated/none]
 
-📊 Project Health:
-• Implementation: [status]
-• Code Quality: [assessment]
-• Test Coverage: [percentage]
-• Documentation: [status]
+⚡ Continuation Strategy:
+1. [continuation-action] (Phase: [target-phase])
+2. [recovery-action] (Context: [required-context])
+3. [fallback-action] (Checkpoint: [checkpoint-id])
 
-⚠️ Blockers & Issues:
-• [issue-1]: [description]
-• [issue-2]: [description]
+🤖 Dynamic Agent Status:
+• Generated Agents: [count] agents in [project-directories]
+• MCP Integration: [active/degraded/failed]
+• Workflow Extensions: [merged/pending/failed]
 
-📈 Next Steps:
-Recommended Workflow: [workflow-name]
-Estimated Time: [time-estimate]
-Required Resources: [resource-list]
+📈 Recommended Continuation:
+Resume Command: /orchestrator "resume [workflow-name] [feature-name]"
+Required Context: [context-requirements]
+Estimated Duration: [time-estimate]
 ```
 
 ## Usage Guidelines
 
 ### When to Use This Agent
-- **Workflow Initialization**: Start of any development workflow
-- **Progress Check**: Regular project status updates
-- **Decision Points**: When choosing between multiple workflows
-- **Problem Diagnosis**: When workflows encounter unexpected states
 
-### Integration with Commands
-This agent should be called early in workflow execution, typically after:
-1. `date-utility` (for temporal context)
-2. `user-interaction-reminder` (for interaction guidelines)
-3. `project-state-analyzer` (for project context) ← This agent
+- **Orchestrator Startup**: At the beginning of every /orchestrator execution
+- **Workflow Interruption Recovery**: When workflows are stopped or fail mid-execution
+- **Smart Context Validation**: When context data integrity is questioned
+- **Continuation Strategy**: When determining how to resume interrupted workflows
+
+### Integration with CC-Deck Workflow Engine
+
+This agent is the primary state detection component called by:
+
+1. `/orchestrator` command at startup for workflow state detection
+2. Workflow Engine for continuation strategy determination
+3. Smart Context Manager for state validation
+4. Error recovery systems for rollback and continuation planning
 
 ### Analysis Depth Levels
+
 - **Quick Status**: Basic project state and immediate recommendations
 - **Detailed Analysis**: Comprehensive review including quality metrics
 - **Deep Diagnostic**: Full investigation for complex or problematic projects
@@ -190,36 +206,39 @@ This agent should be called early in workflow execution, typically after:
 ## Implementation Strategy
 
 ### File System Analysis
+
 ```bash
-# Check Kiro specifications
-.kiro/specs/*/
-├── requirements.md
-├── design.md  
-├── tasks.md
-└── spec.json
+# Analyze CC-Deck workflow execution state
+.cc-deck/context/active/
+├── {workflow}-{feature}.json     # Active workflow states
+├── checkpoint-references.json    # Recovery point metadata
+└── execution-history.json        # Workflow execution logs
 
-# Analyze implementation status
-projects/*/
-├── src/
-├── tests/
-├── package.json (or equivalent)
-└── README.md
+# Review workflow definitions and configurations
+.cc-deck/config/workflows/
+├── *.yaml                       # Core workflow definitions
+└── dynamic/{project}/
+    ├── extensions/              # Workflow extensions
+    ├── generated/               # Merged configurations
+    └── agents/                  # Generated MCP SubAgents
 
-# Review dynamic configurations
-.cc-deck/config/workflows/dynamic/*/
-├── extensions/
-├── generated/
-└── agents/
+# Check recovery and checkpoint data
+.cc-deck/checkpoints/
+├── {workflow}-{phase}-checkpoint.json
+└── recovery-metadata.json
 ```
 
 ### Progress Calculation
+
 - **Task-based Progress**: Checkbox completion in tasks.md files
 - **Phase-based Progress**: Kiro SDD phase completion status
 - **Quality-based Progress**: Code quality, tests, documentation metrics
 - **Feature-based Progress**: Individual feature implementation status
 
 ### Recommendation Engine
+
 Based on analysis results, recommend:
+
 1. **Immediate Actions**: Critical tasks requiring immediate attention
 2. **Workflow Selection**: Most appropriate next workflow to execute
 3. **Resource Allocation**: Time and effort estimates for remaining work
@@ -229,52 +248,57 @@ Based on analysis results, recommend:
 
 When invoked, execute this comprehensive analysis sequence:
 
-### Phase 1: Initial State Detection
+### Phase 1: Workflow State Detection
+
 ```bash
-# Step 1: Check for existing project structures
-Glob('.kiro/specs/*') # Identify active Kiro specifications
-Glob('projects/*')    # Check for implementation directories
-LS('.cc-deck/config/workflows/dynamic/') # Dynamic configuration status
+# Step 1: Check for active workflow execution states
+Glob('.cc-deck/context/active/*') # Active workflow contexts
+Glob('.cc-deck/config/workflows/*.yaml') # Available workflow definitions
+LS('.cc-deck/config/workflows/dynamic/') # Dynamic agent configurations
 ```
 
-### Phase 2: Detailed Project Analysis
+### Phase 2: Detailed Workflow Analysis
+
 ```bash
-# Step 2: Analyze each active specification
-for each_spec in .kiro/specs/*:
-    Read('${each_spec}/kiro_status.json')  # Phase completion status
-    Read('${each_spec}/tasks.md')          # Task progress analysis
-    Read('${each_spec}/requirements.md')   # Requirements validation
-    Read('${each_spec}/design.md')         # Design completeness
+# Step 2: Analyze each active workflow context
+for each_workflow in .cc-deck/context/active/*:
+    Read('${each_workflow}')                         # Workflow execution state
+    workflow_name = extract_workflow_name(each_workflow)
+    Read('.cc-deck/config/workflows/${workflow_name}.yaml') # Workflow definition
+    Check_dynamic_config(workflow_name)              # Dynamic agent status
 ```
 
-### Phase 3: Implementation Status Validation
+### Phase 3: Smart Context Validation
+
 ```bash
-# Step 3: Cross-reference implementation with specifications
-for each_project in projects/*:
-    LS('${each_project}/src/')           # Source code structure
-    LS('${each_project}/')               # Project files (package.json, etc.)
-    Grep('class|function|interface', '${each_project}/src/**/*') # Implementation detection
+# Step 3: Validate Smart Context integrity and completeness
+for each_context in workflow_contexts:
+    validate_context_schema(each_context)           # Schema compliance
+    check_phase_dependencies(each_context)          # Cross-phase data
+    assess_continuation_readiness(each_context)     # Resume requirements
 ```
 
-### Phase 4: Task Progress Calculation
+### Phase 4: Continuation Strategy Formulation
+
 ```bash
-# Step 4: Detailed task analysis per specification
-for each_tasks_file in .kiro/specs/*/tasks.md:
-    # Parse checkbox completion: [x] vs [ ]
-    # Count completed vs total tasks
-    # Identify next uncompleted task
-    # Assess implementation evidence vs task marking
+# Step 4: Determine optimal workflow continuation approach
+for each_active_workflow in workflow_contexts:
+    current_phase = extract_current_phase(each_active_workflow)
+    next_phase = determine_next_phase(current_phase, workflow_definition)
+    required_context = check_phase_requirements(next_phase)
+    formulate_continuation_command(workflow_name, feature_name, next_phase)
 ```
 
-### Phase 5: Consistency Validation
+### Phase 5: Recovery and Checkpoint Analysis
+
 ```bash
-# Step 5: Validate status consistency
+# Step 5: Analyze recovery options and checkpoint availability
 # Compare:
-#   - kiro_status.json current_phase
-#   - Actual file implementation evidence
-#   - Task completion checkboxes
-#   - Project file structures
-# Identify discrepancies requiring resolution
+#   - Smart Context current state
+#   - Available checkpoint data
+#   - Workflow definition requirements
+#   - Dynamic agent availability
+# Identify recovery strategies and rollback options
 ```
 
 ### Phase 6: Generate Analysis Report
@@ -282,66 +306,71 @@ for each_tasks_file in .kiro/specs/*/tasks.md:
 Produce comprehensive analysis following this structure:
 
 ```
-📊 Project State Analysis Report
-====================================
+📊 CC-Deck Workflow Engine State Analysis Report
+================================================
 
-🔍 ANALYSIS SUMMARY:
-• Total Kiro Specs: {count} active specifications detected
-• Implementation Status: {status} ({details})
-• Task Completion: {completed}/{total} tasks ({percentage}%)
-• Consistency Status: {consistent/inconsistent} + {details}
+🔍 WORKFLOW EXECUTION ANALYSIS:
+• Active Workflows: {count} workflow contexts detected
+• Execution Status: {status} ({details})
+• Phase Completion: {completed}/{total} phases ({percentage}%)
+• Context Integrity: {valid/corrupted/missing} + {details}
 
-📋 ACTIVE SPECIFICATIONS:
-{for each specification}:
-• {spec-name}: 
-  - Phase: {current-phase}
-  - Tasks: {completed-tasks}/{total-tasks} ({percentage}%)
-  - Status: {implementation-status}
-  - Next Action: {recommended-next-action}
+🔄 ACTIVE WORKFLOW CONTEXTS:
+{for each active workflow}:
+• {workflow-name} → {feature-name}:
+  - Current Phase: {current-phase} ({step})
+  - Context Status: {valid/partial/corrupted}
+  - Next Phase: {next-phase}
+  - Continuation: {ready/blocked/requires-recovery}
 
-🎯 IMMEDIATE RECOMMENDATIONS:
-1. {primary-action} - Priority: CRITICAL
+🎯 CONTINUATION STRATEGY:
+1. {primary-continuation-action} - Priority: IMMEDIATE
+   Command: /orchestrator "resume {workflow} {feature}"
    Reason: {detailed-explanation}
-   
-2. {secondary-action} - Priority: HIGH  
+
+2. {secondary-action} - Priority: HIGH
+   Command: {specific-command}
    Reason: {detailed-explanation}
-   
+
 3. {tertiary-action} - Priority: MEDIUM
+   Command: {specific-command}
    Reason: {detailed-explanation}
 
-⚠️ INCONSISTENCIES DETECTED:
-• {inconsistency-1}: {description} → {resolution-recommendation}
-• {inconsistency-2}: {description} → {resolution-recommendation}
+⚠️ WORKFLOW ENGINE ISSUES:
+• {issue-1}: {description} → {resolution-command}
+• {issue-2}: {description} → {resolution-command}
 
-🚀 WORKFLOW RECOMMENDATIONS:
-• Recommended Workflow: {workflow-name}
-• Execution Priority: {priority-level}
+🚀 EXECUTION RECOMMENDATIONS:
+• Resume Strategy: {continuation-strategy}
+• Required Context: {context-requirements}
 • Estimated Duration: {time-estimate}
-• Required Actions: {action-list}
+• Recovery Options: {available-checkpoints}
 
-📈 PROJECT HEALTH METRICS:
-• Implementation Coverage: {percentage}%
-• Test Coverage: {status}
-• Documentation Status: {status}
-• Code Quality: {assessment}
+📈 WORKFLOW ENGINE HEALTH:
+• Smart Context: {percentage}% integrity
+• Dynamic Agents: {count} available
+• MCP Integration: {status}
+• Checkpoint Availability: {status}
 
-🔄 NEXT STEPS:
-{ordered-list-of-concrete-next-actions}
+🔄 IMMEDIATE NEXT ACTIONS:
+{ordered-list-of-concrete-continuation-commands}
 ```
 
 ### Critical Analysis Points
 
 **Mandatory Checks:**
-1. **Serena MCP Status**: Verify project context initialization
-2. **Dev-Env-Setup Gap**: Identify missing dynamic configurations
-3. **Task-Implementation Sync**: Detect completion marking discrepancies
-4. **Workflow Readiness**: Assess prerequisites for next workflow phase
-5. **Quality Gates**: Validate test coverage and implementation completeness
 
-**Auto-Resolution Recommendations:**
-- Update kiro_status.json when implementation evidence exists
-- Mark completed tasks when implementation files verified
-- Suggest Serena MCP initialization for new projects
-- Trigger dev-env-setup for missing configurations
+1. **Active Workflow Detection**: Identify ongoing CC-Deck workflow executions
+2. **Smart Context Validation**: Verify context data integrity and completeness
+3. **Phase Continuation Readiness**: Assess next phase requirements and dependencies
+4. **Dynamic Agent Availability**: Check generated MCP SubAgent operational status
+5. **Recovery Point Assessment**: Validate checkpoint availability and currency
 
-This protocol ensures every workflow starts with complete, accurate project context and actionable recommendations for optimal progression.
+**Auto-Continuation Recommendations:**
+
+- Resume workflows at detected continuation points
+- Recover corrupted Smart Context from checkpoints
+- Generate missing dynamic agents when required
+- Trigger workflow chain progression (kiro-sdd → dev-env-setup → coding)
+
+This protocol ensures CC-Deck Workflow Engine can intelligently detect, analyze, and continue interrupted workflows with complete context preservation and optimal execution strategies.
