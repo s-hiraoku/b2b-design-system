@@ -10,7 +10,7 @@ Intelligent orchestrator with enterprise-grade monitoring, unified quality assur
 
 ## Initial Setup: Current Date Information
 
-**CRITICAL**: Always start by calling the date-utility agent to get accurate current date and time information for proper timestamping, search queries, and time-sensitive operations.
+**CRITICAL**: Always call the following agent first to execute the command correctly.
 
 ```bash
 # First action: Get current date information
@@ -22,7 +22,6 @@ Task(subagent_type="user-interaction-reminder", description="User interaction gu
 # Third action: Comprehensive project state analysis
 Task(subagent_type="project-state-analyzer", description="Project state analysis", prompt="Perform comprehensive project state analysis including Kiro specs status, implementation progress, task completion, and workflow recommendations for this orchestrator session.")
 ```
-
 
 ## Enterprise Quality Commitment
 
@@ -206,7 +205,7 @@ acceptance workflow approval → Project completion
 2. **Wait for Human Approval**: Present comprehensive review materials
 3. **Present Clear Options**: Display Y/R/S choices with explanations
 4. **Wait for User Selection**: Accept Y, R, or S response from user
-5. **Execute Based on Choice**: 
+5. **Execute Based on Choice**:
    - Y: Start next workflow immediately
    - R: Rollback to specification revision phase
    - S: Save state and terminate session for later resumption
@@ -227,8 +226,9 @@ Ready to [next action]?
 ```
 
 **Examples for different workflows:**
+
 - Kiro SDD → Coding: "Ready to start implementation?"
-- Coding → Refactoring: "Ready to improve code quality?"  
+- Coding → Refactoring: "Ready to improve code quality?"
 - Refactoring → Testing: "Ready to run comprehensive tests?"
 - Testing → PR: "Ready to create pull request?"
 
@@ -242,7 +242,7 @@ Ready to [next action]?
 Ready to start implementation?
 
 [Y] Yes, start implementation
-[R] Review specifications (regenerate Requirements/Design)  
+[R] Review specifications (regenerate Requirements/Design)
 [S] Save and resume later (auto-detect with next /orchestrator)
 
 # 2. Wait for Y, R, or S selection
@@ -342,7 +342,7 @@ After each approval, immediately execute the corresponding workflow command:
 The orchestrator delegates comprehensive project state analysis to the `project-state-analyzer` sub-agent, which provides detailed analysis of:
 
 - **Current Project Status**: Kiro specifications, implementation progress, task completion
-- **Quality Assessment**: Code quality, test coverage, technical debt analysis  
+- **Quality Assessment**: Code quality, test coverage, technical debt analysis
 - **Workflow Recommendations**: Optimal next actions based on project context
 - **Resource Planning**: Time estimates and complexity assessments
 
@@ -1357,32 +1357,32 @@ def evaluate_condition(condition_str, context):
 
 def load_project_specific_workflow(workflow_name, project_id=None):
     """Load project-specific merged workflow if available, otherwise fallback to base workflow"""
-    
+
     # Detect project ID if not provided
     if not project_id:
         project_id = detect_project_id()
-    
+
     # Try project-specific merged workflow first
     if project_id:
         merged_path = f".cc-deck/config/workflows/dynamic/{project_id}/generated/{workflow_name}-merged.yaml"
         if file_exists(merged_path):
             print(f"🎯 Loading project-specific workflow: {merged_path}")
             return load_workflow_definition(merged_path)
-        
+
         # Check if dynamic workflow config directory exists
         dynamic_config_dir = f".cc-deck/config/workflows/dynamic/{project_id}"
         if not file_exists(dynamic_config_dir):
             print(f"🔧 Dynamic workflow configuration not found for project: {project_id}")
             print(f"📦 Triggering dev-env-setup workflow to create project-specific configuration...")
-            
+
             # Execute dev-env-setup workflow to create dynamic config
             execute_dev_env_setup_workflow(project_id, workflow_name)
-            
+
             # Retry loading project-specific workflow after setup
             if file_exists(merged_path):
                 print(f"✅ Project-specific workflow created: {merged_path}")
                 return load_workflow_definition(merged_path)
-    
+
     # Fallback to base workflow
     base_path = f".cc-deck/config/workflows/{workflow_name}.yaml"
     print(f"📋 Loading base workflow: {base_path}")
@@ -1390,10 +1390,10 @@ def load_project_specific_workflow(workflow_name, project_id=None):
 
 def execute_dev_env_setup_workflow(project_id, target_workflow_name):
     """Execute dev-env-setup workflow to create dynamic configuration for project"""
-    
+
     print(f"\n🚀 Starting dev-env-setup workflow for project: {project_id}")
     print(f"🎯 Target workflow: {target_workflow_name}")
-    
+
     # Create dynamic workflow directory structure
     dynamic_dirs = [
         f".cc-deck/config/workflows/dynamic/{project_id}",
@@ -1401,40 +1401,40 @@ def execute_dev_env_setup_workflow(project_id, target_workflow_name):
         f".cc-deck/config/workflows/dynamic/{project_id}/generated",
         f".cc-deck/config/workflows/dynamic/{project_id}/agents"
     ]
-    
+
     for dir_path in dynamic_dirs:
         ensure_directory_exists(dir_path)
         print(f"📁 Created directory: {dir_path}")
-    
+
     # Execute dev-env-setup command
     try:
         # Use Task to execute dev-env-setup workflow
         from datetime import datetime
-        
+
         setup_context = {
             "project_id": project_id,
             "target_workflow": target_workflow_name,
             "dynamic_config_path": f".cc-deck/config/workflows/dynamic/{project_id}",
             "timestamp": datetime.now().isoformat()
         }
-        
+
         print(f"⚙️ Executing dev-env-setup workflow...")
-        
+
         # This would execute the actual dev-env-setup workflow
         # For now, we create a basic configuration structure
         create_basic_dynamic_workflow_config(project_id, target_workflow_name, setup_context)
-        
+
         print(f"✅ Dev-env-setup workflow completed for {project_id}")
-        
+
     except Exception as e:
         print(f"❌ Dev-env-setup workflow failed: {e}")
         print(f"⚠️  Falling back to base workflow configuration")
 
 def create_basic_dynamic_workflow_config(project_id, workflow_name, context):
     """Create basic dynamic workflow configuration when dev-env-setup is not available"""
-    
+
     print(f"🔧 Creating basic dynamic configuration for {project_id}")
-    
+
     # Create extension config
     extension_config = f"""# {workflow_name.title()} Workflow Extension for {project_id}
 # Generated automatically by orchestrator
@@ -1457,7 +1457,7 @@ workflow_extensions:
     - name: "project-specific-setup"
       description: "Project-specific setup tasks"
       agent: "implementation-agent"
-      
+
   task_execution:
     # Project-specific agent selection rules
     agent_selection_rules:
@@ -1468,29 +1468,29 @@ workflow_extensions:
       - pattern: "typescript|ts"
         agent: "implementation-agent"
 """
-    
+
     extension_path = f".cc-deck/config/workflows/dynamic/{project_id}/extensions/{workflow_name}-extension.yaml"
-    
+
     try:
         with open(extension_path, 'w') as f:
             f.write(extension_config)
         print(f"📝 Created extension config: {extension_path}")
     except Exception as e:
         print(f"❌ Failed to create extension config: {e}")
-    
+
     # Create merged workflow (basic version)
     create_basic_merged_workflow(project_id, workflow_name, context)
 
 def create_basic_merged_workflow(project_id, workflow_name, context):
     """Create basic merged workflow configuration"""
-    
+
     # Load base workflow
     base_path = f".cc-deck/config/workflows/{workflow_name}.yaml"
-    
+
     if not file_exists(base_path):
         print(f"⚠️  Base workflow not found: {base_path}")
         return
-    
+
     try:
         import yaml
         with open(base_path, 'r') as f:
@@ -1498,7 +1498,7 @@ def create_basic_merged_workflow(project_id, workflow_name, context):
     except Exception as e:
         print(f"❌ Failed to load base workflow: {e}")
         return
-    
+
     # Create merged workflow (for now, just copy base with project context)
     merged_workflow = base_workflow.copy()
     merged_workflow['project_context'] = {
@@ -1506,19 +1506,19 @@ def create_basic_merged_workflow(project_id, workflow_name, context):
         'generated_at': context['timestamp'],
         'config_source': 'basic-template'
     }
-    
+
     # Add project-specific metadata
     if 'metadata' not in merged_workflow:
         merged_workflow['metadata'] = {}
-    
+
     merged_workflow['metadata'].update({
         'project_id': project_id,
         'dynamic_config': True,
         'generated_by': 'orchestrator-basic-setup'
     })
-    
+
     merged_path = f".cc-deck/config/workflows/dynamic/{project_id}/generated/{workflow_name}-merged.yaml"
-    
+
     try:
         import yaml
         with open(merged_path, 'w') as f:
@@ -1529,7 +1529,7 @@ def create_basic_merged_workflow(project_id, workflow_name, context):
 
 def detect_project_id():
     """Detect current project ID from various sources"""
-    
+
     # Method 1: Check for existing dynamic workflow directories
     dynamic_dirs = glob_pattern(".cc-deck/config/workflows/dynamic/*")
     if dynamic_dirs:
@@ -1537,7 +1537,7 @@ def detect_project_id():
         latest_project = max(dynamic_dirs, key=lambda p: os.path.getmtime(p) if os.path.exists(p) else 0)
         project_id = os.path.basename(latest_project)
         return project_id
-    
+
     # Method 2: Check for existing projects in projects/ directory
     project_dirs = glob_pattern("projects/*")
     if project_dirs:
@@ -1545,7 +1545,7 @@ def detect_project_id():
         latest_project = max(project_dirs, key=lambda p: os.path.getmtime(p) if os.path.exists(p) else 0)
         project_id = os.path.basename(latest_project)
         return project_id
-    
+
     # Method 3: Check for active Kiro specs
     spec_dirs = glob_pattern(".kiro/specs/*")
     if spec_dirs:
@@ -1553,7 +1553,7 @@ def detect_project_id():
         latest_spec = max(spec_dirs, key=lambda p: os.path.getmtime(p) if os.path.exists(p) else 0)
         project_id = os.path.basename(latest_spec)
         return project_id
-    
+
     # No project detected
     return None
 
@@ -2012,7 +2012,7 @@ def should_use_workflow_engine(workflow_hint, project_state):
         project_state.get('multiple_active_features', False),
         project_state.get('requires_multi_agent_coordination', False)
     ]
-    
+
     # Also use workflow engine when dynamic configuration might be beneficial
     dynamic_config_indicators = [
         project_state.get('has_existing_projects', False),
@@ -2373,3 +2373,4 @@ def generate_general_project_tasks():
         'estimated_time': '2-4時間'
     }
 
+```

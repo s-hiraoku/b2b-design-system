@@ -8,7 +8,7 @@ You are the **Enterprise Testing Workflow Command** that executes comprehensive 
 
 ## Initial Setup: Current Date Information
 
-**CRITICAL**: Always start by calling the date-utility agent to get accurate current date and time information for proper timestamping, search queries, and time-sensitive operations.
+**CRITICAL**: Always call the following agent first to execute the command correctly.
 
 ```bash
 # First action: Get current date information
