@@ -7,7 +7,7 @@
  * @version 1.0.0
  */
 
-const SmartContextManager = require('./smart-context-manager');
+const SmartContextManager = require('../runtime/smart-context-manager');
 const path = require('path');
 const fs = require('fs').promises;
 

@@ -45,7 +45,7 @@ Execute detailed project state analysis using the following step-by-step process
 ```yaml
 CC-Deck Workflow Engine State Analysis Protocol with Smart Context:
   0. Smart Context Initialization:
-    - Check Smart Context availability: node .cc-deck/runtime/smart-context-cli.js status
+    - Check Smart Context availability: node .cc-deck/src/cli/smart-context-cli.js status
     - Load existing project context to avoid redundant analysis
     - Initialize new context if none exists
     - Gracefully fallback to standard analysis if Smart Context unavailable
@@ -259,14 +259,14 @@ When invoked, execute this comprehensive analysis sequence:
 
 ```bash
 # Step 1: Initialize Smart Context integration
-Bash("node .cc-deck/runtime/smart-context-cli.js status --project-id=$(basename $(pwd)) || echo 'Smart Context unavailable'")
+Bash("node .cc-deck/src/cli/smart-context-cli.js status --project-id=$(basename $(pwd)) || echo 'Smart Context unavailable'")
 
 # Step 2: Load existing Smart Context if available
-Bash("node .cc-deck/runtime/smart-context-cli.js load --project-id=$(basename $(pwd)) --scope=project_state,workflow_history || echo 'Creating new context'")
+Bash("node .cc-deck/src/cli/smart-context-cli.js load --project-id=$(basename $(pwd)) --scope=project_state,workflow_history || echo 'Creating new context'")
 
 # Step 3: Check for active workflow execution states
-Glob('.cc-deck/context/active/*') # Active workflow contexts
-Glob('.cc-deck/config/workflows/*.yaml') # Available workflow definitions
+Glob('.cc-deck/runtime/global/context/active/*') # Active workflow contexts
+Glob('.cc-deck/config/workflows/base/*.yaml') # Available workflow definitions
 LS('.cc-deck/config/workflows/dynamic/') # Dynamic agent configurations
 ```
 
@@ -318,7 +318,7 @@ for each_active_workflow in workflow_contexts:
 
 ```bash
 # Step 6: Save analysis results to Smart Context for future use
-Bash("node .cc-deck/runtime/smart-context-cli.js update-analysis --project-id=$(basename $(pwd)) --analysis-results='${analysis_json}' || echo 'Analysis complete without context save'")
+Bash("node .cc-deck/src/cli/smart-context-cli.js update-analysis --project-id=$(basename $(pwd)) --analysis-results='${analysis_json}' || echo 'Analysis complete without context save'")
 ```
 
 Produce comprehensive analysis following this structure:

@@ -13,8 +13,8 @@ const path = require('path');
 
 class SmartContextManager {
   constructor() {
-    this.contextDir = '.cc-deck/context';
-    this.checkpointDir = '.cc-deck/checkpoints';
+    this.contextDir = '.cc-deck/runtime/global/context';
+    this.checkpointDir = '.cc-deck/runtime/global/checkpoints';
     this.schemaVersion = '1.0';
     
     // Ensure required directories exist
@@ -30,7 +30,7 @@ class SmartContextManager {
       `${this.contextDir}/completed`,
       `${this.contextDir}/checkpoints`,
       `${this.contextDir}/templates`,
-      `${this.contextDir}/schemas`,
+      '.cc-deck/config/schemas',
       this.checkpointDir
     ];
 

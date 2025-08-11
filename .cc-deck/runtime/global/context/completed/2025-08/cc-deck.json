@@ -1,0 +1,76 @@
+{
+  "context_id": "test-cc-deck-20250811",
+  "metadata": {
+    "created_at": "2025-08-11T05:57:21.355Z",
+    "updated_at": "2025-08-11T05:57:21.355Z",
+    "version": "1.0.0",
+    "project_id": "cc-deck",
+    "current_workflow": "test",
+    "schema_version": "1.0"
+  },
+  "project_state": {
+    "project_name": "cc-deck",
+    "project_type": "unknown",
+    "complexity": "medium",
+    "security_critical": false,
+    "technology_stack": {},
+    "analysis_timestamp": "2025-08-11T05:57:21.355Z"
+  },
+  "workflow_history": [],
+  "current_workflow_state": {
+    "workflow_name": "test",
+    "status": "initialized",
+    "started_at": "2025-08-11T05:57:21.355Z",
+    "current_phase": null,
+    "completed_phases": [],
+    "phase_outputs": {}
+  },
+  "task_progress": {
+    "tasks_file": ".kiro/specs/cc-deck/tasks.md",
+    "total_tasks": 0,
+    "completed_tasks": 0,
+    "current_task": null,
+    "completion_percentage": 0,
+    "last_updated": "2025-08-11T05:57:21.355Z",
+    "task_details": []
+  },
+  "agent_memory": {},
+  "user_preferences": {
+    "workflow_selections": [],
+    "approval_history": [],
+    "tdd_preference": "always_use",
+    "auto_progression": false
+  },
+  "quality_metrics": {
+    "test_coverage": {
+      "line_coverage": 0,
+      "branch_coverage": 0,
+      "function_coverage": 0,
+      "last_measured": "2025-08-11T05:57:21.355Z"
+    },
+    "code_quality": {
+      "complexity_score": 0,
+      "maintainability_index": 0,
+      "technical_debt_minutes": 0
+    },
+    "workflow_efficiency": {
+      "average_phase_duration": "0min",
+      "approval_response_time": "0min",
+      "total_development_time": "0min"
+    }
+  },
+  "integration_context": {
+    "mcp_services": {
+      "deepwiki_status": "unknown",
+      "context7_status": "unknown",
+      "serena_status": "unknown",
+      "playwright_status": "unknown"
+    },
+    "generated_agents": []
+  },
+  "error_recovery": {
+    "last_checkpoint": null,
+    "checkpoint_file": null,
+    "recovery_points": []
+  }
+}

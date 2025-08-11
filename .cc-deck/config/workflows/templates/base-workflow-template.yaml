@@ -1,0 +1,119 @@
+# Base Workflow Template
+# Template for creating new CC-Deck workflows
+
+name: "{workflow-name}"
+description: "{workflow-description}"
+version: "1.0.0"
+
+# Smart Context Schema - Define expected context structure
+context_schema:
+  project_context:
+    project_name: string
+    project_type: string
+    technology_stack: array[string]
+  workflow_context:
+    inputs: object
+    outputs: object
+    current_phase: string
+
+# Workflow Phases - Define sequential workflow steps
+phases:
+  # Phase 1: Initialization
+  - name: init
+    agent: "{agent-name}"
+    description: "{phase-description}"
+    inputs: []
+    outputs:
+      - init_result
+    success_criteria:
+      - initialization_complete: true
+    next_phase: main_processing
+
+  # Phase 2: Main Processing
+  - name: main_processing
+    agent: "{agent-name}"
+    description: "{phase-description}"
+    inputs: [init_result]
+    outputs:
+      - processing_result
+    success_criteria:
+      - processing_complete: true
+    next_phase: finalization
+
+  # Phase 3: Finalization
+  - name: finalization
+    agent: "{agent-name}"
+    description: "{phase-description}"
+    inputs: [processing_result]
+    outputs:
+      - final_result
+    success_criteria:
+      - workflow_complete: true
+
+  # Phase 4: Human Approval (Optional)
+  - name: human_approval
+    type: human_interaction
+    description: "Human review and approval checkpoint"
+    approval_scope:
+      - "{approval-criteria-1}"
+      - "{approval-criteria-2}"
+    review_materials:
+      - processing_result
+      - final_result
+    decision_options: [approved, approved_with_conditions, rejected, deferred]
+    stakeholders:
+      required: [technical_lead]
+      optional: [product_owner]
+    timeout: 72 # hours
+
+# Error Handling Configuration
+error_handling:
+  retry_policy:
+    max_retries: 3
+    retry_delay: 15s
+    exponential_backoff: true
+    
+  recovery_strategies:
+    phase_failure:
+      action: rollback_to_checkpoint
+      create_incident_report: true
+    
+    approval_timeout:
+      action: send_escalation_notification
+      escalation_chain: [technical_lead, engineering_manager]
+
+# Quality Gates
+quality_gates:
+  entry_gate:
+    - prerequisite_workflow_complete: true
+    - required_inputs_available: true
+  exit_gate:
+    - success_criteria_met: true
+    - quality_threshold_achieved: true
+
+# Monitoring and Metrics
+monitoring:
+  metrics:
+    - phase_duration
+    - success_rate
+    - error_rate
+    - approval_response_time
+  
+  alerts:
+    - phase_duration_anomaly: "> 150% of baseline"
+    - quality_gate_failure: true
+    - approval_timeout_risk: "> 48 hours pending"
+
+# Integration Points
+integrations:
+  post_workflow_actions:
+    - next_workflow: "{next-workflow-name}"
+      condition: "context.auto_progression === true"
+      trigger: automatic
+
+# Template Usage Instructions
+# 1. Replace all {placeholder} values with actual values
+# 2. Customize phases based on workflow requirements
+# 3. Add MCP agent integrations if needed
+# 4. Configure error handling for specific use cases
+# 5. Set up monitoring metrics relevant to workflow type
