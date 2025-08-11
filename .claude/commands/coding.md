@@ -17,8 +17,7 @@ Task(subagent_type="date-utility", description="Get current date information", p
 # Second action: User interaction guidelines reminder
 Task(subagent_type="user-interaction-reminder", description="User interaction guidelines", prompt="Provide critical reminders about proper user interaction protocols for this coding workflow session.")
 
-# Third action: Comprehensive project state analysis
-Task(subagent_type="project-state-analyzer", description="Project state analysis", prompt="Perform comprehensive project state analysis including Kiro specs status, implementation progress, task completion, and workflow recommendations for this coding workflow session.")
+
 ```
 
 ## Command Purpose
@@ -35,11 +34,13 @@ This command initiates and manages the enterprise coding workflow, which transfo
 ### Automatic Project Detection:
 
 The command detects the current project context using:
+
 - Dynamic workflow directories (`.cc-deck/config/workflows/dynamic/*`)
 - Active projects (`projects/*`)
 - Kiro specifications (`.kiro/specs/*`)
 
 When a project-specific merged workflow is found, it automatically uses enhanced configurations with:
+
 - **Project-Specific MCP Agents**: Custom agents for the specific technology stack
 - **Enhanced Monitoring**: Project-tailored performance metrics and alerts
 - **Specialized Quality Gates**: Requirements specific to the project domain
@@ -58,6 +59,7 @@ When a project-specific merged workflow is found, it automatically uses enhanced
 ⚠️ **Enterprise Approval & Monitoring Required**
 
 This workflow follows enterprise approval checkpoints with real-time monitoring, quality gates, and comprehensive error recovery as defined in:
+
 - `.cc-deck/config/workflows/coding.yaml` (main workflow)
 - `.cc-deck/config/monitoring/unified-monitoring-standard.yaml` (monitoring)
 - `.cc-deck/config/quality/unified-quality-assurance-standard.yaml` (quality gates)
@@ -107,19 +109,20 @@ projects/{project-name}/
 **CRITICAL**: Execute ALL phases sequentially using the agents specified in the loaded workflow configuration. Do NOT skip phases.
 
 **Project-Specific Execution**:
+
 ```python
 # Automatic workflow loading with project detection
 def load_coding_workflow():
     project_id = detect_project_id()
-    
+
     if project_id:
         merged_path = f".cc-deck/config/workflows/dynamic/{project_id}/generated/coding-merged.yaml"
         if file_exists(merged_path):
             print(f"🎯 Using project-specific coding workflow: {merged_path}")
             return load_workflow_from_yaml(merged_path)
-    
+
     # Fallback to base workflow
-    base_path = ".cc-deck/config/workflows/coding.yaml"  
+    base_path = ".cc-deck/config/workflows/coding.yaml"
     print(f"📋 Using base coding workflow: {base_path}")
     return load_workflow_from_yaml(base_path)
 
@@ -129,6 +132,7 @@ execute_workflow_phases(workflow_config)
 ```
 
 **Standard Phases** (when using base workflow):
+
 1. **Phase 1**: research-agent (Technology research using MCP integrations)
 2. **Phase 2**: planning-agent (Develop architecture and implementation strategy)
 3. **Phase 3**: serena-onboarding-agent (Initialize Serena MCP and establish TDD environment)
@@ -139,9 +143,10 @@ execute_workflow_phases(workflow_config)
 8. **Phase 8**: Human approval checkpoint - Review completed workflow
 
 **Enhanced Phases** (when using project-specific merged workflow):
+
 - All standard phases **PLUS** project-specific sub-agents integrated into Phase 5:
   - `{project-id}-vercel-optimizer`: Deployment optimization
-  - `{project-id}-ai-image-manager`: AI content generation  
+  - `{project-id}-ai-image-manager`: AI content generation
   - `{project-id}-playwright-tester`: E2E testing automation
   - `{project-id}-performance-monitor`: Real-time performance tracking
 

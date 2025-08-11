@@ -20,9 +20,6 @@ Task(subagent_type="date-utility", description="Get current date information", p
 Task(subagent_type="user-interaction-reminder", description="User interaction guidelines", prompt="Provide critical reminders about proper user interaction protocols for this sync-status session.")
 ```
 
-# Third action: Comprehensive project state analysis
-Task(subagent_type="project-state-analyzer", description="Project state analysis", prompt="Perform comprehensive project state analysis including Kiro specs status, implementation progress, task completion, and workflow recommendations for this sync-status workflow session.")
-
 ## Purpose
 
 This command addresses common issues where:
