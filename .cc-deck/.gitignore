@@ -1,24 +1,25 @@
-# CC-Deck Runtime Files
-# These files are generated during workflow execution and should not be version controlled
+# CC-Deck Runtime Data Files
+# Only exclude runtime-generated data, keep source code files
 
-# Runtime execution files
-runtime/context/*
-runtime/sessions/*
-runtime/checkpoints/*
-runtime/logs/*
+# Runtime execution data (exclude)
+context/active/*.json
+context/completed/
+checkpoints/*.json
+sessions/*.json
+logs/*.log
 
-# Temporary files
+# Temporary files (exclude)
 *.tmp
 *.temp
 *.log
 
-# Session-specific files
-session-*.json
-context-*.json
-checkpoint-*.json
+# Keep important directories and source files
+!context/schemas/
+!context/templates/
+!context/.gitkeep
+!checkpoints/.gitkeep
+!sessions/.gitkeep
+!logs/.gitkeep
 
-# Exception: Keep directory structure
-!runtime/context/.gitkeep
-!runtime/sessions/.gitkeep
-!runtime/checkpoints/.gitkeep
-!runtime/logs/.gitkeep
+# Keep all JavaScript source files in runtime/
+!runtime/*.js

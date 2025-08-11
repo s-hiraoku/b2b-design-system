@@ -1,0 +1,505 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cc-deck.dev/schemas/smart-context.json",
+  "title": "Smart Context Schema",
+  "description": "Schema for CC-Deck Smart Context data structure",
+  "type": "object",
+  "required": [
+    "context_id",
+    "metadata",
+    "project_state",
+    "workflow_history",
+    "current_workflow_state",
+    "task_progress",
+    "agent_memory",
+    "user_preferences",
+    "quality_metrics",
+    "integration_context",
+    "error_recovery"
+  ],
+  "properties": {
+    "context_id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9-]+$",
+      "description": "Unique context identifier"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["created_at", "updated_at", "version", "project_id", "current_workflow", "schema_version"],
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Context creation timestamp"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "Context version (semver)"
+        },
+        "project_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Project identifier"
+        },
+        "current_workflow": {
+          "type": ["string", "null"],
+          "enum": ["kiro-sdd", "dev-env-setup", "coding", "refactoring", "testing", "pr", "acceptance", null],
+          "description": "Current active workflow"
+        },
+        "schema_version": {
+          "type": "string",
+          "description": "Schema version for validation"
+        }
+      },
+      "additionalProperties": false
+    },
+    "project_state": {
+      "type": "object",
+      "required": ["project_name", "project_type", "complexity", "security_critical", "technology_stack", "analysis_timestamp"],
+      "properties": {
+        "project_name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable project name"
+        },
+        "project_type": {
+          "type": "string",
+          "enum": ["web-app", "mobile-app", "api-service", "desktop-app", "library", "cli-tool", "unknown"],
+          "description": "Type of project"
+        },
+        "complexity": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "description": "Project complexity assessment"
+        },
+        "security_critical": {
+          "type": "boolean",
+          "description": "Whether project handles sensitive data"
+        },
+        "financial_system": {
+          "type": "boolean",
+          "description": "Whether project handles financial transactions",
+          "default": false
+        },
+        "technology_stack": {
+          "type": "object",
+          "properties": {
+            "frontend": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Frontend technologies"
+            },
+            "backend": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Backend technologies"
+            },
+            "database": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Database technologies"
+            },
+            "testing": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Testing frameworks"
+            },
+            "deployment": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Deployment platforms"
+            }
+          },
+          "additionalProperties": true
+        },
+        "analysis_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When project analysis was performed"
+        }
+      },
+      "additionalProperties": false
+    },
+    "workflow_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["workflow_name", "status", "started_at"],
+        "properties": {
+          "workflow_name": {
+            "type": "string",
+            "enum": ["kiro-sdd", "dev-env-setup", "coding", "refactoring", "testing", "pr", "acceptance"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["completed", "failed", "cancelled"]
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "human_approved": {
+            "type": "boolean",
+            "description": "Whether workflow was human approved"
+          },
+          "approval_timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "outputs": {
+            "type": "object",
+            "description": "Workflow-specific outputs"
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "History of completed workflows"
+    },
+    "current_workflow_state": {
+      "type": "object",
+      "required": ["workflow_name", "status", "current_phase", "completed_phases", "phase_outputs"],
+      "properties": {
+        "workflow_name": {
+          "type": ["string", "null"],
+          "enum": ["kiro-sdd", "dev-env-setup", "coding", "refactoring", "testing", "pr", "acceptance", null]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["initialized", "in_progress", "completed", "failed", "paused", "ready"]
+        },
+        "started_at": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "current_phase": {
+          "type": ["string", "null"],
+          "description": "Currently executing phase"
+        },
+        "completed_phases": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "List of completed phases"
+        },
+        "phase_outputs": {
+          "type": "object",
+          "description": "Outputs from completed phases"
+        }
+      },
+      "additionalProperties": false
+    },
+    "task_progress": {
+      "type": "object",
+      "required": ["tasks_file", "total_tasks", "completed_tasks", "completion_percentage", "last_updated", "task_details"],
+      "properties": {
+        "tasks_file": {
+          "type": "string",
+          "description": "Path to tasks.md file"
+        },
+        "total_tasks": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of tasks"
+        },
+        "completed_tasks": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of completed tasks"
+        },
+        "current_task": {
+          "type": ["string", "null"],
+          "description": "Currently active task ID"
+        },
+        "completion_percentage": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Overall completion percentage"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last progress update"
+        },
+        "task_details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["task_id", "description", "completed"],
+            "properties": {
+              "task_id": {
+                "type": "string",
+                "description": "Unique task identifier"
+              },
+              "description": {
+                "type": "string",
+                "description": "Task description"
+              },
+              "completed": {
+                "type": "boolean",
+                "description": "Whether task is completed"
+              },
+              "completed_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Task completion timestamp"
+              },
+              "agent": {
+                "type": "string",
+                "description": "Agent that completed the task"
+              },
+              "files_created": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "Files created during task"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "agent_memory": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9-]+$": {
+          "type": "object",
+          "description": "Agent-specific memory data"
+        }
+      },
+      "additionalProperties": false
+    },
+    "user_preferences": {
+      "type": "object",
+      "required": ["workflow_selections", "approval_history", "tdd_preference", "auto_progression"],
+      "properties": {
+        "workflow_selections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["recommended", "selected", "timestamp"],
+            "properties": {
+              "recommended": {
+                "type": "string",
+                "description": "AI recommended workflow"
+              },
+              "selected": {
+                "type": "string",
+                "description": "User selected workflow"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "reasoning": {
+                "type": "string",
+                "description": "Selection reasoning"
+              }
+            }
+          }
+        },
+        "approval_history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["workflow", "decision", "timestamp"],
+            "properties": {
+              "workflow": {
+                "type": "string",
+                "description": "Workflow being approved"
+              },
+              "decision": {
+                "type": "string",
+                "enum": ["approved", "rejected", "deferred"]
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        "tdd_preference": {
+          "type": "string",
+          "enum": ["always_use", "sometimes", "never"],
+          "default": "always_use"
+        },
+        "auto_progression": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to auto-progress between workflows"
+        }
+      },
+      "additionalProperties": false
+    },
+    "quality_metrics": {
+      "type": "object",
+      "required": ["test_coverage", "code_quality", "workflow_efficiency"],
+      "properties": {
+        "test_coverage": {
+          "type": "object",
+          "required": ["line_coverage", "branch_coverage", "function_coverage", "last_measured"],
+          "properties": {
+            "line_coverage": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "branch_coverage": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "function_coverage": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "last_measured": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "code_quality": {
+          "type": "object",
+          "properties": {
+            "complexity_score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 10
+            },
+            "maintainability_index": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 10
+            },
+            "technical_debt_minutes": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "workflow_efficiency": {
+          "type": "object",
+          "properties": {
+            "average_phase_duration": {
+              "type": "string",
+              "description": "Average time per phase"
+            },
+            "approval_response_time": {
+              "type": "string",
+              "description": "Average approval response time"
+            },
+            "total_development_time": {
+              "type": "string",
+              "description": "Total time spent on project"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "integration_context": {
+      "type": "object",
+      "required": ["mcp_services", "generated_agents"],
+      "properties": {
+        "mcp_services": {
+          "type": "object",
+          "properties": {
+            "deepwiki_status": {
+              "type": "string",
+              "enum": ["active", "inactive", "unknown", "error"]
+            },
+            "context7_status": {
+              "type": "string",
+              "enum": ["active", "inactive", "unknown", "error"]
+            },
+            "serena_status": {
+              "type": "string",
+              "enum": ["active", "inactive", "unknown", "error"]
+            },
+            "playwright_status": {
+              "type": "string",
+              "enum": ["active", "inactive", "unknown", "error"]
+            }
+          }
+        },
+        "generated_agents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["agent_name", "generated_at", "status", "file_path"],
+            "properties": {
+              "agent_name": {
+                "type": "string",
+                "description": "Generated agent name"
+              },
+              "generated_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "status": {
+                "type": "string",
+                "enum": ["active", "inactive", "deprecated"]
+              },
+              "file_path": {
+                "type": "string",
+                "description": "Path to generated agent file"
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "error_recovery": {
+      "type": "object",
+      "required": ["recovery_points"],
+      "properties": {
+        "last_checkpoint": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "Last checkpoint timestamp"
+        },
+        "checkpoint_file": {
+          "type": ["string", "null"],
+          "description": "Path to latest checkpoint file"
+        },
+        "recovery_points": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "timestamp", "file"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Checkpoint name"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "file": {
+                "type": "string",
+                "description": "Checkpoint file path"
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

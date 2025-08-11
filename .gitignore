@@ -71,8 +71,13 @@ coverage/
 # Project specific
 BLOG.md
 
-# Claude Code
-.cc-deck/runtime/
+# Claude Code - Runtime Data Only (Keep Code Files)
+.cc-deck/runtime/context/
+.cc-deck/runtime/sessions/
+.cc-deck/runtime/checkpoints/
+.cc-deck/runtime/logs/
+.cc-deck/runtime/*.log
+.cc-deck/runtime/*.tmp
 
 # Kiroのdoc関連ファイル
 docs/kiro/prompt/
