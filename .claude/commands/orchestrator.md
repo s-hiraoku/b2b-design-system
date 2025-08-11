@@ -17,6 +17,7 @@ Intelligent orchestrator with enterprise-grade monitoring, unified quality assur
 Task(subagent_type="date-utility", description="Get current date information", prompt="Please provide current date and time information for use in this orchestrator session, including search-appropriate year formatting.")
 ```
 
+
 ## Enterprise Quality Commitment
 
 **We make no compromises in creating high-quality products. We build exceptional products that adhere to specifications with uncompromising excellence.**
@@ -272,7 +273,7 @@ After each approval, immediately execute the corresponding workflow command:
 
 ```bash
 # Workflow progression commands:
-/dev-env-setup  # After kiro-sdd approval
+/dev-env-setup  # After kiro-sdd approval - creates project-specific configuration
 /coding        # After dev-env-setup approval
 /refactoring   # After coding approval
 /testing       # After refactoring approval
@@ -398,40 +399,45 @@ Project State Analysis:
     - Existing project → Load context with mcp__serena__list_memories
     - Context stale → Refresh project understanding
 
-  1. Check Specifications:
+  1. Check Dev-Env-Setup Status:
+    - Complete Kiro specs + Missing dynamic config → Execute dev-env-setup workflow
+    - Projects/* exists + No .cc-deck/config/workflows/dynamic/{project-id}/ → Execute dev-env-setup workflow
+    - Ready-for-implementation + No project-specific configuration → Execute dev-env-setup workflow
+
+  2. Check Specifications:
     - No specs → Start with Kiro Steering
     - Incomplete spec → Resume from last phase
-    - Complete spec → Check tasks.md status
+    - Complete spec → Check implementation status
 
-  2. Validate State Consistency:
+  3. Validate State Consistency:
     - Compare kiro_status.json with actual project state
     - Detect implementation ahead of kiro status
     - Detect approval blocks preventing progression
     - Auto-sync status when implementation detected
 
-  3. Check Implementation (tasks.md):
+  4. Check Implementation (tasks.md):
     - No tasks.md → Create tasks from specs
     - Incomplete tasks → Continue with next uncompleted task
     - All tasks completed → Ready for next feature/enhancement
     - Implementation exists but tasks unmarked → Auto-update task progress
 
-  4. Auto-Resolve Status Inconsistencies:
+  5. Auto-Resolve Status Inconsistencies:
     - Detect created files/code vs task completion status
     - Auto-approve completed phases when implementation verified
     - Update kiro_status.json current_phase to match reality
     - Trigger TDD-agent completion when implementation done
 
-  5. Check Next Work:
+  6. Check Next Work:
     - All tasks complete → Analyze for new features or improvements
     - Tasks in progress → Focus on current implementation
     - Blocked tasks → Identify and resolve blockers
 
-  6. Check Quality:
+  7. Check Quality:
     - Implementation complete → Run tests and validation
     - Tests failing → Debug and fix issues
     - Tests passing → Mark tasks as completed
 
-  7. Check Documentation:
+  8. Check Documentation:
     - Code complete → Update documentation
     - Documentation ready → Final validation
     - All complete → Ready for new work cycle
