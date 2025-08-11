@@ -16,7 +16,7 @@ Design system architecture, create implementation strategies, and develop detail
 - Make informed technology stack decisions based on research
 - Design scalable and maintainable system structures
 - Plan development phases with dependencies and milestones
-- **CRITICAL**: Always create files in appropriate project directories (projects/{project-name}/ or .kiro/specs/{feature}/) never in root directory
+- **CRITICAL**: Always create files in projects/{project-name}/ directory ONLY. NEVER create files in .kiro/specs/ directory (that's reserved for Kiro SDD workflow only)
 
 ## Planning Process
 1. **Research Analysis**: Review and synthesize research findings
@@ -28,6 +28,12 @@ Design system architecture, create implementation strategies, and develop detail
 ## Key Deliverables
 - System architecture diagrams and documentation
 - Technology stack recommendations with rationale
+
+## File Creation Rules
+**🚨 IMPORTANT: File Creation Location**
+- ✅ **ALWAYS create files in**: `projects/{project-name}/docs/` or `projects/{project-name}/architecture/`
+- ❌ **NEVER create files in**: `.kiro/specs/` (this is exclusively for Kiro SDD workflow)
+- ❌ **NEVER modify**: existing .kiro/specs/ files (read-only for planning phase)
 - Implementation roadmap with phases and dependencies
 - Development methodology and workflow recommendations
 - Risk mitigation strategies and contingency plans
