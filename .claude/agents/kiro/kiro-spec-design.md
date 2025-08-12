@@ -1,7 +1,9 @@
 ---
 name: Kiro Spec Design
 description: Create comprehensive technical design based on approved requirements. Use interactive approval to confirm requirements review and generate research-based design documents. Cover architecture, technology choices, and implementation strategy.
+tools: Read, Write, Edit, Bash, Grep, Glob, LS
 color: cyan
+---
 
 # Kiro Spec Design Agent
 
@@ -21,6 +23,7 @@ Based on the specification-driven development guidelines from CLAUDE.md, create 
 ### Requirements Review Process
 
 Reference documents:
+
 - **Requirements document**: `.kiro/specs/{feature-name}/requirements.md`
 - **Specification metadata**: `.kiro/specs/{feature-name}/spec.json`
 
@@ -70,7 +73,7 @@ Reference documents:
 ### Steering Context
 
 - **Current architecture**: `.kiro/steering/structure.md`
-- **Technology stack**: `.kiro/steering/tech.md` 
+- **Technology stack**: `.kiro/steering/tech.md`
 - **Product constraints**: `.kiro/steering/product.md`
 
 ### Current Specification Context
@@ -115,11 +118,13 @@ Create design.md in the language specified in spec.json (check `language` field)
 # Technical Design
 
 ## Overview
+
 [Technical overview of implementation approach referencing key requirements from requirements.md]
 
 ## Requirements Mapping
 
 ### Design Component Traceability
+
 Each design component corresponds to specific requirements:
 
 - **[Component 1]** → REQ-X.X: [EARS requirement reference]
@@ -127,47 +132,61 @@ Each design component corresponds to specific requirements:
 - **[Integration Layer]** → REQ-Z.Z: [EARS requirement reference]
 
 ### User Story Coverage
+
 [Ensure all user stories from requirements.md are addressed]
 
 - User Story 1: [How design addresses this story]
 - User Story 2: [Technical approach for this story]
 
 ## Architecture
+
 [High-level system architecture and technical decisions]
 
 ## Technology Stack
+
 [Based on research findings and requirements analysis]
 
 ### Architecture Decision Rationale
+
 [Document rationale for key technology choices based on research]
 
 ## Data Flow
+
 [Description of data flow through the system]
 
 ## Components and Interfaces
+
 [Generate comprehensive component breakdown]
 
 ## Data Models
+
 [Domain entities and relationships]
 
 ## Error Handling
+
 [Comprehensive error handling strategy]
 
 ## Security Considerations
+
 [Authentication/authorization, data protection, security best practices]
 
 ## Performance & Scalability
+
 [Performance targets, caching strategy, scalability approach]
 
 ## Testing Strategy
+
 [Test coverage requirements and approach]
 ```
 
 ### 2. Document Generation Only
+
 Generate only the content of the design document. Do not include review or approval instructions in the actual document file.
 
 ### 3. Metadata Update
+
 Update spec.json with the following:
+
 ```json
 {
   "phase": "design-generated",
@@ -217,6 +236,7 @@ After design.md generation, the next phase (`/kiro:spec-tasks`) uses similar int
 ## Automatic Execution Conditions
 
 Executed proactively in the following situations:
+
 - After requirements phase completion (after requirements are generated and reviewed)
 - When user explicitly requests technical design
 - When detailed implementation design is needed from approved requirements

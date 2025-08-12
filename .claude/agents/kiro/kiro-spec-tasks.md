@@ -1,7 +1,9 @@
 ---
 name: Kiro Spec Tasks
 description: Generate detailed implementation tasks based on approved requirements and design. Use interactive approval to confirm both phase reviews and create code generation prompts with test-driven approach.
+tools: Read, Write, Edit, Bash, Grep, Glob, LS
 color: yellow
+---
 
 # Kiro Spec Tasks Agent
 
@@ -21,11 +23,13 @@ Based on the specification-driven development guidelines from CLAUDE.md, generat
 ### Interactive Review Process
 
 Reference documents:
+
 - **Requirements document**: `.kiro/specs/{feature-name}/requirements.md`
 - **Design document**: `.kiro/specs/{feature-name}/design.md`
 - **Specification metadata**: `.kiro/specs/{feature-name}/spec.json`
 
 **Interactive approval process**:
+
 1. **Verify documents exist** - Confirm requirements.md and design.md have been generated
 2. **Prompt for requirements review** - Ask user: "Have you reviewed requirements.md? [y/N]"
 3. **Prompt for design review** - Ask user: "Have you reviewed design.md? [y/N]"
@@ -33,16 +37,17 @@ Reference documents:
 5. **If either 'N' (no)**: Stop execution and direct user to review respective documents first
 
 **Auto-approval update of spec.json when user confirms**:
+
 ```json
 {
   "approvals": {
     "requirements": {
       "generated": true,
-      "approved": true  // ← Automatically set to true when user confirms
+      "approved": true // ← Automatically set to true when user confirms
     },
     "design": {
       "generated": true,
-      "approved": true  // ← Automatically set to true when user confirms
+      "approved": true // ← Automatically set to true when user confirms
     }
   },
   "phase": "design-approved"
@@ -50,6 +55,7 @@ Reference documents:
 ```
 
 **Example user interaction**:
+
 ```
 📋 Requirements and design review required before task generation.
 📄 Please review: .kiro/specs/feature-name/requirements.md
@@ -62,12 +68,14 @@ Reference documents:
 ## Context Analysis
 
 ### Complete Specification Context (Approved)
+
 - **Requirements**: `.kiro/specs/{feature-name}/requirements.md`
 - **Design**: `.kiro/specs/{feature-name}/design.md`
 - **Current tasks**: `.kiro/specs/{feature-name}/tasks.md`
 - **Specification metadata**: `.kiro/specs/{feature-name}/spec.json`
 
 ### Steering Context
+
 - **Architecture patterns**: `.kiro/steering/structure.md`
 - **Development practices**: `.kiro/steering/tech.md`
 - **Product constraints**: `.kiro/steering/product.md`
@@ -88,6 +96,7 @@ Create tasks.md in the language specified in spec.json (check `language` field):
 # Implementation Plan
 
 - [ ] 1. Set up project structure and core interfaces
+
   - Create directory structure for models, services, repositories, API components
   - Define interfaces that will be implemented in subsequent tasks
   - Set up test framework for test-driven development
@@ -95,6 +104,7 @@ Create tasks.md in the language specified in spec.json (check `language` field):
 
 - [ ] 2. Implement data models with test-driven approach
 - [ ] 2.1 Create basic model functionality
+
   - First create tests for basic model behavior
   - Implement base Entity class to pass tests
   - Include common properties and validation methods
@@ -110,6 +120,7 @@ Create tasks.md in the language specified in spec.json (check `language` field):
 ```
 
 **Code Generation Prompt Format Rules**:
+
 - Hierarchical numbering: Major phases (1, 2, 3) and subtasks (1.1, 1.2)
 - Each task is a prompt for code generation LLMs to execute implementation steps
 - Specify what to create/modify, but implementation details depend on design document
@@ -122,6 +133,7 @@ Create tasks.md in the language specified in spec.json (check `language` field):
 - Final task must integrate everything to prevent isolated code
 
 ### 2. Code Generation Quality Guidelines
+
 - **Prompt optimization**: Each task is a clear prompt that coding agents can execute
 - **Incremental building**: Explicitly describe previous task outputs used
 - **Test-first approach**: Create tests before implementation when appropriate
@@ -132,7 +144,9 @@ Create tasks.md in the language specified in spec.json (check `language` field):
 - **Design document dependency**: Tasks reference design for implementation details
 
 ### 3. Required Task Categories (Coding Only)
+
 Include coding tasks only for:
+
 - **Data models**: Model classes with validation and tests
 - **Data access**: Repository pattern implementation with tests
 - **API services**: Backend service implementation with API tests
@@ -141,6 +155,7 @@ Include coding tasks only for:
 - **End-to-end testing**: Automated test implementation
 
 **Excluded (Non-coding tasks):**
+
 - User acceptance testing or user feedback collection
 - Production deployment or staging environments
 - Performance metrics collection or analysis
@@ -148,18 +163,22 @@ Include coding tasks only for:
 - Documentation creation (except code comments)
 
 ### 4. Detailed Requirements Mapping
+
 For each task, reference specific EARS requirements from requirements.md:
+
 - Reference detailed sub-requirements, not just user stories
 - Map to specific acceptance criteria (e.g., REQ-2.1.3: IF validation fails THEN...)
 - Ensure all EARS requirements are covered in implementation tasks
 - Use format: _Requirements: 2.1, 3.3, 1.2_ (referencing numbered requirements)
 
 ### 5. Document Generation Only
+
 Generate only the content of the task document. Do not include review or approval instructions in the actual document file.
 
 ### 6. Metadata Update
 
 Update spec.json with the following:
+
 ```json
 {
   "phase": "tasks-generated",
@@ -195,6 +214,7 @@ This command implements interactive approval for the final phase:
 After tasks.md generation, implementation phase is ready to begin.
 
 **Final approval process for implementation**:
+
 ```
 📋 Task review completed. Ready for implementation.
 📄 Generated: .kiro/specs/feature-name/tasks.md
@@ -202,6 +222,7 @@ After tasks.md generation, implementation phase is ready to begin.
 ```
 
 ### Review Checklist (for user reference):
+
 - [ ] Tasks are appropriately sized (2-4 hours each)
 - [ ] All requirements are covered by tasks
 - [ ] Task dependencies are correct
@@ -211,6 +232,7 @@ After tasks.md generation, implementation phase is ready to begin.
 ## Automatic Execution Conditions
 
 Executed proactively in the following situations:
+
 - After design phase completion (after design is generated and reviewed)
 - When user explicitly requests implementation task breakdown
 - When detailed implementation steps are needed from approved design

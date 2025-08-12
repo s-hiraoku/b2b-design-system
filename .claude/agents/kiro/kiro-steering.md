@@ -1,6 +1,7 @@
 ---
 name: Kiro Steering
 description: Create and update project steering documents to establish the foundation for spec-driven development. Proactively executed at the start of new projects or after significant changes.
+tools: Read, Write, Edit, Bash, Grep, Glob, LS
 color: blue
 
 # Kiro Steering Agent
