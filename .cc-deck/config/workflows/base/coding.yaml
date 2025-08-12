@@ -358,7 +358,121 @@ phases:
       - tests_created: true
       - tests_passing: true
       - coverage_threshold_met: true
-    next_phase: documentation
+    next_phase: specification_compliance_check
+
+  # Phase 6.5: Specification Compliance Check
+  - name: specification_compliance_check
+    agent: acceptance-reviewer
+    description: "Verify implementation compliance with specifications and detect missing features"
+    inputs: [implementation_context, test_results, coverage_report]
+    outputs:
+      - compliance_report
+      - specification_gaps
+      - implementation_completeness_score
+      - missing_features_list
+    
+    # Specification Verification Process
+    verification_process:
+      specification_analysis:
+        - "Load and parse .kiro/specs/ directory specifications"
+        - "Extract feature requirements and acceptance criteria"
+        - "Identify mandatory vs optional features"
+        - "Map specifications to implementation artifacts"
+      
+      implementation_verification:
+        - "Analyze implemented code against specification requirements"
+        - "Verify API endpoints match specification definitions"
+        - "Check data models align with specification schemas"
+        - "Validate business logic matches specified behavior"
+      
+      tasks_completion_check:
+        - "Parse tasks.md file for completion status"
+        - "Verify all mandatory tasks are marked complete"
+        - "Identify incomplete or skipped tasks"
+        - "Cross-reference tasks with actual implementation"
+      
+      gap_analysis:
+        - "Identify missing features from specifications"
+        - "Detect implementation deviations from requirements"
+        - "Flag incomplete or partial implementations"
+        - "Generate prioritized gap remediation plan"
+    
+    # Decision Logic
+    decision_criteria:
+      completion_threshold:
+        mandatory_features: "100%"  # All mandatory features must be implemented
+        optional_features: ">= 80%"  # Most optional features should be implemented
+        tasks_completion: ">= 95%"   # Nearly all tasks should be complete
+        specification_alignment: ">= 90%"  # High specification alignment required
+      
+      quality_gates:
+        - "No critical specification gaps identified"
+        - "All mandatory API endpoints implemented"
+        - "Core business logic fully implemented"
+        - "Data models match specification requirements"
+        - "Authentication/authorization properly implemented"
+        - "Error handling meets specification standards"
+    
+    # Conditional Flow Control
+    flow_control:
+      on_success:
+        condition: "compliance_score >= 90% AND no_critical_gaps = true"
+        action: "proceed_to_documentation"
+        next_phase: "documentation"
+        
+      on_failure:
+        condition: "compliance_score < 90% OR critical_gaps_detected = true"
+        action: "rollback_to_tdd_cycle"
+        next_phase: "tdd_cycle"
+        feedback_data:
+          - specification_gaps
+          - missing_features_list
+          - implementation_recommendations
+          - priority_tasks_for_completion
+        
+      rollback_context:
+        preserve_data:
+          - "All existing tests (maintain TDD foundation)"
+          - "Completed implementation components"
+          - "Quality metrics and coverage data"
+          - "Specification compliance report"
+        
+        enhancement_focus:
+          - "Address identified specification gaps"
+          - "Implement missing mandatory features"
+          - "Complete incomplete tasks from tasks.md"
+          - "Align implementation with specification requirements"
+    
+    # Integration with Project Structure  
+    specification_sources:
+      primary_specifications: ".kiro/specs/"
+      task_tracking: ".kiro/specs/*/tasks.md"
+      acceptance_criteria: ".kiro/specs/*/acceptance.md"
+      api_specifications: ".kiro/specs/*/api.md"
+      
+    validation_scope:
+      code_analysis:
+        - "src/ directory implementation review"
+        - "API routes and endpoints validation"
+        - "Component and service implementation check"
+        - "Database schema and model verification"
+      
+      test_coverage_verification:
+        - "Ensure tests cover specified requirements"
+        - "Verify edge cases from specifications are tested"
+        - "Confirm integration tests match specification workflows"
+      
+      documentation_alignment:
+        - "Check API documentation matches specifications"
+        - "Verify usage examples align with requirements"
+        - "Confirm configuration matches specification guidelines"
+    
+    success_criteria:
+      - specification_compliance: ">= 90%"
+      - mandatory_features_complete: "100%"
+      - critical_gaps_count: "0"
+      - tasks_completion_rate: ">= 95%"
+      - implementation_quality_score: ">= 8.0"
 
   # Phase 7: Documentation
   - name: documentation
@@ -386,12 +500,14 @@ phases:
     approval_scope:
       - "Code implementation quality and completeness"
       - "Test coverage and TDD adherence (95%+ expected)"
+      - "Specification compliance verification results"
       - "Documentation accuracy and comprehensiveness" 
       - "Architecture alignment with design specifications"
       - "Performance and security considerations"
     review_materials:
       - implementation_context
       - test_results
+      - compliance_report
       - api_documentation
       - code_coverage_report
     decision_options: [approved, approved_with_conditions, rejected, deferred]
