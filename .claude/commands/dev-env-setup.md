@@ -6,7 +6,7 @@ allowed-tools: Task, Read, Write, Edit, Bash, Glob, Grep, LS
 
 # Development Environment Setup Command
 
-Intelligent development environment setup workflow that analyzes Kiro SDD specifications and dynamically generates project-specific MCP SubAgents to optimize the development process.
+Intelligent development environment setup workflow that analyzes Kiro SDD specifications and generates a unified enhanced-implementation-agent with integrated MCP capabilities to optimize the development process.
 
 ## Initial Setup: Current Date Information
 
