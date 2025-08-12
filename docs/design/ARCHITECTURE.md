@@ -92,9 +92,42 @@ graph TD
     Phase5 --> EnhancedCoding[💻 Enhanced Coding Workflow<br/>with project-specific agents]
 ```
 
+#### 🏁 DEV-ENV-SETUP完了判定基準
+
+**重要**: DEV-ENV-SETUPワークフローの完了は、以下の成果物が`.cc-deck/runtime/projects/{project_id}/`に作成されることで判定される:
+
+1. **Generated MCP SubAgents** 📂 `agents/`
+   - プロジェクト特化型MCPサブエージェント（複数の*.mdファイル）
+   - 命名規則: `{project_id}-{agent_purpose}.md`
+   - 例: `liquid-glass-tech-blog-vercel-optimizer.md`, `liquid-glass-tech-blog-nextjs-optimizer.md`
+
+2. **Workflow Extension Configuration** 📄 `extensions/coding-extension.yaml`
+   - Codingワークフロー拡張設定ファイル
+   - 生成されたサブエージェントのワークフロー統合情報
+
+3. **Merged Workflow Configuration** 📄 `workflows/generated/coding-merged.yaml`
+   - ベースワークフローと拡張の統合済み設定
+   - 実際の実行で使用される最終ワークフロー定義
+
+**✅ 完了検証**: project-state-analyzerは上記3つのアーティファクト存在を確認してDEV-ENV-SETUP完了を判定し、次のCODINGワークフローを推奨する。
+
+**❌ 不完全判定回避**: `.kiro/specs/`ディレクトリではなく、`.cc-deck/runtime/projects/{project_id}/`の成果物を基準とする。
+
 ### 3. 💻 Coding Workflow (`/coding`) 
 
-**TDD統一による高品質開発ワークフロー** - 全実装がTest-Driven Developmentで統一され、95%+テストカバレッジを保証する7段階プロセス。動的に生成されたMCPサブエージェントを活用してプロジェクト特化型の最適化を実現。
+**TDD統一による高品質開発ワークフロー** - 全実装がTest-Driven Developmentで統一され、95%+テストカバレッジを保証する7段階プロセス。動的に生成されたMCPサブエージェントを全フェーズで活用し、プロジェクト特化型の最適化と問題解決を実現。
+
+#### 🚀 強化されたMCPサブエージェント統合
+
+**動的サブエージェント活用戦略** - 8つの専用MCPサブエージェントが全フェーズで協調動作：
+
+- **Research Phase**: Context7、DeepWiki、Brave Search による技術調査強化
+- **TDD Phase**: テスト実装パターン分析、E2Eテスト準備支援
+- **Implementation Phase**: リアルタイム問題解決、最適化、品質監視
+- **Testing Phase**: Playwright自動テスト、CI/CD統合、パフォーマンステスト
+- **Documentation Phase**: AI画像生成、多言語対応、GitHub自動更新
+
+**intelligent triggers**: エラー、パフォーマンス問題、統合課題に応じて適切なサブエージェントを自動呼び出し
 
 ```mermaid
 graph TD
@@ -507,11 +540,17 @@ graph TD
 
 - **Sub-processes**: 3 個 (acceptance-reviewer, feedback-analyzer, phase-coordinator)
 
-#### 🛠️ Utility Cluster (1 agent)
+#### 🛠️ Utility Cluster (2 agents)
 
 システム支援ユーティリティ
 
 - **date-utility**: 日付・時間情報提供エージェント
+- **project-state-analyzer**: CC-Deck Workflow Engine状態検出・継続戦略エージェント
+  - **DEV-ENV-SETUP完了検出**: `.cc-deck/runtime/projects/{project_id}/`内の成果物確認
+    - `agents/` ディレクトリ（生成されたMCPサブエージェント）
+    - `extensions/coding-extension.yaml` （ワークフロー拡張設定）
+    - `workflows/generated/coding-merged.yaml` （統合済みワークフロー）
+  - **インテリジェント継続推奨**: 完了検出に基づく次ワークフロー自動推奨
 
 ### 🎯 Main Orchestration System
 
