@@ -166,8 +166,9 @@ execute_workflow_phases(workflow_config)
 4. **Phase 4**: tdd-agent (Execute strict TDD Red-Green-Refactor cycles)
 5. **Phase 5**: implementation-agent (Build complete implementation on TDD foundation)
 6. **Phase 6**: testing-agent (Comprehensive testing strategy)
-7. **Phase 7**: documentation-agent (Generate comprehensive documentation)
-8. **Phase 8**: Human approval checkpoint - Review completed workflow
+7. **Phase 6.5**: acceptance-reviewer (Specification compliance check with rollback capability)
+8. **Phase 7**: documentation-agent (Generate comprehensive documentation)
+9. **Phase 8**: Human approval checkpoint - Review completed workflow
 
 **Enhanced Phases** (when using project-specific merged workflow):
 
@@ -271,6 +272,26 @@ This approach ensures compatibility with any project-specific agents added via t
 - **Purpose**: Add integration and E2E testing to TDD foundation
 - **Test Types**: Integration tests, E2E tests (conditional)
 - **Outputs**: Complete test suite, coverage reports
+
+### Phase 6.5: Specification Compliance Check
+
+- **Agent**: acceptance-reviewer
+- **Purpose**: Verify implementation compliance with specifications and detect missing features
+- **Verification Process**:
+  - **Specification Analysis**: Parse .kiro/specs/ directory for requirements
+  - **Implementation Verification**: Compare code against specification requirements
+  - **Tasks Completion Check**: Verify tasks.md completion status
+  - **Gap Analysis**: Identify missing features and implementation deviations
+- **Decision Logic**: 
+  - **✅ Success**: Compliance ≥90% + No critical gaps → Proceed to Phase 7
+  - **❌ Failure**: Compliance <90% OR critical gaps → Rollback to Phase 4 (TDD Cycle)
+- **Quality Gates**:
+  - Mandatory features: 100% complete
+  - Optional features: ≥80% complete  
+  - Tasks completion: ≥95%
+  - Specification alignment: ≥90%
+- **Rollback Context**: Preserves all tests and completed components while focusing on specification gaps
+- **Outputs**: Compliance report, specification gaps, missing features list, implementation completeness score
 
 ### Phase 7: Documentation Generation
 

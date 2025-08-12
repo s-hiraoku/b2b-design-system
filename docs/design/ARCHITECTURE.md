@@ -137,7 +137,9 @@ graph TD
     Phase3 --> Phase4[🔴 Phase 4: TDD Cycle<br/>tdd-agent]
     Phase4 --> Phase5[⚡ Phase 5: Full Implementation<br/>implementation-agent]
     Phase5 --> Phase6[🧪 Phase 6: Testing<br/>testing-agent]
-    Phase6 --> Phase7[📚 Phase 7: Documentation<br/>documentation-agent]
+    Phase6 --> SpecCheck[🔍 Phase 6.5: Specification Compliance Check<br/>acceptance-reviewer]
+    SpecCheck --> |✅ Complete| Phase7[📚 Phase 7: Documentation<br/>documentation-agent]
+    SpecCheck --> |❌ Incomplete| Phase4
     Phase7 --> Approval[✅ Phase 8: Human Approval]
 
     %% MCP Integrations
@@ -148,9 +150,13 @@ graph TD
     Phase5 --> SerenaMCP
     Phase5 --> DeepWiki
     Phase5 --> Context7
+    
+    %% Specification Check Integration
+    SpecCheck --> SpecFiles[📋 .kiro/specs/]
+    SpecCheck --> TasksFile[✅ tasks.md]
 ```
 
-#### 🚀 7段階ワークフロー詳細
+#### 🚀 8段階ワークフロー詳細（仕様適合チェック含む）
 
 **Phase 1: Research** (research-agent)
 - MCP統合による技術調査（DeepWiki, Context7, WebSearch）
@@ -181,6 +187,12 @@ graph TD
 **Phase 6: Testing** (testing-agent)
 - 統合テスト・E2Eテストの追加
 - テストカバレッジ95%+の達成確認
+
+**Phase 6.5: Specification Compliance Check** (acceptance-reviewer)
+- 仕様書(.kiro/specs/)と実装内容の適合性検証
+- tasks.mdのタスク完了状況確認
+- 実装漏れ・仕様乖離の検出
+- **判定結果**: ✅完了→Phase 7へ / ❌不完全→Phase 4へ戻る
 
 **Phase 7: Documentation** (documentation-agent)
 - API仕様書・使用例・チュートリアル生成
@@ -494,7 +506,7 @@ graph TD
 
 #### 💻 Coding Cluster (8 agents)
 
-**TDD統一7段階ワークフローによる高品質開発**
+**TDD統一8段階ワークフローによる高品質開発（仕様適合チェック含む）**
 
 - **コア実装エージェント**: TDD統一プロセスの主要エージェント
   - serena-onboarding-agent (Phase 3: TDD環境・Serena MCP初期化)
