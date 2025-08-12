@@ -123,7 +123,7 @@ phases:
 
   # Phase 7: Specification Finalization
   - name: finalization
-    agent: kiro-spec-finalizer
+    agent: kiro-spec-status
     description: "Finalize specifications and prepare for next workflow"
     inputs: [requirements_doc, design_doc, task_plan]
     outputs:
