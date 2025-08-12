@@ -96,35 +96,70 @@ Executing workflow...
 Bash("/dev-env-setup liquid-glass-tech-blog")  # THIS CAUSES ERROR!
 ```
 
-## 🔄 Workflow Command Execution
+## 🔄 Direct Workflow Execution
 
-After user confirmation, save workflow selection to Smart Context and execute the appropriate specialized workflow command:
+After user confirmation, the orchestrator will directly execute the selected workflow by reading its YAML definition and executing all phases automatically.
 
 ```bash
 # Save workflow selection and execution start to Smart Context (graceful fallback)
 Bash: "node .cc-deck/src/cli/smart-context-cli.js update-workflow $(basename $(pwd)) [selected_workflow] '{\"status\":\"started\"}' || echo 'Workflow started: [selected_workflow] (Smart Context unavailable)'"
 ```
 
-### CC-Deck Workflow Commands:
+### Direct YAML Workflow Execution:
 
-**IMPORTANT**: These are Claude Code slash commands, NOT bash commands. They should be executed as plain text responses to the user, who will then execute them in Claude Code interface.
+The orchestrator will directly execute the selected workflow by reading its YAML definition and running each phase automatically.
 
+**Available Workflows**:
+- **kiro-sdd**: Specification-driven development workflow
+- **dev-env-setup**: Dynamic MCP agent generation and setup
+- **coding**: TDD-unified comprehensive development
+- **refactoring**: Semantic analysis and code improvement  
+- **testing**: Integration and E2E testing workflows
+- **pr**: Pull request creation and merge management
+- **acceptance**: Human approval and feedback-driven improvement
+
+**Execution Process**:
+1. Load workflow YAML from `.cc-deck/config/workflows/base/{workflow_name}.yaml`
+2. Parse phases and dependencies from the YAML definition
+3. Execute each phase sequentially using appropriate Task() calls
+4. Update Smart Context with phase completion status
+5. Handle human approval phases with proper Y/R/S format
+6. Continue to next phase or workflow based on results
+
+**Example Execution Flow for dev-env-setup**:
+```bash
+# 1. Load YAML definition
+Read: ".cc-deck/config/workflows/base/dev-env-setup.yaml"
+
+# 2. Execute Phase 1: Specification Analysis  
+Task(subagent_type="spec-analyzer", description="Analyze Kiro SDD specs", prompt="Analyze specifications in .kiro/specs/{project_id}/ to extract technology stack and development requirements for {project_name}")
+
+# 3. Execute Phase 2: MCP Recommendation
+Task(subagent_type="mcp-recommender", description="Research MCP agents", prompt="Research and recommend optimal MCP agents based on project analysis: {phase1_output}")
+
+# 4. Present Human Approval with Y/R/S format
+# 5. Execute remaining phases based on YAML definition
 ```
-# Workflow commands to be presented to user for execution:
-/kiro-sdd        # Specification-driven development workflow
-/dev-env-setup   # Dynamic MCP agent generation (NEW)
-/coding          # TDD-unified comprehensive development
-/refactoring     # Semantic analysis and code improvement  
-/testing         # Integration and E2E testing workflows
-/pr              # Pull request creation and merge management
-/acceptance      # Human approval and feedback-driven improvement
-```
 
-**Execution Method**: 
-- DO NOT use Bash() to execute these commands
-- DO NOT use Task() to execute these commands  
-- Simply OUTPUT the command as text for the user to execute
-- Example: When user selects dev-env-setup, output: "/dev-env-setup liquid-glass-tech-blog"
+**Implementation Instructions for Orchestrator**:
+
+When executing a workflow, the orchestrator must:
+
+1. **Load Workflow Definition**: Use Read tool to load the appropriate YAML file
+2. **Parse Project Context**: Extract project_id from user input or Smart Context
+3. **Execute Phases Sequentially**: For each phase in the YAML:
+   - If `type: human_interaction`: Present Y/R/S approval format with review materials
+   - If `agent: {agent_name}`: Execute `Task(subagent_type="{agent_name}", description="{phase.description}", prompt="{detailed_prompt_with_context}")`
+   - Update Smart Context after each phase completion
+4. **Handle Dependencies**: Ensure outputs from previous phases are available as inputs
+5. **Error Handling**: If phase fails, check for fallback options in YAML
+6. **Chain to Next Workflow**: After completion and approval, identify next workflow from CC-Deck chain
+
+**Critical Notes**:
+- Project context (project_id) should be extracted from Smart Context or user argument
+- All phase outputs should be preserved for dependent phases  
+- Human approval phases must present comprehensive review materials
+- Smart Context updates must be attempted with graceful fallback
 
 ### Workflow Chain Execution:
 
