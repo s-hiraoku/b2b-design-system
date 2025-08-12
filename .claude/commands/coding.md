@@ -212,13 +212,58 @@ execute_workflow_phases(workflow_config)
   - **Refactor**: Improve code quality while maintaining test coverage
 - **Outputs**: Test suite, minimal implementations, refactored foundation
 
-### Phase 5: Complete TDD-Based Implementation
+### Phase 5: Enhanced Multi-Agent Implementation (Dynamic)
 
-- **Agent**: implementation-agent
-- **Purpose**: Build complete implementation on TDD foundation
-- **Focus**: Maintain ALL existing tests while expanding functionality
-- **Activities**: Edge case handling, performance optimization, production readiness
-- **Outputs**: Complete production code with 95%+ test coverage
+**IMPORTANT**: Phase 5 uses a dynamic multi-agent approach that adapts to project-specific configurations.
+
+**⚠️ Anthropic Claude Code Limitation Note**: Due to current Claude Code specifications, sub-agents cannot directly call other sub-agents. Therefore, this implementation uses a **Sequential Agent Pattern** where each supporting agent is executed as a separate phase in sequence, rather than parallel collaboration. This ensures full compliance with Anthropic's sub-agent architecture while achieving the desired multi-agent functionality.
+
+#### Dynamic Phase 5 Execution Strategy:
+
+1. **Load Merged Workflow Configuration**: Read the `coding-merged.yaml` to identify available supporting agents
+2. **Parse Supporting Agents**: Extract all agents from `supporting_agents` section  
+3. **Execute Sequential Sub-Phases**: Convert each supporting agent into a sequential phase
+
+#### Implementation Logic:
+
+```python
+# Dynamic phase 5 execution
+def execute_phase_5_dynamically():
+    workflow_config = load_merged_workflow()
+    supporting_agents = workflow_config['phases'][4]['agent_orchestration']['supporting_agents']
+    
+    # Execute each supporting agent as sequential sub-phase
+    for agent_name, agent_description in supporting_agents.items():
+        execute_sub_phase(
+            name=f"phase_5_{agent_name.replace('-', '_')}",
+            agent=agent_name,
+            description=agent_description,
+            inputs=previous_phase_outputs
+        )
+    
+    # Finally execute primary implementation agent
+    execute_sub_phase(
+        name="phase_5_primary_implementation", 
+        agent="implementation-agent",
+        inputs=all_supporting_agent_outputs
+    )
+```
+
+#### Dynamic Sub-Phase Generation:
+
+The system will automatically create sequential sub-phases based on the `supporting_agents` found in the merged workflow:
+
+- **Phase 5a**: First supporting agent (e.g., `research-agent`)
+- **Phase 5b**: Second supporting agent (e.g., `deepwiki-research-solver`) 
+- **Phase 5c**: Third supporting agent (e.g., `project-specific-optimizer`)
+- **Phase 5n**: Final primary implementation (`implementation-agent`)
+
+**Purpose**: Build complete implementation on TDD foundation with project-specific optimization
+**Focus**: Maintain ALL existing tests while expanding functionality with specialized agent support
+**Activities**: Edge case handling, performance optimization, production readiness via multi-agent collaboration
+**Outputs**: Complete production code with 95%+ test coverage and project-specific enhancements
+
+This approach ensures compatibility with any project-specific agents added via the workflow merging process.
 
 ### Phase 6: Comprehensive Testing
 
