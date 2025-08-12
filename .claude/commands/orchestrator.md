@@ -96,49 +96,69 @@ Executing workflow...
 Bash("/dev-env-setup liquid-glass-tech-blog")  # THIS CAUSES ERROR!
 ```
 
-## 🔄 Direct Workflow Execution
+## 🔄 Direct YAML Workflow Execution
 
-After user confirmation, the orchestrator will directly execute the selected workflow by reading its YAML definition and executing all phases automatically.
+**CRITICAL**: The orchestrator MUST directly execute workflows by reading YAML definitions and executing phases sequentially. Never delegate to slash commands.
 
 ```bash
 # Save workflow selection and execution start to Smart Context (graceful fallback)
 Bash: "node .cc-deck/src/cli/smart-context-cli.js update-workflow $(basename $(pwd)) [selected_workflow] '{\"status\":\"started\"}' || echo 'Workflow started: [selected_workflow] (Smart Context unavailable)'"
 ```
 
-### Direct YAML Workflow Execution:
+### YAML-Driven Workflow Execution:
 
-The orchestrator will directly execute the selected workflow by reading its YAML definition and running each phase automatically.
+The orchestrator MUST directly execute workflows by reading YAML files and executing each phase:
 
 **Available Workflows**:
-- **kiro-sdd**: Specification-driven development workflow
-- **dev-env-setup**: Dynamic MCP agent generation and setup
-- **coding**: TDD-unified comprehensive development
-- **refactoring**: Semantic analysis and code improvement  
-- **testing**: Integration and E2E testing workflows
-- **pr**: Pull request creation and merge management
-- **acceptance**: Human approval and feedback-driven improvement
+- **kiro-sdd**: `.cc-deck/config/workflows/base/kiro-sdd.yaml`
+- **dev-env-setup**: `.cc-deck/config/workflows/base/dev-env-setup.yaml`
+- **coding**: `.cc-deck/config/workflows/base/coding.yaml`
+- **refactoring**: `.cc-deck/config/workflows/base/refactoring.yaml`
+- **testing**: `.cc-deck/config/workflows/base/testing.yaml`
+- **pr**: `.cc-deck/config/workflows/base/pr.yaml`
+- **acceptance**: `.cc-deck/config/workflows/base/acceptance.yaml`
 
-**Execution Process**:
-1. Load workflow YAML from `.cc-deck/config/workflows/base/{workflow_name}.yaml`
-2. Parse phases and dependencies from the YAML definition
-3. Execute each phase sequentially using appropriate Task() calls
-4. Update Smart Context with phase completion status
-5. Handle human approval phases with proper Y/R/S format
-6. Continue to next phase or workflow based on results
+**Mandatory Execution Process**:
+1. **Read YAML**: `Read: ".cc-deck/config/workflows/base/{workflow_name}.yaml"`
+2. **Extract project_id**: From user argument or Smart Context
+3. **Execute phases sequentially**: For each phase in the YAML:
+   - If `agent: {agent_name}`: Execute `Task(subagent_type="{agent_name}", ...)`
+   - If `type: human_interaction`: Present Y/R/S approval format
+   - Update Smart Context after each phase
+4. **Handle dependencies**: Pass outputs between phases
+5. **Error handling**: Use YAML fallback strategies
+6. **Chain workflows**: Proceed to next workflow after approval
 
-**Example Execution Flow for dev-env-setup**:
+**Concrete dev-env-setup Execution Example**:
 ```bash
-# 1. Load YAML definition
+# 1. MANDATORY: Read YAML definition
 Read: ".cc-deck/config/workflows/base/dev-env-setup.yaml"
 
-# 2. Execute Phase 1: Specification Analysis  
-Task(subagent_type="spec-analyzer", description="Analyze Kiro SDD specs", prompt="Analyze specifications in .kiro/specs/{project_id}/ to extract technology stack and development requirements for {project_name}")
+# 2. Execute Phase 1: spec_analysis
+Task(subagent_type="spec-analyzer", 
+     description="Analyze Kiro SDD specs", 
+     prompt="Analyze specifications in .kiro/specs/liquid-glass-tech-blog/ to extract technology stack and development requirements...")
 
-# 3. Execute Phase 2: MCP Recommendation
-Task(subagent_type="mcp-recommender", description="Research MCP agents", prompt="Research and recommend optimal MCP agents based on project analysis: {phase1_output}")
+# 3. Execute Phase 2: mcp_recommendation  
+Task(subagent_type="mcp-recommender",
+     description="Research MCP agents",
+     prompt="Research and recommend optimal MCP agents based on project analysis: {phase1_output}")
 
-# 4. Present Human Approval with Y/R/S format
-# 5. Execute remaining phases based on YAML definition
+# 4. Execute Phase 3: user_approval (human_interaction)
+# Present Y/R/S format with comprehensive review materials
+
+# 5. Execute Phase 4: agent_generation
+Task(subagent_type="agent-generator",
+     description="Generate enhanced implementation agent",
+     prompt="Generate unified enhanced-implementation-agent integrating approved MCPs...")
+
+# 6. Execute Phase 5: mcp_setup
+Task(subagent_type="mcp-setup-manager",
+     description="Configure MCP tools",
+     prompt="Configure and authenticate approved MCP tools...")
+
+# 7. Execute Phase 6: human_approval_dev_env (human_interaction)
+# Present final approval with Y/R/S format
 ```
 
 **Implementation Instructions for Orchestrator**:
