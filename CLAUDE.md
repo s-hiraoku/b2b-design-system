@@ -195,7 +195,6 @@ When creating or updating custom slash commands and sub-agents, **ALWAYS** verif
 ## Platform Development Commands
 
 - **Main Workflow**: `/orchestrator` - Primary command for all development workflows
-- **State Sync**: `/sync-status` - Resolve Kiro SDD state inconsistencies
 - **Agent Management**: `/agents` - Create and manage sub-agents via interactive interface
 - **Help**: `/help` - View all available commands and agents
 

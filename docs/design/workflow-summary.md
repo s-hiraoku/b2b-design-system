@@ -23,9 +23,8 @@
 - 📤 PR Cluster (8 agents) → `pr.yaml`
 - ✅ Acceptance Cluster (4 agents) → `acceptance.yaml`
 
-✅ **2 メインオーケストレーター** 
-- 🎯 `orchestrator` - CC-Deck統合完了
-- 🔄 `sync-status` - 既存機能
+✅ **1 メインオーケストレーター** 
+- 🎯 `orchestrator` - CC-Deck統合完了（プロジェクト状態検出・ワークフロー継続）
 
 ## Workflow Features Summary
 

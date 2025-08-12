@@ -574,9 +574,6 @@ rm .cc-deck/runtime/global/context/{workflow}-{feature}.json
 
 **ワークフロー停止**
 ```bash
-# ステータス確認
-/sync-status
-
 # 手動復旧
 /orchestrator "resume"
 ```

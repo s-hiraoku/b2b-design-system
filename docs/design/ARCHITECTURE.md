@@ -20,24 +20,28 @@ CC-Deck (Claude Code Deck) は、Claude Code を活用した **CC-Deck Workflow 
 
 ```mermaid
 graph TD
-    User[👤 ユーザー] --> Orchestrator[🎯 /orchestrator]
-    User --> SyncStatus[🔄 /sync-status]
-
-    Orchestrator --> StateDetection{🔍 プロジェクト状態検出}
-
-    %% 各フェーズへの委任
-    StateDetection --> KiroFlow[📋 Kiro SDD フロー]
-    StateDetection --> DevEnvFlow[🛠️ Dev Environment Setup フロー]
-    StateDetection --> CodingFlow[💻 Coding フロー]
-    StateDetection --> RefactorFlow[🔧 Refactoring フロー]
-    StateDetection --> TestFlow[🧪 Testing フロー]
-    StateDetection --> PRFlow[📤 PR フロー]
-    StateDetection --> AcceptanceFlow[✅ Acceptance フロー]
-
-    %% 状態同期
-    SyncStatus --> StateSync[🔄 状態整合性チェック]
-    StateSync --> KiroStatus[📊 Kiro Status 更新]
-    StateSync --> TaskProgress[📝 Task Progress 同期]
+    User[👤 ユーザー] --> Orchestrator[🎯 /orchestrator<br/>メインオーケストレーター]
+    Orchestrator --> Analyzer[📊 project-state-analyzer<br/>プロジェクト状態分析エージェント]
+    Analyzer --> Decision{🔍 継続判定}
+    Decision --> |継続/新規| Workflows[ワークフロー選択・実行]
+    
+    subgraph Workflows[" "]
+        direction LR
+        KiroSDD[📋 Kiro SDD<br/>仕様駆動開発] 
+        DevEnv[🛠️ Dev Environment Setup<br/>開発環境構築]
+        Coding[💻 Coding<br/>TDD実装ワークフロー]
+        Refactoring[🔧 Refactoring<br/>リファクタリング]
+        Testing[🧪 Testing<br/>統合テスト]
+        PR[📤 Pull Request<br/>プルリクエスト]
+        Acceptance[✅ Acceptance<br/>受け入れ検証]
+        
+        KiroSDD --> DevEnv
+        DevEnv --> Coding
+        Coding --> Refactoring
+        Refactoring --> Testing
+        Testing --> PR
+        PR --> Acceptance
+    end
 ```
 
 ## CC-Deck Workflow Engine: 7つのメインワークフロー
