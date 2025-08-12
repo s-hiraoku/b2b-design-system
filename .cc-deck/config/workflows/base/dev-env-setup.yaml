@@ -131,7 +131,42 @@ phases:
       - authentication_configured: true
       - fallback_strategies_defined: true
       - setup_certificate_created: true
-  # Phase 6: Human Approval
+    next_phase: mcp_validation
+
+  # Phase 6: MCP Validation and Testing
+  - name: mcp_validation
+    agent: mcp-validation-agent
+    description: "Validate that all configured MCP tools are functioning correctly"
+    inputs: [mcp_setup_complete, authentication_status, enhanced_implementation_agent]
+    outputs:
+      - mcp_validation_results
+      - functional_mcp_tools
+      - failed_mcp_tools
+      - performance_metrics
+    validation_process:
+      connectivity_tests:
+        - "Test each MCP server connection and authentication"
+        - "Verify API endpoints respond within acceptable timeouts"
+        - "Validate authentication tokens and permissions"
+        - "Check service availability and rate limits"
+      functionality_tests:
+        - "Execute basic operations for each MCP tool"
+        - "Test core functionality that enhanced-implementation-agent will use"
+        - "Verify data formats and response structures"
+        - "Validate error handling and fallback mechanisms"
+      performance_tests:
+        - "Measure response times for each MCP tool"
+        - "Test concurrent usage scenarios"
+        - "Validate timeout configurations"
+        - "Check resource usage and memory impact"
+    success_criteria:
+      - all_critical_mcps_functional: true
+      - response_times_acceptable: true
+      - authentication_verified: true
+      - fallback_mechanisms_tested: true
+    next_phase: human_approval_dev_env
+
+  # Phase 7: Human Approval
   - name: human_approval_dev_env
     type: human_interaction
     description: "Review enhanced implementation agent and MCP setup before proceeding to Coding workflow"
