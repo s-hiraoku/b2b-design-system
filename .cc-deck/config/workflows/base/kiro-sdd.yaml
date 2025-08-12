@@ -30,7 +30,12 @@ phases:
     outputs:
       - steering_context
     success_criteria:
-      - files_exist: [".kiro/steering/product.md", ".kiro/steering/tech.md", ".kiro/steering/structure.md"]
+      - files_exist:
+          [
+            ".kiro/steering/product.md",
+            ".kiro/steering/tech.md",
+            ".kiro/steering/structure.md",
+          ]
     next_phase: init
 
   # Phase 2: Specification Initialization
@@ -110,7 +115,7 @@ phases:
       required: [technical_lead]
       optional: [senior_developer, product_owner]
     timeout: 48 # hours
-    on_approval: 
+    on_approval:
       next_phase: implementation
     on_rejection:
       rollback_to_phase: tasks
@@ -125,24 +130,24 @@ phases:
       - completed_specifications
       - implementation_ready_status
       - next_workflow_recommendation
-    
+
     finalization_tasks:
       - validate_specification_completeness
       - ensure_task_list_actionable
       - verify_design_implementability
       - generate_specification_summary
-    
+
     preparation_for_next_workflow:
       - create_project_metadata_file
       - setup_specification_index
       - prepare_smart_context_entry
       - recommend_next_workflow: "dev-env-setup"
-    
+
     success_criteria:
       - specifications_complete: true
       - tasks_md_validated: true
       - ready_for_implementation: true
-    
+
     next_workflow: dev-env-setup
     next_phase: validation
 
@@ -181,7 +186,7 @@ phases:
       required: [product_owner, technical_lead]
       optional: [qa_lead, business_stakeholder]
     timeout: 72 # hours
-    on_approval: 
+    on_approval:
       next_workflow: dev-env-setup
     on_rejection:
       rollback_to_phase: requirements
@@ -193,16 +198,16 @@ error_handling:
     max_retries: 3
     retry_delay: 5s
     exponential_backoff: true
-  
+
   recovery_strategies:
     approval_timeout:
       action: notify_user
       timeout: 24h
-    
+
     task_failure:
       action: create_recovery_task
       notify: true
-    
+
     validation_failure:
       action: rollback_to_last_checkpoint
       create_issue: true
@@ -214,7 +219,7 @@ monitoring:
     - task_completion_rate
     - approval_response_time
     - error_frequency
-  
+
   notifications:
     - phase_completion
     - approval_required
