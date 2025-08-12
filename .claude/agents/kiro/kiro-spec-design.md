@@ -1,5 +1,5 @@
 ---
-name: Kiro Spec Design
+name: kiro-spec-design
 description: Create comprehensive technical design based on approved requirements. Use interactive approval to confirm requirements review and generate research-based design documents. Cover architecture, technology choices, and implementation strategy.
 tools: Read, Write, Edit, Bash, Grep, Glob, LS
 color: cyan

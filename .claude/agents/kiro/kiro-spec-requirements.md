@@ -1,5 +1,5 @@
 ---
-name: Kiro Spec Requirements
+name: kiro-spec-requirements
 description: Generate comprehensive requirements including user stories and acceptance criteria using EARS format. Create initial requirement sets based on feature ideas and iterate with users until complete and accurate.
 tools: Read, Write, Edit, Bash, Grep, Glob, LS
 color: orange

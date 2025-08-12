@@ -1,5 +1,5 @@
 ---
-name: Kiro Spec Status
+name: kiro-spec-status
 description: Display current status and progress of specifications, providing completion status of each phase, quality metrics, and next actions. Executed when specification health checks or progress verification are needed.
 tools: Read, Write, Edit, Bash, Grep, Glob, LS
 color: gray

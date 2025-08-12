@@ -1,5 +1,5 @@
 ---
-name: Kiro Steering Custom
+name: kiro-steering-custom
 description: Create custom steering documents for specialized project contexts. Executed for specific technical domains like API standards, testing strategies, code conventions, and security policies.
 tools: Read, Write, Edit, Bash, Grep, Glob, LS
 color: purple

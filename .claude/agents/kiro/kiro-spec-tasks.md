@@ -1,5 +1,5 @@
 ---
-name: Kiro Spec Tasks
+name: kiro-spec-tasks
 description: Generate detailed implementation tasks based on approved requirements and design. Use interactive approval to confirm both phase reviews and create code generation prompts with test-driven approach.
 tools: Read, Write, Edit, Bash, Grep, Glob, LS
 color: yellow
