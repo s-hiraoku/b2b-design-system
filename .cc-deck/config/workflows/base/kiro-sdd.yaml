@@ -148,8 +148,8 @@ phases:
 
   # Phase 8: Final Validation and Status Update
   - name: validation
-    agent: kiro-spec-status
-    description: "Validate completion and update project status"
+    agent: project-state-analyzer
+    description: "Validate Kiro SDD completion and update project status"
     inputs: [implementation_results, task_progress]
     outputs:
       - completion_status
