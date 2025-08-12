@@ -84,65 +84,68 @@ phases:
       rollback_to_phase: mcp_recommendation
       feedback_collection: true
 
-  # Phase 4: Dynamic Agent Generation  
+  # Phase 4: Enhanced Implementation Agent Generation  
   - name: agent_generation
     agent: agent-generator
-    description: "Generate approved MCP SubAgents with proper configuration and naming"
+    description: "Generate unified enhanced-implementation-agent integrating all approved MCPs"
     inputs: [approved_mcp_agents, project_analysis, technology_stack]
     outputs:
-      - generated_agents
-      - agent_file_list
-      - generation_summary
+      - enhanced_implementation_agent
+      - agent_configuration_summary
+      - mcp_integration_details
     agent_generation_rules:
-      naming_convention: "{project_id}-{agent_purpose}"
+      naming_convention: "enhanced-implementation-agent"
       directory_structure: ".cc-deck/runtime/projects/{project_id}/agents/"
       template_compliance: "cc_deck_subagent_standard"
+      integration_approach: "unified_mcp_agent"
     success_criteria:
-      - all_approved_agents_generated: true
-      - naming_convention_followed: true
-      - files_created_successfully: true
+      - enhanced_agent_generated: true
+      - all_mcps_integrated: true
+      - file_created_successfully: true
       - proper_structure_maintained: true
-    next_phase: workflow_integration
+    next_phase: mcp_setup
 
-  # Phase 5: Workflow Integration
-  - name: workflow_integration
-    agent: workflow-integrator
-    description: "Create extension configuration and merge with base Coding workflow"
-    inputs: [generated_agents, agent_file_list, project_analysis]
+  # Phase 5: MCP Setup and Configuration
+  - name: mcp_setup
+    agent: mcp-setup-manager
+    description: "Configure and authenticate approved MCP tools for runtime usage"
+    inputs: [approved_mcp_agents, enhanced_implementation_agent, project_analysis]
     outputs:
-      - extension_configuration
-      - merged_workflow_config
-      - integration_summary
-    integration_strategy:
-      merge_method: "array_addition"
-      target_workflow: "coding"
-      target_phases: ["full_implementation"]
-      fallback_handling: "graceful_degradation"
-    directory_structure:
-      extensions: ".cc-deck/runtime/projects/{project_id}/extensions/"
-      generated: ".cc-deck/runtime/projects/{project_id}/workflows/generated/"
+      - mcp_setup_complete
+      - authentication_status
+      - configuration_results
+      - fallback_strategies
+    mcp_setup_process:
+      authentication_flow:
+        - "Verify MCP server availability"
+        - "Configure authentication credentials"
+        - "Test connection and functionality"
+        - "Document setup status and fallbacks"
+      setup_validation:
+        - "Validate each MCP tool connectivity"
+        - "Test essential functions"
+        - "Record setup completion status"
+        - "Generate setup completion certificate"
     success_criteria:
-      - extension_config_created: true
-      - merged_workflow_generated: true
-      - directory_structure_correct: true
-      - yaml_syntax_valid: true
-    next_phase: human_approval_dev_env
-
+      - setup_completion_documented: true
+      - authentication_configured: true
+      - fallback_strategies_defined: true
+      - setup_certificate_created: true
   # Phase 6: Human Approval
   - name: human_approval_dev_env
     type: human_interaction
-    description: "Review generated development environment setup before proceeding to Coding workflow"
+    description: "Review enhanced implementation agent and MCP setup before proceeding to Coding workflow"
     approval_scope:
-      - "Generated MCP agents functionality and configuration quality"
-      - "Coding workflow integration completeness and correctness"
+      - "Enhanced implementation agent functionality and MCP integration quality"
+      - "MCP setup completion and authentication status"
       - "Development environment readiness and optimization potential"
-      - "Agent naming and organization appropriateness"
+      - "Fallback strategies and error handling appropriateness"
     review_materials:
-      - generation_summary
-      - integration_summary
-      - extension_configuration
-      - merged_workflow_config
-      - generated_agent_list
+      - enhanced_implementation_agent
+      - agent_configuration_summary
+      - mcp_setup_complete
+      - authentication_status
+      - fallback_strategies
     decision_options: [approved, approved_with_conditions, rejected, deferred]
     stakeholders:
       required: [developer, technical_lead]
