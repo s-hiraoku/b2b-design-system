@@ -153,12 +153,39 @@ phases:
         - "Serena MCP integration for code generation"
         - "Manual research and documentation lookup"
         - "Standard quality assurance and testing practices"
+        - "Tasks.md progress tracking and checkbox updates"
       
       implementation_focus:
         - "Complete TDD implementation using existing test foundation"
         - "Apply established coding patterns and best practices"
         - "Ensure all tests remain passing throughout implementation"
         - "Maintain code quality and production readiness standards"
+        - "Update tasks.md checkboxes as each task is completed"
+    
+    # Tasks.md Integration (Both Enhanced and Standard Agents)
+    task_management:
+      source: ".kiro/specs/{project_id}/tasks.md"
+      tracking_strategy:
+        - "Load tasks.md at phase start to identify pending tasks"
+        - "Parse checkbox format: '- [ ]' (pending) vs '- [x]' (completed)"
+        - "Execute tasks sequentially or in dependency order"
+        - "Update checkbox immediately upon task completion"
+        - "Commit tasks.md updates after each task or batch completion"
+      
+      task_execution_flow:
+        1. "Read current tasks.md state"
+        2. "Identify next uncompleted task(s)"
+        3. "Execute implementation for the task"
+        4. "Run tests to verify implementation"
+        5. "Update checkbox from '- [ ]' to '- [x]'"
+        6. "Commit both code changes and tasks.md update"
+        7. "Proceed to next task or report completion"
+      
+      progress_reporting:
+        - "Display completion percentage (e.g., 8/12 tasks = 67%)"
+        - "Show remaining tasks count and estimated time"
+        - "Highlight blocked or dependent tasks"
+        - "Generate completion summary for human review"
     
     # MCP Integration Strategy (Enhanced Agent Only)
     enhanced_mcp_integration:

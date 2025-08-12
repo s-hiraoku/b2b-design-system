@@ -176,33 +176,78 @@ mcp__serena__get_symbols_overview
 - Optimize for both performance and readability
 - Maintain consistency with existing codebase patterns
 
-## Kiro SDD Integration (NEW)
+## Kiro SDD Integration with Tasks.md Management
+
+### Tasks.md Progress Tracking
+- **Task Loading**: Read `.kiro/specs/{project_id}/tasks.md` at phase start
+- **Progress Parsing**: Identify completed `- [x]` vs pending `- [ ]` tasks
+- **Real-time Updates**: Update checkboxes immediately upon task completion
+- **Batch Commits**: Commit implementation along with tasks.md updates
+- **Progress Reporting**: Display completion percentage and remaining tasks
+
+### Task Execution Workflow
+```bash
+# 1. Load current tasks.md state
+tasks = Read(".kiro/specs/{project_id}/tasks.md")
+
+# 2. Parse task status
+pending_tasks = parse_uncompleted_tasks(tasks)  # Find all "- [ ]" items
+completed_tasks = parse_completed_tasks(tasks)  # Find all "- [x]" items
+
+# 3. Execute next pending task
+for task in pending_tasks:
+  implement_task(task)
+  run_tests_for_task(task)
+  update_checkbox(task, "- [x]")  # Mark as complete
+  commit_changes(code_files + "tasks.md")
+  
+# 4. Report progress
+progress = len(completed_tasks) / total_tasks * 100
+display_progress_report(progress, remaining_tasks)
+```
 
 ### State Consistency Management
 - **Pre-Implementation**: Validate current Kiro SDD phase matches implementation needs
-- **During Implementation**: Track progress against tasks and maintain status consistency
-- **Post-Implementation**: Auto-update kiro_status.json when implementation completes
+- **During Implementation**: Track progress against tasks.md and maintain status consistency
+- **Post-Implementation**: Auto-update both kiro_status.json and tasks.md when implementation completes
 - **TDD Coordination**: Signal TDD completion when all tests pass and implementation is done
 
-### Status Synchronization
-```bash
-# Check if implementation is ahead of status tracking
-if [implementation_exists && kiro_phase != "implementation"]; then
-  update_kiro_status_to_match_reality()
-  auto_approve_completed_phases()
-fi
+### Tasks.md Update Examples
+```markdown
+# Before implementation:
+- [ ] Implement user authentication API endpoints
+- [ ] Add JWT token generation and validation
+- [ ] Create user registration flow
 
-# Update task completion in tasks.md
-if [feature_implemented && task_checkbox_unchecked]; then
-  auto_update_task_progress()
-fi
+# After implementation:
+- [x] Implement user authentication API endpoints  # Completed 2024-01-12
+- [x] Add JWT token generation and validation      # Completed 2024-01-12
+- [ ] Create user registration flow                # Next task
 ```
 
-### TDD Workflow Integration
-- **Red Phase**: Ensure tests exist before implementation
-- **Green Phase**: Implement minimum code to pass tests
-- **Refactor Phase**: Improve code quality while maintaining test coverage
-- **Completion Detection**: Auto-detect when TDD cycle is complete and signal transition
+### Progress Reporting Format
+```
+📊 Implementation Progress: 8/12 tasks (67%)
+
+✅ Completed Today:
+- User authentication API endpoints
+- JWT token generation and validation
+
+⏳ Currently Working On:
+- Create user registration flow
+
+📋 Remaining Tasks (4):
+- Add password reset functionality
+- Implement OAuth2 integration
+- Set up email verification
+- Add rate limiting to auth endpoints
+```
+
+### TDD Workflow Integration with Tasks.md
+- **Red Phase**: Ensure tests exist before implementation (task marked as "🔴 Writing tests")
+- **Green Phase**: Implement minimum code to pass tests (task marked as "🟢 Implementing")
+- **Refactor Phase**: Improve code quality while maintaining test coverage (task marked as "🔵 Refactoring")
+- **Completion**: Update checkbox to `- [x]` and commit both code and tasks.md
 
 ## Key Outputs
 - Complete, working code implementations

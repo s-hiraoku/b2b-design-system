@@ -116,46 +116,34 @@ phases:
       rollback_to_phase: tasks
       feedback_collection: true
 
-  # Phase 7: Task-Driven Implementation
-  - name: implementation
-    type: task_driven
-    description: "Execute implementation tasks with progress tracking"
-    source: ".kiro/specs/${feature_name}/tasks.md"
-    execution_strategy:
-      type: sequential_with_parallel_groups
-      parallel_limit: 3
-      dependency_aware: true
+  # Phase 7: Specification Finalization
+  - name: finalization
+    agent: kiro-spec-finalizer
+    description: "Finalize specifications and prepare for next workflow"
+    inputs: [requirements_doc, design_doc, task_plan]
+    outputs:
+      - completed_specifications
+      - implementation_ready_status
+      - next_workflow_recommendation
     
-    task_execution:
-      default_agent: implementation-agent
-      agent_selection_rules:
-        - pattern: "test|testing"
-          agent: testing-agent
-        - pattern: "refactor|refactoring"
-          agent: refactoring
-        - pattern: "tdd|test.driven"
-          agent: tdd-agent
-        - pattern: "documentation|docs"
-          agent: documentation-agent
-        - default: implementation-agent
+    finalization_tasks:
+      - validate_specification_completeness
+      - ensure_task_list_actionable
+      - verify_design_implementability
+      - generate_specification_summary
     
-    on_task_complete:
-      - update_checkbox: true
-      - update_context: task_outputs
-      - commit_changes: true
-      - run_validation: true
-    
-    progress_checkpoints:
-      - every_n_tasks: 5
-        action: run_status_check
-      - percentage: [25, 50, 75]
-        action: generate_progress_report
+    preparation_for_next_workflow:
+      - create_project_metadata_file
+      - setup_specification_index
+      - prepare_smart_context_entry
+      - recommend_next_workflow: "dev-env-setup"
     
     success_criteria:
-      - all_tasks_completed: true
-      - tests_passing: true
-      - code_quality_check: passed
+      - specifications_complete: true
+      - tasks_md_validated: true
+      - ready_for_implementation: true
     
+    next_workflow: dev-env-setup
     next_phase: validation
 
   # Phase 8: Final Validation and Status Update

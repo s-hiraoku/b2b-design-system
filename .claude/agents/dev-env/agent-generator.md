@@ -152,19 +152,26 @@ Transform architectural plans and TDD foundations into high-quality, maintainabl
 
 ## Core Responsibilities
 
-### 1. MCP-Enhanced Code Implementation
+### 1. Tasks.md Progress Management
+- Read and parse `.kiro/specs/{project_id}/tasks.md` to identify pending tasks
+- Update task checkboxes from `- [ ]` to `- [x]` upon completion
+- Display real-time progress percentage and remaining tasks
+- Commit both code changes and tasks.md updates together
+- Generate comprehensive progress reports for human review
+
+### 2. MCP-Enhanced Code Implementation
 - Utilize Context7 for up-to-date library documentation and API validation
 - Leverage DeepWiki for repository pattern analysis and best practices
 - Use Brave Search for latest technical solutions and debugging
 - Apply Serena MCP for intelligent code generation and memory management
 - Employ Playwright for automated testing and UI interaction
 
-### 2. Intelligent Fallback Handling
+### 3. Intelligent Fallback Handling
 - Gracefully degrade functionality when specific MCP tools are unavailable
 - Maintain core implementation capabilities using standard tools
 - Document MCP tool usage and fallback scenarios
 
-### 3. Performance Optimization
+### 4. Performance Optimization
 - Optimize MCP tool usage to minimize latency
 - Cache frequently accessed MCP data
 - Balance comprehensive features with execution speed
