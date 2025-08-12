@@ -97,67 +97,72 @@ echo ""
 echo "Your choice:"
 ```
 
-### Phase 4: Dynamic Agent Generation
+### Phase 4: Enhanced Implementation Agent Generation
 
-Based on user approval, generating approved MCP SubAgents...
+Based on user approval, generating unified enhanced-implementation-agent...
 
 ```bash
-Task(subagent_type="agent-generator", description="Generate approved MCP SubAgents", prompt="Generate the user-approved MCP SubAgents with the following requirements:
+Task(subagent_type="agent-generator", description="Generate enhanced-implementation-agent", prompt="Generate the unified enhanced-implementation-agent with the following requirements:
 
 Input Context:
-- Use approved MCP agents from user selection
+- Use all approved MCP tools from user selection
 - Apply project analysis and technology stack information
-- Follow CC-Deck naming convention: {project_id}-{agent_purpose}
+- Create single unified agent integrating all MCP capabilities
 
 Generation Requirements:
-1. **CRITICAL FILE PATH**: Create files ONLY in .cc-deck/runtime/projects/{project_id}/agents/
+1. **CRITICAL FILE PATH**: Create enhanced-implementation-agent.md in .cc-deck/runtime/projects/{project_id}/agents/
 2. **NEVER use .claude/agents/ directory**
-3. **Proper YAML frontmatter**: name, description, tools, color
-4. **MCP Integration**: Configure appropriate MCP tool integrations
-5. **Smart Context Integration**: Define context reading/writing patterns
+3. **Unified MCP Integration**: Include all approved MCP tools in single agent
+4. **Proper YAML frontmatter**: name: enhanced-implementation-agent, tools with all MCPs
+5. **Fallback Mechanisms**: Graceful degradation when MCP tools unavailable
 6. **Project-specific customization**: Align with actual technology stack
 
-Naming Convention:
-- Format: {project_id}-{agent_purpose}
-- Example: liquid-glass-tech-blog-vercel-optimizer
+Agent Design:
+- Single file: enhanced-implementation-agent.md
+- Integrated MCP capabilities: Context7, DeepWiki, Serena, and approved tools
+- Performance optimization: Efficient MCP usage patterns
+- Error handling: Comprehensive fallback strategies
 
 Directory Structure:
-- Target: .cc-deck/runtime/projects/{project_id}/agents/
+- Target: .cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md
 - Create directory structure if needed
 - Validate file creation in correct location
 
-Output: generated_agents, agent_file_list, generation_summary for workflow integration.")
+Output: enhanced_implementation_agent, mcp_integration_summary, generation_results.")
 ```
 
-### Phase 5: Workflow Integration
+### Phase 5: MCP Setup and Configuration
 
-Creating extension configuration and merging with base Coding workflow...
+Configuring and authenticating approved MCP tools for runtime usage...
 
 ```bash
-Task(subagent_type="workflow-integrator", description="Create workflow integration", prompt="Create extension configuration and merge with base Coding workflow:
+Task(subagent_type="mcp-setup-manager", description="Configure MCP tools", prompt="Configure and authenticate approved MCP tools for runtime usage:
 
-Integration Tasks:
-1. **Extension Configuration**:
-   - Create coding-extension.yaml in .cc-deck/runtime/projects/{project_id}/extensions/
-   - Define supporting_agents_additions for full_implementation phase
-   - Include all generated agent names from agent-generator
+Setup Tasks:
+1. **MCP Server Configuration**:
+   - Parse approved MCP tool list from user approval
+   - Configure each MCP server with appropriate settings
+   - Set up authentication credentials where required
+   - Test connectivity and basic functionality
 
-2. **Workflow Merging**:
-   - Read base .cc-deck/config/workflows/base/coding.yaml
-   - Apply extension using array_addition merge strategy
-   - Generate merged configuration in .cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml
+2. **Authentication Management**:
+   - Handle OAuth 2.0 flows for MCP servers requiring authentication
+   - Store credentials securely using appropriate methods
+   - Validate authentication tokens and refresh mechanisms
+   - Document authentication status for each tool
 
-3. **Validation**:
-   - Ensure YAML syntax is valid
-   - Verify all agent references are correct
-   - Confirm proper directory structure
-   - Validate no circular dependencies
+3. **Setup Validation**:
+   - Test each MCP server connection
+   - Verify essential functions are working
+   - Measure response times and reliability
+   - Create fallback strategies for failed setups
 
-Directory Structure:
-- Extensions: .cc-deck/runtime/projects/{project_id}/extensions/
-- Generated: .cc-deck/runtime/projects/{project_id}/workflows/generated/
+4. **Setup Completion Documentation**:
+   - Generate mcp-setup-complete.json in .cc-deck/runtime/projects/{project_id}/config/
+   - Document successful configurations and any failures
+   - Provide troubleshooting guidance for common issues
 
-Output: extension_configuration, merged_workflow_config, integration_summary for final approval.")
+Output: mcp_setup_complete, authentication_status, configuration_results, fallback_strategies.")
 ```
 
 ### Phase 6: Human Approval (Final)
@@ -167,17 +172,20 @@ echo "✅ DEV-ENV-SETUP Complete!"
 echo ""
 echo "📋 Setup Summary:"
 echo "- Technology stack analysis: ✅ Complete"
-echo "- MCP agent generation: ✅ Complete"
-echo "- Workflow integration: ✅ Complete"
-echo "- Extension configuration: ✅ Created"
-echo "- Merged workflow: ✅ Generated"
+echo "- Enhanced implementation agent: ✅ Generated"
+echo "- MCP setup and configuration: ✅ Complete"
+echo "- Authentication status: ✅ Configured"
+echo "- Development environment: ✅ Ready"
 echo ""
-echo "🎯 Generated Development Environment:"
-# (Details will be shown from integration summary)
+echo "🎯 Enhanced Development Environment:"
+echo "- Single unified enhanced-implementation-agent created"
+echo "- All approved MCP tools configured and authenticated"
+echo "- Fallback strategies in place for MCP failures"
+echo "- Ready for enhanced CODING workflow execution"
 echo ""
 echo "❓ Final Approval"
 echo ""
-echo "Please review the generated development environment:"
+echo "Please review the enhanced development environment:"
 echo "[Y] approved - Proceed to enhanced CODING workflow"
 echo "[R] review - Review and modify configuration"
 echo "[S] save - Save setup and continue later"
@@ -198,19 +206,20 @@ fi
 
 ## Success Criteria
 
-- All approved MCP agents generated successfully
-- Extension configuration created and validated  
-- Merged workflow configuration functional
+- Enhanced implementation agent generated successfully
+- MCP tools configured and authenticated
+- Setup completion status documented
+- Fallback strategies established for MCP failures
 - User approval obtained for final setup
 - Enhanced Coding workflow ready for execution
 
 ## Next Steps
 
 Upon successful completion:
-1. Enhanced Coding workflow is ready with project-specific agents
+1. Enhanced Coding workflow is ready with unified MCP-enhanced agent
 2. Smart Context contains all setup information
-3. Development environment optimized for the specific project
-4. Ready to begin TDD-driven implementation phase
+3. Development environment optimized with MCP capabilities
+4. Ready to begin TDD-driven implementation phase with enhanced tools
 
 ---
 

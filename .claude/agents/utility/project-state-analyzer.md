@@ -305,16 +305,16 @@ Glob('.cc-deck/runtime/global/context/active/*') # Active workflow contexts
 Glob('.cc-deck/config/workflows/base/*.yaml') # Available workflow definitions
 LS('.cc-deck/runtime/projects/') # Dynamic agent configurations
 
-# Step 4: Check DEV-ENV-SETUP completion by examining artifacts
+# Step 4: Check DEV-ENV-SETUP completion by examining new artifacts
 # Extract project_id from current context or directory name
 project_id = basename(pwd) or extract_from_context()
 
 # Check for DEV-ENV-SETUP completion artifacts in .cc-deck/runtime/projects/{project_id}/
-LS('.cc-deck/runtime/projects/{project_id}/agents/') # Generated MCP SubAgents
-Read('.cc-deck/runtime/projects/{project_id}/extensions/coding-extension.yaml') # Workflow extension
-Read('.cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml') # Merged workflow
+LS('.cc-deck/runtime/projects/{project_id}/agents/') # Should contain enhanced-implementation-agent.md
+Read('.cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md') # Enhanced implementation agent
+Read('.cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json') # MCP setup completion status
 
-# If all three exist, DEV-ENV-SETUP is complete and should recommend CODING workflow
+# If enhanced agent exists and MCP setup is complete, DEV-ENV-SETUP is complete and should recommend CODING workflow
 ```
 
 ### Phase 2: Detailed Workflow Analysis
@@ -331,9 +331,8 @@ for each_workflow in .cc-deck/runtime/global/context/active/*:
 # DEV-ENV-SETUP is complete when these artifacts exist in .cc-deck/runtime/projects/{project_id}/:
 project_id = extract_project_id_from_context()
 dev_env_completion = check_dev_env_setup_completion(project_id):
-    - agents/ directory with generated MCP SubAgents (*.md files)
-    - extensions/coding-extension.yaml file
-    - workflows/generated/coding-merged.yaml file
+    - agents/enhanced-implementation-agent.md file (single unified agent)
+    - config/mcp-setup-complete.json file (MCP authentication/configuration status)
     
 if dev_env_completion.all_artifacts_present():
     mark_workflow_as_complete("DEV-ENV-SETUP", project_id)
@@ -419,9 +418,9 @@ Produce comprehensive analysis following this structure:
 
 🔍 WORKFLOW COMPLETION STATUS:
 • DEV-ENV-SETUP: {COMPLETE/INCOMPLETE} 
-  - Agents Generated: {count} MCP SubAgents in .cc-deck/runtime/projects/{project_id}/agents/
-  - Workflow Extension: {EXISTS/MISSING} .cc-deck/runtime/projects/{project_id}/extensions/coding-extension.yaml
-  - Merged Configuration: {EXISTS/MISSING} .cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml
+  - Enhanced Agent: {EXISTS/MISSING} .cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md
+  - MCP Setup: {COMPLETE/INCOMPLETE} .cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json
+  - MCP Authentication: {SUCCESS/FAILED/PARTIAL} from setup status
 • CODING: {COMPLETE/IN_PROGRESS/NOT_STARTED}
 • KIRO-SDD: {COMPLETE/IN_PROGRESS/NOT_STARTED}
 
@@ -447,20 +446,19 @@ Produce comprehensive analysis following this structure:
 
 1. **Active Workflow Detection**: Identify ongoing CC-Deck workflow executions
 2. **DEV-ENV-SETUP Completion Detection**: Check `.cc-deck/runtime/projects/{project_id}/` for:
-   - `agents/` directory with generated MCP SubAgent files (*.md)
-   - `extensions/coding-extension.yaml` workflow extension file
-   - `workflows/generated/coding-merged.yaml` merged workflow configuration
+   - `agents/enhanced-implementation-agent.md` unified MCP-integrated agent
+   - `config/mcp-setup-complete.json` MCP authentication/configuration completion
 3. **Smart Context Validation**: Verify context data integrity and completeness
 4. **Phase Continuation Readiness**: Assess next phase requirements and dependencies
-5. **Dynamic Agent Availability**: Check generated MCP SubAgent operational status
+5. **Enhanced Agent Availability**: Check enhanced-implementation-agent operational status and MCP setup
 6. **Recovery Point Assessment**: Validate checkpoint availability and currency
 
 **Auto-Continuation Recommendations:**
 
-- **DEV-ENV-SETUP Complete**: If `.cc-deck/runtime/projects/{project_id}/agents/`, `extensions/coding-extension.yaml`, and `workflows/generated/coding-merged.yaml` exist, recommend CODING workflow
+- **DEV-ENV-SETUP Complete**: If `enhanced-implementation-agent.md` and `mcp-setup-complete.json` exist in `.cc-deck/runtime/projects/{project_id}/`, recommend CODING workflow
 - Resume workflows at detected continuation points
 - Recover corrupted Smart Context from checkpoints
-- Generate missing dynamic agents when required
+- Regenerate enhanced implementation agent when required
 - Trigger workflow chain progression (kiro-sdd → dev-env-setup → coding)
 
 This protocol ensures CC-Deck Workflow Engine can intelligently detect, analyze, and continue interrupted workflows with complete context preservation and optimal execution strategies.

@@ -24,27 +24,28 @@ Task(subagent_type="user-interaction-reminder", description="User interaction gu
 
 This command initiates and manages the enterprise coding workflow, which transforms specifications into high-quality, test-driven implementation with 95%+ test coverage, real-time monitoring, and enterprise security compliance.
 
-## Project-Specific Workflow Loading
+## Enhanced Agent Integration
 
-**Dynamic Configuration**: This command automatically detects and loads project-specific merged workflow configurations:
+**Smart Agent Selection**: This command automatically detects and uses enhanced implementation capabilities:
 
-1. **First Priority**: `.cc-deck/runtime/projects/{project-id}/workflows/generated/coding-merged.yaml`
-2. **Fallback**: `.cc-deck/config/workflows/coding.yaml`
+1. **Enhanced Agent**: `.cc-deck/runtime/projects/{project-id}/agents/enhanced-implementation-agent.md`
+2. **MCP Setup Status**: `.cc-deck/runtime/projects/{project-id}/config/mcp-setup-complete.json`
+3. **Fallback**: Standard `implementation-agent` from base workflow
 
-### Automatic Project Detection:
+### Automatic Enhancement Detection:
 
-The command detects the current project context using:
+The command detects enhanced capabilities using:
 
-- Dynamic workflow directories (`.cc-deck/runtime/projects/*`)
-- Active projects (`projects/*`)
-- Kiro specifications (`.kiro/specs/*`)
+- Enhanced agent availability (`.cc-deck/runtime/projects/{project-id}/agents/`)
+- MCP setup completion status (`.cc-deck/runtime/projects/{project-id}/config/`)
+- Project context (`.kiro/specs/*`)
 
-When a project-specific merged workflow is found, it automatically uses enhanced configurations with:
+When enhanced capabilities are available, the workflow automatically provides:
 
-- **Project-Specific MCP Agents**: Custom agents for the specific technology stack
-- **Enhanced Monitoring**: Project-tailored performance metrics and alerts
-- **Specialized Quality Gates**: Requirements specific to the project domain
-- **Custom Error Handling**: Project-specific recovery strategies
+- **MCP-Enhanced Implementation**: Integrated Context7, DeepWiki, Serena capabilities
+- **Real-time Documentation Access**: Latest library and framework documentation
+- **Pattern-Aware Development**: Repository analysis and best practices application
+- **Advanced Code Generation**: Enhanced Serena integration with project context
 
 ## TDD-First Development Policy
 
@@ -141,27 +142,28 @@ projects/{project-name}/
 - Only proceed to Phase 7 (documentation-agent) after Phase 6.5 approves with PROCEED decision
 - If Phase 6.5 returns ROLLBACK decision, return to Phase 4 (tdd-agent)
 
-**Project-Specific Execution**:
+**Enhanced Agent Selection Logic**:
 
 ```python
-# Automatic workflow loading with project detection
-def load_coding_workflow():
+# Automatic enhanced agent detection and selection
+def select_implementation_agent():
     project_id = detect_project_id()
 
     if project_id:
-        merged_path = f".cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml"
-        if file_exists(merged_path):
-            print(f"🎯 Using project-specific coding workflow: {merged_path}")
-            return load_workflow_from_yaml(merged_path)
+        enhanced_agent_path = f".cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md"
+        mcp_setup_path = f".cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
+        
+        if file_exists(enhanced_agent_path) and file_exists(mcp_setup_path):
+            print(f"✨ Using enhanced implementation agent with MCP capabilities")
+            return "enhanced-implementation-agent"
 
-    # Fallback to base workflow
-    base_path = ".cc-deck/config/workflows/coding.yaml"
-    print(f"📋 Using base coding workflow: {base_path}")
-    return load_workflow_from_yaml(base_path)
+    # Fallback to standard implementation
+    print(f"📋 Using standard implementation agent (enhanced agent unavailable)")
+    return "implementation-agent"
 
-# Execute workflow phases based on loaded configuration
-workflow_config = load_coding_workflow()
-execute_workflow_phases(workflow_config)
+# Execute workflow with automatic agent selection
+selected_agent = select_implementation_agent()
+execute_workflow_phases_with_agent(selected_agent)
 ```
 
 **Standard Phases** (when using base workflow):
@@ -176,13 +178,13 @@ execute_workflow_phases(workflow_config)
 8. **Phase 7**: documentation-agent (Generate comprehensive documentation)
 9. **Phase 8**: Human approval checkpoint - Review completed workflow
 
-**Enhanced Phases** (when using project-specific merged workflow):
+**Enhanced Implementation** (when enhanced-implementation-agent is available):
 
-- All standard phases **PLUS** project-specific sub-agents integrated into Phase 5:
-  - `{project-id}-vercel-optimizer`: Deployment optimization
-  - `{project-id}-ai-image-manager`: AI content generation
-  - `{project-id}-playwright-tester`: E2E testing automation
-  - `{project-id}-performance-monitor`: Real-time performance tracking
+- All standard phases with **enhanced Phase 5 capabilities**:
+  - **MCP-Enhanced Implementation**: Advanced code generation with real-time documentation
+  - **Pattern-Aware Development**: Repository analysis for best practices
+  - **Optimized Performance**: Automatic optimization using latest techniques
+  - **Enhanced Quality Assurance**: Advanced security scanning and validation
 
 **Important**: Each phase must be completed by the designated agent(s) before proceeding to the next phase.
 
@@ -219,58 +221,51 @@ execute_workflow_phases(workflow_config)
   - **Refactor**: Improve code quality while maintaining test coverage
 - **Outputs**: Test suite, minimal implementations, refactored foundation
 
-### Phase 5: Enhanced Multi-Agent Implementation (Dynamic)
+### Phase 5: Enhanced Implementation
 
-**IMPORTANT**: Phase 5 uses a dynamic multi-agent approach that adapts to project-specific configurations.
+**Agent Selection**: Uses enhanced-implementation-agent if available, or falls back to standard implementation-agent
 
-**⚠️ Anthropic Claude Code Limitation Note**: Due to current Claude Code specifications, sub-agents cannot directly call other sub-agents. Therefore, this implementation uses a **Sequential Agent Pattern** where each supporting agent is executed as a separate phase in sequence, rather than parallel collaboration. This ensures full compliance with Anthropic's sub-agent architecture while achieving the desired multi-agent functionality.
+#### Automatic Agent Detection:
 
-#### Dynamic Phase 5 Execution Strategy:
+The system automatically selects the appropriate implementation agent based on dev-env-setup completion:
 
-1. **Load Merged Workflow Configuration**: Read the `coding-merged.yaml` to identify available supporting agents
-2. **Parse Supporting Agents**: Extract all agents from `supporting_agents` section  
-3. **Execute Sequential Sub-Phases**: Convert each supporting agent into a sequential phase
+1. **Check for Enhanced Agent**: Look for `.cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md`
+2. **Verify MCP Setup**: Confirm `.cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json` exists
+3. **Agent Selection**:
+   - **Enhanced Available**: Use enhanced-implementation-agent with MCP capabilities
+   - **Enhanced Unavailable**: Fall back to standard implementation-agent
 
-#### Implementation Logic:
+#### Enhanced Implementation Benefits:
 
-```python
-# Dynamic phase 5 execution
-def execute_phase_5_dynamically():
-    workflow_config = load_merged_workflow()
-    supporting_agents = workflow_config['phases'][4]['agent_orchestration']['supporting_agents']
-    
-    # Execute each supporting agent as sequential sub-phase
-    for agent_name, agent_description in supporting_agents.items():
-        execute_sub_phase(
-            name=f"phase_5_{agent_name.replace('-', '_')}",
-            agent=agent_name,
-            description=agent_description,
-            inputs=previous_phase_outputs
-        )
-    
-    # Finally execute primary implementation agent
-    execute_sub_phase(
-        name="phase_5_primary_implementation", 
-        agent="implementation-agent",
-        inputs=all_supporting_agent_outputs
-    )
+**When enhanced-implementation-agent is available**:
+- **MCP Integration**: Context7, DeepWiki, Serena, and other approved MCP tools
+- **Real-time Documentation**: Latest library documentation and API validation
+- **Pattern Analysis**: Repository pattern analysis from successful projects
+- **Advanced Code Generation**: MCP-enhanced intelligent code generation
+- **Performance Optimization**: Automatic optimization using latest best practices
+
+**When falling back to implementation-agent**:
+- **Standard TDD Implementation**: Reliable TDD-based implementation approach
+- **Serena Integration**: Basic Serena MCP for code generation
+- **Manual Research**: Standard research and documentation lookup
+- **Proven Quality**: Established coding patterns and quality assurance
+
+#### Implementation Process:
+
+**Purpose**: Build complete implementation on TDD foundation with optional MCP enhancement
+**Focus**: Maintain ALL existing tests while expanding functionality
+**Activities**: Edge case handling, performance optimization, production readiness
+**Outputs**: Complete production code with 95%+ test coverage
+
+**Agent Execution**:
+```bash
+# The system automatically handles agent selection
+# No manual configuration required
+# Enhanced capabilities used when available
+# Graceful fallback ensures consistent quality
 ```
 
-#### Dynamic Sub-Phase Generation:
-
-The system will automatically create sequential sub-phases based on the `supporting_agents` found in the merged workflow:
-
-- **Phase 5a**: First supporting agent (e.g., `research-agent`)
-- **Phase 5b**: Second supporting agent (e.g., `deepwiki-research-solver`) 
-- **Phase 5c**: Third supporting agent (e.g., `project-specific-optimizer`)
-- **Phase 5n**: Final primary implementation (`implementation-agent`)
-
-**Purpose**: Build complete implementation on TDD foundation with project-specific optimization
-**Focus**: Maintain ALL existing tests while expanding functionality with specialized agent support
-**Activities**: Edge case handling, performance optimization, production readiness via multi-agent collaboration
-**Outputs**: Complete production code with 95%+ test coverage and project-specific enhancements
-
-This approach ensures compatibility with any project-specific agents added via the workflow merging process.
+This approach provides optimal development experience when enhanced capabilities are available while ensuring reliable fallback for consistent workflow execution.
 
 ### Phase 6: Comprehensive Testing
 

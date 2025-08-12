@@ -105,10 +105,11 @@ phases:
       - zero_failing_tests: true
     next_phase: full_implementation
 
-  # Phase 5: Enhanced Multi-Agent Implementation
+  # Phase 5: Enhanced Implementation
   - name: full_implementation
-    type: multi_agent_orchestrated
-    description: "Enterprise-grade implementation with comprehensive MCP integration and real-time quality assurance"
+    agent: enhanced-implementation-agent
+    fallback_agent: implementation-agent
+    description: "Production-ready implementation using enhanced MCP capabilities or standard implementation with fail-safe fallback"
     inputs: [test_suite, minimal_implementations, serena_context, refactored_code]
     outputs:
       - implementation_context
@@ -119,226 +120,171 @@ phases:
       - best_practices_applied
       - security_validations
     
-    # Multi-Agent Execution Strategy
-    agent_orchestration:
-      primary_agent: implementation-agent
-      supporting_agents:
-        - research-agent: "Real-time technical research and best practices"
-        - deepwiki-research-solver: "Implementation problem solving and pattern analysis"
-        - github-mcp-code-optimizer: "GitHub repository analysis and optimized code solutions"
-        - code-quality-validator: "Continuous quality monitoring and validation"
+    # Enhanced Implementation Strategy
+    implementation_strategy:
+      primary_approach: "enhanced_mcp_integration"
+      fallback_approach: "standard_implementation_with_research_support"
+      agent_selection_logic: "check_enhanced_agent_availability"
+      fail_safe_guarantee: true
+    
+    # Enhanced vs Standard Implementation
+    enhanced_implementation:
+      condition: "enhanced_agent_available AND mcp_setup_complete"
+      agent: "enhanced-implementation-agent"
+      capabilities:
+        - "Integrated MCP tool access (Context7, DeepWiki, Serena, etc.)"
+        - "Real-time library documentation and API validation"
+        - "Repository pattern analysis and best practices application"
+        - "Advanced code generation with MCP-enhanced context"
+        - "Automatic performance optimization and security scanning"
       
-      execution_strategy: "collaborative_with_checkpoints"
-      coordination_method: shared_context
-      quality_gates_integration: continuous
+      implementation_focus:
+        - "Leverage all available MCP tools for optimal implementation"
+        - "Apply latest documentation and best practices from Context7"
+        - "Use DeepWiki for implementation pattern analysis"
+        - "Maintain TDD foundation while enhancing with MCP capabilities"
+        - "Ensure production readiness with comprehensive MCP support"
     
-    # Enhanced Implementation Process
-    implementation_phases:
-      # Sub-phase 1: Pre-Implementation Research & Validation
-      - name: pre_implementation_research
-        agent: research-agent
-        description: "Real-time research for implementation approach validation"
-        mcp_integrations:
-          - context7: "Library documentation and API specifications"
-          - deepwiki: "Similar implementation pattern analysis"
-          - web_search: "Latest best practices and security considerations"
-        outputs:
-          - implementation_strategy
-          - library_recommendations
-          - security_considerations
-          - performance_benchmarks
-        parallel_execution: true
-        
-      # Sub-phase 2: Implementation Problem Solving Support
-      - name: implementation_support
-        agent: deepwiki-research-solver
-        description: "Continuous implementation problem solving and pattern guidance"
-        availability: throughout_implementation
-        trigger_conditions:
-          - compilation_errors
-          - test_failures
-          - integration_issues
-          - performance_bottlenecks
-        mcp_integrations:
-          - deepwiki: "Repository-specific implementation patterns"
-          - context7: "Framework-specific solutions"
-        outputs:
-          - error_solutions
-          - implementation_patterns
-          - optimization_suggestions
-        
-      # Sub-phase 3: Core Implementation with Quality Monitoring
-      - name: core_implementation
-        agent: implementation-agent
-        description: "TDD-based implementation with continuous quality monitoring"
-        implementation_approach: "enhanced_tdd_completion"
-        implementation_focus:
-          - "Maintain ALL existing tests in passing state"
-          - "Apply research-backed implementation patterns"
-          - "Implement security best practices from research"
-          - "Add comprehensive error handling and edge cases"
-          - "Optimize performance using benchmark data"
-          - "Ensure production readiness and maintainability"
-        mcp_integrations:
-          - serena: "TDD-aware production code generation"
-          - context7: "Runtime API validation and documentation alignment"
-        continuous_validation: true
-        quality_checkpoints: every_significant_change
-        
-      # Sub-phase 4: Quality Validation & Enhancement
-      - name: quality_validation
-        agent: code-quality-validator
-        description: "Comprehensive code quality validation and enhancement"
-        validation_dimensions:
-          - code_quality: "Static analysis, complexity, maintainability"
-          - test_coverage: "Line, branch, function coverage analysis"
-          - security: "Vulnerability scanning and best practices compliance"
-          - performance: "Benchmark validation and optimization opportunities"
-          - documentation: "Code documentation and API completeness"
-        enhancement_triggers:
-          - quality_score: "< 8.0"
-          - security_issues: "> 0 critical"
-          - performance_regression: "> 10%"
-        outputs:
-          - quality_report
-          - enhancement_recommendations
-          - security_audit_results
+    standard_implementation:
+      condition: "enhanced_agent_unavailable OR mcp_setup_failed"
+      agent: "implementation-agent"
+      capabilities:
+        - "Standard TDD-based implementation approach"
+        - "Serena MCP integration for code generation"
+        - "Manual research and documentation lookup"
+        - "Standard quality assurance and testing practices"
+      
+      implementation_focus:
+        - "Complete TDD implementation using existing test foundation"
+        - "Apply established coding patterns and best practices"
+        - "Ensure all tests remain passing throughout implementation"
+        - "Maintain code quality and production readiness standards"
     
-    # Real-time MCP Integration Strategy
-    mcp_integration_strategy:
-      context7_integration:
-        purpose: "Library documentation and API validation"
-        usage_patterns:
-          - library_selection: "Compare library capabilities and documentation quality"
-          - api_implementation: "Validate API usage against official documentation"
-          - version_compatibility: "Check compatibility and migration guides"
-          - best_practices: "Follow official implementation recommendations"
-        fallback_strategy: cached_documentation
-        
-      deepwiki_integration:
-        purpose: "Repository pattern analysis and problem solving"
-        usage_patterns:
-          - pattern_analysis: "Analyze similar implementations in popular repositories"
-          - error_resolution: "Find solutions to implementation challenges"
-          - architecture_validation: "Validate architectural decisions against successful projects"
-          - code_review: "Learn from high-quality implementations"
-        fallback_strategy: local_pattern_database
-        
-      web_search_integration:
-        purpose: "Latest best practices and emerging solutions"
-        usage_patterns:
-          - technology_trends: "Stay current with latest framework updates"
-          - security_updates: "Identify and apply latest security patches"
-          - performance_optimization: "Discover new optimization techniques"
-          - community_solutions: "Leverage community-driven solutions"
-        search_strategies:
-          - targeted_searches: "Framework-specific optimization techniques"
-          - security_focused: "Latest security vulnerabilities and mitigations"
-          - performance_focused: "Benchmark comparisons and optimization guides"
-        fallback_strategy: cached_search_results
+    # MCP Integration Strategy (Enhanced Agent Only)
+    enhanced_mcp_integration:
+      condition: "enhanced_agent_available"
+      integrated_tools:
+        - "Context7 MCP: Library documentation and API validation"
+        - "DeepWiki MCP: Repository pattern analysis and problem solving"
+        - "Serena MCP: Intelligent code generation and memory management"
+        - "Brave Search MCP: Latest best practices and emerging solutions (if approved)"
+        - "Additional approved MCPs from dev-env-setup workflow"
+      
+      usage_optimization:
+        - "Priority-based MCP usage for critical vs enhancement features"
+        - "Intelligent caching to minimize response times"
+        - "Graceful degradation when MCP tools are unavailable"
+        - "Performance monitoring and timeout handling"
+      
+      fallback_mechanisms:
+        - "Context7 unavailable → Use cached documentation"
+        - "DeepWiki timeout → Rely on Serena patterns and standard practices"
+        - "Brave Search failure → Continue with existing knowledge"
+        - "All MCP failures → Switch to standard implementation-agent"
     
-    # Continuous Quality Assurance
+    # Quality Assurance Integration
     quality_assurance:
-      real_time_monitoring:
-        - code_quality_score: continuous
-        - test_coverage_tracking: per_commit
-        - security_vulnerability_scanning: continuous
-        - performance_benchmark_tracking: per_significant_change
-        - documentation_completeness: continuous
-        
-      quality_gates:
+      enhanced_monitoring:
+        condition: "enhanced_agent_available"
+        capabilities:
+          - "Real-time MCP-powered code quality analysis"
+          - "Automated library compatibility checking via Context7"
+          - "Repository pattern compliance via DeepWiki"
+          - "Advanced security scanning with latest threat intelligence"
+      
+      standard_monitoring:
+        condition: "standard_implementation"
+        capabilities:
+          - "Standard code quality metrics tracking"
+          - "Basic test coverage monitoring"
+          - "Manual security best practices application"
+          - "Standard performance optimization techniques"
+      
+      unified_quality_gates:
         entry_gate:
           - tdd_foundation_validated: true
-          - research_phase_completed: true
-          - implementation_strategy_approved: true
-        progress_gates:
-          - incremental_test_coverage: ">= current + 5%"
-          - code_quality_maintained: ">= 8.0"
-          - no_security_regressions: true
+          - agent_selection_completed: true
+          - mcp_setup_status_verified: true
         exit_gate:
           - all_tests_passing: true
           - code_coverage: ">= 95%"
-          - security_audit_passed: true
-          - performance_benchmarks_met: true
-          - documentation_complete: ">= 90%"
+          - implementation_completeness: "100%"
+          - production_readiness: true
     
-    # Enhanced Success Criteria
+    # Success Criteria (Agent-Agnostic)
     success_criteria:
-      functional_completeness:
+      core_requirements:
         - all_tests_passing: true
         - feature_requirements_met: "100%"
-        - edge_cases_handled: comprehensive
+        - tdd_foundation_preserved: true
+        - implementation_completeness: "100%"
         
-      technical_excellence:
+      quality_standards:
         - code_coverage: ">= 95%"
-        - code_quality_score: ">= 8.5"
-        - technical_debt_ratio: "<= 5%"
-        - cyclomatic_complexity: "acceptable_levels"
-        
-      security_compliance:
-        - security_vulnerabilities: "0_critical + <=2_medium"
-        - security_best_practices_applied: true
-        - authentication_authorization_validated: true
-        
-      performance_optimization:
-        - performance_benchmarks_met: true
-        - memory_usage_optimized: true
-        - response_time_targets_achieved: true
-        
-      production_readiness:
+        - code_quality_score: ">= 8.0"
+        - production_readiness: true
         - error_handling_comprehensive: true
-        - logging_monitoring_integrated: true
-        - configuration_management_proper: true
-        - deployment_readiness_validated: true
         
-      documentation_quality:
-        - api_documentation_complete: ">= 95%"
-        - code_documentation_adequate: ">= 90%"
-        - usage_examples_provided: true
+      enhanced_benefits: 
+        condition: "enhanced_agent_used"
+        additional_criteria:
+          - "MCP integration successful: Context7, DeepWiki, Serena"
+          - "Latest best practices applied from MCP research"
+          - "Advanced performance optimization achieved"
+          - "Enhanced security scanning completed"
+          - "Repository pattern alignment verified"
     
-    # Error Handling & Recovery for Implementation Phase
-    error_handling:
-      implementation_specific_errors:
-        compilation_errors:
-          action: trigger_deepwiki_research_solver
-          escalation_after: 3_failed_attempts
-          
-        test_coverage_drop:
-          action: immediate_quality_gate_halt
-          recovery: revert_and_reimplement_with_tests
-          
-        security_vulnerability_introduction:
-          action: immediate_halt_and_security_review
-          escalation: security_team_notification
-          
-        performance_regression:
-          action: performance_analysis_and_optimization
-          fallback: revert_to_previous_performant_version
-          
-        mcp_service_failures:
-          context7_failure:
-            action: switch_to_cached_documentation
-            fallback: manual_documentation_lookup
-          deepwiki_failure:
-            action: use_local_pattern_database
-            fallback: community_documentation_search
-          web_search_failure:
-            action: use_cached_search_results
-            fallback: proceed_with_current_knowledge
+    # Agent Selection and Fallback Logic
+    agent_selection:
+      selection_order:
+        1. "Check for enhanced-implementation-agent availability"
+        2. "Verify MCP setup completion status"
+        3. "Select enhanced agent if available and MCP ready"
+        4. "Fall back to standard implementation-agent if enhanced unavailable"
       
-      recovery_strategies:
-        checkpoint_restoration:
-          frequency: before_each_sub_phase
-          retention: 24_hours
-          include_state: [code, tests, quality_metrics, mcp_cache]
+      enhanced_agent_criteria:
+        - "Agent file exists: .cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md"
+        - "MCP setup complete: .cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
+        - "No critical MCP failures in setup status"
+      
+      fallback_triggers:
+        - "Enhanced agent file not found"
+        - "MCP setup failed or incomplete"
+        - "Enhanced agent execution failure"
+        - "MCP services unavailable during execution"
+    
+    # Error Handling for Implementation Phase
+    error_handling:
+      enhanced_agent_errors:
+        mcp_service_failure:
+          action: "Graceful degradation within enhanced agent"
+          fallback: "Switch to standard implementation-agent if critical"
         
-        incremental_rollback:
-          granularity: feature_level
-          preservation: [passing_tests, quality_improvements]
+        enhanced_agent_unavailable:
+          action: "Automatic fallback to standard implementation-agent"
+          notification: "Using standard implementation due to enhanced agent unavailability"
+      
+      standard_implementation_errors:
+        compilation_errors:
+          action: "Standard error analysis and resolution"
+          escalation_after: 3_failed_attempts
         
-        quality_recovery:
-          triggers: [quality_score_drop, coverage_decrease]
-          actions: [refactoring_cycle, additional_testing, code_review]
+        test_coverage_drop:
+          action: "Immediate halt and test restoration"
+          recovery: "Revert to passing state and re-implement with tests"
+    
+    # Agent Performance Tracking
+    performance_tracking:
+      enhanced_agent_metrics:
+        - "MCP tool usage efficiency"
+        - "Implementation quality improvement over standard"
+        - "Time savings from MCP integration"
+        - "Advanced feature utilization rate"
+      
+      fallback_tracking:
+        - "Fallback trigger frequency and causes"
+        - "Standard agent performance when used as fallback"
+        - "User satisfaction with fallback experience"
     
     next_phase: testing
 
