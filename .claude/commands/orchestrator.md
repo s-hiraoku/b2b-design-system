@@ -203,16 +203,49 @@ kiro-sdd → dev-env-setup → coding → refactoring → testing → pr → acc
 5. **User Confirmation**: Explicit confirmation before proceeding
 6. **Next Workflow Execution**: Execute next specialized command with Smart Context
 
-### Approval Format (Y/R/S):
+### Human Approval Format:
 
+**For workflow completion approval:**
 ```
 ✅ [Workflow Name] completed successfully!
 Ready to [next action]?
 
-[Y] Yes, [proceed with next workflow]
-[R] Review [current workflow] (regenerate/revise current phase)  
-[S] Save and resume later (auto-detect with next /orchestrator)
+[Y] Yes - proceed with next workflow
+[R] Review - regenerate/revise current phase  
+[S] Save - save and resume later (auto-detect with next /orchestrator)
 ```
+
+**For phase approval during workflow execution (based on YAML decision_options):**
+```
+📋 [Phase Name] Review Required
+
+📄 Review Materials:
+• [material 1]
+• [material 2] 
+• [material 3]
+
+❓ Decision Required:
+
+[A] Approved 
+    ✅ Proceed to next phase
+
+[M] Approved with Modifications 
+    ⚠️ Proceed with conditions/adjustments
+
+[R] Rejected 
+    🔄 Rollback and regenerate this phase
+
+[D] Deferred 
+    ⏸️ Postpone decision for later review
+
+Please select A, M, R, or D:
+```
+
+**Human-readable approval format for better UX:**
+- Use clear line breaks between options
+- Include descriptive icons for visual clarity  
+- Provide explicit action descriptions
+- Request single-letter response for efficiency
 
 ## 📊 State Management
 
