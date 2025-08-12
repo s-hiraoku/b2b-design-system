@@ -121,51 +121,33 @@ phases:
       rollback_to_phase: tasks
       feedback_collection: true
 
-  # Phase 7: Specification Finalization
+  # Phase 7: Specification Validation
   - name: finalization
     agent: kiro-spec-status
-    description: "Finalize specifications and prepare for next workflow"
+    description: "Validate specification completeness and readiness for implementation"
     inputs: [requirements_doc, design_doc, task_plan]
     outputs:
-      - completed_specifications
-      - implementation_ready_status
+      - validation_status
+      - completion_report
       - next_workflow_recommendation
 
-    finalization_tasks:
+    validation_tasks:
       - validate_specification_completeness
       - ensure_task_list_actionable
       - verify_design_implementability
-      - generate_specification_summary
-
-    preparation_for_next_workflow:
-      - create_project_metadata_file
-      - setup_specification_index
-      - prepare_smart_context_entry
-      - recommend_next_workflow: "dev-env-setup"
+      - check_kiro_sdd_compliance
 
     success_criteria:
+      - all_four_files_present: true
+      - no_extra_files_created: true
       - specifications_complete: true
       - tasks_md_validated: true
       - ready_for_implementation: true
 
     next_workflow: dev-env-setup
-    next_phase: validation
-
-  # Phase 8: Final Validation and Status Update
-  - name: validation
-    agent: project-state-analyzer
-    description: "Validate Kiro SDD completion and update project status"
-    inputs: [implementation_results, task_progress]
-    outputs:
-      - completion_status
-      - next_recommendations
-    success_criteria:
-      - implementation_complete: true
-      - documentation_updated: true
-      - quality_gates_passed: true
     next_phase: human_approval_kiro_sdd
 
-  # Phase 9: Human Approval Checkpoint
+  # Phase 8: Human Approval Checkpoint
   - name: human_approval_kiro_sdd
     type: human_interaction
     description: "Human review and approval of Kiro SDD workflow completion before proceeding to next development phase"

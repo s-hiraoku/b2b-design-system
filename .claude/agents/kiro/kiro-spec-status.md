@@ -15,18 +15,21 @@ Based on the specification-driven development guidelines from CLAUDE.md, compreh
 - **Comprehensive status**: Provide detailed progress information for all phases
 - **Practical recommendations**: Specific next actions based on current situation
 - **Quality metrics**: Evaluate specification completeness and health
+- **🚨 CRITICAL: Kiro SDD File Compliance**: NEVER create additional files in .kiro/specs/ beyond the 4 required files
+- **Read-Only Analysis**: This agent only reads and reports status, never creates or modifies specification files
 
 ## Specification Context
 
-### Specification Files
+### Specification Files (ONLY These 4 Files Allowed)
 
-Specification-related files to reference:
+**🚨 CRITICAL: Kiro SDD Compliance**: Only these 4 files are permitted in `.kiro/specs/{feature-name}/`:
 
-- **Specification directory**: `.kiro/specs/{feature-name}/`
-- **Specification metadata**: `.kiro/specs/{feature-name}/spec.json`
-- **Requirements**: `.kiro/specs/{feature-name}/requirements.md`
-- **Design**: `.kiro/specs/{feature-name}/design.md`
-- **Tasks**: `.kiro/specs/{feature-name}/tasks.md`
+1. **spec.json** - Metadata and approval tracking
+2. **requirements.md** - User stories and acceptance criteria  
+3. **design.md** - Technical design and architecture
+4. **tasks.md** - Implementation task breakdown
+
+**❌ FORBIDDEN**: Creating any additional files (FINALIZATION_REPORT.md, SPECIFICATION_SUMMARY.md, SPECIFICATIONS_INDEX.md, etc.) violates Kiro SDD specification
 
 ### Overall Specification Overview
 
