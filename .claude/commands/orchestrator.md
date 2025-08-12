@@ -78,6 +78,24 @@ Alternative Options:
 Please select 1-4:
 ```
 
+### Correct Execution Example:
+
+When user selects option 2 (DEV-ENV-SETUP) for project "liquid-glass-tech-blog":
+
+**✅ CORRECT Response:**
+```
+You selected DEV-ENV-SETUP workflow.
+
+Please execute the following command:
+/dev-env-setup liquid-glass-tech-blog
+```
+
+**❌ INCORRECT (causes error):**
+```
+Executing workflow...
+Bash("/dev-env-setup liquid-glass-tech-blog")  # THIS CAUSES ERROR!
+```
+
 ## 🔄 Workflow Command Execution
 
 After user confirmation, save workflow selection to Smart Context and execute the appropriate specialized workflow command:
@@ -89,8 +107,10 @@ Bash: "node .cc-deck/src/cli/smart-context-cli.js update-workflow $(basename $(p
 
 ### CC-Deck Workflow Commands:
 
-```bash
-# Execute based on user selection and CC-Deck workflow chain
+**IMPORTANT**: These are Claude Code slash commands, NOT bash commands. They should be executed as plain text responses to the user, who will then execute them in Claude Code interface.
+
+```
+# Workflow commands to be presented to user for execution:
 /kiro-sdd        # Specification-driven development workflow
 /dev-env-setup   # Dynamic MCP agent generation (NEW)
 /coding          # TDD-unified comprehensive development
@@ -99,6 +119,12 @@ Bash: "node .cc-deck/src/cli/smart-context-cli.js update-workflow $(basename $(p
 /pr              # Pull request creation and merge management
 /acceptance      # Human approval and feedback-driven improvement
 ```
+
+**Execution Method**: 
+- DO NOT use Bash() to execute these commands
+- DO NOT use Task() to execute these commands  
+- Simply OUTPUT the command as text for the user to execute
+- Example: When user selects dev-env-setup, output: "/dev-env-setup liquid-glass-tech-blog"
 
 ### Workflow Chain Execution:
 
@@ -223,5 +249,11 @@ Bash: "node .cc-deck/src/cli/smart-context-cli.js update-preferences --project-i
 - **Context Sharing**: State preserved between command executions  
 - **Clean Separation**: Orchestrator handles flow, commands handle execution
 - **Consistent Interface**: All commands follow CC-Deck standards
+
+### ⚠️ CRITICAL: Workflow Command Execution
+- **Slash commands are NOT Bash commands**: Never use Bash() to execute /workflow commands
+- **Output commands as text**: Present workflow commands for user execution
+- **Correct format**: Output "/dev-env-setup project-name" as text, not Bash("/dev-env-setup project-name")
+- **User executes commands**: The user will copy and execute the slash command in Claude Code
 
 This refactored orchestrator maintains the essential functionality while dramatically simplifying the implementation and ensuring clean separation of concerns according to CC-Deck Workflow Engine specifications.
