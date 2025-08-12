@@ -135,6 +135,12 @@ projects/{project-name}/
 
 **CRITICAL**: Execute ALL phases sequentially using the agents specified in the loaded workflow configuration. Do NOT skip phases.
 
+**Phase Execution Instructions**:
+- After Phase 6 (testing-agent) completes, you MUST execute Phase 6.5 (acceptance-reviewer)
+- Use the Task tool to call: `Task(subagent_type="acceptance-reviewer", description="Specification compliance check", prompt="Verify implementation compliance with specifications and decide whether to proceed to documentation or rollback to TDD cycle")`
+- Only proceed to Phase 7 (documentation-agent) after Phase 6.5 approves with PROCEED decision
+- If Phase 6.5 returns ROLLBACK decision, return to Phase 4 (tdd-agent)
+
 **Project-Specific Execution**:
 
 ```python
