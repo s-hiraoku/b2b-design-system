@@ -45,9 +45,9 @@ Execute detailed project state analysis using the following step-by-step process
 ```yaml
 CC-Deck Workflow Engine State Analysis Protocol with Smart Context:
   0. Smart Context Initialization:
-    - Check Smart Context availability: node .cc-deck/src/cli/smart-context-cli.js status
-    - Load existing project context to avoid redundant analysis
-    - Initialize new context if none exists
+    - Check Smart Context availability: node .cc-deck/src/cli/smart-context-cli.js list
+    - Load existing project context using show command to avoid redundant analysis
+    - Initialize new context if none exists using init command
     - Gracefully fallback to standard analysis if Smart Context unavailable
     
   1. Active Workflow Detection:
@@ -295,10 +295,10 @@ When invoked, execute this comprehensive analysis sequence:
 
 ```bash
 # Step 1: Initialize Smart Context integration
-Bash("node .cc-deck/src/cli/smart-context-cli.js status --project-id=$(basename $(pwd)) || echo 'Smart Context unavailable'")
+Bash("node .cc-deck/src/cli/smart-context-cli.js list || echo 'Smart Context unavailable'")
 
-# Step 2: Load existing Smart Context if available
-Bash("node .cc-deck/src/cli/smart-context-cli.js load --project-id=$(basename $(pwd)) --scope=project_state,workflow_history || echo 'Creating new context'")
+# Step 2: Load existing Smart Context if available  
+Bash("node .cc-deck/src/cli/smart-context-cli.js show $(basename $(pwd)) project || echo 'No existing context found'")
 
 # Step 3: Check for active workflow execution states
 Glob('.cc-deck/runtime/global/context/active/*') # Active workflow contexts

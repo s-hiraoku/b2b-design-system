@@ -25,7 +25,7 @@ This orchestrator has clear and focused responsibilities:
 
 ```bash
 # 1. Initialize Smart Context system (graceful degradation if unavailable)
-Bash: "node .cc-deck/src/cli/smart-context-cli.js init --project-id=$(basename $(pwd)) || echo 'Smart Context unavailable, continuing with standard analysis'"
+Bash: "node .cc-deck/src/cli/smart-context-cli.js init $(basename $(pwd)) orchestrator || echo 'Smart Context unavailable, continuing with standard analysis'"
 
 # 2. Get current date information
 Task(subagent_type="date-utility", description="Get current date information", prompt="Please provide current date and time information for use in this orchestrator session, including search-appropriate year formatting.")
@@ -84,7 +84,7 @@ After user confirmation, save workflow selection to Smart Context and execute th
 
 ```bash
 # Save workflow selection and execution start to Smart Context (graceful fallback)
-Bash: "node .cc-deck/src/cli/smart-context-cli.js update-workflow --project-id=$(basename $(pwd)) --workflow=[selected_workflow] --status=started || echo 'Workflow started: [selected_workflow] (Smart Context unavailable)'"
+Bash: "node .cc-deck/src/cli/smart-context-cli.js update-workflow $(basename $(pwd)) [selected_workflow] '{\"status\":\"started\"}' || echo 'Workflow started: [selected_workflow] (Smart Context unavailable)'"
 ```
 
 ### CC-Deck Workflow Commands:
@@ -188,10 +188,10 @@ Ready to [next action]?
 
 ```bash
 # Check Smart Context status
-Bash: "node .cc-deck/src/cli/smart-context-cli.js status --project-id=$(basename $(pwd))"
+Bash: "node .cc-deck/src/cli/smart-context-cli.js list"
 
-# Load specific context data for analysis
-Bash: "node .cc-deck/src/cli/smart-context-cli.js load --project-id=$(basename $(pwd)) --scope=project_state,workflow_history"
+# Load specific context data for analysis  
+Bash: "node .cc-deck/src/cli/smart-context-cli.js show $(basename $(pwd)) project"
 
 # Update user preferences based on selection
 Bash: "node .cc-deck/src/cli/smart-context-cli.js update-preferences --project-id=$(basename $(pwd)) --workflow-choice=[user_choice] --recommended=[ai_recommendation]"
