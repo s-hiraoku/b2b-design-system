@@ -73,15 +73,15 @@ graph TD
 
 ### 2. 🛠️ Development Environment Setup Workflow (`/dev-env-setup`)
 
-**プロジェクト特化型開発環境の動的構築ワークフロー** - Kiro SDD仕様を基にプロジェクトに最適化されたMCPサブエージェントを動的生成し、Codingワークフローを強化する5段階プロセス。
+**統合MCP実装エージェント構築ワークフロー** - Kiro SDD仕様を基にプロジェクトに最適なMCPツールを選定し、セットアップを実行後、すべてを統合した単一の`customize-implementation-agent`を生成する6段階プロセス。
 
 ```mermaid
 graph TD
     DevEnvMain[🛠️ /dev-env-setup] --> Phase1[📋 Phase 1: Spec Analysis<br/>spec-analyzer]
     Phase1 --> Phase2[🤖 Phase 2: MCP Recommendation<br/>mcp-recommender]  
     Phase2 --> Phase3[👤 Phase 3: User Approval<br/>human interaction]
-    Phase3 --> Phase4[⚙️ Phase 4: Agent Generation<br/>agent-generator]
-    Phase4 --> Phase5[🔧 Phase 5: Workflow Integration<br/>workflow-integrator]
+    Phase3 --> Phase4[⚙️ Phase 4: Unified Agent Generation<br/>agent-generator]
+    Phase4 --> Phase5[🔧 Phase 5: MCP Setup<br/>mcp-setup-manager]
     Phase5 --> ApprovalDev[✅ Phase 6: Human Approval]
     
     %% MCP Integrations
@@ -89,49 +89,46 @@ graph TD
     Phase2 --> DeepWiki[📖 DeepWiki MCP]
     Phase2 --> Context7[🔍 Context7 MCP]
     
-    %% Dynamic Agent Generation
-    Phase4 --> GeneratedAgents[🤖 Generated Agents<br/>project-vercel-agent<br/>project-nextjs-optimizer<br/>project-tailwind-helper]
+    %% Agent Generation and MCP Setup
+    Phase4 --> UnifiedAgent[🎯 customize-implementation-agent<br/>All recommended MCPs integrated]
+    Phase5 --> MCPSetup[⚙️ MCP Configuration<br/>Authentication & Connection Setup]
     
     %% Integration Output
-    Phase5 --> EnhancedCoding[💻 Enhanced Coding Workflow<br/>with project-specific agents]
+    Phase5 --> EnhancedCoding[💻 Enhanced Coding Workflow<br/>with fully configured MCPs]
 ```
 
 #### 🏁 DEV-ENV-SETUP完了判定基準
 
 **重要**: DEV-ENV-SETUPワークフローの完了は、以下の成果物が`.cc-deck/runtime/projects/{project_id}/`に作成されることで判定される:
 
-1. **Generated MCP SubAgents** 📂 `agents/`
-   - プロジェクト特化型MCPサブエージェント（複数の*.mdファイル）
-   - 命名規則: `{project_id}-{agent_purpose}.md`
-   - 例: `liquid-glass-tech-blog-vercel-optimizer.md`, `liquid-glass-tech-blog-nextjs-optimizer.md`
+1. **統合MCP実装エージェント** 📄 `agents/customize-implementation-agent.md`
+   - 推奨されたすべてのMCPツールを統合した単一エージェント
+   - プロジェクト固有の最適化と問題解決機能を包含
+   - implementation-agentの代替として機能
 
-2. **Workflow Extension Configuration** 📄 `extensions/coding-extension.yaml`
-   - Codingワークフロー拡張設定ファイル
-   - 生成されたサブエージェントのワークフロー統合情報
+2. **MCPセットアップ完了証明** 📄 `config/mcp-setup-complete.json`
+   - 推奨MCPツールの認証・接続設定完了状況
+   - セットアップエラー情報とフォールバック戦略
+   - 実行時MCP利用可能性の検証結果
 
-3. **Merged Workflow Configuration** 📄 `workflows/generated/coding-merged.yaml`
-   - ベースワークフローと拡張の統合済み設定
-   - 実際の実行で使用される最終ワークフロー定義
+**✅ 完了検証**: project-state-analyzerは上記2つのアーティファクト存在を確認してDEV-ENV-SETUP完了を判定し、次のCODINGワークフローを推奨する。
 
-**✅ 完了検証**: project-state-analyzerは上記3つのアーティファクト存在を確認してDEV-ENV-SETUP完了を判定し、次のCODINGワークフローを推奨する。
-
-**❌ 不完全判定回避**: `.kiro/specs/`ディレクトリではなく、`.cc-deck/runtime/projects/{project_id}/`の成果物を基準とする。
+**🎯 シンプル化効果**: 複数エージェント管理・ワークフロー拡張・マージプロセスが不要となり、MCPセットアップも含めた包括的な開発環境構築を実現。
 
 ### 3. 💻 Coding Workflow (`/coding`) 
 
-**TDD統一による高品質開発ワークフロー** - 全実装がTest-Driven Developmentで統一され、95%+テストカバレッジを保証する7段階プロセス。動的に生成されたMCPサブエージェントを全フェーズで活用し、プロジェクト特化型の最適化と問題解決を実現。
+**TDD統一による高品質開発ワークフロー** - 全実装がTest-Driven Developmentで統一され、95%+テストカバレッジを保証する8段階プロセス。Phase 5では`customize-implementation-agent`を使用して、推奨MCPツールを統合した効率的な実装を実現。
 
-#### 🚀 強化されたMCPサブエージェント統合
+#### 🚀 統合MCP実装エージェント
 
-**動的サブエージェント活用戦略** - 8つの専用MCPサブエージェントが全フェーズで協調動作：
+**customize-implementation-agent統合戦略** - dev-env-setupで推奨された全MCPツールを単一エージェントに統合：
 
-- **Research Phase**: Context7、DeepWiki、Brave Search による技術調査強化
-- **TDD Phase**: テスト実装パターン分析、E2Eテスト準備支援
-- **Implementation Phase**: リアルタイム問題解決、最適化、品質監視
-- **Testing Phase**: Playwright自動テスト、CI/CD統合、パフォーマンステスト
-- **Documentation Phase**: AI画像生成、多言語対応、GitHub自動更新
+- **統合MCP機能**: Context7、DeepWiki、Brave Search、Playwright等すべてを一元化
+- **プロジェクト特化最適化**: 推奨MCPツールによる効率的な問題解決
+- **シンプルな実装フロー**: 複数エージェント管理不要の統一実装プロセス
+- **実装品質向上**: MCPツール活用による高品質なコード生成
 
-**intelligent triggers**: エラー、パフォーマンス問題、統合課題に応じて適切なサブエージェントを自動呼び出し
+**Phase 5統合実装**: `customize-implementation-agent`が`implementation-agent`を置き換え、推奨MCPツールを活用した実装を実行
 
 ```mermaid
 graph TD
@@ -139,7 +136,7 @@ graph TD
     Phase1 --> Phase2[📋 Phase 2: Planning<br/>planning-agent]
     Phase2 --> Phase3[🤖 Phase 3: Serena Onboarding<br/>serena-onboarding-agent]
     Phase3 --> Phase4[🔴 Phase 4: TDD Cycle<br/>tdd-agent]
-    Phase4 --> Phase5[⚡ Phase 5: Full Implementation<br/>implementation-agent]
+    Phase4 --> Phase5[⚡ Phase 5: Full Implementation<br/>customize-implementation-agent]
     Phase5 --> Phase6[🧪 Phase 6: Testing<br/>testing-agent]
     Phase6 --> SpecCheck[🔍 Phase 6.5: Specification Compliance Check<br/>acceptance-reviewer]
     SpecCheck --> |✅ Complete| Phase7[📚 Phase 7: Documentation<br/>documentation-agent]
