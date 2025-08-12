@@ -2,9 +2,9 @@
   "feature_name": "liquid-glass-tech-blog",
   "project_description": "液体ガラス技術に特化した技術ブログウェブサイトの包括的な実装。Liquid Glass（リキッドグラス）およびGlasmorphism（グラスモルフィズム）デザイン手法のショーケースと実装技術を提供する高性能プラットフォーム。Next.js 15、React 19、Tailwind CSS 4、TypeScript 5.xを使用したモダンなフルスタック開発。ブログCMS統合、インタラクティブデモ、コンポーネントライブラリ、リアルタイムエフェクトエディタを含む完全なソリューション。",
   "created_at": "2025-08-10T01:37:00Z",
-  "updated_at": "2025-08-11T17:15:00Z",
+  "updated_at": "2025-08-12T10:00:00Z",
   "language": "japanese",
-  "phase": "ready-for-implementation",
+  "phase": "tasks-updated-library-integration",
   "approvals": {
     "requirements": {
       "generated": true,
@@ -16,19 +16,32 @@
     },
     "tasks": {
       "generated": true,
-      "approved": true
+      "approved": true,
+      "updated": true,
+      "library_integration": true
     }
   },
   "ready_for_implementation": true,
+  "library_modifications": {
+    "approved_libraries": [
+      "@developer-hub/liquid-glass",
+      "shadcn/ui",
+      "glasscn-ui"
+    ],
+    "integration_approach": "shadcn/ui base components + liquid glass effects",
+    "tasks_updated": true
+  },
   "steering_context": {
     "product_overview": "Liquid Glass Tech Blogは、Liquid Glass（リキッドグラス）およびGlasmorphism（グラスモルフィズム）デザイン手法に特化した技術ブログプラットフォーム",
     "target_audience": ["UI/UXデザイナー", "フロントエンド開発者", "デザインエンジニア", "デザイン愛好者"],
     "technology_stack": {
       "framework": "Next.js 15 (App Router)",
       "ui_library": "React 19 with TypeScript 5.x",
-      "styling": "Tailwind CSS 4 + CSS-in-JS",
+      "styling": "Tailwind CSS 4 + @developer-hub/liquid-glass + shadcn/ui",
+      "liquid_glass": "@developer-hub/liquid-glass (primary) + glasscn-ui integration",
+      "animation": "Motion (Framer Motion 2025) + GPU-optimized effects",
+      "ui_components": "shadcn/ui (Radix UI primitives)",
       "content_management": "MDX + Headless CMS",
-      "animation": "Framer Motion + Custom CSS Transforms",
       "testing": "Vitest + React Testing Library + Playwright"
     },
     "key_features": [

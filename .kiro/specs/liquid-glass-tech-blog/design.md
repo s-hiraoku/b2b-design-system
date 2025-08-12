@@ -83,8 +83,10 @@ graph TB
 
 **Styling & Animation:**
 - **Tailwind CSS 4**: JIT compilation、カスタムCSS変数統合
-- **CSS-in-JS (Styled-JSX)**: 動的スタイル、季節テーマ対応
-- **Framer Motion**: 高性能アニメーション、GPU最適化
+- **@developer-hub/liquid-glass**: 専用Liquid Glassライブラリ（主要選択）
+- **Motion (Framer Motion 2025)**: パフォーマンス最適化アニメーション（補助選択）
+- **shadcn/ui**: モダンUIコンポーネントライブラリ
+- **glasscn-ui**: Glassmorphismエフェクト専用コンポーネント統合
 
 **Content Management:**
 - **MDX (Next-MDX-Remote)**: React component embedding
@@ -98,10 +100,23 @@ graph TB
 - 自動的なCode Splitting とBundle Optimization
 - Built-in Image Optimization でLCP改善
 
-**Tailwind CSS 4 + CSS Variables選択理由:**
-- `backdrop-filter`のGPU加速最適化
-- 季節テーマの動的変更対応
-- 開発効率とパフォーマンスのバランス
+**@developer-hub/liquid-glass選択理由:**
+- 専用設計によるLiquid Glassエフェクトの最適化
+- TypeScript完全サポートと型安全性
+- GPU加速とパフォーマンス最適化
+- カスタマイズ可能なプリセットとテーマ対応
+
+**shadcn/ui統合選択理由:**
+- モダンなRadix UI primitives基盤
+- Tailwind CSSとの完全統合
+- アクセシビリティ（WCAG 2.1 AA）標準準拠
+- カスタマイズ可能なデザインシステム
+
+**Motion (Framer Motion 2025)選択理由:**
+- パフォーマンス最適化された新アーキテクチャ
+- Liquid Glassエフェクトとの協調動作
+- 60fps維持のためのGPU最適化
+- React 19の新機能との統合
 
 **MDX統合選択理由:**
 - Liquid Glassコンポーネントの直接埋め込み
@@ -154,19 +169,25 @@ sequenceDiagram
 
 ```typescript
 // components/liquid-glass/LiquidGlassCard.tsx
+import { LiquidGlass, LiquidGlassVariant } from '@developer-hub/liquid-glass';
+import { motion } from 'motion/react';
+import { Card, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+
 interface LiquidGlassCardProps {
-  variant: 'subtle' | 'medium' | 'intense';
-  blur: number;
-  opacity: number;
-  saturation: number;
+  variant: LiquidGlassVariant;
+  blur?: number;
+  opacity?: number;
+  saturation?: number;
   children: React.ReactNode;
   className?: string;
   interactive?: boolean;
   seasonalTheme?: boolean;
+  motionPreset?: 'subtle' | 'smooth' | 'spring';
 }
 
 export const LiquidGlassCard: React.FC<LiquidGlassCardProps> = ({
-  variant = 'medium',
+  variant = 'glass-medium',
   blur = 15,
   opacity = 0.1,
   saturation = 1.8,
@@ -174,33 +195,95 @@ export const LiquidGlassCard: React.FC<LiquidGlassCardProps> = ({
   className = '',
   interactive = false,
   seasonalTheme = true,
+  motionPreset = 'smooth',
   ...props
 }) => {
-  const { currentTheme, glassStyles } = useLiquidGlass({
-    blur,
-    opacity,
-    saturation,
-    interactive,
-    seasonalTheme
-  });
+  const { currentTheme } = useSeasonalTheme();
+  
+  // Motion configurations for different presets
+  const motionConfigs = {
+    subtle: {
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      transition: { duration: 0.3 }
+    },
+    smooth: {
+      initial: { opacity: 0, y: 20 },
+      animate: { opacity: 1, y: 0 },
+      transition: { duration: 0.4, ease: "easeOut" }
+    },
+    spring: {
+      initial: { opacity: 0, scale: 0.95 },
+      animate: { opacity: 1, scale: 1 },
+      transition: { type: "spring", damping: 20, stiffness: 300 }
+    }
+  };
+
+  const MotionCard = motion(Card);
   
   return (
-    <div 
-      className={cn(glassStyles, className)}
-      style={{
-        '--glass-blur': `${blur}px`,
-        '--glass-opacity': opacity,
-        '--glass-saturation': saturation,
-        backdropFilter: `blur(var(--glass-blur)) saturate(var(--glass-saturation))`,
-        backgroundColor: `rgba(255, 255, 255, var(--glass-opacity))`,
-        border: '1px solid rgba(255, 255, 255, 0.2)',
-        borderRadius: '16px',
-        ...currentTheme.glassMorphism
-      }}
-      {...props}
+    <LiquidGlass
+      variant={variant}
+      blur={blur}
+      opacity={opacity}
+      saturation={saturation}
+      theme={seasonalTheme ? currentTheme.name : undefined}
+      className={cn("liquid-glass-container", className)}
     >
-      {children}
-    </div>
+      <MotionCard
+        className={cn(
+          "border-0 bg-transparent shadow-none",
+          interactive && "hover:scale-[1.02] cursor-pointer",
+          className
+        )}
+        {...motionConfigs[motionPreset]}
+        whileHover={interactive ? { scale: 1.02 } : undefined}
+        whileTap={interactive ? { scale: 0.98 } : undefined}
+        {...props}
+      >
+        <CardContent className="p-6">
+          {children}
+        </CardContent>
+      </MotionCard>
+    </LiquidGlass>
+  );
+};
+
+// Enhanced shadcn/ui component with liquid glass integration
+export const LiquidGlassButton: React.FC<{
+  variant?: 'glass' | 'glass-solid' | 'glass-outline';
+  size?: 'sm' | 'md' | 'lg';
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+}> = ({ 
+  variant = 'glass', 
+  size = 'md',
+  children, 
+  onClick,
+  className 
+}) => {
+  return (
+    <LiquidGlass variant="glass-subtle">
+      <motion.button
+        className={cn(
+          "inline-flex items-center justify-center rounded-lg font-medium transition-colors",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+          "disabled:pointer-events-none disabled:opacity-50",
+          {
+            'px-3 py-2 text-sm': size === 'sm',
+            'px-4 py-2 text-base': size === 'md',
+            'px-6 py-3 text-lg': size === 'lg',
+          },
+          className
+        )}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={onClick}
+      >
+        {children}
+      </motion.button>
+    </LiquidGlass>
   );
 };
 ```
@@ -251,26 +334,40 @@ export const useSeasonalTheme = () => {
 
 ```typescript
 // components/mdx/MDXComponents.tsx
-import { LiquidGlassCard, EffectDemo, CodePreview } from '@/components/liquid-glass';
+import { LiquidGlassCard, LiquidGlassButton, EffectDemo, CodePreview } from '@/components/liquid-glass';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { motion } from 'motion/react';
+import { LiquidGlass } from '@developer-hub/liquid-glass';
 
 export const MDXComponents = {
   // Enhanced Liquid Glass components for MDX
   LiquidGlassCard: (props: any) => (
-    <LiquidGlassCard variant="medium" interactive seasonalTheme {...props} />
-  ),
-  
-  EffectDemo: ({ effectCode, ...props }: any) => (
-    <EffectDemo 
-      code={effectCode}
-      preview
-      editable
-      exportable
-      {...props}
+    <LiquidGlassCard 
+      variant="glass-medium" 
+      interactive 
+      seasonalTheme 
+      motionPreset="smooth"
+      {...props} 
     />
   ),
   
+  EffectDemo: ({ effectCode, ...props }: any) => (
+    <LiquidGlass variant="glass-intense" className="my-8">
+      <EffectDemo 
+        code={effectCode}
+        preview
+        editable
+        exportable
+        {...props}
+      />
+    </LiquidGlass>
+  ),
+  
   CodePreview: ({ language, ...props }: any) => (
-    <LiquidGlassCard variant="subtle">
+    <LiquidGlassCard variant="glass-subtle" className="my-6">
       <CodePreview 
         language={language}
         syntaxHighlight
@@ -280,30 +377,120 @@ export const MDXComponents = {
     </LiquidGlassCard>
   ),
 
-  // Enhanced standard elements
+  // Enhanced shadcn/ui components with liquid glass
+  Button: ({ variant = "default", ...props }: any) => (
+    <LiquidGlassButton {...props} />
+  ),
+
+  Badge: ({ variant = "secondary", ...props }: any) => (
+    <LiquidGlass variant="glass-subtle">
+      <Badge variant={variant} {...props} />
+    </LiquidGlass>
+  ),
+
+  Alert: ({ children, ...props }: any) => (
+    <LiquidGlassCard variant="glass-medium" className="my-6">
+      <Alert {...props}>{children}</Alert>
+    </LiquidGlassCard>
+  ),
+
+  // Enhanced standard elements with motion
   h1: ({ children, ...props }: any) => (
-    <h1 className="text-4xl font-bold mb-6 liquid-glass-text" {...props}>
+    <motion.h1 
+      className="text-4xl font-bold mb-6 liquid-glass-text" 
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      {...props}
+    >
       {children}
-    </h1>
+    </motion.h1>
   ),
   
   h2: ({ children, ...props }: any) => (
-    <h2 className="text-3xl font-semibold mb-4 liquid-glass-text" {...props}>
+    <motion.h2 
+      className="text-3xl font-semibold mb-4 liquid-glass-text"
+      initial={{ opacity: 0, y: -15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: 0.1 }}
+      {...props}
+    >
       {children}
-    </h2>
+    </motion.h2>
+  ),
+
+  h3: ({ children, ...props }: any) => (
+    <motion.h3 
+      className="text-2xl font-medium mb-3 liquid-glass-text"
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.3, delay: 0.2 }}
+      {...props}
+    >
+      {children}
+    </motion.h3>
   ),
 
   pre: ({ children, ...props }: any) => (
-    <LiquidGlassCard variant="subtle" className="p-6 my-6 font-mono">
-      <pre {...props}>{children}</pre>
+    <LiquidGlassCard variant="glass-subtle" className="my-6">
+      <pre className="p-6 font-mono overflow-x-auto" {...props}>
+        {children}
+      </pre>
     </LiquidGlassCard>
   ),
 
   blockquote: ({ children, ...props }: any) => (
-    <LiquidGlassCard variant="medium" className="border-l-4 border-blue-400 pl-6 my-6">
-      <blockquote className="text-gray-700 italic" {...props}>
-        {children}
-      </blockquote>
+    <LiquidGlassCard variant="glass-medium" className="my-6">
+      <div className="border-l-4 border-primary pl-6">
+        <blockquote className="text-muted-foreground italic" {...props}>
+          {children}
+        </blockquote>
+      </div>
+    </LiquidGlassCard>
+  ),
+
+  hr: () => (
+    <LiquidGlass variant="glass-subtle" className="my-8">
+      <Separator />
+    </LiquidGlass>
+  ),
+
+  // Custom components for technical articles
+  TechSpec: ({ title, specs, ...props }: any) => (
+    <LiquidGlassCard variant="glass-medium" className="my-6">
+      <div className="space-y-4">
+        <h4 className="font-semibold text-lg">{title}</h4>
+        <div className="grid grid-cols-2 gap-4">
+          {Object.entries(specs).map(([key, value]: [string, any]) => (
+            <div key={key} className="flex justify-between">
+              <span className="font-medium">{key}:</span>
+              <Badge variant="outline">{value}</Badge>
+            </div>
+          ))}
+        </div>
+      </div>
+    </LiquidGlassCard>
+  ),
+
+  PerformanceMetrics: ({ metrics, ...props }: any) => (
+    <LiquidGlassCard variant="glass-intense" className="my-6">
+      <div className="space-y-4">
+        <h4 className="font-semibold text-lg">Performance Metrics</h4>
+        <div className="grid grid-cols-3 gap-4">
+          {metrics.map((metric: any, index: number) => (
+            <motion.div
+              key={metric.name}
+              className="text-center"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: index * 0.1 }}
+            >
+              <div className="text-2xl font-bold text-primary">{metric.value}</div>
+              <div className="text-sm text-muted-foreground">{metric.name}</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </LiquidGlassCard>
   )
 };
@@ -313,6 +500,16 @@ export const MDXComponents = {
 
 ```typescript
 // components/admin/EffectEditor.tsx
+import { LiquidGlassCard, LiquidGlassButton } from '@/components/liquid-glass';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Slider } from '@/components/ui/slider';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { motion, AnimatePresence } from 'motion/react';
+import { LiquidGlass } from '@developer-hub/liquid-glass';
+
 interface EffectEditorProps {
   initialCode?: string;
   onSave: (effect: EffectData) => void;
@@ -326,7 +523,13 @@ export const EffectEditor: React.FC<EffectEditorProps> = ({
 }) => {
   const [code, setCode] = useState(initialCode);
   const [preview, setPreview] = useState<React.ComponentType | null>(null);
-  const [parameters, setParameters] = useState<EffectParameters>({});
+  const [parameters, setParameters] = useState<EffectParameters>({
+    blur: 15,
+    opacity: 0.1,
+    saturation: 1.8,
+    brightness: 1.0
+  });
+  const [activeTab, setActiveTab] = useState('editor');
   const { currentTheme } = useSeasonalTheme();
 
   const updatePreview = useCallback(
@@ -342,68 +545,507 @@ export const EffectEditor: React.FC<EffectEditorProps> = ({
   );
 
   return (
-    <div className="grid grid-cols-2 gap-6 h-screen">
-      {/* Code Editor */}
-      <LiquidGlassCard 
-        variant="intense" 
-        className="p-6"
-        style={{
-          ...currentTheme.editorStyles
-        }}
-      >
-        <CodeEditor
-          value={code}
-          onChange={(value) => {
-            setCode(value);
-            updatePreview(value);
-          }}
-          language="typescript"
-          theme={currentTheme.name}
-          options={{
-            minimap: { enabled: false },
-            wordWrap: 'on',
-            fontSize: 14,
-            fontFamily: 'JetBrains Mono, monospace',
-            lineNumbers: 'on',
-            syntaxHighlight: true,
-            autocompletion: true
-          }}
-        />
-        
-        {/* Parameter Controls */}
-        <ParameterControls
-          parameters={parameters}
-          onChange={setParameters}
-          theme={currentTheme}
-        />
-      </LiquidGlassCard>
-
-      {/* Live Preview */}
-      <LiquidGlassCard variant="subtle" className="p-6">
-        <div className="mb-4">
-          <h3 className="text-lg font-semibold mb-2">ライブプレビュー</h3>
-          <div className="flex gap-2">
-            <button 
-              onClick={() => onSave({ code, parameters })}
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-            >
-              保存
-            </button>
-            <button 
-              onClick={() => onExport('react')}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
-            >
-              エクスポート
-            </button>
+    <div className="h-screen p-6">
+      <LiquidGlass variant="glass-intense" className="h-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full">
+          <div className="flex items-center justify-between mb-6">
+            <TabsList className="grid w-[400px] grid-cols-3">
+              <TabsTrigger value="editor">エディタ</TabsTrigger>
+              <TabsTrigger value="preview">プレビュー</TabsTrigger>
+              <TabsTrigger value="export">エクスポート</TabsTrigger>
+            </TabsList>
+            
+            <div className="flex gap-2">
+              <LiquidGlassButton
+                onClick={() => onSave({ code, parameters })}
+                className="bg-primary hover:bg-primary/90"
+              >
+                保存
+              </LiquidGlassButton>
+              <LiquidGlassButton
+                onClick={() => onExport('react')}
+                variant="glass-outline"
+              >
+                エクスポート
+              </LiquidGlassButton>
+            </div>
           </div>
-        </div>
-        
-        <div className="preview-container" style={{ minHeight: '400px' }}>
-          {preview && <preview />}
-        </div>
-      </LiquidGlassCard>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100%-5rem)]">
+            {/* Code Editor Panel */}
+            <div className="lg:col-span-2">
+              <TabsContent value="editor" className="h-full">
+                <LiquidGlassCard variant="glass-medium" className="h-full">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Badge variant="outline">TypeScript</Badge>
+                      Liquid Glass Effect Editor
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="h-[calc(100%-5rem)]">
+                    <CodeEditor
+                      value={code}
+                      onChange={(value) => {
+                        setCode(value);
+                        updatePreview(value);
+                      }}
+                      language="typescript"
+                      theme={currentTheme.name}
+                      className="h-full"
+                      options={{
+                        minimap: { enabled: false },
+                        wordWrap: 'on',
+                        fontSize: 14,
+                        fontFamily: 'JetBrains Mono, monospace',
+                        lineNumbers: 'on',
+                        syntaxHighlight: true,
+                        autocompletion: true,
+                        bracketPairColorization: true,
+                        smoothScrolling: true
+                      }}
+                    />
+                  </CardContent>
+                </LiquidGlassCard>
+              </TabsContent>
+
+              <TabsContent value="preview" className="h-full">
+                <LiquidGlassCard variant="glass-subtle" className="h-full">
+                  <CardHeader>
+                    <CardTitle>ライブプレビュー</CardTitle>
+                  </CardHeader>
+                  <CardContent className="h-[calc(100%-5rem)]">
+                    <div className="preview-container h-full min-h-[400px] flex items-center justify-center">
+                      <AnimatePresence mode="wait">
+                        {preview ? (
+                          <motion.div
+                            key="preview"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            transition={{ duration: 0.3 }}
+                            className="w-full h-full"
+                          >
+                            <preview />
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            key="placeholder"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="text-center text-muted-foreground"
+                          >
+                            <div className="text-lg mb-2">プレビューを準備中...</div>
+                            <div className="text-sm">コードを編集してエフェクトを確認</div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </CardContent>
+                </LiquidGlassCard>
+              </TabsContent>
+
+              <TabsContent value="export" className="h-full">
+                <LiquidGlassCard variant="glass-medium" className="h-full">
+                  <CardHeader>
+                    <CardTitle>エクスポート設定</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <ExportOptions
+                      onExport={onExport}
+                      code={code}
+                      parameters={parameters}
+                    />
+                  </CardContent>
+                </LiquidGlassCard>
+              </TabsContent>
+            </div>
+
+            {/* Parameter Controls Panel */}
+            <div className="space-y-4">
+              <LiquidGlassCard variant="glass-medium">
+                <CardHeader>
+                  <CardTitle className="text-sm">エフェクトパラメータ</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <ParameterControl
+                    label="ブラー強度"
+                    value={parameters.blur}
+                    min={0}
+                    max={50}
+                    step={1}
+                    onChange={(value) => 
+                      setParameters(prev => ({ ...prev, blur: value[0] }))
+                    }
+                  />
+                  
+                  <ParameterControl
+                    label="透明度"
+                    value={parameters.opacity}
+                    min={0}
+                    max={1}
+                    step={0.01}
+                    onChange={(value) => 
+                      setParameters(prev => ({ ...prev, opacity: value[0] }))
+                    }
+                  />
+                  
+                  <ParameterControl
+                    label="彩度"
+                    value={parameters.saturation}
+                    min={0}
+                    max={3}
+                    step={0.1}
+                    onChange={(value) => 
+                      setParameters(prev => ({ ...prev, saturation: value[0] }))
+                    }
+                  />
+                  
+                  <ParameterControl
+                    label="明度"
+                    value={parameters.brightness}
+                    min={0.5}
+                    max={2}
+                    step={0.1}
+                    onChange={(value) => 
+                      setParameters(prev => ({ ...prev, brightness: value[0] }))
+                    }
+                  />
+                </CardContent>
+              </LiquidGlassCard>
+
+              <LiquidGlassCard variant="glass-subtle">
+                <CardHeader>
+                  <CardTitle className="text-sm">パフォーマンス監視</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <PerformanceMonitor parameters={parameters} />
+                </CardContent>
+              </LiquidGlassCard>
+            </div>
+          </div>
+        </Tabs>
+      </LiquidGlass>
     </div>
   );
+};
+
+// Parameter Control Component
+const ParameterControl: React.FC<{
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  onChange: (value: number[]) => void;
+}> = ({ label, value, min, max, step, onChange }) => (
+  <div className="space-y-2">
+    <div className="flex justify-between">
+      <Label className="text-xs font-medium">{label}</Label>
+      <Badge variant="secondary" className="text-xs">
+        {typeof value === 'number' ? value.toFixed(2) : value}
+      </Badge>
+    </div>
+    <Slider
+      value={[value]}
+      min={min}
+      max={max}
+      step={step}
+      onValueChange={onChange}
+      className="w-full"
+    />
+  </div>
+);
+```
+
+## Technology Stack Integration
+
+### Core Dependencies
+
+```json
+// package.json - Key dependencies for the updated stack
+{
+  "dependencies": {
+    "@developer-hub/liquid-glass": "^3.2.0",
+    "motion": "^11.0.0",
+    "@radix-ui/react-alert-dialog": "^1.0.5",
+    "@radix-ui/react-badge": "^1.0.4",
+    "@radix-ui/react-card": "^1.0.4",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-separator": "^1.0.3",
+    "@radix-ui/react-slider": "^1.1.2",
+    "@radix-ui/react-tabs": "^1.0.4",
+    "glasscn-ui": "^2.1.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^2.2.1",
+    "lucide-react": "^0.316.0"
+  }
+}
+```
+
+### shadcn/ui Configuration
+
+```typescript
+// components/ui/index.ts - Core shadcn/ui components
+export { Button } from './button';
+export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './card';
+export { Badge } from './badge';
+export { Label } from './label';
+export { Separator } from './separator';
+export { Slider } from './slider';
+export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
+export { Alert, AlertDescription, AlertTitle } from './alert';
+
+// lib/utils.ts - Tailwind utility functions
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+### @developer-hub/liquid-glass Integration
+
+```typescript
+// lib/liquid-glass/config.ts
+import { LiquidGlassConfig, createLiquidGlassTheme } from '@developer-hub/liquid-glass';
+
+export const liquidGlassConfig: LiquidGlassConfig = {
+  // Global configuration for liquid glass effects
+  performance: {
+    gpuAcceleration: true,
+    maxBlurRadius: 50,
+    optimizeForMobile: true,
+    fallbackStrategy: 'graceful-degradation'
+  },
+  
+  accessibility: {
+    respectReducedMotion: true,
+    respectReducedTransparency: true,
+    focusVisible: true
+  },
+  
+  variants: {
+    'glass-subtle': {
+      backdropFilter: 'blur(8px) saturate(120%)',
+      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+      borderColor: 'rgba(255, 255, 255, 0.1)'
+    },
+    'glass-medium': {
+      backdropFilter: 'blur(15px) saturate(150%)',
+      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+      borderColor: 'rgba(255, 255, 255, 0.2)'
+    },
+    'glass-intense': {
+      backdropFilter: 'blur(25px) saturate(180%)',
+      backgroundColor: 'rgba(255, 255, 255, 0.15)',
+      borderColor: 'rgba(255, 255, 255, 0.3)'
+    }
+  }
+};
+
+// Seasonal theme integration
+export const createSeasonalTheme = (season: Season, timeOfDay: TimeOfDay) => {
+  return createLiquidGlassTheme({
+    name: `${season}-${timeOfDay}`,
+    baseVariant: 'glass-medium',
+    customProperties: {
+      '--glass-hue': getSeasonalHue(season),
+      '--glass-particle-count': getParticleCount(season),
+      '--glass-animation-speed': getAnimationSpeed(timeOfDay)
+    }
+  });
+};
+```
+
+### Motion (Framer Motion 2025) Configuration
+
+```typescript
+// lib/motion/config.ts
+import { MotionConfig } from 'motion/react';
+
+export const motionGlobalConfig = {
+  // Performance optimizations for Motion
+  reducedMotion: 'user', // Respect user preferences
+  strictMode: true,
+  
+  // GPU acceleration settings
+  transformTemplate: ({ rotate, x, y, scale }) => 
+    `translate3d(${x}, ${y}, 0) rotate(${rotate}) scale(${scale})`,
+  
+  // Default transitions
+  transition: {
+    type: 'spring',
+    damping: 20,
+    stiffness: 300,
+    mass: 1
+  }
+};
+
+// Optimized presets for liquid glass integration
+export const liquidGlassMotionPresets = {
+  glassAppear: {
+    initial: { opacity: 0, backdropFilter: 'blur(0px)' },
+    animate: { opacity: 1, backdropFilter: 'blur(15px)' },
+    exit: { opacity: 0, backdropFilter: 'blur(0px)' },
+    transition: { duration: 0.4, ease: 'easeOut' }
+  },
+  
+  glassHover: {
+    whileHover: { 
+      scale: 1.02,
+      backdropFilter: 'blur(20px) saturate(160%)',
+      transition: { duration: 0.2 }
+    },
+    whileTap: { 
+      scale: 0.98,
+      transition: { duration: 0.1 }
+    }
+  },
+  
+  glassStagger: {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { 
+      duration: 0.5,
+      ease: 'easeOut',
+      staggerChildren: 0.1
+    }
+  }
+};
+```
+
+### glasscn-ui Integration
+
+```typescript
+// components/glasscn/GlassMorphComponents.tsx
+import { cn } from '@/lib/utils';
+import { motion } from 'motion/react';
+import { LiquidGlass } from '@developer-hub/liquid-glass';
+
+// Enhanced glasscn-ui components with @developer-hub/liquid-glass
+export const GlassCard = ({ 
+  children, 
+  variant = 'default',
+  className,
+  ...props 
+}: {
+  children: React.ReactNode;
+  variant?: 'default' | 'outlined' | 'filled';
+  className?: string;
+}) => {
+  const variantStyles = {
+    default: 'glass-medium',
+    outlined: 'glass-subtle',
+    filled: 'glass-intense'
+  };
+
+  return (
+    <LiquidGlass 
+      variant={variantStyles[variant]}
+      className={cn('rounded-lg border backdrop-blur-md', className)}
+      {...props}
+    >
+      {children}
+    </LiquidGlass>
+  );
+};
+
+export const GlassButton = ({ 
+  children, 
+  variant = 'primary',
+  size = 'md',
+  className,
+  ...props 
+}: {
+  children: React.ReactNode;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  className?: string;
+}) => {
+  const sizeStyles = {
+    sm: 'px-3 py-1.5 text-sm',
+    md: 'px-4 py-2 text-base',
+    lg: 'px-6 py-3 text-lg'
+  };
+
+  return (
+    <LiquidGlass variant="glass-subtle">
+      <motion.button
+        className={cn(
+          'rounded-lg font-medium transition-all duration-200',
+          'focus:outline-none focus:ring-2 focus:ring-offset-2',
+          sizeStyles[size],
+          className
+        )}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        {...props}
+      >
+        {children}
+      </motion.button>
+    </LiquidGlass>
+  );
+};
+```
+
+### Performance Integration Strategy
+
+```typescript
+// lib/performance/liquidGlassOptimization.ts
+import { LiquidGlassConfig } from '@developer-hub/liquid-glass';
+
+export const performanceOptimizedConfig: LiquidGlassConfig = {
+  // Device-based optimization
+  deviceOptimization: {
+    lowEndDevice: {
+      maxBlurRadius: 10,
+      reducedEffects: true,
+      fallbackToSolid: true
+    },
+    midRangeDevice: {
+      maxBlurRadius: 20,
+      moderateEffects: true,
+      animationReduction: 0.5
+    },
+    highEndDevice: {
+      maxBlurRadius: 50,
+      fullEffects: true,
+      enhancedAnimations: true
+    }
+  },
+  
+  // Core Web Vitals integration
+  coreWebVitals: {
+    respectLCP: true, // Lazy load heavy effects
+    respectCLS: true, // Prevent layout shifts
+    respectINP: true  // Optimize interaction response
+  },
+  
+  // GPU monitoring
+  gpuMonitoring: {
+    trackUsage: true,
+    maxUsageThreshold: 80, // Percentage
+    fallbackOnOverload: true
+  }
+};
+
+// Integration with existing performance monitoring
+export const integrateWithExistingMetrics = (
+  liquidGlassMetrics: LiquidGlassMetrics,
+  existingMetrics: PerformanceMetrics
+) => {
+  return {
+    ...existingMetrics,
+    liquidGlass: {
+      renderTime: liquidGlassMetrics.renderTime,
+      gpuUsage: liquidGlassMetrics.gpuUsage,
+      effectComplexity: liquidGlassMetrics.complexity,
+      fallbacksTriggered: liquidGlassMetrics.fallbacks
+    }
+  };
 };
 ```
 
