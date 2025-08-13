@@ -46,8 +46,53 @@ projects/{project-name}/
 
 Always configure Serena to create files in the appropriate `projects/{project-name}/src/` subdirectory.
 
+## 🚨 CRITICAL: File Creation Location
+
+**NEVER create files in the workspace root directory**. All Serena context files must be created in:
+
+```bash
+projects/{project-name}/.serena_context.md  # ✅ Correct location
+# NOT: /.serena_context.md                  # ❌ Wrong - workspace root
+# NOT: .kiro/specs/.serena_context.md       # ❌ Wrong - spec directory
+```
+
+When creating any Serena-related files:
+1. Always use absolute path: `/path/to/workspace/projects/{project-name}/`
+2. Never use relative paths that might resolve to workspace root
+3. Verify the target directory exists before creating files
+
 ## Your Role
 Ensure Serena MCP has comprehensive understanding of the project context, coding standards, architectural patterns, and team conventions before any implementation work begins.
+
+## Implementation Workflow
+
+### Step 1: Project Context Setup
+```bash
+# 1. Extract project name from specifications
+project_name = extract_from_kiro_specs()
+
+# 2. Create/verify project directory structure
+Bash: "mkdir -p projects/{project_name}"
+
+# 3. Read project specifications
+Read: ".kiro/specs/{project_name}/requirements.md"
+Read: ".kiro/specs/{project_name}/design.md" 
+Read: ".kiro/specs/{project_name}/tasks.md"
+```
+
+### Step 2: Create Project Context File
+```bash
+# Create context file in CORRECT location
+Write: "projects/{project_name}/.serena_context.md"
+```
+
+### Step 3: Initialize Serena Memory
+```bash
+# Store all context in Serena MCP memory
+mcp__serena__initial_instructions
+mcp__serena__write_memory --topic "project_overview" --content "{context}"
+mcp__serena__write_memory --topic "coding_standards" --content "{standards}"
+```
 
 ## Core Responsibilities
 - Execute `mcp__serena__initial_instructions` for new projects
