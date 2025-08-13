@@ -165,12 +165,13 @@ phases:
 .cc-deck/runtime/projects/{project_id}/
 ├── extensions/                    # 拡張設定
 │   └── coding-extension.yaml     # Coding workflow拡張
-├── generated/                     # 統合設定
-│   └── coding-merged.yaml        # 最終統合workflow
-└── agents/                       # 生成SubAgent
-    ├── {project_id}-vercel-agent.md
-    ├── {project_id}-nextjs-optimizer.md
-    └── {project_id}-tailwind-helper.md
+├── workflows/                     # ワークフロー設定
+│   └── generated/                # 統合設定
+│       └── coding-merged.yaml   # 最終統合workflow
+└── config/                       # MCP設定
+    └── mcp-setup-complete.json  # MCP設定完了ステータス
+
+# Enhanced agents are now in .claude/agents/coding/dynamic/{project_id}/
 ```
 
 **4. Hybrid File Generation Strategy**

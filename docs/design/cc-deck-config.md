@@ -130,8 +130,9 @@ Kiro SDD完了後とCoding開始前の橋渡しフェーズ。プロジェクト
 .cc-deck/runtime/projects/{project_id}/
 ├── extensions/                    # 拡張設定
 │   └── coding-extension.yaml     # Codingワークフロー拡張
-├── generated/                     # 統合設定
-│   └── coding-merged.yaml        # 最終統合ワークフロー
+├── workflows/                     # ワークフロー設定
+│   └── generated/                # 統合設定
+│       └── coding-merged.yaml   # 最終統合ワークフロー
 └── config/                       # MCP設定
     └── mcp-setup-complete.json  # MCP設定完了ステータス
 

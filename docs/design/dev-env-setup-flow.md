@@ -108,8 +108,8 @@ Instead of using only default MCP integrations (DeepWiki, Context7, Serena), the
 
 ### Configuration Flow
 1. **Base Configuration**: `.cc-deck/config/workflows/coding.yaml` (immutable)
-2. **Extension Configuration**: `dynamic/{project_id}/extensions/coding-extension.yaml`
-3. **Merged Configuration**: `dynamic/{project_id}/generated/coding-merged.yaml`
+2. **Extension Configuration**: `.cc-deck/runtime/projects/{project_id}/extensions/coding-extension.yaml`
+3. **Merged Configuration**: `.cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml`
 4. **Workflow Execution**: Uses merged configuration
 
 ## Technical Design Decisions
