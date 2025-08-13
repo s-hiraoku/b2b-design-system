@@ -74,7 +74,7 @@ Instead of using only default MCP integrations (DeepWiki, Context7, Serena), the
 
 #### ✅ 4. Dynamic Agent Generation (agent-generator SubAgent)
 **Status**: Agent defined, execution engine missing
-- Create SubAgent files in `.cc-deck/runtime/projects/{project_id}/agents/`
+- Create SubAgent files in `.claude/agents/coding/dynamic/{project_id}/`
 - Generate with proper naming: `{project_id}-{agent_name}`
 - Include appropriate MCP tool integrations and usage patterns
 

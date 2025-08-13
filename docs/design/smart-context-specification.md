@@ -218,7 +218,7 @@ graph TB
         "agent_name": "user-auth-system-vercel-agent",
         "generated_at": "2024-08-11T11:30:00Z",
         "status": "active",
-        "file_path": ".cc-deck/runtime/projects/user-auth-system/agents/"
+        "file_path": ".claude/agents/coding/dynamic/user-auth-system/"
       }
     ]
   },

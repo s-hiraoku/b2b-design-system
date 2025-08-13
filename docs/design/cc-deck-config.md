@@ -132,10 +132,12 @@ Kiro SDD完了後とCoding開始前の橋渡しフェーズ。プロジェクト
 │   └── coding-extension.yaml     # Codingワークフロー拡張
 ├── generated/                     # 統合設定
 │   └── coding-merged.yaml        # 最終統合ワークフロー
-└── agents/                       # 生成されたSubAgent
-    ├── {project_id}-vercel-agent.md
-    ├── {project_id}-nextjs-optimizer.md
-    └── {project_id}-tailwind-helper.md
+└── config/                       # MCP設定
+    └── mcp-setup-complete.json  # MCP設定完了ステータス
+
+# Enhanced agents are now in:
+.claude/agents/coding/dynamic/{project_id}/
+└── enhanced-implementation-agent.md  # 統合エンハンスドエージェント
 ```
 
 **MCP統合戦略:**

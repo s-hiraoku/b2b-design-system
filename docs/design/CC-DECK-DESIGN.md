@@ -127,7 +127,7 @@ phases:
     inputs: [approved_mcp_agents, project_analysis]
     outputs: [generated_agents, agent_file_list]
     naming_convention: "{project_id}-{agent_purpose}"
-    directory: ".cc-deck/runtime/projects/{project_id}/agents/"
+    directory: ".claude/agents/coding/dynamic/{project_id}/"
     
   - name: workflow_integration
     agent: workflow-integrator
