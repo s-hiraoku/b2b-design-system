@@ -107,7 +107,7 @@ phases:
 
   # Phase 5: Enhanced Implementation
   - name: full_implementation
-    agent: enhanced-implementation-agent
+    agent: implementation-agent
     fallback_agent: implementation-agent
     description: "Production-ready implementation using enhanced MCP capabilities or standard implementation with fail-safe fallback"
     agent_selection_priority:
