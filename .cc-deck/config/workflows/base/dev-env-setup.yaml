@@ -95,14 +95,67 @@ phases:
       - mcp_integration_details
     agent_generation_rules:
       naming_convention: "enhanced-implementation-agent"
-      directory_structure: ".cc-deck/runtime/projects/{project_id}/agents/"
+      directory_structure: ".claude/agents/coding/dynamic/{project_id}/"
       template_compliance: "cc_deck_subagent_standard"
       integration_approach: "unified_mcp_agent"
+      file_creation_strategy: "claude_code_system_agent"
+      base_template_source: ".claude/agents/coding/implementation-agent.md"
     success_criteria:
       - enhanced_agent_generated: true
       - all_mcps_integrated: true
       - file_created_successfully: true
       - proper_structure_maintained: true
+      - claude_code_recognition: true
+      - system_agent_availability: true
+    validation_checks:
+      - file_path_validation: ".claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md"
+      - yaml_frontmatter_syntax: true
+      - mcp_tools_integration: "all_approved_mcps_included"
+      - fallback_mechanisms: "graceful_degradation_implemented"
+    next_phase: workflow_integration
+
+  # Phase 4.5: Workflow Integration
+  - name: workflow_integration
+    agent: workflow-integrator
+    description: "Integrate generated agents into Coding workflow and create merged configuration files"
+    inputs: [enhanced_implementation_agent, agent_configuration_summary, project_analysis]
+    outputs:
+      - coding_extension_config
+      - coding_merged_workflow
+      - integration_metadata
+    
+    workflow_integration_process:
+      base_workflow_loading:
+        - "Load base coding.yaml from .cc-deck/config/workflows/base/"
+        - "Extract phases, agents, and configurations"
+        - "Identify integration points for enhanced agents"
+      
+      extension_creation:
+        - "Create coding-extension.yaml with project-specific enhancements"
+        - "Define enhanced agent integration points"
+        - "Configure MCP tool availability and fallback strategies"
+      
+      workflow_merging:
+        - "Merge base coding.yaml with project extensions"
+        - "Update agent selection logic to prioritize enhanced agents"
+        - "Preserve all base workflow functionality with enhancements"
+        - "Generate final coding-merged.yaml configuration"
+      
+      file_generation:
+        base_workflow_source: ".cc-deck/config/workflows/base/coding.yaml"
+        extension_output: ".cc-deck/runtime/projects/{project_id}/extensions/coding-extension.yaml"
+        merged_output: ".cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml"
+        metadata_output: ".cc-deck/runtime/projects/{project_id}/config/integration-metadata.json"
+        directory_creation: "create_if_not_exists"
+    
+    success_criteria:
+      - extension_config_created: true
+      - merged_workflow_generated: true
+      - integration_metadata_created: true
+      - file_paths_validated: true
+      - yaml_syntax_validated: true
+      - agent_references_resolved: true
+    
     next_phase: mcp_setup
 
   # Phase 5: MCP Setup and Configuration
@@ -385,8 +438,10 @@ integration_points:
   # Output to next workflows
   coding_workflow_enhancement:
     enhanced_configuration: ".cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml"
-    generated_agents: ".cc-deck/runtime/projects/{project_id}/agents/"
-    integration_metadata: "dev_env_setup_results.json"
+    generated_agents: ".claude/agents/coding/dynamic/{project_id}/"
+    extension_config: ".cc-deck/runtime/projects/{project_id}/extensions/coding-extension.yaml"
+    integration_metadata: ".cc-deck/runtime/projects/{project_id}/config/integration-metadata.json"
+    mcp_setup_status: ".cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
 
 # Success Metrics
 success_criteria:

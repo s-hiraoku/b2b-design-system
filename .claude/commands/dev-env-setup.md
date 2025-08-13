@@ -22,7 +22,7 @@ Task(subagent_type="user-interaction-reminder", description="User interaction gu
 
 ## 🚀 DEV-ENV-SETUP WORKFLOW EXECUTION
 
-This command executes the complete 6-phase development environment setup workflow as defined in `.cc-deck/config/workflows/base/dev-env-setup.yaml`.
+This command executes the complete 7-phase development environment setup workflow as defined in `.cc-deck/config/workflows/base/dev-env-setup.yaml`.
 
 ### Phase 1: Specification Analysis
 
@@ -110,8 +110,8 @@ Input Context:
 - Create single unified agent integrating all MCP capabilities
 
 Generation Requirements:
-1. **CRITICAL FILE PATH**: Create enhanced-implementation-agent.md in .cc-deck/runtime/projects/{project_id}/agents/
-2. **NEVER use .claude/agents/ directory**
+1. **CRITICAL FILE PATH**: Create enhanced-implementation-agent.md in .claude/agents/coding/dynamic/{project_id}/
+2. **Claude Code System Agent**: Use .claude/agents/ directory for system recognition
 3. **Unified MCP Integration**: Include all approved MCP tools in single agent
 4. **Proper YAML frontmatter**: name: enhanced-implementation-agent, tools with all MCPs
 5. **Fallback Mechanisms**: Graceful degradation when MCP tools unavailable
@@ -122,13 +122,52 @@ Agent Design:
 - Integrated MCP capabilities: Context7, DeepWiki, Serena, and approved tools
 - Performance optimization: Efficient MCP usage patterns
 - Error handling: Comprehensive fallback strategies
+- Claude Code system compatibility: Full agent recognition and invocation
 
 Directory Structure:
 - Target: .claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md
-- Create directory structure if needed
-- Validate file creation in correct location
+- Create directory structure if needed: mkdir -p .claude/agents/coding/dynamic/{project_id}/
+- Validate file creation in correct location for Claude Code recognition
 
 Output: enhanced_implementation_agent, mcp_integration_summary, generation_results.")
+```
+
+### Phase 4.5: Workflow Integration
+
+Creating merged workflow configuration with enhanced agents...
+
+```bash
+Task(subagent_type="workflow-integrator", description="Create merged workflow configuration", prompt="Integrate the generated enhanced-implementation-agent into the Coding workflow:
+
+Integration Requirements:
+1. **Base Workflow Loading**:
+   - Load base coding.yaml from .cc-deck/config/workflows/base/
+   - Extract phases, agents, and configurations
+   - Identify integration points for enhanced agents
+
+2. **Extension Configuration Creation**:
+   - Create coding-extension.yaml with project-specific enhancements
+   - Define enhanced agent integration points and MCP tool configurations
+   - Configure fallback strategies for MCP unavailability
+
+3. **Workflow Merging**:
+   - Merge base coding.yaml with project extensions
+   - Update agent selection logic to prioritize enhanced agents
+   - Preserve all base workflow functionality with enhancements
+   - Generate final coding-merged.yaml configuration
+
+4. **File Generation**:
+   - Extension config: .cc-deck/runtime/projects/{project_id}/extensions/coding-extension.yaml
+   - Merged workflow: .cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml
+   - Integration metadata: .cc-deck/runtime/projects/{project_id}/config/integration-metadata.json
+   - Create directory structure if needed
+
+5. **Validation**:
+   - Verify all files created successfully
+   - Validate YAML syntax and agent references
+   - Confirm enhanced agent paths are correctly specified
+
+Output: coding_extension_config, coding_merged_workflow, integration_metadata for next phase.")
 ```
 
 ### Phase 5: MCP Setup and Configuration
@@ -165,7 +204,42 @@ Setup Tasks:
 Output: mcp_setup_complete, authentication_status, configuration_results, fallback_strategies.")
 ```
 
-### Phase 6: Human Approval (Final)
+### Phase 6: MCP Validation and Testing
+
+Validating that all configured MCP tools are functioning correctly...
+
+```bash
+Task(subagent_type="mcp-validation-agent", description="Validate MCP tool functionality", prompt="Validate that all configured MCP tools are functioning correctly:
+
+Validation Requirements:
+1. **Connectivity Tests**:
+   - Test each MCP server connection and authentication
+   - Verify API endpoints respond within acceptable timeouts
+   - Validate authentication tokens and permissions
+   - Check service availability and rate limits
+
+2. **Functionality Tests**:
+   - Execute basic operations for each MCP tool
+   - Test core functionality that enhanced-implementation-agent will use
+   - Verify data formats and response structures
+   - Validate error handling and fallback mechanisms
+
+3. **Performance Tests**:
+   - Measure response times for each MCP tool
+   - Test concurrent usage scenarios
+   - Validate timeout configurations
+   - Check resource usage and memory impact
+
+4. **Integration Verification**:
+   - Verify enhanced-implementation-agent can access all MCP tools
+   - Test agent recognition by Claude Code system
+   - Validate workflow integration is complete
+   - Confirm fallback mechanisms work properly
+
+Output: mcp_validation_results, functional_mcp_tools, failed_mcp_tools, performance_metrics for final approval.")
+```
+
+### Phase 7: Human Approval (Final)
 
 ```bash
 echo "✅ DEV-ENV-SETUP Complete!"
@@ -206,20 +280,23 @@ fi
 
 ## Success Criteria
 
-- Enhanced implementation agent generated successfully
-- MCP tools configured and authenticated
-- Setup completion status documented
-- Fallback strategies established for MCP failures
-- User approval obtained for final setup
-- Enhanced Coding workflow ready for execution
+- **Specification Analysis**: Technology stack extracted and analyzed successfully
+- **MCP Recommendations**: Optimal MCP agents researched and recommended 
+- **User Approval**: MCP agent recommendations approved by user
+- **Enhanced Agent Generation**: enhanced-implementation-agent.md created in .claude/agents/coding/dynamic/{project_id}/
+- **Workflow Integration**: coding-merged.yaml and extension configs generated successfully
+- **MCP Setup**: All approved MCP tools configured and authenticated
+- **MCP Validation**: All MCP tools tested and validated as functional
+- **Final Approval**: Enhanced development environment approved for use
 
 ## Next Steps
 
 Upon successful completion:
-1. Enhanced Coding workflow is ready with unified MCP-enhanced agent
-2. Smart Context contains all setup information
-3. Development environment optimized with MCP capabilities
-4. Ready to begin TDD-driven implementation phase with enhanced tools
+1. **Enhanced Coding Workflow Ready**: coding-merged.yaml with enhanced-implementation-agent integration
+2. **Claude Code System Recognition**: Enhanced agent available as system agent
+3. **Smart Context Updated**: All setup information and configuration stored
+4. **MCP Tools Validated**: All approved MCP tools tested and ready for use
+5. **Workflow Chain Continuation**: Ready to proceed to Coding workflow with enhanced capabilities
 
 ---
 

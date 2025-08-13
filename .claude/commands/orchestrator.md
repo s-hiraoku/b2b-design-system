@@ -145,20 +145,30 @@ Task(subagent_type="mcp-recommender",
      prompt="Research and recommend optimal MCP agents based on project analysis: {phase1_output}")
 
 # 4. Execute Phase 3: user_approval (human_interaction)
-# Present Y/R/S format with comprehensive review materials
+# Present A/M/R/D format with comprehensive review materials
 
 # 5. Execute Phase 4: agent_generation
 Task(subagent_type="agent-generator",
      description="Generate enhanced implementation agent",
-     prompt="Generate unified enhanced-implementation-agent integrating approved MCPs...")
+     prompt="Generate unified enhanced-implementation-agent integrating approved MCPs in .claude/agents/coding/dynamic/{project_id}/...")
 
-# 6. Execute Phase 5: mcp_setup
+# 6. Execute Phase 4.5: workflow_integration
+Task(subagent_type="workflow-integrator",
+     description="Create merged workflow configuration",
+     prompt="Integrate generated enhanced agent into Coding workflow and create coding-merged.yaml...")
+
+# 7. Execute Phase 5: mcp_setup
 Task(subagent_type="mcp-setup-manager",
      description="Configure MCP tools",
      prompt="Configure and authenticate approved MCP tools...")
 
-# 7. Execute Phase 6: human_approval_dev_env (human_interaction)
-# Present final approval with Y/R/S format
+# 8. Execute Phase 6: mcp_validation
+Task(subagent_type="mcp-validation-agent",
+     description="Validate MCP tool functionality",
+     prompt="Validate all configured MCP tools are functioning correctly...")
+
+# 9. Execute Phase 7: human_approval_dev_env (human_interaction)
+# Present final approval with A/M/R/D format
 ```
 
 **Implementation Instructions for Orchestrator**:
@@ -189,6 +199,11 @@ After each workflow completion with human approval, automatically proceed to the
 kiro-sdd → dev-env-setup → coding → refactoring → testing → pr → acceptance
 ```
 
+**Key Workflow Chain Features:**
+- **dev-env-setup**: Generates enhanced-implementation-agent and coding-merged.yaml for optimized development
+- **coding**: Uses enhanced agents when available, falls back to standard agents if needed
+- **Dynamic MCP Integration**: Project-specific MCP tools based on technology stack analysis
+
 ## 🔄 Continuous Flow Management
 
 ### Automatic Workflow Progression:
@@ -198,7 +213,7 @@ kiro-sdd → dev-env-setup → coding → refactoring → testing → pr → acc
    ```bash
    Bash: "node .cc-deck/src/cli/smart-context-cli.js complete-workflow --project-id=$(basename $(pwd)) --workflow=[completed_workflow] --success=true || echo 'Workflow completed: [completed_workflow] (Smart Context unavailable)'"
    ```
-3. **Human Approval**: Present approval options (Y/R/S format)
+3. **Human Approval**: Present approval options (A/M/R/D format)
 4. **Next Workflow Detection**: Determine next workflow from CC-Deck chain
 5. **User Confirmation**: Explicit confirmation before proceeding
 6. **Next Workflow Execution**: Execute next specialized command with Smart Context
@@ -208,11 +223,12 @@ kiro-sdd → dev-env-setup → coding → refactoring → testing → pr → acc
 **For workflow completion approval:**
 ```
 ✅ [Workflow Name] completed successfully!
-Ready to [next action]?
+Ready to proceed to next workflow?
 
-[Y] Yes - proceed with next workflow
-[R] Review - regenerate/revise current phase  
-[S] Save - save and resume later (auto-detect with next /orchestrator)
+[A] Approved - proceed with next workflow
+[M] Approved with Modifications - proceed with conditions  
+[R] Rejected - regenerate/revise current workflow
+[D] Deferred - save and resume later (auto-detect with next /orchestrator)
 ```
 
 **For phase approval during workflow execution (based on YAML decision_options):**
