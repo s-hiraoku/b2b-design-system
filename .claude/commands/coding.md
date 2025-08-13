@@ -28,7 +28,7 @@ This command initiates and manages the enterprise coding workflow, which transfo
 
 **Smart Agent Selection**: This command automatically detects and uses enhanced implementation capabilities:
 
-1. **Enhanced Agent**: `.cc-deck/runtime/projects/{project-id}/agents/enhanced-implementation-agent.md`
+1. **Enhanced Agent**: `.claude/agents/coding/dynamic/{project-id}/enhanced-implementation-agent.md`
 2. **MCP Setup Status**: `.cc-deck/runtime/projects/{project-id}/config/mcp-setup-complete.json`
 3. **Fallback**: Standard `implementation-agent` from base workflow
 
@@ -36,9 +36,10 @@ This command initiates and manages the enterprise coding workflow, which transfo
 
 The command detects enhanced capabilities using:
 
-- Enhanced agent availability (`.cc-deck/runtime/projects/{project-id}/agents/`)
+- Enhanced agent availability (`.claude/agents/coding/dynamic/{project-id}/`)
+- Claude Code system recognition of enhanced agent
 - MCP setup completion status (`.cc-deck/runtime/projects/{project-id}/config/`)
-- Project context (`.kiro/specs/*`)
+- Project context from Smart Context (current_project_id)
 
 When enhanced capabilities are available, the workflow automatically provides:
 
@@ -150,7 +151,7 @@ def select_implementation_agent():
     project_id = detect_project_id()
 
     if project_id:
-        enhanced_agent_path = f".cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md"
+        enhanced_agent_path = f".claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md"
         mcp_setup_path = f".cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
         
         if file_exists(enhanced_agent_path) and file_exists(mcp_setup_path):
@@ -229,9 +230,10 @@ execute_workflow_phases_with_agent(selected_agent)
 
 The system automatically selects the appropriate implementation agent based on dev-env-setup completion:
 
-1. **Check for Enhanced Agent**: Look for `.cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md`
-2. **Verify MCP Setup**: Confirm `.cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json` exists
-3. **Agent Selection**:
+1. **Check for Enhanced Agent**: Look for `.claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md`
+2. **Verify Claude Code Recognition**: Confirm enhanced agent appears in available agent list
+3. **Verify MCP Setup**: Confirm `.cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json` exists
+4. **Agent Selection**:
    - **Enhanced Available**: Use enhanced-implementation-agent with MCP capabilities
    - **Enhanced Unavailable**: Fall back to standard implementation-agent
 

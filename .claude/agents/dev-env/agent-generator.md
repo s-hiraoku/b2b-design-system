@@ -31,19 +31,20 @@ Use standardized naming for consistency:
 # Fixed naming pattern for enhanced agent
 agent_name: "enhanced-implementation-agent"
 file_name: "enhanced-implementation-agent.md"
-location: ".cc-deck/runtime/projects/{project_id}/agents/"
+location: ".claude/agents/coding/dynamic/{project_id}/"
 ```
 
 ### 3. Directory Structure Management
 
-**🚨 CRITICAL: NEVER create files in .claude/agents/ directory**
+**🚨 CRITICAL: Create enhanced agents as system-recognizable agents**
 
-Create simplified directory structure:
+Create dynamic agent directory structure under `.claude/agents/`:
 
 ```bash
+.claude/agents/coding/dynamic/{project_id}/
+└── enhanced-implementation-agent.md  # Project-specific enhanced agent (Git tracked)
+
 .cc-deck/runtime/projects/{project_id}/
-├── agents/                       # For enhanced implementation agent ← CREATE HERE (Git tracked)
-│   └── enhanced-implementation-agent.md  # Single unified agent file
 ├── config/                       # For MCP setup configuration (Git tracked)
 │   └── mcp-setup-complete.json   # MCP setup status from mcp-setup-manager
 ├── context/                      # For runtime context data (Git ignored)
@@ -51,11 +52,10 @@ Create simplified directory structure:
 ```
 
 **⚠️ IMPORTANT DIRECTORY RULES:**
-- ALWAYS use absolute path starting with `.cc-deck/runtime/projects/{project_id}/agents/`
-- NEVER write to `.claude/agents/` or any subdirectory
-- NEVER create project folders under `.claude/agents/`
-- The `.claude/agents/` directory is for CC-Deck system agents only
-- Generate ONLY ONE FILE: `enhanced-implementation-agent.md`
+- ALWAYS use absolute path: `.claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md`
+- This location allows Claude Code to recognize enhanced agents as system agents
+- Project-specific enhanced agents remain isolated by project_id subdirectory
+- Generate ONLY ONE FILE: `enhanced-implementation-agent.md` per project
 
 ## Enhanced Implementation Agent Generation Process
 
@@ -73,25 +73,23 @@ Create simplified directory structure:
 **🚨 MANDATORY FILE PATH ENFORCEMENT:**
 
 ```bash
-# Generate enhanced implementation agent
-1. ALWAYS create file with absolute path: `.cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md`
-2. NEVER use relative paths or default directories
-3. CREATE directory structure if it doesn't exist
-4. Generate YAML frontmatter with all approved MCP tools
-5. Write comprehensive agent instructions integrating all MCP capabilities
-6. Configure all approved MCP integrations in tools section
-7. Define fallback mechanisms for MCP unavailability
-8. Include performance optimization strategies
+# Generate enhanced implementation agent as system-recognizable agent
+1. ALWAYS create file with absolute path: `.claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md`
+2. CREATE directory structure if it doesn't exist: mkdir -p .claude/agents/coding/dynamic/{project_id}/
+3. Generate YAML frontmatter with all approved MCP tools
+4. Write comprehensive agent instructions integrating all MCP capabilities
+5. Configure all approved MCP integrations in tools section
+6. Define fallback mechanisms for MCP unavailability
+7. Include performance optimization strategies
 ```
 
 **✅ CORRECT FILE CREATION EXAMPLE:**
 ```javascript
-// Always use this exact path pattern for enhanced agent
-Write(`/full/absolute/path/.cc-deck/runtime/projects/${project_id}/agents/enhanced-implementation-agent.md`, content)
+// Always use this exact path pattern for enhanced agent (Claude Code system recognition)
+Write(`.claude/agents/coding/dynamic/${project_id}/enhanced-implementation-agent.md`, content)
 
-// NEVER use these patterns:
-// Write(`.claude/agents/enhanced-implementation-agent.md`, content)  ❌ WRONG
-// Write(`enhanced-implementation-agent.md`, content)                  ❌ WRONG
+// OLD PATTERN (Claude Code couldn't recognize as system agent):
+// Write(`.cc-deck/runtime/projects/${project_id}/agents/enhanced-implementation-agent.md`, content)  ❌ OLD - NOT RECOGNIZED
 ```
 
 ### Step 3: Validation and Summary
@@ -289,8 +287,8 @@ enhanced_agent = combine_sections(
     project_customizations=project_specific_content
 )
 
-# Step 6: Write to project-specific location
-Write(f"projects/{project_name}/agents/enhanced-implementation-agent.md", enhanced_agent)
+# Step 6: Write to Claude Code system agent location
+Write(f".claude/agents/coding/dynamic/{project_name}/enhanced-implementation-agent.md", enhanced_agent)
 ```
 
 ### 4. Template Customization
@@ -324,27 +322,29 @@ for mcp in approved_mcps:
 - **Performance Optimization**: Efficient MCP usage patterns and caching strategies
 
 ### Validation Checks
-1. **File Path Validation**: Confirm file created in `.cc-deck/runtime/projects/{project_id}/agents/`
-2. **YAML Syntax**: Validate frontmatter syntax and structure
-3. **MCP Tool Integration**: Verify all approved MCPs included in tools list
-4. **Content Completeness**: Ensure all template sections properly filled
-5. **Project Specificity**: Confirm customization based on project analysis
+1. **File Path Validation**: Confirm file created in `.claude/agents/coding/dynamic/{project_id}/`
+2. **Claude Code Recognition**: Verify enhanced agent appears in available agent list
+3. **YAML Syntax**: Validate frontmatter syntax and structure
+4. **MCP Tool Integration**: Verify all approved MCPs included in tools list
+5. **Content Completeness**: Ensure all template sections properly filled
+6. **Project Specificity**: Confirm customization based on project analysis
 
 ## Output Summary
 
 After successful generation, provide summary including:
-- File location of created enhanced implementation agent
+- File location of created enhanced implementation agent (`.claude/agents/coding/dynamic/{project_id}/`)
+- Claude Code system recognition status
 - List of integrated MCP tools
 - Project-specific customizations applied
 - Fallback strategies implemented
 - Performance optimization features included
 
-This summary enables project-state-analyzer to properly detect dev-env-setup completion and recommend proceeding to coding workflow with enhanced capabilities.
+This summary enables Claude Code to recognize the enhanced agent as a system agent and allows workflows to directly invoke it by name.
 
 ## Best Practices
 
 1. **Unified Agent Structure**: Single enhanced-implementation-agent with all MCP integrations
-2. **Proper Directory Structure**: Always use `.cc-deck/runtime/projects/{project_id}/agents/`
+2. **System Agent Recognition**: Always use `.claude/agents/coding/dynamic/{project_id}/` for Claude Code recognition
 3. **MCP Integration Accuracy**: Only include approved MCP tools from user approval
 4. **Fallback Mechanisms**: Ensure graceful degradation when MCP tools unavailable
 5. **Performance Optimization**: Include efficient MCP usage patterns and caching
@@ -362,25 +362,25 @@ This summary enables project-state-analyzer to properly detect dev-env-setup com
 
 When generating agent files, you MUST:
 
-1. **ALWAYS use absolute paths starting from project root:**
-   - Format: `.cc-deck/runtime/projects/{project_id}/agents/{agent_name}.md`
-   - Example: `.cc-deck/runtime/projects/liquid-glass-blog/agents/liquid-glass-blog-vercel-agent.md`
+1. **ALWAYS use Claude Code system agent paths:**
+   - Format: `.claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md`
+   - Example: `.claude/agents/coding/dynamic/liquid-glass-tech-blog/enhanced-implementation-agent.md`
 
-2. **NEVER write to these locations:**
-   - `.claude/agents/` ❌ FORBIDDEN
-   - `.claude/agents/{project_id}/` ❌ FORBIDDEN
-   - Any relative paths without `.cc-deck/runtime/projects/` prefix ❌ FORBIDDEN
+2. **Directory Creation:**
+   - Check if `.claude/agents/coding/dynamic/{project_id}/` exists
+   - Create the full directory structure if needed: `mkdir -p .claude/agents/coding/dynamic/{project_id}/`
+   - Only then create the enhanced agent file
 
-3. **Directory Creation:**
-   - Check if `.cc-deck/runtime/projects/{project_id}/agents/` exists
-   - Create the full directory structure if needed
-   - Only then create the agent files
+3. **Claude Code Integration:**
+   - Enhanced agents in `.claude/agents/` are automatically recognized by Claude Code
+   - Project isolation maintained through {project_id} subdirectories
+   - No manual registration or linking required
 
 4. **Validation:**
-   - Verify files are created in correct location
-   - Confirm no files were created in `.claude/agents/`
+   - Verify files are created in `.claude/agents/coding/dynamic/{project_id}/`
+   - Confirm enhanced agent appears in Claude Code's available agent list
    - Report actual file paths in generation summary
 
-**Remember: The `.claude/agents/` directory is ONLY for CC-Deck system agents, NEVER for project-specific generated agents.**
+**Key Advantage: Enhanced agents become system-recognized agents that can be directly invoked by name.**
 
 Focus on generating high-quality, properly integrated SubAgent files that will enhance the development workflow for the specific project.

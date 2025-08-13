@@ -31,7 +31,18 @@
       "Bash(python3:*)",
       "Bash(/dev-env-setup liquid-glass-tech-blog)",
       "WebFetch(domain:)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(mv:*)",
+      "Bash(grep:*)",
+      "Bash(node:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:snyk.io)",
+      "Bash(/bashes)",
+      "Bash(timeout 10 uvx:*)",
+      "Bash(gtimeout:*)",
+      "Bash(lsof:*)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:.kiro)"
     ],
     "deny": []
   },

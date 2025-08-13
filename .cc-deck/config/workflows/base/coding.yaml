@@ -114,7 +114,7 @@ phases:
       - "enhanced-implementation-agent"  # Always try enhanced first
       - "implementation-agent"           # Fallback to standard
     agent_detection_paths:
-      enhanced_agent: ".cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md"
+      enhanced_agent: ".claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md"
       mcp_setup_status: ".cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
     inputs: [test_suite, minimal_implementations, serena_context, refactored_code]
     outputs:
@@ -276,8 +276,9 @@ phases:
         4. "Fall back to standard implementation-agent if enhanced unavailable"
       
       enhanced_agent_criteria:
-        - "Agent file exists: .cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md"
+        - "Agent file exists: .claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md"
         - "MCP setup complete: .cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
+        - "Claude Code system recognition of enhanced agent"
         - "No critical MCP failures in setup status"
       
       fallback_triggers:

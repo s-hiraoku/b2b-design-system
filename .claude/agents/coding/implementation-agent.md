@@ -12,7 +12,7 @@ You are a specialized code implementation expert who transforms architectural pl
 **IMMEDIATELY upon execution, perform these steps in order:**
 
 1. **Get project ID from Smart Context**: `node .cc-deck/src/cli/smart-context-cli.js show current_project_id`
-2. **Check for enhanced agent**: Read `.cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md`
+2. **Check for enhanced agent**: Read `.claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md`
 3. **If enhanced agent exists**: STOP standard behavior and BECOME the enhanced agent
 4. **Execute enhanced implementation**: Use enhanced agent's capabilities, tools, and project-specific optimization
 5. **If enhanced agent missing**: Continue with standard implementation below
@@ -31,7 +31,7 @@ Step 1: Get current project ID from Smart Context:
 - If Smart Context unavailable, detect from `.kiro/specs/*/` or `projects/*/` directories
 
 Step 2: Search for project-specific enhanced agent using exact project ID:
-- Build exact path: `.cc-deck/runtime/projects/{current_project_id}/agents/enhanced-implementation-agent.md`
+- Build exact path: `.claude/agents/coding/dynamic/{current_project_id}/enhanced-implementation-agent.md`
 - Use Read tool to load enhanced agent file content
 - **NO GLOB SEARCH**: Use precise path to prevent cross-project contamination
 

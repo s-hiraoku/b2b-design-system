@@ -124,7 +124,7 @@ Agent Design:
 - Error handling: Comprehensive fallback strategies
 
 Directory Structure:
-- Target: .cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md
+- Target: .claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md
 - Create directory structure if needed
 - Validate file creation in correct location
 

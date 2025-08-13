@@ -90,8 +90,8 @@ CC-Deck Workflow Engine State Analysis Protocol with Smart Context:
     - Detect workflow chaining interruptions and resume points
 
   6. Dynamic Agent Configuration Assessment:
-    - Analyze generated MCP SubAgent files in dynamic directories
-    - Validate agent integration with workflow definitions
+    - Analyze generated MCP SubAgent files in `.claude/agents/coding/dynamic/{project_id}/`
+    - Validate enhanced agent integration with Claude Code system recognition
     - Check workflow-integrator output and merged configurations
     - Assess MCP service availability and integration status
 
@@ -118,7 +118,7 @@ When invoked, execute these specific analysis steps:
 # CC-Deck Workflow Engine state analysis
 - Glob('.cc-deck/runtime/global/context/active/*') → Active workflow execution states
 - Glob('.cc-deck/config/workflows/*.yaml') → Available workflow definitions
-- Glob('.cc-deck/runtime/projects/*') → Dynamic agent configurations
+- Glob('.claude/agents/coding/dynamic/*') → Dynamic enhanced agent configurations
 - Read('.cc-deck/runtime/global/context/active/{workflow}-{feature}.json') → Workflow state data
 - LS('.cc-deck/runtime/global/checkpoints/') → Available recovery checkpoints
 ```
@@ -180,7 +180,8 @@ This agent provides structured analysis in the following format:
 3. [fallback-action] (Checkpoint: [checkpoint-id])
 
 🤖 Dynamic Agent Status:
-• Generated Agents: [count] agents in [project-directories]
+• Generated Enhanced Agents: [count] agents in .claude/agents/coding/dynamic/
+• Claude Code Recognition: [recognized/unrecognized]
 • MCP Integration: [active/degraded/failed]
 • Workflow Extensions: [merged/pending/failed]
 
@@ -314,8 +315,8 @@ LS('.cc-deck/runtime/projects/') # Dynamic agent configurations
 project_id = basename(pwd) or extract_from_context()
 
 # Check for DEV-ENV-SETUP completion artifacts in .cc-deck/runtime/projects/{project_id}/
-LS('.cc-deck/runtime/projects/{project_id}/agents/') # Should contain enhanced-implementation-agent.md
-Read('.cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md') # Enhanced implementation agent
+LS('.claude/agents/coding/dynamic/{project_id}/') # Should contain enhanced-implementation-agent.md
+Read('.claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md') # Enhanced implementation agent
 Read('.cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json') # MCP setup completion status
 
 # If enhanced agent exists and MCP setup is complete, DEV-ENV-SETUP is complete and should recommend CODING workflow
@@ -422,7 +423,7 @@ Produce comprehensive analysis following this structure:
 
 🔍 WORKFLOW COMPLETION STATUS:
 • DEV-ENV-SETUP: {COMPLETE/INCOMPLETE} 
-  - Enhanced Agent: {EXISTS/MISSING} .cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md
+  - Enhanced Agent: {EXISTS/MISSING} .claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md
   - MCP Setup: {COMPLETE/INCOMPLETE} .cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json
   - MCP Authentication: {SUCCESS/FAILED/PARTIAL} from setup status
 • CODING: {COMPLETE/IN_PROGRESS/NOT_STARTED}

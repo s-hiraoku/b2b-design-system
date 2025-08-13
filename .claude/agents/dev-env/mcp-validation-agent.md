@@ -31,8 +31,8 @@ recommended_mcps_file = ".cc-deck/runtime/projects/{project_id}/mcp_recommendati
 # Secondary reference: MCP setup completion status  
 setup_status_file = ".cc-deck/runtime/projects/{project_id}/mcp_setup_complete.json"
 
-# Enhanced agent definition (generated)
-enhanced_agent_file = ".cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md"
+# Enhanced agent definition (generated in Claude Code system location)
+enhanced_agent_file = ".claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md"
 ```
 
 ### 2. MCP Availability Testing
