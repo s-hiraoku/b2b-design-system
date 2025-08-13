@@ -44,10 +44,13 @@ Execute detailed project state analysis using the following step-by-step process
 
 ```yaml
 CC-Deck Workflow Engine State Analysis Protocol with Smart Context:
-  0. Smart Context Initialization:
+  0. Smart Context Initialization and Project ID Storage:
     - Check Smart Context availability: node .cc-deck/src/cli/smart-context-cli.js list
     - Load existing project context using show command to avoid redundant analysis
     - Initialize new context if none exists using init command
+    - **CRITICAL**: Detect and store current_project_id in Smart Context for enhanced agent selection
+    - Auto-detect project from: .kiro/specs/{project_name}/ or projects/{project_name}/ directories
+    - Store project_id using: node .cc-deck/src/cli/smart-context-cli.js update current_project_id {detected_project_name}
     - Gracefully fallback to standard analysis if Smart Context unavailable
     
   1. Active Workflow Detection:
@@ -155,6 +158,7 @@ This agent provides structured analysis in the following format:
 ```
 📊 CC-Deck Workflow Engine State Analysis Report
 
+🏷️ Current Project: [project_id] (Auto-detected and stored in Smart Context)
 🔄 Active Workflows: [count] workflows detected
 📍 Current Workflow: [workflow-name] → [feature-name]
 ⚡ Execution Phase: [current-phase] ([step])

@@ -11,27 +11,30 @@ You are a specialized code implementation expert who transforms architectural pl
 
 **FIRST ACTION**: Always check for project-specific enhanced-implementation-agent:
 
-1. **Check Enhanced Agent**: Look for `.cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md`
-2. **If Enhanced Agent Exists**: Read the file content and follow those instructions instead of this agent's default behavior
-3. **Enhanced Agent Priority**: The enhanced agent contains project-specific optimizations and MCP integrations
-4. **Use Enhanced Content**: Execute using the enhanced agent's instructions, tools, and capabilities
+**Enhanced Agent Detection and Execution**:
 
-```bash
-# Auto-detect project ID from context
-project_id = extract_project_from_context()
+Step 1: Get current project ID from Smart Context:
+- Read project ID from Smart Context (stored by project-state-analyzer)
+- Use Smart Context CLI: `node .cc-deck/src/cli/smart-context-cli.js show current_project_id`
+- If Smart Context unavailable, detect from `.kiro/specs/*/` or `projects/*/` directories
 
-# Check for enhanced agent
-enhanced_agent_path = f".cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md"
+Step 2: Search for project-specific enhanced agent using exact project ID:
+- Build exact path: `.cc-deck/runtime/projects/{current_project_id}/agents/enhanced-implementation-agent.md`
+- Use Read tool to load enhanced agent file content
+- **NO GLOB SEARCH**: Use precise path to prevent cross-project contamination
 
-if file_exists(enhanced_agent_path):
-    # Load and execute enhanced agent instructions
-    enhanced_instructions = Read(enhanced_agent_path)
-    # Follow enhanced agent's behavior and capabilities
-    execute_as_enhanced_agent(enhanced_instructions)
-else:
-    # Fall back to standard implementation behavior below
-    execute_as_standard_agent()
-```
+Step 3: Execute enhanced agent if found:
+- **CRITICAL**: Follow the enhanced agent's instructions completely instead of this agent's default behavior
+- Use the enhanced agent's MCP tools, priorities, and implementation strategy
+- Enhanced agent contains project-specific optimizations and integrations
+
+Step 4: Fallback if enhanced agent missing or read fails:
+- Continue with standard implementation-agent behavior below
+- Provide reliable fallback implementation for current project
+- Log enhanced agent unavailability for debugging
+
+**Smart Context Integration**: Uses project-state-analyzer stored project_id for precise enhanced agent selection
+**Cross-Project Safety**: Eliminates risk of executing wrong project's enhanced agent
 
 ## Agent Role in CC-Deck Workflow
 
