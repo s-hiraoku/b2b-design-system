@@ -257,15 +257,56 @@ The system automatically selects the appropriate implementation agent based on d
 **Activities**: Edge case handling, performance optimization, production readiness
 **Outputs**: Complete production code with 95%+ test coverage
 
-**Agent Execution**:
+**Agent Execution Logic**:
 ```bash
-# The system automatically handles agent selection
-# No manual configuration required
-# Enhanced capabilities used when available
-# Graceful fallback ensures consistent quality
+# Phase 4: Execute TDD Cycle
+tdd_result = Task(subagent_type="tdd-agent", 
+                  description="TDD Red-Green-Refactor cycle", 
+                  prompt="Execute strict TDD cycles for core functionality following t-wada methodology")
+
+# Phase 5: Automatic Implementation Agent Selection and Execution
+if tdd_result.contains("TDD_CYCLE_COMPLETE"):
+    # Enhanced Agent Priority Check
+    project_id = extract_project_id_from_context()
+    enhanced_agent_path = f".cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md"
+    mcp_setup_path = f".cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
+    
+    # PRIORITY CHECK: Enhanced agent ALWAYS gets priority if available
+    # Use Glob tool to verify enhanced agent existence
+    enhanced_agent_exists = Glob(pattern=f"**/enhanced-implementation-agent.md", 
+                                path=f".cc-deck/runtime/projects/{project_id}/agents/")
+    mcp_setup_exists = Glob(pattern=f"**/mcp-setup-complete.json", 
+                           path=f".cc-deck/runtime/projects/{project_id}/config/")
+    
+    enhanced_available = (len(enhanced_agent_exists) > 0) and (len(mcp_setup_exists) > 0)
+    
+    if enhanced_available:
+        # ✨ ENHANCED AGENT SELECTED ✨
+        print(f"✨ Enhanced implementation agent detected and selected for {project_id}")
+        print(f"📁 Agent: .cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md")
+        print(f"🔧 MCP Setup: .cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json")
+        
+        Task(subagent_type="enhanced-implementation-agent",
+             description="MCP-enhanced production implementation",
+             prompt=f"Build complete production-ready implementation on TDD foundation. TDD Context: {tdd_result}")
+    else:
+        # 📋 FALLBACK TO STANDARD AGENT 📋
+        print(f"📋 Enhanced agent unavailable for {project_id}, using standard implementation-agent")
+        print(f"💡 To enable enhanced capabilities, run /dev-env-setup {project_id}")
+        
+        Task(subagent_type="implementation-agent",
+             description="Standard production implementation", 
+             prompt=f"Build complete production-ready implementation on TDD foundation. TDD Context: {tdd_result}")
+else:
+    # TDD not complete - return error or continue TDD cycles
+    print("⚠️ TDD cycles not complete. Cannot proceed to implementation phase.")
 ```
 
-This approach provides optimal development experience when enhanced capabilities are available while ensuring reliable fallback for consistent workflow execution.
+**Critical Implementation Notes**:
+- Enhanced agent is checked first and gets priority
+- Automatic detection of enhanced agent availability
+- TDD completion signal triggers automatic transition
+- Graceful fallback ensures consistent quality
 
 ### Phase 6: Comprehensive Testing
 

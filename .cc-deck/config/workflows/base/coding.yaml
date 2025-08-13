@@ -110,6 +110,12 @@ phases:
     agent: enhanced-implementation-agent
     fallback_agent: implementation-agent
     description: "Production-ready implementation using enhanced MCP capabilities or standard implementation with fail-safe fallback"
+    agent_selection_priority:
+      - "enhanced-implementation-agent"  # Always try enhanced first
+      - "implementation-agent"           # Fallback to standard
+    agent_detection_paths:
+      enhanced_agent: ".cc-deck/runtime/projects/{project_id}/agents/enhanced-implementation-agent.md"
+      mcp_setup_status: ".cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
     inputs: [test_suite, minimal_implementations, serena_context, refactored_code]
     outputs:
       - implementation_context

@@ -70,6 +70,25 @@ projects/{project-name}/
 
 ## Workflow Integration Context
 
+### TDD Foundation Handoff
+
+#### Receiving TDD Agent Output
+When invoked after tdd-agent completion, you will receive TDD context containing:
+
+```
+🎯 TDD_CYCLE_COMPLETE  
+Status: Ready for production implementation
+Test Coverage: [X]% of core functionality
+Next Phase: Enhanced implementation can begin
+Handoff Context: [Brief summary of implemented features and test coverage]
+```
+
+**Critical TDD Integration Requirements**:
+1. **Preserve ALL existing tests**: Never modify or remove tests created by tdd-agent
+2. **Build upon minimal implementation**: Expand the foundational code, don't rewrite it
+3. **Maintain test coverage**: All existing tests must remain passing
+4. **Expand functionality**: Add edge cases, performance optimizations, and production features
+
 ### Dual Implementation Modes
 
 #### TDD Full Implementation Mode (tdd_full_implementation phase)
@@ -77,6 +96,7 @@ projects/{project-name}/
   - ✅ Serena MCP initialized with TDD patterns
   - ✅ Test suite created by tdd-agent with Red-Green-Refactor foundation
   - ✅ Minimal implementations that pass all tests
+  - ✅ TDD_CYCLE_COMPLETE signal received
 - **Your Role**: Complete the implementation by adding comprehensive functionality, edge case handling, and optimization while maintaining all tests in passing state
 
 #### Standard Implementation Mode (standard_implementation phase)

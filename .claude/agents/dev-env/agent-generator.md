@@ -222,23 +222,78 @@ Your enhanced capabilities make you the preferred implementation agent, but alwa
 
 ## Generation Process Implementation
 
-### 1. Dynamic MCP Tool Integration
+### 1. Base Template from Implementation Agent
+```bash
+# Read the standard implementation-agent as base template
+base_template = Read(".claude/agents/coding/implementation-agent.md")
+
+# Extract key sections for reuse:
+# - YAML frontmatter (modify name and tools)
+# - Directory requirements 
+# - TDD handoff specifications
+# - Workflow integration context
+# - Implementation processes
+```
+
+### 2. Dynamic MCP Tool Integration
 ```bash
 # Read approved MCP tools from context
 approved_mcps = read_smart_context("approved_mcp_agents")
 
-# Generate tools section dynamically
-tools_section = ["Read", "Write", "Edit", "MultiEdit", "Bash", "Grep", "Glob"]
+# Start with implementation-agent tools as base
+base_tools = extract_tools_from_implementation_agent()
+enhanced_tools = base_tools.copy()
 
+# Add approved MCP tools
 for mcp in approved_mcps:
     if mcp.name == "context7":
-        tools_section.extend(["mcp__context7__resolve-library-id", "mcp__context7__get-library-docs"])
+        enhanced_tools.extend(["mcp__context7__resolve-library-id", "mcp__context7__get-library-docs"])
     elif mcp.name == "deepwiki":
-        tools_section.extend(["mcp__deepwiki__read_wiki_structure", "mcp__deepwiki__read_wiki_contents", "mcp__deepwiki__ask_question"])
+        enhanced_tools.extend(["mcp__deepwiki__read_wiki_structure", "mcp__deepwiki__read_wiki_contents", "mcp__deepwiki__ask_question"])
+    elif mcp.name == "brave-search":
+        enhanced_tools.extend(["mcp__brave-search__brave_web_search"])
     # ... continue for all approved MCPs
 ```
 
-### 2. Template Customization
+### 3. Enhanced Agent Generation Process
+```bash
+# Step 1: Load base implementation-agent template
+base_agent = Read(".claude/agents/coding/implementation-agent.md")
+
+# Step 2: Modify YAML frontmatter
+new_frontmatter = f"""---
+name: enhanced-implementation-agent
+description: Enhanced implementation agent with integrated MCP tools and tasks.md management for {project_name} project
+tools: {', '.join(enhanced_tools)}
+color: purple
+---"""
+
+# Step 3: Preserve critical sections from base agent
+preserve_sections = [
+    "🚨 CRITICAL IMPLEMENTATION DIRECTORY REQUIREMENT",
+    "🚨 CRITICAL: No Intermediate Summary Files", 
+    "TDD Foundation Handoff",
+    "Workflow Integration Context",
+    "Kiro SDD Integration with Tasks.md Management"
+]
+
+# Step 4: Add MCP-specific enhancements
+mcp_sections = generate_mcp_integration_sections(approved_mcps)
+
+# Step 5: Generate final enhanced agent
+enhanced_agent = combine_sections(
+    frontmatter=new_frontmatter,
+    base_content=base_agent,
+    preserved_sections=preserve_sections,
+    mcp_enhancements=mcp_sections,
+    project_customizations=project_specific_content
+)
+
+# Step 6: Write to project-specific location
+Write(f"projects/{project_name}/agents/enhanced-implementation-agent.md", enhanced_agent)
+```
+
+### 4. Template Customization
 ```bash
 # Customize template based on project analysis
 project_analysis = read_smart_context("project_analysis") 
