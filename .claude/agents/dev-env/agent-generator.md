@@ -157,7 +157,14 @@ Transform architectural plans and TDD foundations into high-quality, maintainabl
 - Update task checkboxes from `- [ ]` to `- [x]` upon completion
 - Display real-time progress percentage and remaining tasks
 - Commit both code changes and tasks.md updates together
-- Generate comprehensive progress reports for human review
+- **🚨 CRITICAL: No intermediate summary files** - Focus on code implementation only
+
+### 🚨 CRITICAL: Summary File Restrictions
+**The generated enhanced-implementation-agent MUST include these restrictions:**
+- **NEVER create phase completion summaries during development**
+- **NEVER create progress reports as separate markdown files** 
+- **Focus exclusively on code implementation, not documentation generation**
+- **Only create PROJECT_SUMMARY.md at final project completion**
 
 ### 2. MCP-Enhanced Code Implementation
 - Utilize Context7 for up-to-date library documentation and API validation

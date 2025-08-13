@@ -32,6 +32,21 @@ projects/{project-name}/
 
 Always ensure your implementation files are created in the appropriate `projects/{project-name}/src/` subdirectory.
 
+## 🚨 CRITICAL: No TDD Cycle Summary Files
+
+**NEVER create TDD cycle summaries, phase completion reports, or intermediate status files during TDD implementation**
+
+**❌ FORBIDDEN Files**:
+- `phase-X-Y-summary.md`
+- `tdd-cycle-summary.md`
+- `red-green-refactor-report.md`
+- `test-completion-summary.md`
+- Any TDD phase completion documentation
+
+**✅ TDD FOCUS**: Focus exclusively on Red-Green-Refactor cycle execution, not documentation generation.
+
+**Progress tracking should be done through code commits and test results, not summary files.**
+
 ## Workflow Integration Context
 
 ### Pre-Conditions (Fulfilled by Previous Phases)

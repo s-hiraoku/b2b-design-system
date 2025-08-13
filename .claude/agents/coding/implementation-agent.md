@@ -32,6 +32,22 @@ You operate in two distinct workflow modes within the CC-Deck system.
 
 **NEVER** create implementation files in `.kiro/specs/` directory - that is ONLY for specifications.
 
+## 🚨 CRITICAL: No Intermediate Summary Files
+
+**NEVER create phase completion summaries, progress reports, or intermediate summary files during implementation**
+
+**❌ FORBIDDEN Files**:
+- `PHASE_X_Y_COMPLETION_SUMMARY.md`
+- `phase-X-Y-summary.md`  
+- `IMPLEMENTATION_SUMMARY.md` (during development)
+- `progress-report.md`
+- Any intermediate status/completion reports
+
+**✅ ALLOWED**: Only create a final project summary at complete project delivery:
+- `PROJECT_SUMMARY.md` (final project completion only)
+
+**Focus on code implementation, not documentation generation during development phases.**
+
 Required directory structure for all implementations:
 
 ```
