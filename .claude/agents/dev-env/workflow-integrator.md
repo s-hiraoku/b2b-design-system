@@ -26,23 +26,34 @@ Create project-specific workflow integration by merging base Coding workflow wit
 **Required File Outputs:**
 
 1. **Extension Configuration**: 
-   - Path: `.cc-deck/runtime/projects/{project_id}/extensions/coding-extension.yaml`
+   - Path: `{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/extensions/coding-extension.yaml`
    - Contains: Project-specific enhancements and overrides
 
 2. **Merged Workflow Configuration**:
-   - Path: `.cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml`
+   - Path: `{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml`
    - Contains: Complete integrated workflow with base + enhancements
 
 3. **Integration Metadata**:
-   - Path: `.cc-deck/runtime/projects/{project_id}/config/integration-metadata.json`
+   - Path: `{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/config/integration-metadata.json`
    - Contains: Integration status, agent references, fallback strategies
 
 ### 3. Integration Process Implementation
 
-#### Step 1: Base Workflow Loading
+#### Step 1: CC-Deck Root Detection and Base Workflow Loading
 ```bash
-# Load base coding workflow
-base_workflow = Read(".cc-deck/config/workflows/base/coding.yaml")
+# CRITICAL: Find CC-Deck root directory (where .cc-deck/ exists)
+def find_cc_deck_root():
+    current_dir = Bash("pwd").strip()
+    while current_dir != "/":
+        if os.path.exists(f"{current_dir}/.cc-deck"):
+            return current_dir
+        current_dir = os.path.dirname(current_dir)
+    raise Exception("CC-Deck root directory not found. Ensure you're in a CC-Deck project.")
+
+cc_deck_root = find_cc_deck_root()
+
+# Load base coding workflow from CC-Deck root
+base_workflow = Read(f"{cc_deck_root}/.cc-deck/config/workflows/base/coding.yaml")
 
 # Parse YAML structure
 base_phases = extract_phases(base_workflow)
@@ -83,7 +94,7 @@ extension_config = {
     }
   },
   "mcp_integration": {
-    "setup_status_file": f".cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json",
+    "setup_status_file": f"{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json",
     "required_for_enhanced_mode": true,
     "graceful_degradation": true
   }
@@ -109,7 +120,7 @@ merged_workflow.phases.full_implementation.agent_selection_priority = [
 # Update agent detection paths
 merged_workflow.phases.full_implementation.agent_detection_paths = {
     "enhanced_agent": f".claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md",
-    "mcp_setup_status": f".cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
+    "mcp_setup_status": f"{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
 }
 ```
 
@@ -117,12 +128,17 @@ merged_workflow.phases.full_implementation.agent_detection_paths = {
 
 **🚨 CRITICAL: Ensure proper directory structure creation**
 
+**Important Note**: If executing from within a project directory (e.g., `projects/liquid-glass-tech-blog/`), you MUST navigate to the CC-Deck root before creating files. Files should NEVER be created inside project directories.
+
 ```bash
-# Create required directory structure
+# CRITICAL: Get CC-Deck root directory (where .cc-deck/ exists)
+cc_deck_root = find_cc_deck_root()  # Navigate up to find .cc-deck directory
+
+# Create required directory structure from CC-Deck root
 directories_to_create = [
-    f".cc-deck/runtime/projects/{project_id}/extensions/",
-    f".cc-deck/runtime/projects/{project_id}/workflows/generated/",
-    f".cc-deck/runtime/projects/{project_id}/config/"
+    f"{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/extensions/",
+    f"{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/workflows/generated/", 
+    f"{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/config/"
 ]
 
 for directory in directories_to_create:
@@ -130,11 +146,14 @@ for directory in directories_to_create:
 ```
 
 **File Creation Order:**
-1. Create directory structure
-2. Generate extension configuration
-3. Create merged workflow file
-4. Generate integration metadata
-5. Validate all files created successfully
+1. **CRITICAL**: Determine CC-Deck root directory
+2. Create directory structure (using absolute paths from CC-Deck root)
+3. Generate extension configuration (write to absolute path)
+4. Create merged workflow file (write to absolute path)
+5. Generate integration metadata (write to absolute path)
+6. Validate all files created successfully at correct locations
+
+**🚨 ALWAYS USE ABSOLUTE PATHS**: All file operations must use `{cc_deck_root}/.cc-deck/runtime/...` format to prevent creation in wrong directories.
 
 ### 5. Workflow Enhancement Specifications
 
@@ -153,7 +172,7 @@ full_implementation:
   
   agent_detection_paths:
     enhanced_agent: ".claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md"
-    mcp_setup_status: ".cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
+    mcp_setup_status: "{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
   
   # Selection Criteria
   enhanced_agent_criteria:
@@ -198,9 +217,9 @@ enhanced_mcp_integration:
 ```bash
 # File existence validation
 validate_files_created = [
-    f".cc-deck/runtime/projects/{project_id}/extensions/coding-extension.yaml",
-    f".cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml",
-    f".cc-deck/runtime/projects/{project_id}/config/integration-metadata.json"
+    f"{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/extensions/coding-extension.yaml",
+    f"{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml",
+    f"{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/config/integration-metadata.json"
 ]
 
 # YAML syntax validation
@@ -244,9 +263,9 @@ After successful integration, provide comprehensive summary including:
   "integration_status": "completed",
   "project_id": "project_name",
   "generated_files": [
-    ".cc-deck/runtime/projects/{project_id}/extensions/coding-extension.yaml",
-    ".cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml",
-    ".cc-deck/runtime/projects/{project_id}/config/integration-metadata.json"
+    "{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/extensions/coding-extension.yaml",
+    "{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml",
+    "{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/config/integration-metadata.json"
   ],
   "enhanced_agent_integration": {
     "agent_path": ".claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md",
