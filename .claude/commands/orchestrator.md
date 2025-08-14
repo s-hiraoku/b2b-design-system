@@ -66,7 +66,7 @@ Continuing TDD-based development will complete the authentication system.
 
 Alternative Options:
 1. REFACTORING - Improve existing code quality first
-2. TESTING - Focus on comprehensive testing coverage  
+2. TESTING - Focus on comprehensive testing coverage
 3. KIRO-SDD - Create new specification for additional features
 
 ❓ Which workflow would you like to execute?
@@ -83,6 +83,7 @@ Please select 1-4:
 When user selects option 2 (DEV-ENV-SETUP) for project "liquid-glass-tech-blog":
 
 **✅ CORRECT Response:**
+
 ```
 You selected DEV-ENV-SETUP workflow.
 
@@ -91,6 +92,7 @@ Please execute the following command:
 ```
 
 **❌ INCORRECT (causes error):**
+
 ```
 Executing workflow...
 Bash("/dev-env-setup liquid-glass-tech-blog")  # THIS CAUSES ERROR!
@@ -110,6 +112,7 @@ Bash: "node .cc-deck/src/cli/smart-context-cli.js update-workflow $(basename $(p
 The orchestrator MUST directly execute workflows by reading YAML files and executing each phase:
 
 **Available Workflows**:
+
 - **kiro-sdd**: `.cc-deck/config/workflows/base/kiro-sdd.yaml`
 - **dev-env-setup**: `.cc-deck/config/workflows/base/dev-env-setup.yaml`
 - **coding**: `.cc-deck/config/workflows/base/coding.yaml`
@@ -119,6 +122,7 @@ The orchestrator MUST directly execute workflows by reading YAML files and execu
 - **acceptance**: `.cc-deck/config/workflows/base/acceptance.yaml`
 
 **Mandatory Execution Process**:
+
 1. **Read YAML**: `Read: ".cc-deck/config/workflows/base/{workflow_name}.yaml"`
 2. **Extract project_id**: From user argument or Smart Context
 3. **Execute phases sequentially**: For each phase in the YAML:
@@ -130,16 +134,17 @@ The orchestrator MUST directly execute workflows by reading YAML files and execu
 6. **Chain workflows**: Proceed to next workflow after approval
 
 **Concrete dev-env-setup Execution Example**:
+
 ```bash
 # 1. MANDATORY: Read YAML definition
 Read: ".cc-deck/config/workflows/base/dev-env-setup.yaml"
 
 # 2. Execute Phase 1: spec_analysis
-Task(subagent_type="spec-analyzer", 
-     description="Analyze Kiro SDD specs", 
+Task(subagent_type="spec-analyzer",
+     description="Analyze Kiro SDD specs",
      prompt="Analyze specifications in .kiro/specs/liquid-glass-tech-blog/ to extract technology stack and development requirements...")
 
-# 3. Execute Phase 2: mcp_recommendation  
+# 3. Execute Phase 2: mcp_recommendation
 Task(subagent_type="mcp-recommender",
      description="Research MCP agents",
      prompt="Research and recommend optimal MCP agents based on project analysis: {phase1_output}")
@@ -186,8 +191,9 @@ When executing a workflow, the orchestrator must:
 6. **Chain to Next Workflow**: After completion and approval, identify next workflow from CC-Deck chain
 
 **Critical Notes**:
+
 - Project context (project_id) should be extracted from Smart Context or user argument
-- All phase outputs should be preserved for dependent phases  
+- All phase outputs should be preserved for dependent phases
 - Human approval phases must present comprehensive review materials
 - Smart Context updates must be attempted with graceful fallback
 
@@ -200,6 +206,7 @@ kiro-sdd → dev-env-setup → coding → refactoring → testing → pr → acc
 ```
 
 **Key Workflow Chain Features:**
+
 - **dev-env-setup**: Generates {project_id}-enhanced-implementation-agent.md and coding-merged.yaml for optimized development
 - **coding**: Uses enhanced agents when available, impersonator-agent for detection, falls back to standard agents if needed
 - **Dynamic MCP Integration**: Project-specific MCP tools based on technology stack analysis
@@ -221,45 +228,48 @@ kiro-sdd → dev-env-setup → coding → refactoring → testing → pr → acc
 ### Human Approval Format:
 
 **For workflow completion approval:**
+
 ```
 ✅ [Workflow Name] completed successfully!
 Ready to proceed to next workflow?
 
 [A] Approved - proceed with next workflow
-[M] Approved with Modifications - proceed with conditions  
+[M] Approved with Modifications - proceed with conditions
 [R] Rejected - regenerate/revise current workflow
 [D] Deferred - save and resume later (auto-detect with next /orchestrator)
 ```
 
 **For phase approval during workflow execution (based on YAML decision_options):**
+
 ```
 📋 [Phase Name] Review Required
 
 📄 Review Materials:
 • [material 1]
-• [material 2] 
+• [material 2]
 • [material 3]
 
 ❓ Decision Required:
 
-[A] Approved 
+[A] Approved
     ✅ Proceed to next phase
 
-[M] Approved with Modifications 
+[M] Approved with Modifications
     ⚠️ Proceed with conditions/adjustments
 
-[R] Rejected 
+[R] Rejected
     🔄 Rollback and regenerate this phase
 
-[D] Deferred 
+[D] Deferred
     ⏸️ Postpone decision for later review
 
 Please select A, M, R, or D:
 ```
 
 **Human-readable approval format for better UX:**
+
 - Use clear line breaks between options
-- Include descriptive icons for visual clarity  
+- Include descriptive icons for visual clarity
 - Provide explicit action descriptions
 - Request single-letter response for efficiency
 
@@ -277,7 +287,7 @@ Please select A, M, R, or D:
 
 - **Smart Context**: Active cross-workflow state sharing via `.cc-deck/runtime/global/context/`
   - Project state persistence and analysis caching
-  - Workflow history and transition tracking  
+  - Workflow history and transition tracking
   - Agent memory and cross-agent communication
   - User preference learning and adaptation
   - Quality metrics and continuous improvement
@@ -288,11 +298,12 @@ Please select A, M, R, or D:
 ## 🎯 Usage Examples
 
 ### Basic Usage:
+
 ```bash
 # Intelligent workflow selection with project analysis
 /orchestrator
 
-# Explicit workflow with feature specification  
+# Explicit workflow with feature specification
 /orchestrator "kiro-sdd user-authentication-system"
 
 # Resume interrupted workflow
@@ -300,6 +311,7 @@ Please select A, M, R, or D:
 ```
 
 ### Advanced Usage:
+
 ```bash
 # New feature development (Smart Context creates new project context)
 /orchestrator "Build user management system with authentication"
@@ -320,7 +332,7 @@ Please select A, M, R, or D:
 # Check Smart Context status
 Bash: "node .cc-deck/src/cli/smart-context-cli.js list"
 
-# Load specific context data for analysis  
+# Load specific context data for analysis
 Bash: "node .cc-deck/src/cli/smart-context-cli.js show $(basename $(pwd)) project"
 
 # Update user preferences based on selection
@@ -330,31 +342,36 @@ Bash: "node .cc-deck/src/cli/smart-context-cli.js update-preferences --project-i
 ## 🛡️ Quality Assurance
 
 ### Human Approval Integration:
+
 - **Mandatory Checkpoints**: Never bypass human approval gates
 - **Comprehensive Reviews**: AI-prepared materials for human decision
 - **Structured Decisions**: Clear Y/R/S options with explanations
 - **Audit Trail**: Complete record of all approval decisions
 
 ### Error Handling:
+
 - **Graceful Degradation**: Continue execution when non-critical components fail
-- **Recovery Mechanisms**: Automatic retry and fallback strategies  
+- **Recovery Mechanisms**: Automatic retry and fallback strategies
 - **User Escalation**: Clear error reporting and resolution guidance
 - **State Preservation**: Maintain context across error scenarios
 
 ## 🏗️ Implementation Notes
 
 ### Agent Responsibilities:
+
 - **date-utility**: Provides current timestamp for search queries
 - **user-interaction-reminder**: Ensures proper human-AI interaction protocols
 - **project-state-analyzer**: Comprehensive project analysis and recommendations
 
 ### Command Delegation:
+
 - **Specialized Commands**: Each workflow has dedicated implementation command
-- **Context Sharing**: State preserved between command executions  
+- **Context Sharing**: State preserved between command executions
 - **Clean Separation**: Orchestrator handles flow, commands handle execution
 - **Consistent Interface**: All commands follow CC-Deck standards
 
 ### ⚠️ CRITICAL: Workflow Command Execution
+
 - **Slash commands are NOT Bash commands**: Never use Bash() to execute /workflow commands
 - **Output commands as text**: Present workflow commands for user execution
 - **Correct format**: Output "/dev-env-setup project-name" as text, not Bash("/dev-env-setup project-name")
