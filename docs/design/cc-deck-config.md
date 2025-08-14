@@ -137,8 +137,8 @@ Kiro SDD完了後とCoding開始前の橋渡しフェーズ。プロジェクト
     └── mcp-setup-complete.json  # MCP設定完了ステータス
 
 # Enhanced agents are now in:
-.claude/agents/coding/dynamic/{project_id}/
-└── enhanced-implementation-agent.md  # 統合エンハンスドエージェント
+.claude/agents/coding/dynamic/
+└── {project_id}-enhanced-implementation-agent.md  # 統合エンハンスドエージェント（プロジェクト固有命名）
 ```
 
 **MCP統合戦略:**
@@ -338,14 +338,22 @@ coding.yamlでは3つの補助エージェントが連携してImplementation �
 **強化されたエージェント協調システム:**
 ```yaml
 agent_orchestration:
-  primary_agent: implementation-agent
+  primary_agent: enhanced-implementation-agent
+  fallback_agent: impersonator-agent
+  final_fallback: implementation-agent
   supporting_agents:
     - research-agent: "Real-time technical research and best practices"
     - deepwiki-research-solver: "Implementation problem solving and pattern analysis" 
     - code-quality-validator: "Continuous quality monitoring and validation"
-  execution_strategy: "collaborative_with_checkpoints"
+  execution_strategy: "dynamic_agent_resolution_with_fallback"
   coordination_method: shared_context
   quality_gates_integration: continuous
+  
+  # Dynamic Agent Resolution Strategy
+  agent_selection_logic:
+    - enhanced-implementation-agent: "Try enhanced first (if Claude Code recognizes)"
+    - impersonator-agent: "Smart fallback with dynamic detection and impersonation" 
+    - implementation-agent: "Final fallback to standard implementation"
 ```
 
 ## Smart Context Propagation

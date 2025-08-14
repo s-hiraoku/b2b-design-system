@@ -90,7 +90,8 @@ CC-Deck Workflow Engine State Analysis Protocol with Smart Context:
     - Detect workflow chaining interruptions and resume points
 
   6. Dynamic Agent Configuration Assessment:
-    - Analyze generated MCP SubAgent files in `.claude/agents/coding/dynamic/{project_id}/`
+    - Analyze generated MCP SubAgent files in `.claude/agents/coding/dynamic/`
+    - Check for project-specific enhanced agents: `{project_id}-enhanced-implementation-agent.md`
     - Validate enhanced agent integration with Claude Code system recognition
     - Check workflow-integrator output and merged configurations
     - Assess MCP service availability and integration status
@@ -315,8 +316,8 @@ LS('.cc-deck/runtime/projects/') # Dynamic agent configurations
 project_id = basename(pwd) or extract_from_context()
 
 # Check for DEV-ENV-SETUP completion artifacts in .cc-deck/runtime/projects/{project_id}/
-LS('.claude/agents/coding/dynamic/{project_id}/') # Should contain enhanced-implementation-agent.md
-Read('.claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md') # Enhanced implementation agent
+LS('.claude/agents/coding/dynamic/') # Should contain {project_id}-enhanced-implementation-agent.md  
+Read('.claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md') # Enhanced implementation agent
 Read('.cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json') # MCP setup completion status
 
 # If enhanced agent exists and MCP setup is complete, DEV-ENV-SETUP is complete and should recommend CODING workflow
@@ -336,8 +337,8 @@ for each_workflow in .cc-deck/runtime/global/context/active/*:
 # DEV-ENV-SETUP is complete when these artifacts exist in .cc-deck/runtime/projects/{project_id}/:
 project_id = extract_project_id_from_context()
 dev_env_completion = check_dev_env_setup_completion(project_id):
-    - agents/enhanced-implementation-agent.md file (single unified agent)
-    - config/mcp-setup-complete.json file (MCP authentication/configuration status)
+    - .claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md file (single unified agent)
+    - .cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json file (MCP authentication/configuration status)
     
 if dev_env_completion.all_artifacts_present():
     mark_workflow_as_complete("DEV-ENV-SETUP", project_id)
@@ -423,7 +424,7 @@ Produce comprehensive analysis following this structure:
 
 🔍 WORKFLOW COMPLETION STATUS:
 • DEV-ENV-SETUP: {COMPLETE/INCOMPLETE} 
-  - Enhanced Agent: {EXISTS/MISSING} .claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md
+  - Enhanced Agent: {EXISTS/MISSING} .claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md
   - MCP Setup: {COMPLETE/INCOMPLETE} .cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json
   - MCP Authentication: {SUCCESS/FAILED/PARTIAL} from setup status
 • CODING: {COMPLETE/IN_PROGRESS/NOT_STARTED}
@@ -450,9 +451,9 @@ Produce comprehensive analysis following this structure:
 **Mandatory Checks:**
 
 1. **Active Workflow Detection**: Identify ongoing CC-Deck workflow executions
-2. **DEV-ENV-SETUP Completion Detection**: Check `.cc-deck/runtime/projects/{project_id}/` for:
-   - `agents/enhanced-implementation-agent.md` unified MCP-integrated agent
-   - `config/mcp-setup-complete.json` MCP authentication/configuration completion
+2. **DEV-ENV-SETUP Completion Detection**: Check for:
+   - `.claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md` unified MCP-integrated agent
+   - `.cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json` MCP authentication/configuration completion
 3. **Smart Context Validation**: Verify context data integrity and completeness
 4. **Phase Continuation Readiness**: Assess next phase requirements and dependencies
 5. **Enhanced Agent Availability**: Check enhanced-implementation-agent operational status and MCP setup
@@ -460,7 +461,7 @@ Produce comprehensive analysis following this structure:
 
 **Auto-Continuation Recommendations:**
 
-- **DEV-ENV-SETUP Complete**: If `enhanced-implementation-agent.md` and `mcp-setup-complete.json` exist in `.cc-deck/runtime/projects/{project_id}/`, recommend CODING workflow
+- **DEV-ENV-SETUP Complete**: If `.claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md` and `.cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json` exist, recommend CODING workflow
 - Resume workflows at detected continuation points
 - Recover corrupted Smart Context from checkpoints
 - Regenerate enhanced implementation agent when required

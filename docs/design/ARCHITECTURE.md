@@ -559,11 +559,12 @@ graph TD
 
 - **date-utility**: 日付・時間情報提供エージェント
 - **project-state-analyzer**: CC-Deck Workflow Engine状態検出・継続戦略エージェント
-  - **DEV-ENV-SETUP完了検出**: `.cc-deck/runtime/projects/{project_id}/`内の成果物確認
-    - `agents/` ディレクトリ（生成されたMCPサブエージェント）
-    - `extensions/coding-extension.yaml` （ワークフロー拡張設定）
-    - `workflows/generated/coding-merged.yaml` （統合済みワークフロー）
+  - **DEV-ENV-SETUP完了検出**: 生成された成果物確認
+    - `.claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md` （動的生成エージェント）
+    - `.cc-deck/runtime/projects/{project_id}/extensions/coding-extension.yaml` （ワークフロー拡張設定）
+    - `.cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml` （統合済みワークフロー）
   - **インテリジェント継続推奨**: 完了検出に基づく次ワークフロー自動推奨
+  - **Dynamic Agent Resolution**: enhanced-implementation-agent可用性検出とimpersonator-agent連携
 
 ### 🎯 Main Orchestration System
 

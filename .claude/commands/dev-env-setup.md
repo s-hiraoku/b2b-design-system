@@ -110,23 +110,23 @@ Input Context:
 - Create single unified agent integrating all MCP capabilities
 
 Generation Requirements:
-1. **CRITICAL FILE PATH**: Create enhanced-implementation-agent.md in .claude/agents/coding/dynamic/{project_id}/
-2. **Claude Code System Agent**: Use .claude/agents/ directory for system recognition
+1. **CRITICAL FILE PATH**: Create {project_id}-enhanced-implementation-agent.md in .claude/agents/coding/dynamic/
+2. **Claude Code System Agent**: Use .claude/agents/ directory for system recognition with unique project naming
 3. **Unified MCP Integration**: Include all approved MCP tools in single agent
-4. **Proper YAML frontmatter**: name: enhanced-implementation-agent, tools with all MCPs
+4. **Proper YAML frontmatter**: name: {project_id}-enhanced-implementation-agent, tools with all MCPs
 5. **Fallback Mechanisms**: Graceful degradation when MCP tools unavailable
 6. **Project-specific customization**: Align with actual technology stack
 
 Agent Design:
-- Single file: enhanced-implementation-agent.md
+- Single file: {project_id}-enhanced-implementation-agent.md
 - Integrated MCP capabilities: Context7, DeepWiki, Serena, and approved tools
 - Performance optimization: Efficient MCP usage patterns
 - Error handling: Comprehensive fallback strategies
 - Claude Code system compatibility: Full agent recognition and invocation
 
 Directory Structure:
-- Target: .claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md
-- Create directory structure if needed: mkdir -p .claude/agents/coding/dynamic/{project_id}/
+- Target: .claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md
+- Create directory structure if needed: mkdir -p .claude/agents/coding/dynamic/
 - Validate file creation in correct location for Claude Code recognition
 
 Output: enhanced_implementation_agent, mcp_integration_summary, generation_results.")
@@ -137,7 +137,7 @@ Output: enhanced_implementation_agent, mcp_integration_summary, generation_resul
 Creating merged workflow configuration with enhanced agents...
 
 ```bash
-Task(subagent_type="workflow-integrator", description="Create merged workflow configuration", prompt="Integrate the generated enhanced-implementation-agent into the Coding workflow:
+Task(subagent_type="workflow-integrator", description="Create merged workflow configuration", prompt="Integrate the generated {project_id}-enhanced-implementation-agent into the Coding workflow:
 
 Integration Requirements:
 1. **Base Workflow Loading**:
@@ -283,7 +283,7 @@ fi
 - **Specification Analysis**: Technology stack extracted and analyzed successfully
 - **MCP Recommendations**: Optimal MCP agents researched and recommended 
 - **User Approval**: MCP agent recommendations approved by user
-- **Enhanced Agent Generation**: enhanced-implementation-agent.md created in .claude/agents/coding/dynamic/{project_id}/
+- **Enhanced Agent Generation**: {project_id}-enhanced-implementation-agent.md created in .claude/agents/coding/dynamic/
 - **Workflow Integration**: coding-merged.yaml and extension configs generated successfully
 - **MCP Setup**: All approved MCP tools configured and authenticated
 - **MCP Validation**: All MCP tools tested and validated as functional
@@ -292,7 +292,7 @@ fi
 ## Next Steps
 
 Upon successful completion:
-1. **Enhanced Coding Workflow Ready**: coding-merged.yaml with enhanced-implementation-agent integration
+1. **Enhanced Coding Workflow Ready**: coding-merged.yaml with {project_id}-enhanced-implementation-agent integration
 2. **Claude Code System Recognition**: Enhanced agent available as system agent
 3. **Smart Context Updated**: All setup information and configuration stored
 4. **MCP Tools Validated**: All approved MCP tools tested and ready for use

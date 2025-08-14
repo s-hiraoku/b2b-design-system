@@ -484,7 +484,7 @@ echo "5. Run validation tests"
 
    # Keep project development artifacts (Extensions)
    !.cc-deck/runtime/projects/*/extensions/
-   # Note: Enhanced agents are now in .claude/agents/coding/dynamic/{project_id}/
+   # Note: Enhanced agents are now in .claude/agents/coding/dynamic/ with {project_id}- prefix
 
    # Keep all source code
    !.cc-deck/config/

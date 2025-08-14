@@ -53,7 +53,7 @@ base_configuration = extract_workflow_config(base_workflow)
 #### Step 2: Enhanced Agent Analysis
 ```bash
 # Read generated enhanced agent information
-enhanced_agent_path = f".claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md"
+enhanced_agent_path = f".claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md"
 enhanced_agent_config = analyze_enhanced_agent(enhanced_agent_path)
 
 # Extract MCP tools and capabilities
@@ -67,8 +67,8 @@ enhanced_capabilities = analyze_agent_capabilities(enhanced_agent_config)
 extension_config = {
   "project_id": project_id,
   "enhanced_agents": {
-    "enhanced-implementation-agent": {
-      "path": f".claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md",
+    f"{project_id}-enhanced-implementation-agent": {
+      "path": f".claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md",
       "mcp_tools": mcp_tools,
       "fallback_agent": "implementation-agent",
       "priority": "primary"
@@ -76,9 +76,10 @@ extension_config = {
   },
   "phase_enhancements": {
     "full_implementation": {
-      "primary_agent": "enhanced-implementation-agent",
-      "fallback_agent": "implementation-agent",
-      "selection_logic": "check_enhanced_agent_availability"
+      "primary_agent": f"{project_id}-enhanced-implementation-agent",
+      "fallback_agent": "impersonator-agent",
+      "final_fallback": "implementation-agent",
+      "selection_logic": "dynamic_agent_resolution_with_fallback"
     }
   },
   "mcp_integration": {
@@ -100,13 +101,14 @@ merged_workflow = deep_merge(
 
 # Update agent selection logic in full_implementation phase
 merged_workflow.phases.full_implementation.agent_selection_priority = [
-    "enhanced-implementation-agent",  # Try enhanced first
-    "implementation-agent"           # Fallback to standard
+    f"{project_id}-enhanced-implementation-agent",  # Try enhanced first
+    "impersonator-agent",                           # Smart fallback with detection
+    "implementation-agent"                          # Final fallback to standard
 ]
 
 # Update agent detection paths
 merged_workflow.phases.full_implementation.agent_detection_paths = {
-    "enhanced_agent": f".claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md",
+    "enhanced_agent": f".claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md",
     "mcp_setup_status": f".cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
 }
 ```
@@ -150,7 +152,7 @@ full_implementation:
     - "implementation-agent"           # Fallback to standard
   
   agent_detection_paths:
-    enhanced_agent: ".claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md"
+    enhanced_agent: ".claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md"
     mcp_setup_status: ".cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
   
   # Selection Criteria
@@ -247,7 +249,7 @@ After successful integration, provide comprehensive summary including:
     ".cc-deck/runtime/projects/{project_id}/config/integration-metadata.json"
   ],
   "enhanced_agent_integration": {
-    "agent_path": ".claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md",
+    "agent_path": ".claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md",
     "mcp_tools_integrated": ["Context7", "DeepWiki", "Serena", "..."],
     "fallback_strategy": "graceful_degradation_to_standard_agents"
   },

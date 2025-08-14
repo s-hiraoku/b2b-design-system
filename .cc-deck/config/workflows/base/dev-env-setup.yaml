@@ -94,12 +94,15 @@ phases:
       - agent_configuration_summary
       - mcp_integration_details
     agent_generation_rules:
-      naming_convention: "enhanced-implementation-agent"
-      directory_structure: ".claude/agents/coding/dynamic/{project_id}/"
+      naming_convention: "{project_id}-enhanced-implementation-agent"
+      directory_structure: ".claude/agents/coding/dynamic/"
+      file_name: "{project_id}-enhanced-implementation-agent.md"
       template_compliance: "cc_deck_subagent_standard"
       integration_approach: "unified_mcp_agent"
       file_creation_strategy: "claude_code_system_agent"
       base_template_source: ".claude/agents/coding/implementation-agent.md"
+      impersonator_integration: "Generate impersonator-aware enhanced agents"
+      claude_code_compatibility: "Ensure both direct recognition and impersonation support"
     success_criteria:
       - enhanced_agent_generated: true
       - all_mcps_integrated: true
@@ -108,7 +111,7 @@ phases:
       - claude_code_recognition: true
       - system_agent_availability: true
     validation_checks:
-      - file_path_validation: ".claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md"
+      - file_path_validation: ".claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md"
       - yaml_frontmatter_syntax: true
       - mcp_tools_integration: "all_approved_mcps_included"
       - fallback_mechanisms: "graceful_degradation_implemented"
@@ -438,7 +441,7 @@ integration_points:
   # Output to next workflows
   coding_workflow_enhancement:
     enhanced_configuration: ".cc-deck/runtime/projects/{project_id}/workflows/generated/coding-merged.yaml"
-    generated_agents: ".claude/agents/coding/dynamic/{project_id}/"
+    generated_agents: ".claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md"
     extension_config: ".cc-deck/runtime/projects/{project_id}/extensions/coding-extension.yaml"
     integration_metadata: ".cc-deck/runtime/projects/{project_id}/config/integration-metadata.json"
     mcp_setup_status: ".cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"

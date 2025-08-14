@@ -28,15 +28,17 @@ This command initiates and manages the enterprise coding workflow, which transfo
 
 **Smart Agent Selection**: This command automatically detects and uses enhanced implementation capabilities:
 
-1. **Enhanced Agent**: `.claude/agents/coding/dynamic/{project-id}/enhanced-implementation-agent.md`
-2. **MCP Setup Status**: `.cc-deck/runtime/projects/{project-id}/config/mcp-setup-complete.json`
-3. **Fallback**: Standard `implementation-agent` from base workflow
+1. **Enhanced Agent**: `.claude/agents/coding/dynamic/{project-id}-enhanced-implementation-agent.md`
+2. **Impersonator Agent**: `impersonator-agent` for dynamic enhanced agent detection and execution
+3. **MCP Setup Status**: `.cc-deck/runtime/projects/{project-id}/config/mcp-setup-complete.json`
+4. **Fallback**: Standard `implementation-agent` from base workflow
 
 ### Automatic Enhancement Detection:
 
 The command detects enhanced capabilities using:
 
-- Enhanced agent availability (`.claude/agents/coding/dynamic/{project-id}/`)
+- Enhanced agent availability (`.claude/agents/coding/dynamic/{project-id}-enhanced-implementation-agent.md`)
+- Impersonator agent detection and smart fallback capabilities
 - Claude Code system recognition of enhanced agent
 - MCP setup completion status (`.cc-deck/runtime/projects/{project-id}/config/`)
 - Project context from Smart Context (current_project_id)
@@ -151,12 +153,12 @@ def select_implementation_agent():
     project_id = detect_project_id()
 
     if project_id:
-        enhanced_agent_path = f".claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md"
+        enhanced_agent_path = f".claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md"
         mcp_setup_path = f".cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
         
         if file_exists(enhanced_agent_path) and file_exists(mcp_setup_path):
-            print(f"✨ Using enhanced implementation agent with MCP capabilities")
-            return "enhanced-implementation-agent"
+            print(f"✨ Using enhanced implementation agent via impersonator with MCP capabilities")
+            return "impersonator-agent"
 
     # Fallback to standard implementation
     print(f"📋 Using standard implementation agent (enhanced agent unavailable)")
@@ -230,7 +232,7 @@ execute_workflow_phases_with_agent(selected_agent)
 
 The system automatically selects the appropriate implementation agent based on dev-env-setup completion:
 
-1. **Check for Enhanced Agent**: Look for `.claude/agents/coding/dynamic/{project_id}/enhanced-implementation-agent.md`
+1. **Check for Enhanced Agent**: Look for `.claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md`
 2. **Verify Claude Code Recognition**: Confirm enhanced agent appears in available agent list
 3. **Verify MCP Setup**: Confirm `.cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json` exists
 4. **Agent Selection**:

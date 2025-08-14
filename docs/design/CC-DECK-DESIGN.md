@@ -127,7 +127,7 @@ phases:
     inputs: [approved_mcp_agents, project_analysis]
     outputs: [generated_agents, agent_file_list]
     naming_convention: "{project_id}-{agent_purpose}"
-    directory: ".claude/agents/coding/dynamic/{project_id}/"
+    directory: ".claude/agents/coding/dynamic/"
     
   - name: workflow_integration
     agent: workflow-integrator
@@ -171,7 +171,7 @@ phases:
 └── config/                       # MCP設定
     └── mcp-setup-complete.json  # MCP設定完了ステータス
 
-# Enhanced agents are now in .claude/agents/coding/dynamic/{project_id}/
+# Enhanced agents are now in .claude/agents/coding/dynamic/ with project-prefixed naming
 ```
 
 **4. Hybrid File Generation Strategy**
@@ -272,24 +272,29 @@ full_implementation:
     - code-quality-validator: "継続的品質監視と検証"
 ```
 
-#### GitHub MCP Code Optimizer
+#### Dynamic Enhanced Agent System
 
-新しく追加されたエージェントで、以下の機能を提供：
+新しく追加された動的エージェントシステムで、以下の機能を提供：
 
-- **リポジトリ分析**: 既存コードベースの構造とパターンの深い理解
-- **コンテキスト適応**: 既存アーキテクチャとの整合性を保ったコード生成
-- **パターン認識**: 確立されたコーディング規約の識別と遵守
-- **最適化提案**: パフォーマンス、保守性、一貫性の改善
-- **品質保証**: 互換性検証とインパクトアセスメント
+- **Enhanced Implementation Agent**: プロジェクト固有のMCP統合エージェント（動的生成）
+- **Impersonator Agent**: 動的エージェント検出とフォールバック管理
+- **Intelligent Fallback**: Claude Code認識制限の回避とシームレスな代替実行
 
 ```mermaid
 graph LR
-    Implementation[implementation-agent] --> GitHub[github-mcp-code-optimizer]
-    GitHub --> Analysis[Repository Analysis]
-    Analysis --> CodeGen[Context-Aware Code Generation]
-    CodeGen --> Validation[Quality Verification]
-    Validation --> Implementation
+    CodingWorkflow[Coding Workflow] --> Enhanced{Enhanced Agent Available?}
+    Enhanced -->|Yes + Recognized| EnhancedAgent[enhanced-implementation-agent]
+    Enhanced -->|No or Failed| Impersonator[impersonator-agent]
+    Impersonator --> Detection{Enhanced File Exists?}
+    Detection -->|Yes| Impersonate[Impersonate Enhanced Agent]
+    Detection -->|No| Fallback[Call implementation-agent]
+    EnhancedAgent -->|Failed| Impersonator
 ```
+
+**Dynamic Agent Resolution Process:**
+- **Claude Code Recognition**: 起動時認識可能な場合は直接実行
+- **Dynamic Detection**: impersonator-agentによる実行時検出と代理実行
+- **Graceful Fallback**: 標準implementation-agentへの透明なフォールバック
 
 ## 実装戦略
 

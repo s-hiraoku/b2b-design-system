@@ -150,7 +150,7 @@ Task(subagent_type="mcp-recommender",
 # 5. Execute Phase 4: agent_generation
 Task(subagent_type="agent-generator",
      description="Generate enhanced implementation agent",
-     prompt="Generate unified enhanced-implementation-agent integrating approved MCPs in .claude/agents/coding/dynamic/{project_id}/...")
+     prompt="Generate unified enhanced-implementation-agent integrating approved MCPs as .claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md...")
 
 # 6. Execute Phase 4.5: workflow_integration
 Task(subagent_type="workflow-integrator",
@@ -200,8 +200,8 @@ kiro-sdd → dev-env-setup → coding → refactoring → testing → pr → acc
 ```
 
 **Key Workflow Chain Features:**
-- **dev-env-setup**: Generates enhanced-implementation-agent and coding-merged.yaml for optimized development
-- **coding**: Uses enhanced agents when available, falls back to standard agents if needed
+- **dev-env-setup**: Generates {project_id}-enhanced-implementation-agent.md and coding-merged.yaml for optimized development
+- **coding**: Uses enhanced agents when available, impersonator-agent for detection, falls back to standard agents if needed
 - **Dynamic MCP Integration**: Project-specific MCP tools based on technology stack analysis
 
 ## 🔄 Continuous Flow Management

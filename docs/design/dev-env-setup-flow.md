@@ -74,7 +74,7 @@ Instead of using only default MCP integrations (DeepWiki, Context7, Serena), the
 
 #### ✅ 4. Dynamic Agent Generation (agent-generator SubAgent)
 **Status**: Agent defined, execution engine missing
-- Create SubAgent files in `.claude/agents/coding/dynamic/{project_id}/`
+- Create SubAgent files as `.claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md`
 - Generate with proper naming: `{project_id}-{agent_name}`
 - Include appropriate MCP tool integrations and usage patterns
 
@@ -322,12 +322,14 @@ Specialized agent for Next.js 15 App Router optimization using Playwright MCP fo
 - **Reduced Setup Time**: Automatic discovery and setup of relevant tools
 - **Best Practices**: MCP agents bring framework-specific expertise
 - **Consistent Integration**: All tools follow the same SubAgent patterns
+- **Seamless Execution**: Impersonator agent handles Claude Code recognition limitations
 
 ### System Architecture  
 - **Modular Design**: Base workflows remain unchanged
 - **Scalable**: Easy to add support for new MCPs and frameworks
 - **Maintainable**: Clear separation between base and dynamic configurations
 - **Robust**: Graceful degradation when MCP services are unavailable
+- **Dynamic Recognition**: Impersonator pattern resolves Claude Code startup limitations
 
 ### Development Efficiency
 - **Context-Aware**: Tools understand the project's specific architecture
