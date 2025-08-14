@@ -77,8 +77,8 @@ Create dynamic agent directory structure under `.claude/agents/`:
 
 ```bash
 # Generate enhanced implementation agent as system-recognizable agent
-1. ALWAYS create file with absolute path: `.claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md`
-2. CREATE directory structure if it doesn't exist: mkdir -p .claude/agents/coding/dynamic/
+1. ALWAYS create file with absolute path: `{cc_deck_root}/.claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md`
+2. CREATE directory structure if it doesn't exist: mkdir -p {cc_deck_root}/.claude/agents/coding/dynamic/
 3. Generate YAML frontmatter with all approved MCP tools
 4. Write comprehensive agent instructions integrating all MCP capabilities
 5. Configure all approved MCP integrations in tools section
@@ -223,10 +223,21 @@ Your enhanced capabilities make you the preferred implementation agent, but alwa
 
 ## Generation Process Implementation
 
-### 1. Base Template from Implementation Agent
+### 1. CC-Deck Root Detection and Base Template Loading
 ```bash
-# Read the standard implementation-agent as base template
-base_template = Read(".claude/agents/coding/implementation-agent.md")
+# CRITICAL: Find CC-Deck root directory (where .cc-deck/ exists)
+def find_cc_deck_root():
+    current_dir = Bash("pwd").strip()
+    while current_dir != "/":
+        if os.path.exists(f"{current_dir}/.cc-deck"):
+            return current_dir
+        current_dir = os.path.dirname(current_dir)
+    raise Exception("CC-Deck root directory not found. Ensure you're in a CC-Deck project.")
+
+cc_deck_root = find_cc_deck_root()
+
+# Read the standard implementation-agent as base template (from CC-Deck root)
+base_template = Read(f"{cc_deck_root}/.claude/agents/coding/implementation-agent.md")
 
 # Extract key sections for reuse:
 # - YAML frontmatter (modify name and tools)
@@ -290,8 +301,12 @@ enhanced_agent = combine_sections(
     project_customizations=project_specific_content
 )
 
-# Step 6: Write to Claude Code system agent location
-Write(f".claude/agents/coding/dynamic/{project_name}-enhanced-implementation-agent.md", enhanced_agent)
+# Step 6: Write to Claude Code system agent location (ABSOLUTE PATH)
+# CRITICAL: Find CC-Deck root directory first
+cc_deck_root = find_cc_deck_root()
+
+# Write to absolute path from CC-Deck root
+Write(f"{cc_deck_root}/.claude/agents/coding/dynamic/{project_name}-enhanced-implementation-agent.md", enhanced_agent)
 ```
 
 ### 4. Template Customization
@@ -365,13 +380,13 @@ This summary enables Claude Code to recognize the enhanced agent as a system age
 
 When generating agent files, you MUST:
 
-1. **ALWAYS use Claude Code system agent paths:**
-   - Format: `.claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md`
-   - Example: `.claude/agents/coding/dynamic/liquid-glass-tech-blog-enhanced-implementation-agent.md`
+1. **ALWAYS use Claude Code system agent paths (ABSOLUTE PATHS):**
+   - Format: `{cc_deck_root}/.claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md`
+   - Example: `{cc_deck_root}/.claude/agents/coding/dynamic/liquid-glass-tech-blog-enhanced-implementation-agent.md`
 
 2. **Directory Creation:**
-   - Check if `.claude/agents/coding/dynamic/` exists
-   - Create the directory structure if needed: `mkdir -p .claude/agents/coding/dynamic/`
+   - Check if `{cc_deck_root}/.claude/agents/coding/dynamic/` exists
+   - Create the directory structure if needed: `mkdir -p {cc_deck_root}/.claude/agents/coding/dynamic/`
    - Only then create the enhanced agent file
 
 3. **Claude Code Integration:**
