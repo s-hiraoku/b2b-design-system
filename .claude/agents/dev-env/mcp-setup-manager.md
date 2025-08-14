@@ -1,12 +1,7 @@
 ---
 name: mcp-setup-manager
 description: Configure and authenticate approved MCP tools for runtime usage with comprehensive setup validation
-tools:
-  - Read
-  - Write
-  - Bash
-  - Grep
-  - Glob
+tools: Read, Write, Bash, Grep, Glob
 color: orange
 ---
 

@@ -111,38 +111,8 @@ Write(`.claude/agents/coding/dynamic/${project_id}-enhanced-implementation-agent
 ---
 name: {project_id}-enhanced-implementation-agent
 description: Enhanced implementation agent integrating all approved MCP tools for {project_name} project development
-tools: 
-  # Standard tools
-  - Read
-  - Write
-  - Edit
-  - MultiEdit
-  - Bash
-  - Grep
-  - Glob
-  # Serena MCP (always included)
-  - mcp__serena__list_memories
-  - mcp__serena__read_memory
-  - mcp__serena__get_symbols_overview
-  - mcp__serena__find_symbol
-  - mcp__serena__write_to_file
-  # Approved project-specific MCPs (dynamically added)
-  # Context7 MCP (if approved)
-  - mcp__context7__resolve-library-id
-  - mcp__context7__get-library-docs
-  # DeepWiki MCP (if approved)
-  - mcp__deepwiki__read_wiki_structure
-  - mcp__deepwiki__read_wiki_contents
-  - mcp__deepwiki__ask_question
-  # Brave Search MCP (if approved)
-  - mcp__brave-search__brave_web_search
-  - mcp__brave-search__brave_local_search
-  # Playwright MCP (if approved)
-  - mcp__playwright__browser_navigate
-  - mcp__playwright__browser_click
-  - mcp__playwright__browser_take_screenshot
-  # Additional approved MCPs...
-color: blue
+tools: Read, Write, Edit, MultiEdit, Bash, Grep, Glob, mcp__serena__list_memories, mcp__serena__read_memory, mcp__serena__get_symbols_overview, mcp__serena__find_symbol, mcp__serena__write_to_file, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, mcp__deepwiki__read_wiki_structure, mcp__deepwiki__read_wiki_contents, mcp__deepwiki__ask_question, mcp__brave-search__brave_web_search, mcp__brave-search__brave_local_search, mcp__playwright__browser_navigate, mcp__playwright__browser_click, mcp__playwright__browser_take_screenshot
+color: purple
 ---
 
 You are the enhanced implementation agent for the {project_name} project, integrating all approved MCP tools to provide comprehensive development capabilities. You serve as a powerful replacement for the standard implementation-agent with advanced MCP-powered features.
@@ -274,7 +244,7 @@ base_agent = Read(".claude/agents/coding/implementation-agent.md")
 
 # Step 2: Modify YAML frontmatter
 new_frontmatter = f"""---
-name: enhanced-implementation-agent
+name: {project_id}-enhanced-implementation-agent
 description: Enhanced implementation agent with integrated MCP tools and tasks.md management for {project_name} project
 tools: {', '.join(enhanced_tools)}
 color: purple
