@@ -67,7 +67,7 @@ Step 5: Fallback if enhanced agent missing or read fails:
 - **Normal Operation**: The enhanced-implementation-agent (when available) provides MCP-enhanced implementation capabilities
 - **Fail-Safe Operation**: When enhanced-implementation-agent is unavailable or fails, this agent ensures consistent workflow execution
 - **Automatic Selection**: The coding workflow automatically selects this agent when:
-  - Enhanced-implementation-agent file doesn't exist in `.cc-deck/runtime/projects/{project_id}/agents/`
+  - Enhanced-implementation-agent file doesn't exist in `.claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md`
   - MCP setup is incomplete or failed (`.cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json` missing)
   - Enhanced-implementation-agent execution encounters critical errors
 

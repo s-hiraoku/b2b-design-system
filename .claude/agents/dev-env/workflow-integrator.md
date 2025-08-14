@@ -122,6 +122,11 @@ merged_workflow.phases.full_implementation.agent_detection_paths = {
     "enhanced_agent": f".claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md",
     "mcp_setup_status": f"{cc_deck_root}/.cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
 }
+
+# IMPORTANT: Preserve all phases including Phase 6.2 (Execution Verification)
+# The base workflow includes Phase 6.2 between Phase 6 (Testing) and Phase 6.5 (Specification Compliance)
+# This phase MUST be included in the merged workflow to ensure runtime validation
+merged_workflow.phases.execution_verification = base_workflow.phases.execution_verification
 ```
 
 ### 4. Directory Structure Management

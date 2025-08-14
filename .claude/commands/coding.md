@@ -268,7 +268,7 @@ The system automatically selects the appropriate implementation agent based on d
 **Agent Execution Logic**:
 
 Enhanced agent detection and selection is handled automatically by checking:
-1. Enhanced agent file availability in `.cc-deck/runtime/projects/{project_id}/agents/`  
+1. Enhanced agent file availability in `.claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md`  
 2. MCP setup completion status in `.cc-deck/runtime/projects/{project_id}/config/`
 3. Automatic fallback to standard implementation-agent when enhanced unavailable
 
