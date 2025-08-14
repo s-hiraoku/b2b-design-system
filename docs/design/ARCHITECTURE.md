@@ -138,7 +138,8 @@ graph TD
     Phase3 --> Phase4[🔴 Phase 4: TDD Cycle<br/>tdd-agent]
     Phase4 --> Phase5[⚡ Phase 5: Full Implementation<br/>customize-implementation-agent]
     Phase5 --> Phase6[🧪 Phase 6: Testing<br/>testing-agent]
-    Phase6 --> SpecCheck[🔍 Phase 6.5: Specification Compliance Check<br/>acceptance-reviewer]
+    Phase6 --> ExecVerif[🚀 Phase 6.2: Execution Verification<br/>execution-validator]
+    ExecVerif --> SpecCheck[🔍 Phase 6.5: Specification Compliance Check<br/>acceptance-reviewer]
     SpecCheck --> |✅ Complete| Phase7[📚 Phase 7: Documentation<br/>documentation-agent]
     SpecCheck --> |❌ Incomplete| Phase4
     Phase7 --> Approval[✅ Phase 8: Human Approval]
@@ -188,6 +189,13 @@ graph TD
 **Phase 6: Testing** (testing-agent)
 - 統合テスト・E2Eテストの追加
 - テストカバレッジ95%+の達成確認
+
+**Phase 6.2: Execution Verification** (execution-validator)
+- 開発環境での実際のアプリケーション起動・動作確認
+- 基本機能の手動実行とログ検証
+- ランタイムエラー、クラッシュ、接続問題の検出と修正
+- 環境依存問題（ポート競合、依存関係不整合等）の解決
+- **判定結果**: ✅動作確認OK→Phase 6.5へ / ❌実行問題あり→バグ修正後再実行
 
 **Phase 6.5: Specification Compliance Check** (acceptance-reviewer)
 - 仕様書(.kiro/specs/)と実装内容の適合性検証

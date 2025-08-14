@@ -140,9 +140,12 @@ projects/{project-name}/
 **CRITICAL**: Execute ALL phases sequentially using the agents specified in the loaded workflow configuration. Do NOT skip phases.
 
 **Phase Execution Instructions**:
-- After Phase 6 (testing-agent) completes, you MUST execute Phase 6.5 (acceptance-reviewer)
+- After Phase 6 (testing-agent) completes, you MUST execute Phase 6.2 (execution-validator)
+- Use the Task tool to call: `Task(subagent_type="execution-validator", description="Runtime execution validation", prompt="Validate application execution in development environment, detect and fix runtime issues before specification compliance check")`
+- After Phase 6.2 validates execution, you MUST execute Phase 6.5 (acceptance-reviewer)
 - Use the Task tool to call: `Task(subagent_type="acceptance-reviewer", description="Specification compliance check", prompt="Verify implementation compliance with specifications and decide whether to proceed to documentation or rollback to TDD cycle")`
 - Only proceed to Phase 7 (documentation-agent) after Phase 6.5 approves with PROCEED decision
+- If Phase 6.2 fails validation, fix runtime issues and retry
 - If Phase 6.5 returns ROLLBACK decision, return to Phase 4 (tdd-agent)
 
 **Enhanced Agent Selection Logic**:
@@ -177,9 +180,10 @@ execute_workflow_phases_with_agent(selected_agent)
 4. **Phase 4**: tdd-agent (Execute strict TDD Red-Green-Refactor cycles)
 5. **Phase 5**: implementation-agent (Build complete implementation on TDD foundation)
 6. **Phase 6**: testing-agent (Comprehensive testing strategy)
-7. **Phase 6.5**: acceptance-reviewer (Specification compliance check with rollback capability)
-8. **Phase 7**: documentation-agent (Generate comprehensive documentation)
-9. **Phase 8**: Human approval checkpoint - Review completed workflow
+7. **Phase 6.2**: execution-validator (Runtime execution validation and issue resolution)
+8. **Phase 6.5**: acceptance-reviewer (Specification compliance check with rollback capability)
+9. **Phase 7**: documentation-agent (Generate comprehensive documentation)
+10. **Phase 8**: Human approval checkpoint - Review completed workflow
 
 **Enhanced Implementation** (when enhanced-implementation-agent is available):
 
@@ -287,6 +291,19 @@ The system automatically handles agent selection without manual configuration.
 - **Purpose**: Add integration and E2E testing to TDD foundation
 - **Test Types**: Integration tests, E2E tests (conditional)
 - **Outputs**: Complete test suite, coverage reports
+
+### Phase 6.2: Runtime Execution Validation
+
+- **Agent**: execution-validator
+- **Purpose**: Verify application actually runs and functions in development environment
+- **Validation Process**:
+  - **Application Startup**: Attempt to start using standard commands (npm start, etc.)
+  - **Runtime Monitoring**: Check logs for errors, warnings, crashes
+  - **Basic Functionality**: Test core user workflows manually
+  - **Environment Dependencies**: Validate configurations and external services
+  - **Issue Resolution**: Fix critical runtime problems preventing execution
+- **Success Criteria**: App starts successfully, no critical errors, basic functionality accessible
+- **Failure Handling**: Fix issues and retry up to 3 times, escalate to implementation phase if unresolved
 
 ### Phase 6.5: Specification Compliance Check
 
