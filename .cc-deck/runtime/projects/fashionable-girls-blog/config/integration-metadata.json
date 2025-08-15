@@ -1,0 +1,280 @@
+{
+  "project_id": "fashionable-girls-blog",
+  "integration_timestamp": "2025-01-15T10:30:00Z",
+  "integration_type": "enhanced-implementation-agent",
+  "version": "1.0.0",
+  
+  "workflow_integration": {
+    "base_workflow": "coding.yaml",
+    "extension_file": "coding-extension.yaml",
+    "merged_workflow": "coding-merged.yaml",
+    "status": "completed",
+    "integration_date": "2025-01-15"
+  },
+  
+  "enhanced_agent": {
+    "agent_id": "fashionable-girls-blog-enhanced-implementation-agent",
+    "agent_file": ".claude/agents/coding/dynamic/fashionable-girls-blog-enhanced-implementation-agent.md",
+    "agent_status": "available",
+    "creation_date": "2025-01-15",
+    "mcp_tools_count": 8,
+    "specialization": "fashion_social_platform"
+  },
+  
+  "mcp_integration": {
+    "setup_status": "pending_verification",
+    "approved_tools_count": 8,
+    "operational_tools": [
+      {
+        "name": "Context7",
+        "category": "essential_development",
+        "purpose": "Next.js 15, React 19, Supabase documentation",
+        "tools": [
+          "mcp__context7__resolve-library-id",
+          "mcp__context7__get-library-docs"
+        ],
+        "priority": "critical"
+      },
+      {
+        "name": "DeepWiki",
+        "category": "essential_development", 
+        "purpose": "Fashion platform architectural patterns",
+        "tools": [
+          "mcp__deepwiki__read_wiki_structure",
+          "mcp__deepwiki__read_wiki_contents",
+          "mcp__deepwiki__ask_question"
+        ],
+        "priority": "critical"
+      },
+      {
+        "name": "Brave Search",
+        "category": "essential_development",
+        "purpose": "2025 fashion development trends",
+        "tools": [
+          "mcp__brave-search__brave_web_search",
+          "mcp__brave-search__brave_local_search"
+        ],
+        "priority": "high"
+      },
+      {
+        "name": "Vercel Documentation",
+        "category": "core_platform",
+        "purpose": "Deployment and performance optimization",
+        "tools": [
+          "mcp__vercel__search_vercel_documentation",
+          "mcp__vercel__list_projects",
+          "mcp__vercel__get_project",
+          "mcp__vercel__list_deployments",
+          "mcp__vercel__get_deployment",
+          "mcp__vercel__get_deployment_events",
+          "mcp__vercel__list_teams"
+        ],
+        "priority": "high"
+      },
+      {
+        "name": "Supabase",
+        "category": "core_platform",
+        "purpose": "Real-time features and database optimization",
+        "integration_method": "via_context7_and_direct_client",
+        "priority": "high"
+      },
+      {
+        "name": "Playwright",
+        "category": "core_platform",
+        "purpose": "Visual testing and mobile validation",
+        "tools": [
+          "mcp__playwright__browser_navigate",
+          "mcp__playwright__browser_click",
+          "mcp__playwright__browser_type",
+          "mcp__playwright__browser_snapshot",
+          "mcp__playwright__browser_take_screenshot",
+          "mcp__playwright__browser_evaluate",
+          "mcp__playwright__browser_wait_for",
+          "mcp__playwright__browser_close",
+          "mcp__playwright__browser_resize",
+          "mcp__playwright__browser_console_messages",
+          "mcp__playwright__browser_handle_dialog",
+          "mcp__playwright__browser_file_upload",
+          "mcp__playwright__browser_install",
+          "mcp__playwright__browser_press_key",
+          "mcp__playwright__browser_navigate_back",
+          "mcp__playwright__browser_navigate_forward",
+          "mcp__playwright__browser_network_requests",
+          "mcp__playwright__browser_drag",
+          "mcp__playwright__browser_hover",
+          "mcp__playwright__browser_select_option",
+          "mcp__playwright__browser_tab_list",
+          "mcp__playwright__browser_tab_new",
+          "mcp__playwright__browser_tab_select",
+          "mcp__playwright__browser_tab_close"
+        ],
+        "priority": "medium"
+      },
+      {
+        "name": "AI/ML Integration Tools",
+        "category": "quality_enhancement",
+        "purpose": "Fashion item tagging and image analysis",
+        "tools": [
+          "mcp__ide__executeCode"
+        ],
+        "priority": "medium"
+      },
+      {
+        "name": "Performance Monitoring",
+        "category": "quality_enhancement",
+        "purpose": "Fashion-specific metrics and analytics",
+        "tools": [
+          "mcp__ide__getDiagnostics"
+        ],
+        "priority": "medium"
+      }
+    ]
+  },
+  
+  "fallback_strategy": {
+    "primary_agent": "fashionable-girls-blog-enhanced-implementation-agent",
+    "fallback_agents": [
+      {
+        "agent": "impersonator-agent",
+        "role": "secondary_fallback",
+        "condition": "enhanced_agent_not_recognized",
+        "action": "detect_and_delegate_to_implementation_agent"
+      },
+      {
+        "agent": "implementation-agent", 
+        "role": "final_fallback",
+        "condition": "all_enhanced_options_failed",
+        "action": "standard_implementation_workflow"
+      }
+    ],
+    "fallback_triggers": [
+      "enhanced_agent_file_not_found",
+      "mcp_setup_incomplete_or_failed",
+      "critical_mcp_services_unavailable_4_of_8",
+      "enhanced_agent_execution_errors"
+    ]
+  },
+  
+  "fashion_platform_configuration": {
+    "target_audience": "Young women aged 18-35",
+    "platform_type": "fashion_social_platform",
+    "key_features": [
+      "visual_first_content",
+      "mobile_first_design", 
+      "ai_enhanced_features",
+      "real_time_social_features",
+      "shopping_integration",
+      "trend_discovery"
+    ],
+    "technology_stack": {
+      "framework": "Next.js 15",
+      "frontend": "React 19, TypeScript 5.x",
+      "styling": "Tailwind CSS 4.0.0-alpha",
+      "database": "PostgreSQL with Supabase",
+      "image_processing": "Cloudinary with AI-powered tagging",
+      "search": "Algolia with fashion-specific indexing",
+      "realtime": "Pusher Channels"
+    },
+    "performance_targets": {
+      "first_contentful_paint": "< 1.5s",
+      "mobile_optimization": true,
+      "test_coverage": "90%",
+      "accessibility": "WCAG AA"
+    }
+  },
+  
+  "tasks_integration": {
+    "tasks_file": ".kiro/specs/fashionable-girls-blog/tasks.md",
+    "tracking_method": "checkbox_automation",
+    "progress_calculation": "real_time",
+    "phase_mapping": {
+      "phase_1_foundation": [1.1, 1.2, 1.3],
+      "phase_2_backend": [2.1, 2.2],
+      "phase_3_media_pipeline": [3.1, 3.2],
+      "phase_4_core_ui": [4.1, 4.2, 4.3],
+      "phase_5_social_features": [5.1, 5.2],
+      "phase_6_shopping": [6.1, 6.2],
+      "phase_7_advanced": [7.1, 7.2],
+      "phase_8_testing_deployment": [8.1, 8.2, 8.3]
+    }
+  },
+  
+  "quality_assurance": {
+    "tdd_compliance": {
+      "test_coverage_target": "90%",
+      "line_coverage": "90%",
+      "branch_coverage": "85%", 
+      "function_coverage": "90%"
+    },
+    "mobile_optimization": {
+      "responsive_design": "iPhone SE to desktop",
+      "core_web_vitals": "all green",
+      "touch_optimization": "verified"
+    },
+    "ai_features": {
+      "fashion_tagging_accuracy": ">= 85%",
+      "recommendation_relevance": ">= 80%",
+      "visual_search_precision": ">= 75%"
+    },
+    "social_features": {
+      "real_time_latency": "< 100ms",
+      "notification_delivery": ">= 99%",
+      "concurrent_user_support": ">= 1000"
+    }
+  },
+  
+  "deployment_configuration": {
+    "target_platform": "Vercel",
+    "optimization_focus": [
+      "fashion_content_delivery",
+      "mobile_performance",
+      "real_time_features",
+      "ai_service_integration"
+    ],
+    "monitoring_setup": [
+      "core_web_vitals",
+      "fashion_platform_analytics",
+      "ai_service_performance",
+      "real_time_feature_monitoring"
+    ]
+  },
+  
+  "success_metrics": {
+    "development_velocity": "50-60% faster than standard implementation",
+    "quality_improvement": {
+      "test_coverage": ">= 90%",
+      "mobile_performance": "Core Web Vitals green",
+      "accessibility": "WCAG AA compliance",
+      "ai_feature_accuracy": ">= 85%"
+    },
+    "fashion_platform_excellence": [
+      "mobile_first_design_validated",
+      "real_time_features_operational",
+      "ai_enhanced_features_functional",
+      "social_engagement_optimized"
+    ]
+  },
+  
+  "workflow_status": {
+    "integration_complete": true,
+    "files_created": [
+      ".cc-deck/runtime/projects/fashionable-girls-blog/extensions/coding-extension.yaml",
+      ".cc-deck/runtime/projects/fashionable-girls-blog/workflows/generated/coding-merged.yaml",
+      ".cc-deck/runtime/projects/fashionable-girls-blog/config/integration-metadata.json"
+    ],
+    "next_steps": [
+      "Verify MCP setup completion",
+      "Test enhanced agent availability",
+      "Execute coding workflow with enhanced implementation",
+      "Monitor performance and quality metrics"
+    ]
+  },
+  
+  "validation": {
+    "yaml_syntax_validated": true,
+    "directory_structure_created": true,
+    "file_permissions_set": true,
+    "integration_points_mapped": true,
+    "fallback_mechanisms_configured": true
+  }
+}

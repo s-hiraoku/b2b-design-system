@@ -1,0 +1,956 @@
+# Fashionable Girls Blog - Merged Coding Workflow
+# Combined base coding workflow with project-specific extensions
+# Auto-generated merge of coding.yaml + coding-extension.yaml
+
+name: fashionable-girls-blog-coding-workflow
+description: Complete development workflow with MCP integrations, Smart Context Propagation, and fashion platform enhancements
+version: "1.0.0"
+project_id: fashionable-girls-blog
+
+# Merged Project Context
+project_context:
+  name: "Fashionable Girls Blog"
+  type: "fashion_social_platform"
+  target_audience: "Young women aged 18-35"
+  technology_stack:
+    framework: "Next.js 15"
+    frontend: "React 19, TypeScript 5.x"
+    styling: "Tailwind CSS 4.0.0-alpha"
+    database: "PostgreSQL with Supabase"
+    image_processing: "Cloudinary with AI-powered tagging"
+    search: "Algolia with fashion-specific indexing"
+    realtime: "Pusher Channels"
+    performance_targets:
+      first_contentful_paint: "< 1.5s"
+      mobile_optimization: true
+      test_coverage: "90%"
+      accessibility: "WCAG AA"
+
+# Enhanced Agent Configuration
+enhanced_agent_config:
+  agent_id: "fashionable-girls-blog-enhanced-implementation-agent"
+  agent_path: ".claude/agents/coding/dynamic/fashionable-girls-blog-enhanced-implementation-agent.md"
+  mcp_tools_count: 8
+  approved_mcp_tools:
+    essential_development:
+      - context7: "Next.js 15, React 19, Supabase documentation"
+      - deepwiki: "Fashion platform architectural patterns"
+      - brave_search: "2025 fashion development trends"
+    core_platform:
+      - vercel: "Deployment and performance optimization"
+      - supabase: "Real-time features and database optimization"
+      - playwright: "Visual testing and mobile validation"
+    quality_enhancement:
+      - ai_ml_tools: "Fashion item tagging and image analysis"
+      - performance_monitoring: "Fashion-specific metrics and analytics"
+
+# Smart Context Schema (Enhanced)
+context_schema:
+  research_context:
+    technologies: array[string]
+    best_practices: array[object]
+    documentation_sources: array[string]
+    fashion_trends: array[object]
+  planning_context:
+    architecture: object
+    implementation_strategy: string
+    technology_stack: array[string]
+    fashion_requirements: object
+  implementation_context:
+    code_generated: array[object]
+    test_coverage: number
+    quality_metrics: object
+    fashion_features: array[object]
+    ai_integrations: array[object]
+
+# Workflow Definition (Enhanced)
+phases:
+  # Phase 1: Research (Enhanced for Fashion)
+  - name: research
+    agent: research-agent
+    description: "Fashion platform technology research using MCP integrations"
+    available_agents:
+      - research-agent: "Comprehensive technology research"
+      - deepwiki-research-solver: "Specialized technical problem research and solutions"
+    inputs: [project_requirements, fashion_platform_requirements]
+    outputs:
+      - research_context
+      - technology_recommendations
+      - fashion_technology_trends
+    mcp_integrations:
+      - deepwiki: "Fashion platform repository analysis"
+      - context7: "Next.js 15 and React 19 library documentation"
+      - brave_search: "2025 fashion technology trends"
+    fashion_research_focus:
+      - mobile_first_fashion_ui_patterns
+      - social_media_platform_architecture
+      - ai_powered_fashion_recommendation_systems
+      - real_time_social_interaction_patterns
+    success_criteria:
+      - research_complete: true
+      - technology_stack_identified: true
+      - fashion_patterns_analyzed: true
+    next_phase: planning
+
+  # Phase 2: Strategic Planning (Enhanced for Fashion)
+  - name: planning
+    agent: planning-agent
+    description: "Develop architecture and implementation strategy for fashion platform"
+    inputs: [research_context, fashion_technology_trends]
+    outputs:
+      - planning_context
+      - architecture_design
+      - implementation_roadmap
+      - fashion_feature_roadmap
+    fashion_planning_enhancements:
+      - mobile_first_architecture_design
+      - ai_integration_strategy
+      - real_time_social_features_planning
+      - performance_optimization_strategy
+    success_criteria:
+      - architecture_documented: true
+      - implementation_plan_created: true
+      - fashion_features_planned: true
+    next_phase: serena_onboarding
+
+  # Phase 3: TDD Serena Onboarding & Environment Setup (Enhanced)
+  - name: serena_onboarding
+    agent: serena-onboarding-agent
+    description: "Initialize Serena MCP and establish TDD development environment for fashion platform"
+    inputs: [planning_context, research_context, fashion_feature_roadmap]
+    outputs:
+      - serena_context
+      - tdd_patterns
+      - coding_standards
+      - test_environment_config
+      - fashion_testing_patterns
+    configuration:
+      development_mode: "test_driven"
+      tdd_focus: true
+      fashion_platform_focus: true
+      pattern_preferences:
+        - "AAA pattern for tests (Arrange-Act-Assert)"
+        - "Given-When-Then structure for BDD"
+        - "Mobile-first responsive testing patterns"
+        - "Fashion content visual testing patterns"
+        - "AI feature testing with mocking"
+        - "Red-Green-Refactor enforcement"
+    success_criteria:
+      - serena_initialized: true
+      - tdd_patterns_established: true
+      - test_framework_ready: true
+      - fashion_testing_setup: true
+    next_phase: tdd_cycle
+
+  # Phase 4: TDD Red-Green-Refactor Cycle (Enhanced)
+  - name: tdd_cycle
+    agent: tdd-agent
+    description: "Execute strict TDD Red-Green-Refactor cycles for fashion platform following t-wada methodology"
+    inputs: [serena_context, planning_context, tdd_patterns, fashion_testing_patterns]
+    outputs:
+      - test_suite
+      - minimal_implementations
+      - refactored_code
+      - tdd_cycles_log
+      - fashion_feature_tests
+    tdd_methodology:
+      strict_mode: true
+      cycle_enforcement: true
+      test_first_only: true
+      red_phase_validation: true
+      green_phase_minimal: true
+      refactor_phase_mandatory: true
+      mobile_first_testing: true
+      fashion_feature_testing: true
+    fashion_tdd_enhancements:
+      - mobile_responsive_testing_patterns
+      - ai_feature_mocking_and_testing
+      - real_time_feature_testing
+      - visual_regression_testing_setup
+    success_criteria:
+      - all_cycles_complete: true
+      - tests_written_first: true
+      - minimal_implementation_achieved: true
+      - refactoring_applied: true
+      - zero_failing_tests: true
+      - fashion_features_tested: true
+    next_phase: full_implementation
+
+  # Phase 5: Enhanced Fashion Platform Implementation
+  - name: full_implementation
+    agent: "fashionable-girls-blog-enhanced-implementation-agent"
+    fallback_agent: impersonator-agent
+    final_fallback: implementation-agent
+    description: "Production-ready fashion platform implementation using enhanced MCP capabilities with intelligent 3-tier fallback system"
+    
+    # Agent Selection Priority (Updated)
+    agent_selection_priority:
+      - "fashionable-girls-blog-enhanced-implementation-agent"  # Primary: Project-specific enhanced agent
+      - "impersonator-agent"                                   # Fallback: Impersonate when enhanced not recognized
+      - "implementation-agent"                                 # Final fallback: Standard implementation
+    
+    agent_detection_paths:
+      enhanced_agent: ".claude/agents/coding/dynamic/fashionable-girls-blog-enhanced-implementation-agent.md"
+      mcp_setup_status: ".cc-deck/runtime/projects/fashionable-girls-blog/config/mcp-setup-complete.json"
+    
+    inputs: [test_suite, minimal_implementations, serena_context, refactored_code, fashion_feature_tests]
+    outputs:
+      - implementation_context
+      - production_code
+      - fashion_platform_features
+      - ai_enhanced_features
+      - mobile_optimized_components
+      - real_time_social_features
+      - edge_case_handling
+      - performance_optimizations
+      - quality_metrics
+      - best_practices_applied
+      - security_validations
+    
+    # Enhanced Fashion Platform Implementation Strategy
+    fashion_implementation_strategy:
+      primary_approach: "enhanced_mcp_integration_with_fashion_focus"
+      fallback_approach: "standard_implementation_with_research_support"
+      agent_selection_logic: "check_enhanced_agent_availability"
+      fail_safe_guarantee: true
+      mobile_first_approach: true
+      visual_first_content: true
+      ai_enhanced_features: true
+      real_time_social_features: true
+      performance_optimized: true
+    
+    # Enhanced vs Standard Implementation (Updated for Fashion)
+    enhanced_implementation:
+      condition: "enhanced_agent_available AND mcp_setup_complete"
+      agent: "fashionable-girls-blog-enhanced-implementation-agent"
+      capabilities:
+        - "Integrated 8 MCP tools access (Context7, DeepWiki, Brave Search, Vercel, Supabase, Playwright, AI/ML, Performance Monitoring)"
+        - "Real-time library documentation and API validation for fashion platform"
+        - "Repository pattern analysis and fashion platform best practices application"
+        - "Advanced code generation with fashion-specific MCP-enhanced context"
+        - "AI-powered fashion item tagging and recommendation systems"
+        - "Mobile-first responsive design with cross-device validation"
+        - "Real-time social feature implementation with performance monitoring"
+        - "Automatic performance optimization and security scanning"
+      
+      fashion_implementation_focus:
+        - "Leverage all 8 approved MCP tools for optimal fashion platform implementation"
+        - "Apply latest Next.js 15 and React 19 documentation from Context7"
+        - "Use DeepWiki for fashion platform implementation pattern analysis"
+        - "Integrate AI/ML tools for fashion-specific features (tagging, recommendations)"
+        - "Use Playwright for mobile-first cross-device testing"
+        - "Apply Vercel optimization strategies for fashion content delivery"
+        - "Implement Supabase real-time social features"
+        - "Monitor fashion platform performance with specialized analytics"
+        - "Maintain TDD foundation while enhancing with fashion-specific MCP capabilities"
+        - "Ensure production readiness with comprehensive fashion platform MCP support"
+    
+    standard_implementation:
+      condition: "enhanced_agent_unavailable OR mcp_setup_failed"
+      agent: "implementation-agent"
+      capabilities:
+        - "Standard TDD-based implementation approach"
+        - "Serena MCP integration for code generation"
+        - "Manual research and documentation lookup"
+        - "Standard quality assurance and testing practices"
+        - "Tasks.md progress tracking and checkbox updates"
+        - "Basic mobile-responsive implementation"
+      
+      implementation_focus:
+        - "Complete TDD implementation using existing test foundation"
+        - "Apply established coding patterns and best practices"
+        - "Implement basic fashion platform features without AI enhancement"
+        - "Ensure all tests remain passing throughout implementation"
+        - "Maintain code quality and production readiness standards"
+        - "Update tasks.md checkboxes as each task is completed"
+    
+    # Tasks.md Integration (Both Enhanced and Standard Agents)
+    task_management:
+      source: ".kiro/specs/fashionable-girls-blog/tasks.md"
+      tracking_strategy:
+        - "Load tasks.md at phase start to identify pending fashion platform tasks"
+        - "Parse checkbox format: '- [ ]' (pending) vs '- [x]' (completed)"
+        - "Execute fashion tasks sequentially or in dependency order"
+        - "Update checkbox immediately upon task completion"
+        - "Commit tasks.md updates after each task or batch completion"
+      
+      fashion_task_execution_flow:
+        1. "Read current tasks.md state for fashion platform phases"
+        2. "Identify next uncompleted fashion platform task(s)"
+        3. "Execute implementation for the fashion feature task"
+        4. "Run mobile-first tests to verify fashion feature implementation"
+        5. "Update checkbox from '- [ ]' to '- [x]'"
+        6. "Commit both code changes and tasks.md update"
+        7. "Proceed to next fashion task or report phase completion"
+      
+      fashion_progress_reporting:
+        - "Display completion percentage (e.g., Phase 4: 3/4 tasks = 75%)"
+        - "Show remaining fashion tasks count and estimated time"
+        - "Highlight blocked or dependent fashion tasks"
+        - "Generate fashion platform completion summary for human review"
+    
+    # Enhanced MCP Integration Strategy (Fashion Platform)
+    enhanced_mcp_integration:
+      condition: "enhanced_agent_available"
+      integrated_tools:
+        - "Context7 MCP: Next.js 15, React 19, Supabase library documentation"
+        - "DeepWiki MCP: Fashion platform repository pattern analysis"
+        - "Brave Search MCP: 2025 fashion development trends and best practices"
+        - "Vercel MCP: Fashion platform deployment and performance optimization"
+        - "Supabase MCP: Real-time social features and database optimization (via Context7)"
+        - "Playwright MCP: Mobile-first visual testing and cross-device validation"
+        - "AI/ML Tools MCP: Fashion item tagging, recommendations, content moderation"
+        - "Performance Monitoring MCP: Fashion platform analytics and Core Web Vitals"
+      
+      fashion_usage_optimization:
+        - "Priority-based MCP usage for fashion critical vs enhancement features"
+        - "Intelligent caching to minimize response times for fashion content"
+        - "Graceful degradation when fashion-specific MCP tools are unavailable"
+        - "Performance monitoring and timeout handling for fashion platform"
+      
+      fashion_fallback_mechanisms:
+        - "Context7 unavailable → Use cached Next.js 15 and React 19 documentation"
+        - "DeepWiki timeout → Rely on Serena patterns and standard fashion practices"
+        - "AI/ML Tools failure → Disable AI features, use manual fashion content processing"
+        - "Playwright unavailable → Use browser dev tools for mobile testing"
+        - "Performance Monitoring failure → Use built-in browser performance APIs"
+        - "All MCP failures → Switch to standard implementation-agent"
+    
+    # Fashion Platform Quality Assurance Integration
+    quality_assurance:
+      enhanced_monitoring:
+        condition: "enhanced_agent_available"
+        capabilities:
+          - "Real-time MCP-powered code quality analysis for fashion platform"
+          - "Automated library compatibility checking via Context7"
+          - "Fashion platform pattern compliance via DeepWiki"
+          - "AI-powered fashion content quality validation"
+          - "Mobile-first responsive design validation via Playwright"
+          - "Advanced security scanning with latest threat intelligence"
+      
+      fashion_monitoring:
+        condition: "fashion_platform_implementation"
+        capabilities:
+          - "Fashion platform Core Web Vitals monitoring"
+          - "Mobile performance optimization tracking"
+          - "AI feature accuracy and performance monitoring"
+          - "Real-time social feature latency monitoring"
+          - "Fashion content delivery optimization"
+      
+      unified_quality_gates:
+        entry_gate:
+          - tdd_foundation_validated: true
+          - agent_selection_completed: true
+          - mcp_setup_status_verified: true
+          - fashion_requirements_loaded: true
+        exit_gate:
+          - all_tests_passing: true
+          - code_coverage: ">= 90%"
+          - implementation_completeness: "100%"
+          - production_readiness: true
+          - fashion_features_implemented: true
+          - mobile_optimization_verified: true
+    
+    # Fashion Platform Success Criteria
+    success_criteria:
+      core_requirements:
+        - all_tests_passing: true
+        - feature_requirements_met: "100%"
+        - tdd_foundation_preserved: true
+        - implementation_completeness: "100%"
+        - fashion_platform_features_complete: true
+        
+      quality_standards:
+        - code_coverage: ">= 90%"
+        - code_quality_score: ">= 8.0"
+        - production_readiness: true
+        - error_handling_comprehensive: true
+        - mobile_optimization_verified: true
+        - accessibility_wcag_aa_compliant: true
+        
+      fashion_platform_benefits: 
+        condition: "enhanced_agent_used"
+        additional_criteria:
+          - "8 MCP tools integration successful: Context7, DeepWiki, Brave Search, Vercel, Supabase, Playwright, AI/ML, Performance Monitoring"
+          - "Latest fashion development practices applied from MCP research"
+          - "Advanced mobile performance optimization achieved"
+          - "Enhanced security scanning completed"
+          - "Fashion platform pattern alignment verified"
+          - "AI-powered fashion features operational"
+          - "Real-time social features implemented"
+    
+    next_phase: testing
+
+  # Phase 6: Testing (Enhanced for Fashion Platform)
+  - name: testing
+    agent: testing-agent
+    description: "Comprehensive testing strategy for fashion platform"
+    inputs: [implementation_context, fashion_platform_features]
+    outputs:
+      - test_results
+      - coverage_report
+      - fashion_feature_test_results
+      - mobile_test_results
+    test_types:
+      - unit_tests: true
+      - integration_tests: true
+      - e2e_tests: true
+      - mobile_responsive_tests: true
+      - ai_feature_tests: true
+      - real_time_feature_tests: true
+    fashion_testing_enhancements:
+      - mobile_first_testing: "iPhone SE to desktop range"
+      - visual_regression_testing: "Fashion content consistency"
+      - ai_feature_accuracy_testing: "Fashion tagging and recommendations"
+      - real_time_performance_testing: "Social feature latency"
+    success_criteria:
+      - tests_created: true
+      - tests_passing: true
+      - coverage_threshold_met: true
+      - fashion_features_tested: true
+      - mobile_optimization_verified: true
+    next_phase: execution_verification
+
+  # Phase 6.2: Execution Verification (Enhanced for Fashion)
+  - name: execution_verification
+    agent: execution-validator
+    description: "Validate fashion platform execution in development environment and detect runtime issues"
+    inputs: [implementation_context, test_results, fashion_feature_test_results]
+    outputs:
+      - execution_report
+      - runtime_issues_list
+      - basic_functionality_status
+      - environment_validation_results
+      - fashion_feature_validation_results
+    
+    # Fashion Platform Execution Validation Process
+    validation_steps:
+      - dependency_installation: "Install and verify all fashion platform dependencies"
+      - application_startup: "Attempt to start fashion platform using standard commands"
+      - runtime_monitoring: "Monitor logs for fashion platform errors, warnings, and exceptions"
+      - basic_functionality_test: "Execute core fashion platform user workflows manually"
+      - mobile_validation: "Test mobile responsiveness and touch interactions"
+      - ai_feature_validation: "Test AI-powered fashion features if available"
+      - real_time_feature_validation: "Test real-time social features"
+      - environment_dependency_check: "Validate external services and fashion platform configurations"
+      - issue_resolution: "Fix critical runtime issues preventing fashion platform execution"
+    
+    fashion_validation_criteria:
+      - application_starts_successfully: true
+      - no_critical_runtime_errors: true
+      - basic_functionality_accessible: true
+      - core_workflows_completable: true
+      - mobile_interface_responsive: true
+      - fashion_features_operational: true
+    
+    success_criteria:
+      - application_starts_successfully: true
+      - no_critical_runtime_errors: true
+      - basic_functionality_accessible: true
+      - core_workflows_completable: true
+      - fashion_platform_operational: true
+    
+    next_phase: specification_compliance_check
+
+  # Phase 6.5: Specification Compliance Check (Enhanced for Fashion)
+  - name: specification_compliance_check
+    agent: acceptance-reviewer
+    description: "Verify fashion platform implementation compliance with specifications and detect missing features"
+    inputs: [implementation_context, test_results, coverage_report, fashion_feature_validation_results]
+    outputs:
+      - compliance_report
+      - specification_gaps
+      - implementation_completeness_score
+      - missing_features_list
+      - fashion_platform_compliance_report
+    
+    # Fashion Platform Specification Verification Process
+    verification_process:
+      specification_analysis:
+        - "Load and parse .kiro/specs/fashionable-girls-blog directory specifications"
+        - "Extract fashion platform feature requirements and acceptance criteria"
+        - "Identify mandatory vs optional fashion features"
+        - "Map specifications to fashion platform implementation artifacts"
+      
+      fashion_implementation_verification:
+        - "Analyze implemented fashion platform code against specification requirements"
+        - "Verify API endpoints match fashion platform specification definitions"
+        - "Check data models align with fashion platform specification schemas"
+        - "Validate business logic matches specified fashion platform behavior"
+        - "Verify mobile-first responsive design implementation"
+        - "Check AI feature integration and accuracy"
+        - "Validate real-time social feature implementation"
+      
+      fashion_tasks_completion_check:
+        - "Parse tasks.md file for fashion platform completion status"
+        - "Verify all mandatory fashion platform tasks are marked complete"
+        - "Identify incomplete or skipped fashion tasks"
+        - "Cross-reference fashion tasks with actual implementation"
+      
+      fashion_gap_analysis:
+        - "Identify missing fashion features from specifications"
+        - "Detect implementation deviations from fashion platform requirements"
+        - "Flag incomplete or partial fashion implementations"
+        - "Generate prioritized fashion gap remediation plan"
+    
+    # Fashion Platform Decision Logic
+    decision_criteria:
+      completion_threshold:
+        mandatory_features: "100%"  # All mandatory fashion features must be implemented
+        optional_features: ">= 80%"  # Most optional fashion features should be implemented
+        tasks_completion: ">= 95%"   # Nearly all fashion tasks should be complete
+        specification_alignment: ">= 90%"  # High fashion platform specification alignment required
+        mobile_optimization: "100%"  # Mobile-first design must be complete
+      
+      fashion_quality_gates:
+        - "No critical fashion specification gaps identified"
+        - "All mandatory fashion API endpoints implemented"
+        - "Core fashion business logic fully implemented"
+        - "Data models match fashion platform specification requirements"
+        - "Authentication/authorization properly implemented"
+        - "Error handling meets fashion platform specification standards"
+        - "Mobile-first responsive design verified"
+        - "AI features operational with acceptable accuracy"
+        - "Real-time social features functional"
+    
+    success_criteria:
+      - specification_compliance: ">= 90%"
+      - mandatory_features_complete: "100%"
+      - critical_gaps_count: "0"
+      - tasks_completion_rate: ">= 95%"
+      - implementation_quality_score: ">= 8.0"
+      - fashion_platform_compliance: ">= 90%"
+
+    next_phase: documentation
+
+  # Phase 7: Documentation (Enhanced for Fashion Platform)
+  - name: documentation
+    agent: documentation-agent
+    description: "Generate comprehensive documentation for fashion platform"
+    inputs: [implementation_context, test_results, fashion_platform_compliance_report]
+    outputs:
+      - api_documentation
+      - usage_examples
+      - tutorials
+      - fashion_platform_documentation
+      - mobile_usage_guide
+    documentation_types:
+      - api_docs: true
+      - readme: true
+      - tutorials: true
+      - examples: true
+      - fashion_platform_guide: true
+      - mobile_optimization_guide: true
+    fashion_documentation_enhancements:
+      - fashion_platform_user_guide
+      - mobile_first_usage_examples
+      - ai_feature_documentation
+      - real_time_feature_guide
+      - deployment_guide_for_fashion_platform
+    success_criteria:
+      - documentation_complete: true
+      - examples_working: true
+      - fashion_platform_documented: true
+    next_phase: human_approval_coding
+
+  # Phase 8: Human Approval Checkpoint (Enhanced for Fashion)
+  - name: human_approval_coding
+    type: human_interaction
+    description: "Human review and approval of fashion platform coding workflow completion before proceeding to refactoring"
+    approval_scope:
+      - "Fashion platform code implementation quality and completeness"
+      - "Test coverage and TDD adherence (90%+ expected)"
+      - "Specification compliance verification results"
+      - "Documentation accuracy and comprehensiveness" 
+      - "Architecture alignment with fashion platform design specifications"
+      - "Performance and security considerations"
+      - "Mobile-first responsive design validation"
+      - "AI feature integration and accuracy"
+      - "Real-time social feature implementation"
+    review_materials:
+      - implementation_context
+      - test_results
+      - compliance_report
+      - api_documentation
+      - code_coverage_report
+      - fashion_platform_compliance_report
+    decision_options: [approved, approved_with_conditions, rejected, deferred]
+    stakeholders:
+      required: [technical_lead]
+      optional: [product_owner, qa_lead, fashion_platform_specialist]
+    timeout: 72 # hours
+    on_approval: 
+      next_workflow: refactoring
+    on_rejection:
+      rollback_to_phase: tdd_cycle
+      feedback_collection: true
+
+# Enhanced Error Handling and Recovery (Fashion Platform)
+error_handling:
+  retry_policy:
+    max_retries: 3
+    retry_delay: 15s
+    exponential_backoff: true
+    
+  recovery_strategies:
+    # Research Phase Failures (Enhanced)
+    research_mcp_failure:
+      action: fallback_to_local_research
+      fallback_sources: [cached_documentation, local_examples, fashion_platform_patterns]
+      timeout: 300s
+      
+    deepwiki_timeout:
+      action: switch_to_context7
+      max_attempts: 2
+      
+    fashion_research_failure:
+      action: use_standard_patterns
+      fallback_sources: [react_patterns, mobile_best_practices]
+      
+    # Planning Phase Failures (Enhanced)
+    architecture_validation_failure:
+      action: rollback_to_research
+      collect_additional_requirements: true
+      include_fashion_requirements: true
+      
+    # TDD Phase Failures (Enhanced)
+    serena_onboarding_failure:
+      action: manual_tdd_setup
+      create_fallback_config: true
+      notify: true
+      include_fashion_testing_setup: true
+      
+    tdd_cycle_failure:
+      action: preserve_tests_rollback_implementation
+      create_checkpoint: before_cycle
+      preserve_fashion_tests: true
+      
+    test_compilation_failure:
+      action: analyze_and_fix_syntax
+      max_auto_fix_attempts: 2
+      escalate_on_failure: true
+      
+    # Enhanced Implementation Phase Failures (Fashion Platform)
+    enhanced_agent_unavailable:
+      action: automatic_fallback_to_impersonator_agent
+      notification: "Using impersonator-agent for enhanced implementation delegation"
+      preserve_fashion_requirements: true
+      
+    mcp_critical_failure:
+      condition: ">=4 of 8 MCP tools unavailable"
+      action: fallback_to_standard_implementation_agent
+      notification: "Switching to standard implementation due to MCP unavailability"
+      preserve_tdd_foundation: mandatory
+      
+    fashion_ai_feature_failure:
+      action: disable_ai_features_continue_with_manual
+      graceful_degradation: true
+      user_notification: "AI features temporarily unavailable"
+      
+    real_time_feature_failure:
+      action: fallback_to_polling_based_updates
+      performance_monitoring: enabled
+      user_notification: "Real-time features degraded to polling"
+      
+    implementation_quality_gate_failure:
+      action: trigger_refactoring_cycle
+      preserve_tests: mandatory
+      preserve_fashion_features: true
+      
+    coverage_threshold_failure:
+      action: generate_additional_tests
+      target_coverage: ">= 90%"
+      focus_on_fashion_features: true
+      
+    mobile_optimization_failure:
+      action: revert_to_basic_responsive_design
+      ensure_mobile_functionality: true
+      preserve_core_features: true
+      
+    # Integration Failures (Enhanced)
+    mcp_service_degradation:
+      action: switch_to_backup_service
+      services:
+        serena: local_analysis_mode
+        deepwiki: cached_fallback
+        context7: offline_documentation
+        ai_ml_tools: manual_processing_mode
+        playwright: browser_dev_tools_fallback
+        performance_monitoring: built_in_browser_apis
+        
+    # Human Approval Failures (Enhanced)
+    approval_timeout:
+      action: send_escalation_notification
+      escalation_chain: [technical_lead, engineering_manager, fashion_platform_specialist]
+      timeout_extension: 24h
+      
+    approval_rejection:
+      action: analyze_feedback_and_rollback
+      feedback_analysis: automated
+      rollback_strategy: targeted_phase
+      preserve_fashion_work: true
+      
+    # Critical System Failures (Enhanced)
+    context_corruption:
+      action: restore_from_checkpoint
+      backup_source: latest_valid_checkpoint
+      preserve_fashion_context: true
+      
+    workflow_deadlock:
+      action: force_phase_transition
+      require_manual_approval: true
+      create_incident_report: true
+      include_fashion_context: true
+
+# Enhanced Quality Gates (Fashion Platform)
+quality_gates:
+  code_quality:
+    threshold: 7.5
+    metrics: [maintainability, readability, performance, mobile_optimization]
+  test_coverage:
+    line_coverage: ">= 90%"
+    branch_coverage: ">= 85%"
+    function_coverage: ">= 90%"
+    exclude_patterns: [test_files, mocks]
+  tdd_adherence:
+    test_first_percentage: ">= 100%"
+    red_green_refactor_cycles: "documented"
+    minimal_implementation_verified: true
+  documentation_completeness:
+    threshold: 90
+    api_coverage: ">= 95%"
+    check_api_coverage: true
+    fashion_platform_documentation: true
+  architecture_compliance:
+    design_alignment: true
+    dependency_validation: true
+    pattern_consistency: true
+    mobile_first_compliance: true
+  fashion_platform_quality:
+    mobile_performance_gate:
+      core_web_vitals_threshold: "all green"
+      mobile_responsiveness: "iPhone SE to desktop"
+      touch_interaction_optimization: "verified"
+    ai_features_quality_gate:
+      fashion_tagging_accuracy: ">= 85%"
+      recommendation_relevance: ">= 80%"
+      visual_search_precision: ">= 75%"
+    social_features_quality_gate:
+      real_time_latency: "< 100ms"
+      notification_delivery: ">= 99%"
+      concurrent_user_support: ">= 1000"
+
+# Enhanced Monitoring and Analytics (Fashion Platform)
+monitoring:
+  metrics:
+    # Phase Performance Metrics (Enhanced)
+    - phase_duration_research
+    - phase_duration_planning
+    - phase_duration_serena_onboarding
+    - phase_duration_tdd_cycle
+    - phase_duration_full_implementation
+    - phase_duration_testing
+    - phase_duration_documentation
+    
+    # TDD-Specific Metrics (Enhanced)
+    - tdd_cycle_count
+    - tdd_cycle_efficiency
+    - test_first_compliance_rate
+    - refactoring_frequency
+    - green_phase_duration
+    - red_phase_duration
+    
+    # Code Quality Metrics (Enhanced)
+    - test_coverage_progression
+    - code_quality_score_trend
+    - technical_debt_reduction
+    - cyclomatic_complexity_trend
+    - code_duplication_ratio
+    
+    # Implementation Progress (Enhanced)
+    - implementation_velocity
+    - feature_completion_rate
+    - bug_introduction_rate
+    - code_review_feedback_volume
+    
+    # Enhanced MCP Integration Performance
+    - context7_query_response_time
+    - deepwiki_query_response_time
+    - brave_search_query_response_time
+    - vercel_api_response_time
+    - playwright_test_execution_time
+    - ai_ml_processing_time
+    - performance_monitoring_overhead
+    
+    # Fashion Platform Specific Metrics
+    - fashion_feature_implementation_rate
+    - mobile_optimization_score
+    - ai_feature_accuracy_rate
+    - real_time_feature_latency
+    - fashion_platform_user_experience_score
+    
+    # Human Approval Metrics (Enhanced)
+    - approval_response_time
+    - approval_iteration_count
+    - feedback_resolution_time
+
+  alerts:
+    # Quality Degradation Alerts (Enhanced)
+    - test_coverage_drop: "> 5%"
+    - code_quality_regression: "> 0.5 points"
+    - tdd_compliance_violation: "< 95%"
+    - mobile_optimization_regression: "> 10%"
+    
+    # Performance Alerts (Enhanced)
+    - phase_duration_anomaly: "> 150% of baseline"
+    - implementation_velocity_drop: "> 30%"
+    - mcp_service_degradation: "> 5s response time"
+    - ai_feature_performance_degradation: "> 200% of baseline"
+    
+    # Process Alerts (Enhanced)
+    - approval_timeout_risk: "> 48 hours pending"
+    - critical_error_threshold: "> 3 errors per phase"
+    - dependency_conflict_detected: "any"
+    - fashion_feature_failure: "any critical fashion feature"
+
+# Enhanced Reporting Configuration (Fashion Platform)
+reporting:
+  formats:
+    - html: comprehensive_dashboard
+    - json: api_consumption
+    - markdown: documentation
+    - metrics: prometheus_format
+  
+  distribution:
+    - slack_channel: "#fashionable-girls-blog"
+    - email_list: "dev-team@company.com"
+    - dashboard_update: real_time
+    - metrics_export: continuous
+  
+  retention:
+    phase_metrics: 180_days
+    quality_metrics: 1_year
+    tdd_cycle_data: 90_days
+    approval_history: 2_years
+    performance_data: 1_year
+    fashion_platform_analytics: 1_year
+
+# Enhanced Progress Tracking Integration (Fashion Platform)
+progress_tracking:
+  tasks_md_sync:
+    real_time_update: true
+    checkbox_automation: true
+    progress_percentage: calculated
+    milestone_detection: automatic
+    fashion_milestone_tracking: true
+  
+  context_propagation:
+    state_checkpoints: every_phase
+    rollback_points: before_major_phases
+    audit_trail: comprehensive
+    fashion_context_preservation: true
+    
+  quality_checkpoints:
+    frequency: every_phase
+    automated_validation: true
+    human_review_triggers: quality_gate_failures
+    fashion_quality_validation: true
+
+# Fashion Platform Workflow Extensions Integration
+fashion_platform_extensions:
+  outfit_posting_pipeline:
+    - "AI-powered image analysis and tagging"
+    - "Mobile-first responsive upload interface"
+    - "Real-time social sharing and notifications"
+    - "Performance-optimized image delivery"
+  
+  social_interaction_system:
+    - "Real-time likes, comments, and follows"
+    - "Mobile-optimized interaction interfaces"
+    - "Push notifications for social activities"
+    - "Performance monitoring for real-time features"
+  
+  shopping_integration:
+    - "AI-powered product recommendations"
+    - "Affiliate link integration and tracking"
+    - "Price comparison and availability checking"
+    - "Mobile-optimized shopping experiences"
+
+# Integration Points (Enhanced)
+integrations:
+  enhanced_agent_activation:
+    condition: "enhanced_agent_available AND mcp_setup_complete"
+    verification_path: ".cc-deck/runtime/projects/fashionable-girls-blog/config/mcp-setup-complete.json"
+    
+  fallback_triggers:
+    - "Enhanced agent file not found"
+    - "MCP setup incomplete or failed"
+    - "Critical MCP services unavailable (≥4 of 8 tools)"
+    - "Enhanced agent execution errors"
+    
+  workflow_continuity:
+    primary: "fashionable-girls-blog-enhanced-implementation-agent"
+    secondary: "impersonator-agent (with delegation)"
+    final: "implementation-agent (standard workflow)"
+    
+  post_coding_workflows:
+    - refactoring:
+        condition: "context.code_quality_score < 8.0 OR fashion_optimization_needed"
+        trigger: automatic
+    - integration_testing:
+        condition: "context.api_endpoints > 0 OR real_time_features_implemented"
+        trigger: automatic
+    - acceptance:
+        condition: "always"
+        trigger: manual_approval
+
+# Supplementary Agents (Enhanced for Fashion Platform)
+supplementary_agents:
+  - name: deepwiki-research-solver
+    description: "Research fashion platform technical issues and find solutions during any phase"
+    availability: all_phases
+    primary_usage: implementation_phase
+    use_cases:
+      - "Troubleshooting fashion platform implementation errors and compilation issues"
+      - "Finding best practices for fashion platform technologies and frameworks"
+      - "Researching fashion-specific library solutions and patterns"
+      - "Understanding mobile-first framework patterns and architectural decisions"
+      - "Analyzing successful fashion platform implementation patterns from popular repositories"
+    mcp_integrations:
+      - deepwiki: "Fashion platform repository analysis and pattern extraction"
+      - context7: "Framework-specific documentation and solutions"
+      
+  - name: research-agent
+    description: "Comprehensive fashion platform technology research using multiple MCP integrations"
+    availability: all_phases
+    primary_usage: research_and_implementation_phases
+    use_cases:
+      - "Pre-implementation fashion platform technology stack validation"
+      - "Real-time best practices research during fashion platform implementation"
+      - "Security considerations and vulnerability analysis for fashion platforms"
+      - "Performance optimization techniques research for mobile fashion apps"
+      - "Library compatibility and version analysis for fashion platform stack"
+    mcp_integrations:
+      - context7: "Official library documentation and API references"
+      - deepwiki: "Community implementation patterns and examples"
+      - brave_search: "Latest trends, security updates, and community solutions"
+      
+  - name: code-quality-validator
+    description: "Continuous code quality validation and enhancement recommendations for fashion platform"
+    availability: implementation_and_testing_phases
+    primary_usage: implementation_phase
+    use_cases:
+      - "Real-time code quality monitoring and analysis"
+      - "Security vulnerability scanning and mitigation"
+      - "Performance benchmark validation and optimization"
+      - "Test coverage analysis and improvement recommendations"
+      - "Code documentation completeness assessment"
+      - "Fashion platform mobile optimization validation"
+      - "AI feature accuracy and performance validation"
+    quality_dimensions:
+      - functional_quality: "Requirements coverage and edge case handling"
+      - technical_quality: "Code complexity, maintainability, test coverage"
+      - security_quality: "Vulnerability scanning and best practices compliance"
+      - performance_quality: "Benchmark validation and optimization opportunities"
+      - documentation_quality: "API documentation and code comment completeness"
+      - fashion_platform_quality: "Mobile-first design, AI accuracy, real-time performance"

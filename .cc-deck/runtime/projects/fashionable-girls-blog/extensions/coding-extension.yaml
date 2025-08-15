@@ -1,0 +1,285 @@
+# Fashionable Girls Blog - Coding Workflow Extensions
+# Project-specific enhancements for the base coding workflow
+# Integrates enhanced-implementation-agent with 8 approved MCP tools
+
+name: fashionable-girls-blog-coding-extension
+description: Fashion platform coding workflow extensions with enhanced MCP integration
+version: "1.0.0"
+project_id: fashionable-girls-blog
+
+# Project-Specific Configuration
+project_context:
+  name: "Fashionable Girls Blog"
+  type: "fashion_social_platform"
+  target_audience: "Young women aged 18-35"
+  technology_stack:
+    framework: "Next.js 15"
+    frontend: "React 19, TypeScript 5.x"
+    styling: "Tailwind CSS 4.0.0-alpha"
+    database: "PostgreSQL with Supabase"
+    image_processing: "Cloudinary with AI-powered tagging"
+    search: "Algolia with fashion-specific indexing"
+    realtime: "Pusher Channels"
+    performance_targets:
+      first_contentful_paint: "< 1.5s"
+      mobile_optimization: true
+      test_coverage: "90%"
+      accessibility: "WCAG AA"
+
+# Enhanced Implementation Agent Configuration
+enhanced_agent:
+  agent_id: "fashionable-girls-blog-enhanced-implementation-agent"
+  agent_path: ".claude/agents/coding/dynamic/fashionable-girls-blog-enhanced-implementation-agent.md"
+  mcp_tools_count: 8
+  approved_mcp_tools:
+    essential_development:
+      - context7: "Next.js 15, React 19, Supabase documentation"
+      - deepwiki: "Fashion platform architectural patterns"
+      - brave_search: "2025 fashion development trends"
+    core_platform:
+      - vercel: "Deployment and performance optimization"
+      - supabase: "Real-time features and database optimization"
+      - playwright: "Visual testing and mobile validation"
+    quality_enhancement:
+      - ai_ml_tools: "Fashion item tagging and image analysis"
+      - performance_monitoring: "Fashion-specific metrics and analytics"
+
+# Phase Extensions (Override base workflow phases)
+phase_extensions:
+  # Phase 5 Enhancement: Full Implementation with Fashion-Specific Agent
+  - name: full_implementation
+    agent_overrides:
+      primary_agent: "fashionable-girls-blog-enhanced-implementation-agent"
+      fallback_agents:
+        - "impersonator-agent"
+        - "implementation-agent"
+    
+    # Fashion Platform Implementation Strategy
+    fashion_implementation_strategy:
+      mobile_first_approach: true
+      visual_first_content: true
+      ai_enhanced_features: true
+      real_time_social_features: true
+      performance_optimized: true
+      
+    # Enhanced MCP Integration for Fashion Platform
+    enhanced_mcp_features:
+      context7_integration:
+        - "Real-time Next.js 15 and React 19 documentation access"
+        - "Tailwind CSS 4.0 responsive design patterns"
+        - "Supabase real-time authentication and database patterns"
+      
+      deepwiki_integration:
+        - "Fashion platform architecture analysis"
+        - "Mobile-first component pattern research"
+        - "Social media platform implementation insights"
+      
+      ai_ml_integration:
+        - "Fashion item automatic tagging and categorization"
+        - "Visual search and recommendation systems"
+        - "Content moderation for fashion posts"
+      
+      playwright_integration:
+        - "Mobile-first responsive design testing"
+        - "Fashion content visual regression testing"
+        - "Cross-device validation (iPhone, iPad, desktop)"
+      
+      performance_integration:
+        - "Fashion platform Core Web Vitals optimization"
+        - "Image optimization for fashion content"
+        - "Real-time feature performance monitoring"
+    
+    # Fashion-Specific Success Criteria
+    fashion_success_criteria:
+      mobile_performance:
+        - first_contentful_paint: "< 1.5s"
+        - largest_contentful_paint: "< 2.0s"
+        - cumulative_layout_shift: "< 0.1"
+        - interaction_to_next_paint: "< 200ms"
+      
+      fashion_features:
+        - outfit_posting_system: "Complete with AI tagging"
+        - social_interactions: "Real-time likes, comments, follows"
+        - shopping_integration: "Affiliate links and price comparison"
+        - trend_discovery: "AI-powered trend analysis"
+      
+      quality_standards:
+        - test_coverage: ">= 90%"
+        - accessibility_score: "WCAG AA compliant"
+        - mobile_responsive: "iPhone SE to desktop"
+        - ai_accuracy: ">= 85% for fashion item recognition"
+
+# Fashion Platform Specific Workflows
+fashion_workflows:
+  outfit_posting_pipeline:
+    - "AI-powered image analysis and tagging"
+    - "Mobile-first responsive upload interface"
+    - "Real-time social sharing and notifications"
+    - "Performance-optimized image delivery"
+  
+  social_interaction_system:
+    - "Real-time likes, comments, and follows"
+    - "Mobile-optimized interaction interfaces"
+    - "Push notifications for social activities"
+    - "Performance monitoring for real-time features"
+  
+  shopping_integration:
+    - "AI-powered product recommendations"
+    - "Affiliate link integration and tracking"
+    - "Price comparison and availability checking"
+    - "Mobile-optimized shopping experiences"
+
+# Task Management Extensions
+task_management_extensions:
+  tasks_file_path: ".kiro/specs/fashionable-girls-blog/tasks.md"
+  progress_tracking:
+    real_time_updates: true
+    checkbox_automation: true
+    mcp_progress_enhancement: true
+    fashion_milestone_tracking: true
+  
+  fashion_specific_tasks:
+    phase_1_foundation: [1.1, 1.2, 1.3]
+    phase_2_backend: [2.1, 2.2]
+    phase_3_media_pipeline: [3.1, 3.2]
+    phase_4_core_ui: [4.1, 4.2, 4.3]
+    phase_5_social_features: [5.1, 5.2]
+    phase_6_shopping: [6.1, 6.2]
+    phase_7_advanced: [7.1, 7.2]
+    phase_8_testing_deployment: [8.1, 8.2, 8.3]
+
+# Quality Gates Extensions
+quality_gates_extensions:
+  fashion_platform_quality:
+    mobile_performance_gate:
+      core_web_vitals_threshold: "all green"
+      mobile_responsiveness: "iPhone SE to desktop"
+      touch_interaction_optimization: "verified"
+    
+    ai_features_quality_gate:
+      fashion_tagging_accuracy: ">= 85%"
+      recommendation_relevance: ">= 80%"
+      visual_search_precision: ">= 75%"
+    
+    social_features_quality_gate:
+      real_time_latency: "< 100ms"
+      notification_delivery: ">= 99%"
+      concurrent_user_support: ">= 1000"
+
+# Error Handling Extensions
+error_handling_extensions:
+  fashion_platform_errors:
+    ai_service_failures:
+      action: "Fallback to manual tagging interface"
+      graceful_degradation: true
+    
+    image_processing_failures:
+      action: "Queue for retry with alternative processing"
+      user_notification: "Processing in progress..."
+    
+    real_time_service_outages:
+      action: "Switch to polling-based updates"
+      performance_impact_monitoring: true
+    
+    mcp_tool_failures:
+      context7_unavailable:
+        action: "Use cached documentation"
+        impact: "Reduced development velocity"
+      
+      deepwiki_timeout:
+        action: "Use standard implementation patterns"
+        impact: "Less optimized architecture insights"
+      
+      ai_ml_tools_unavailable:
+        action: "Disable AI features, use manual workflows"
+        impact: "Reduced automation, manual content processing"
+
+# Performance Monitoring Extensions
+performance_monitoring_extensions:
+  fashion_specific_metrics:
+    user_engagement:
+      - outfit_post_interaction_rate
+      - social_feature_usage_rate
+      - shopping_conversion_rate
+      - trend_discovery_effectiveness
+    
+    mobile_performance:
+      - mobile_page_load_time
+      - image_loading_optimization
+      - touch_response_time
+      - mobile_battery_impact
+    
+    ai_feature_performance:
+      - image_tagging_processing_time
+      - recommendation_generation_speed
+      - visual_search_response_time
+      - content_moderation_efficiency
+    
+    real_time_feature_metrics:
+      - notification_delivery_time
+      - real_time_update_latency
+      - concurrent_connection_stability
+      - social_interaction_response_time
+
+# Deployment Extensions
+deployment_extensions:
+  fashion_platform_deployment:
+    environment_specific_config:
+      production:
+        - "Cloudinary production API keys"
+        - "Supabase production database"
+        - "Algolia production search index"
+        - "AI services production endpoints"
+      
+      staging:
+        - "Cloudinary staging environment"
+        - "Supabase staging database"
+        - "Algolia staging search index"
+        - "AI services staging endpoints"
+    
+    performance_optimization:
+      - "Next.js 15 App Router optimization"
+      - "Image optimization for fashion content"
+      - "Mobile-first responsive image delivery"
+      - "CDN configuration for global fashion audience"
+    
+    monitoring_setup:
+      - "Core Web Vitals monitoring"
+      - "Fashion platform analytics"
+      - "AI service performance tracking"
+      - "Real-time feature monitoring"
+
+# Integration Points
+integration_points:
+  enhanced_agent_activation:
+    condition: "enhanced_agent_available AND mcp_setup_complete"
+    verification_path: ".cc-deck/runtime/projects/fashionable-girls-blog/config/mcp-setup-complete.json"
+    
+  fallback_triggers:
+    - "Enhanced agent file not found"
+    - "MCP setup incomplete or failed"
+    - "Critical MCP services unavailable (≥4 of 8 tools)"
+    - "Enhanced agent execution errors"
+    
+  workflow_continuity:
+    primary: "fashionable-girls-blog-enhanced-implementation-agent"
+    secondary: "impersonator-agent (with delegation)"
+    final: "implementation-agent (standard workflow)"
+
+# Success Metrics
+success_metrics:
+  development_acceleration:
+    target: "50-60% faster implementation"
+    measurement: "Comparison with standard implementation-agent"
+  
+  quality_improvement:
+    test_coverage: ">= 90%"
+    mobile_performance: "All Core Web Vitals green"
+    accessibility: "WCAG AA compliance"
+    ai_feature_accuracy: ">= 85%"
+  
+  fashion_platform_excellence:
+    mobile_first_design: "Validated across iPhone SE to desktop"
+    real_time_features: "< 100ms latency"
+    ai_enhanced_features: "Operational with graceful degradation"
+    social_engagement: "Measurable user interaction improvements"
