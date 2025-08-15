@@ -15,7 +15,7 @@ CC-Deck (Claude Code Deck) workflow orchestration system implementing Workflow C
 │   │   ├── error-recovery.yaml  # Error handling standards
 │   │   ├── monitoring.yaml      # Monitoring & metrics
 │   │   ├── quality-assurance.yaml # Quality assurance
-│   │   └── workflow-engine.yaml # Workflow engine spec
+│   │   └── workflow-engine.md   # Workflow engine spec
 │   └── workflows/               # Workflow definitions
 │       ├── base/                # Base workflows (7 files)
 │       ├── dynamic/             # Dynamic project workflows

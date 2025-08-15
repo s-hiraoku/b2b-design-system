@@ -55,7 +55,7 @@ Current Structure Issues:
 │   │   ├── monitoring.yaml
 │   │   ├── quality-assurance.yaml
 │   │   ├── error-recovery.yaml
-│   │   └── workflow-engine.yaml
+│   │   └── workflow-engine.md
 │   └── schemas/                     # Data validation schemas
 │       ├── workflow-schema.json
 │       ├── context-schema.json
