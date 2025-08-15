@@ -6,6 +6,7 @@ allowed-tools: Task, Bash
 
 # CC-Deck Orchestrator
 
+
 Main entry point for CC-Deck Workflow Engine. Automatically analyzes current project state, selects optimal workflows with user confirmation, and ensures continuous execution from start to completion.
 
 ## 🎯 Core Mission
@@ -102,6 +103,12 @@ Bash("/dev-env-setup liquid-glass-tech-blog")  # THIS CAUSES ERROR!
 
 **CRITICAL**: The orchestrator MUST directly execute workflows by reading YAML definitions and executing phases sequentially. Never delegate to slash commands.
 
+**MANDATORY DYNAMIC PROJECT DETECTION**:
+1. FIRST: Detect current project_id from current directory or Smart Context
+2. THEN: Check if project-specific YAML exists: "../../.cc-deck/runtime/projects/{project_id}/workflows/generated/{workflow_name}-merged.yaml"
+3. IF EXISTS: Use project-specific enhanced agent (NOT impersonator-agent)
+4. IF NOT EXISTS: Fallback to base YAML
+
 ```bash
 # Save workflow selection and execution start to Smart Context (graceful fallback)
 Bash: "node .cc-deck/src/cli/smart-context-cli.js update-workflow $(basename $(pwd)) [selected_workflow] '{\"status\":\"started\"}' || echo 'Workflow started: [selected_workflow] (Smart Context unavailable)'"
@@ -123,14 +130,66 @@ The orchestrator MUST directly execute workflows by reading YAML files and execu
 
 **Mandatory Execution Process**:
 
-1. **Read YAML**: `Read: ".cc-deck/config/workflows/base/{workflow_name}.yaml"`
+1. **Read YAML**: MANDATORY priority-based workflow file selection:
+   ```bash
+   # Step 1: Detect current project_id dynamically
+   project_id=$(basename $(pwd))
+   
+   # Step 2: Try project-specific merged YAML first
+   project_yaml="../../.cc-deck/runtime/projects/${project_id}/workflows/generated/{workflow_name}-merged.yaml"
+   if [ -f "$project_yaml" ]; then
+       Read: "$project_yaml"
+       echo "✅ Using project-specific workflow: $project_yaml"
+   else
+       # Step 3: Fallback to base YAML
+       base_yaml=".cc-deck/config/workflows/base/{workflow_name}.yaml"
+       Read: "$base_yaml"
+       echo "⚠️ Using base workflow: $base_yaml"
+   fi
+   ```
 2. **Extract project_id**: From user argument or Smart Context
 3. **Execute phases sequentially**: For each phase in the YAML:
-   - If `agent: {agent_name}`: Execute `Task(subagent_type="{agent_name}", ...)`
+   - If `agent: {agent_name}`: Execute `Task(subagent_type="{agent_name}", description="{phase_description}", prompt="{detailed_phase_instructions}")`
+   - Pass phase inputs/outputs to maintain context between phases
+   - Monitor success_criteria and handle phase failures according to YAML error_handling
    - If `type: human_interaction`: Present Y/R/S approval format
    - Update Smart Context after each phase
 4. **Handle dependencies**: Pass outputs between phases
 5. **Error handling**: Use YAML fallback strategies
+
+**Implementation Example for Coding Workflow**:
+```bash
+# CRITICAL: MANDATORY dynamic project detection and YAML priority implementation
+
+# Step 1: Detect project_id dynamically
+project_id=$(basename $(pwd))
+echo "🔍 Detected project: $project_id"
+
+# Step 2: Check for project-specific YAML first
+project_yaml="../../.cc-deck/runtime/projects/${project_id}/workflows/generated/coding-merged.yaml"
+Bash: "[ -f '$project_yaml' ] && echo 'Project-specific YAML found' || echo 'Project-specific YAML not found'"
+
+# Step 3: Read appropriate YAML based on existence
+if [ -f "$project_yaml" ]; then
+    Read: "$project_yaml"
+    echo "✅ Using project-specific workflow with enhanced agents"
+else
+    Read: ".cc-deck/config/workflows/base/coding.yaml"
+    echo "⚠️ Using base workflow with standard agents"
+fi
+
+# Step 4: Execute phases using agents from the loaded YAML
+Task(subagent_type="research-agent", description="Technology research", prompt="Research technology stack and best practices for {project_id}")
+Task(subagent_type="planning-agent", description="Strategic planning", prompt="Develop architecture and implementation strategy based on research results")
+Task(subagent_type="serena-onboarding-agent", description="TDD environment setup", prompt="Initialize Serena MCP and establish TDD patterns")
+Task(subagent_type="tdd-agent", description="TDD cycles", prompt="Execute Red-Green-Refactor cycles following t-wada methodology")
+# Use appropriate agent based on loaded YAML:
+# - If project-specific YAML: use {project_id}-enhanced-implementation-agent
+# - If base YAML: use impersonator-agent or implementation-agent
+Task(subagent_type="{agent_from_loaded_yaml}", description="Implementation phase", prompt="Production-ready implementation using available capabilities")
+Task(subagent_type="testing-agent", description="Comprehensive testing", prompt="Execute testing strategy with coverage validation")
+# Continue through all phases...
+```
 6. **Chain workflows**: Proceed to next workflow after approval
 
 **Concrete dev-env-setup Execution Example**:
@@ -363,18 +422,20 @@ Bash: "node .cc-deck/src/cli/smart-context-cli.js update-preferences --project-i
 - **user-interaction-reminder**: Ensures proper human-AI interaction protocols
 - **project-state-analyzer**: Comprehensive project analysis and recommendations
 
-### Command Delegation:
+### Direct Phase Execution:
 
-- **Specialized Commands**: Each workflow has dedicated implementation command
-- **Context Sharing**: State preserved between command executions
-- **Clean Separation**: Orchestrator handles flow, commands handle execution
-- **Consistent Interface**: All commands follow CC-Deck standards
+- **YAML-Driven Phases**: Each phase executed directly via Task() calls to specialized agents
+- **Context Propagation**: State preserved between phases using inputs/outputs
+- **Autonomous Execution**: Orchestrator handles both flow and execution without user intervention
+- **Agent Integration**: All agents accessible via Task() subagent_type parameter
 
-### ⚠️ CRITICAL: Workflow Command Execution
+### ⚠️ CRITICAL: Direct YAML Workflow Execution
 
-- **Slash commands are NOT Bash commands**: Never use Bash() to execute /workflow commands
-- **Output commands as text**: Present workflow commands for user execution
-- **Correct format**: Output "/dev-env-setup project-name" as text, not Bash("/dev-env-setup project-name")
-- **User executes commands**: The user will copy and execute the slash command in Claude Code
+- **Project-specific YAML priority**: ALWAYS check `.cc-deck/runtime/projects/{project_id}/workflows/generated/{workflow_name}-merged.yaml` FIRST
+- **Direct YAML execution**: Read YAML workflow definitions and execute phases directly using Task() calls
+- **NO slash command delegation**: Never output slash commands for user execution
+- **Sequential phase execution**: Execute each phase in the YAML using Task(subagent_type="{agent_name}", ...)
+- **Autonomous operation**: Complete workflows without requiring user to execute additional commands
+- **Enhanced agent usage**: Use project-specific enhanced agents when available (e.g., {project_id}-enhanced-implementation-agent)
 
 This refactored orchestrator maintains the essential functionality while dramatically simplifying the implementation and ensuring clean separation of concerns according to CC-Deck Workflow Engine specifications.

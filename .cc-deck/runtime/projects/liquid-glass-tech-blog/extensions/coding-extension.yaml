@@ -1,0 +1,295 @@
+# Coding Extension Configuration for liquid-glass-tech-blog
+# Project-specific enhancements and MCP integrations
+
+extension_id: liquid-glass-tech-blog-coding-extension
+project_id: liquid-glass-tech-blog
+extension_version: "1.2.0"
+created_date: "2025-08-15T13:00:00Z"
+cc_deck_root: "/Volumes/SSD/development/cc-deck"
+
+# Enhanced Agent Configuration
+enhanced_agents:
+  liquid-glass-tech-blog-enhanced-implementation-agent:
+    path: "/Volumes/SSD/development/cc-deck/.claude/agents/coding/dynamic/liquid-glass-tech-blog-enhanced-implementation-agent.md"
+    priority: "primary"
+    fallback_agent: "implementation-agent"
+    final_fallback: "implementation-agent"
+    operational_status: true
+    
+    # MCP Integration Configuration
+    mcp_tools:
+      critical_path:
+        - name: "deepwiki"
+          tools: ["read_wiki_structure", "read_wiki_contents", "ask_question"]
+          priority: "critical"
+          use_cases: ["repository_analysis", "pattern_extraction", "problem_solving"]
+          
+        - name: "context7"
+          tools: ["resolve-library-id", "get-library-docs"]
+          priority: "critical"
+          use_cases: ["library_documentation", "api_validation", "up_to_date_docs"]
+          
+      enhancement_path:
+        - name: "playwright"
+          tools: [
+            "browser_navigate", "browser_click", "browser_type", "browser_take_screenshot",
+            "browser_evaluate", "browser_wait_for", "browser_snapshot", "browser_close",
+            "browser_resize", "browser_console_messages", "browser_handle_dialog",
+            "browser_file_upload", "browser_install", "browser_press_key",
+            "browser_navigate_back", "browser_navigate_forward", "browser_network_requests",
+            "browser_drag", "browser_hover", "browser_select_option", "browser_tab_list",
+            "browser_tab_new", "browser_tab_select", "browser_tab_close"
+          ]
+          priority: "high"
+          use_cases: ["e2e_testing", "ui_validation", "visual_regression", "performance_testing"]
+          
+        - name: "vercel"
+          tools: [
+            "search_vercel_documentation", "list_projects", "get_project",
+            "list_deployments", "get_deployment", "get_deployment_events", "list_teams"
+          ]
+          priority: "high"
+          use_cases: ["deployment_monitoring", "team_management", "documentation_access"]
+          
+        - name: "brave_search"
+          tools: ["brave_web_search", "brave_local_search"]
+          priority: "medium"
+          use_cases: ["latest_technology_research", "performance_optimization", "best_practices"]
+
+# Phase Enhancements
+phase_enhancements:
+  full_implementation:
+    primary_agent: "liquid-glass-tech-blog-enhanced-implementation-agent"
+    fallback_agent: "implementation-agent"
+    selection_logic: "dynamic_agent_resolution_with_mcp_validation"
+    
+    enhanced_capabilities:
+      performance_optimization:
+        - "Core Web Vitals monitoring and optimization (LCP <2.5s, INP <200ms, CLS <0.1)"
+        - "GPU-accelerated liquid glass effects targeting 60fps"
+        - "Next.js 15 App Router optimization with Vercel Edge Runtime"
+        - "Asset optimization pipeline for responsive images"
+        
+      testing_automation:
+        - "Playwright E2E testing for critical user journeys"
+        - "Visual regression testing with screenshot comparison"
+        - "Cross-browser compatibility validation"
+        - "Automated accessibility testing (WCAG 2.1 AA compliance)"
+        
+      documentation_integration:
+        - "Context7 MCP for @developer-hub/liquid-glass component documentation"
+        - "Vercel MCP for deployment and optimization documentation"
+        - "DeepWiki MCP for Next.js 15 and React 19 best practices"
+        - "Brave Search MCP for latest performance optimization techniques"
+        
+      technology_integration:
+        - "Next.js 15 with React 19 Server Components optimization"
+        - "TypeScript 5.x strict mode with advanced type safety"
+        - "@developer-hub/liquid-glass component integration"
+        - "shadcn/ui integration with liquid glass design system"
+
+# MCP Integration Strategy
+mcp_integration:
+  setup_status_file: "/Volumes/SSD/development/cc-deck/.cc-deck/runtime/projects/liquid-glass-tech-blog/config/mcp-setup-complete.json"
+  required_for_enhanced_mode: true
+  graceful_degradation: true
+  
+  operational_mcps: 5
+  critical_mcps: 2  # deepwiki, context7
+  minimum_threshold: 4  # Need at least 4 of 5 operational
+  
+  # Performance Configuration
+  performance_optimization:
+    caching_enabled: true
+    caching_strategy:
+      deepwiki_responses: "2_hour_cache"
+      context7_docs: "1_hour_cache"
+      playwright_screenshots: "regression_testing_storage"
+      vercel_documentation: "1_hour_cache"
+      brave_search_results: "30_minute_cache"
+    
+    parallel_processing:
+      research_operations: true
+      testing_operations: true
+      deployment_validation: true
+    
+    timeout_configuration:
+      deepwiki_timeout: "30s"
+      context7_timeout: "20s"
+      playwright_timeout: "60s"
+      vercel_timeout: "30s"
+      brave_search_timeout: "15s"
+
+# Fallback Configuration
+fallback_mechanisms:
+  enhanced_agent_unavailable:
+    action: "fallback_to_implementation_agent"
+    preserve_enhanced_config: true
+    notification: "Using implementation-agent due to enhanced agent unavailability"
+    
+  mcp_service_degradation:
+    thresholds:
+      critical_failure: "less_than_2_critical_mcps_available"
+      degraded_performance: "less_than_4_of_5_mcps_available"
+      fallback_trigger: "less_than_3_of_5_mcps_available"
+    
+    fallback_strategies:
+      deepwiki_unavailable: "manual_repository_analysis_and_cached_documentation"
+      context7_unavailable: "offline_documentation_and_manual_library_research"
+      playwright_unavailable: "manual_testing_with_browser_devtools"
+      vercel_unavailable: "manual_deployment_with_performance_logs"
+      brave_search_unavailable: "manual_research_and_cached_documentation"
+    
+    recovery_actions:
+      partial_degradation: "continue_with_available_mcps"
+      critical_degradation: "switch_to_implementation_agent"
+      total_failure: "immediate_fallback_to_implementation_agent"
+
+# Quality Assurance Integration
+quality_assurance:
+  enhanced_monitoring:
+    condition: "enhanced_agent_available"
+    capabilities:
+      performance_monitoring:
+        - "Real-time Core Web Vitals tracking via Vercel MCP"
+        - "GPU acceleration monitoring for liquid glass effects"
+        - "Lighthouse score progression tracking"
+        - "Asset optimization efficiency monitoring"
+      
+      automated_testing:
+        - "Playwright E2E testing for critical user journeys"
+        - "Visual regression detection with screenshot comparison"
+        - "Accessibility testing automation (WCAG 2.1 AA)"
+        - "Cross-browser compatibility validation"
+      
+      code_quality:
+        - "MCP-powered code quality analysis"
+        - "Context7 library compatibility checking"
+        - "DeepWiki repository pattern compliance"
+        - "Latest best practices via Brave Search"
+  
+  quality_gates:
+    entry_gate:
+      - enhanced_agent_available: true
+      - mcp_setup_verified: true
+      - minimum_mcp_threshold_met: true
+    
+    progress_gates:
+      performance_gate:
+        - core_web_vitals_green: true
+        - gpu_acceleration_validated: true
+        - lighthouse_scores_meeting_targets: true
+      
+      testing_gate:
+        - playwright_e2e_tests_passing: true
+        - visual_regression_tests_passed: true
+        - accessibility_compliance_verified: true
+    
+    exit_gate:
+      - all_tests_passing: true
+      - core_web_vitals_optimized: true
+      - cross_browser_validated: true
+      - accessibility_compliance_verified: true
+      - performance_budget_met: true
+
+# Performance Requirements
+performance_requirements:
+  core_web_vitals:
+    lcp: "< 2.5s"
+    inp: "< 200ms"
+    cls: "< 0.1"
+  
+  lighthouse_scores:
+    performance: ">= 95"
+    accessibility: ">= 95"
+    best_practices: ">= 95"
+    seo: ">= 95"
+  
+  gpu_acceleration: "60fps_target_met"
+  test_coverage:
+    line_coverage: ">= 95%"
+    branch_coverage: ">= 90%"
+    function_coverage: ">= 95%"
+    e2e_coverage: ">= 80%"
+    accessibility_coverage: "100%"
+
+# Tasks.md Integration
+task_management:
+  source: "/Volumes/SSD/development/cc-deck/.kiro/specs/liquid-glass-tech-blog/tasks.md"
+  enhanced_tracking: true
+  
+  tracking_strategy:
+    - "Load tasks.md with MCP-enhanced context awareness"
+    - "Parse checkbox format with dependency tracking"
+    - "Execute tasks with performance monitoring integration"
+    - "Update checkboxes with automated validation"
+    - "Commit updates with deployment automation"
+  
+  execution_flow:
+    1. "Read current tasks.md state with enhanced context"
+    2. "Identify next uncompleted task(s) with priority analysis"
+    3. "Execute implementation with MCP tool integration"
+    4. "Run tests with Playwright E2E validation"
+    5. "Monitor performance with Vercel analytics"
+    6. "Update checkbox from '- [ ]' to '- [x]' with deployment check"
+    7. "Commit both code changes and tasks.md updates"
+    8. "Proceed to next task with performance validation"
+
+# Success Criteria
+success_criteria:
+  core_requirements:
+    - enhanced_agent_operational: true
+    - mcp_integration_successful: true
+    - minimum_mcp_threshold_exceeded: true
+    - fallback_systems_ready: true
+    
+  liquid_glass_specific:
+    - core_web_vitals_optimized: true
+    - gpu_acceleration_effective: true
+    - accessibility_compliance_verified: true
+    - cross_browser_compatibility: true
+    
+  automation_criteria:
+    - playwright_e2e_testing_operational: true
+    - visual_regression_testing_active: true
+    - performance_monitoring_continuous: true
+    - deployment_automation_functional: true
+    
+  integration_criteria:
+    - context7_documentation_access: true
+    - deepwiki_pattern_analysis: true
+    - vercel_deployment_monitoring: true
+    - brave_search_research_capability: true
+
+# Monitoring and Analytics
+monitoring:
+  enhanced_metrics:
+    - mcp_tool_response_times
+    - enhanced_agent_selection_time
+    - performance_optimization_effectiveness
+    - cross_browser_validation_duration
+    - accessibility_compliance_rate
+    
+  alerts:
+    - mcp_integration_failure: "> 20% of tools unavailable"
+    - performance_regression: "Core Web Vitals degradation > 10%"
+    - enhanced_agent_unavailability: "Enhanced agent execution failure"
+    - playwright_test_failures: "> 10% test failure rate"
+    - deepwiki_response_degradation: "> 5s response time"
+    
+  notifications:
+    - enhanced_agent_activated
+    - mcp_integration_complete
+    - performance_optimization_milestone
+    - cross_browser_validation_complete
+    - accessibility_compliance_verified
+
+# Validation Results
+validation_results:
+  setup_complete: true
+  enhanced_agent_accessible: true
+  mcp_tools_operational: true
+  fallback_mechanisms_configured: true
+  workflow_integration_ready: true
+  performance_optimizations_applied: true
+  quality_gates_configured: true

@@ -1,12 +1,13 @@
-# Merged Coding Workflow for liquid-glass-tech-blog
-# Enhanced workflow integrating base coding.yaml with project-specific enhancements
+# Comprehensive Coding Workflow - Merged for liquid-glass-tech-blog
+# End-to-end development workflow with research, planning, implementation, testing, and documentation
+# Enhanced with liquid-glass-tech-blog-enhanced-implementation-agent and 3-tier fallback strategy
 
-name: coding-workflow-liquid-glass-tech-blog-enhanced
-description: Complete development workflow with enhanced MCP integrations and liquid-glass-tech-blog optimizations
+name: coding-workflow-merged
+description: Complete development workflow with MCP integrations, Smart Context Propagation, and enhanced liquid-glass-tech-blog agent
 version: "1.0.0"
 project_id: liquid-glass-tech-blog
 
-# Smart Context Schema (inherited from base)
+# Smart Context Schema
 context_schema:
   research_context:
     technologies: array[string]
@@ -20,16 +21,10 @@ context_schema:
     code_generated: array[object]
     test_coverage: number
     quality_metrics: object
-  # Enhanced context for liquid-glass-tech-blog
-  enhanced_implementation_context:
-    mcp_integration_status: object
-    performance_metrics: object
-    liquid_glass_optimizations: array[object]
-    deployment_automation: object
 
-# Workflow Definition (Enhanced)
+# Workflow Definition
 phases:
-  # Phase 1: Research (inherited from base)
+  # Phase 1: Research
   - name: research
     agent: research-agent
     description: "Technology research using MCP integrations"
@@ -49,7 +44,7 @@ phases:
       - technology_stack_identified: true
     next_phase: planning
 
-  # Phase 2: Strategic Planning (inherited from base)
+  # Phase 2: Strategic Planning
   - name: planning
     agent: planning-agent
     description: "Develop architecture and implementation strategy"
@@ -63,7 +58,7 @@ phases:
       - implementation_plan_created: true
     next_phase: serena_onboarding
 
-  # Phase 3: TDD Serena Onboarding & Environment Setup (inherited from base)
+  # Phase 3: TDD Serena Onboarding & Environment Setup
   - name: serena_onboarding
     agent: serena-onboarding-agent
     description: "Initialize Serena MCP and establish TDD development environment"
@@ -87,7 +82,7 @@ phases:
       - test_framework_ready: true
     next_phase: tdd_cycle
 
-  # Phase 4: TDD Red-Green-Refactor Cycle (inherited from base)
+  # Phase 4: TDD Red-Green-Refactor Cycle
   - name: tdd_cycle
     agent: tdd-agent
     description: "Execute strict TDD Red-Green-Refactor cycles following t-wada methodology"
@@ -112,25 +107,23 @@ phases:
       - zero_failing_tests: true
     next_phase: full_implementation
 
-  # Phase 5: Enhanced Implementation (MERGED WITH ENHANCEMENTS)
+  # Phase 5: Enhanced Implementation with 3-Tier Fallback Strategy
   - name: full_implementation
-    # ENHANCED AGENT SELECTION LOGIC
     agent: liquid-glass-tech-blog-enhanced-implementation-agent
     fallback_agent: impersonator-agent
     final_fallback: implementation-agent
-    description: "Production-ready implementation using enhanced MCP capabilities for liquid-glass-tech-blog with intelligent fallback system"
+    description: "Production-ready implementation using liquid-glass-tech-blog enhanced agent with intelligent 3-tier fallback system"
     
-    # ENHANCED AGENT SELECTION PRIORITY
+    # 3-Tier Agent Selection Priority
     agent_selection_priority:
-      - "liquid-glass-tech-blog-enhanced-implementation-agent"  # Enhanced agent with 8 MCP tools
-      - "impersonator-agent"                                    # Smart detection and dynamic execution
-      - "implementation-agent"                                   # Final fallback to standard
+      - "liquid-glass-tech-blog-enhanced-implementation-agent"  # Primary: Project-specific enhanced agent
+      - "impersonator-agent"                                    # Fallback: Impersonate when enhanced not recognized
+      - "implementation-agent"                                  # Final fallback: Standard implementation
     
-    # ENHANCED AGENT DETECTION PATHS
+    # Agent Detection and Configuration
     agent_detection_paths:
       enhanced_agent: ".claude/agents/coding/dynamic/liquid-glass-tech-blog-enhanced-implementation-agent.md"
-      mcp_setup_status: "/Volumes/SSD/development/cc-deck/.cc-deck/runtime/projects/liquid-glass-tech-blog/config/mcp-setup-complete.json"
-      extension_config: "/Volumes/SSD/development/cc-deck/.cc-deck/runtime/projects/liquid-glass-tech-blog/extensions/coding-extension.yaml"
+      mcp_setup_status: ".cc-deck/runtime/projects/liquid-glass-tech-blog/config/mcp-setup-complete.json"
     
     inputs: [test_suite, minimal_implementations, serena_context, refactored_code]
     outputs:
@@ -141,222 +134,145 @@ phases:
       - quality_metrics
       - best_practices_applied
       - security_validations
-      # ENHANCED OUTPUTS
-      - enhanced_implementation_context
-      - mcp_integration_results
-      - performance_monitoring_data
-      - deployment_automation_results
-      - liquid_glass_optimizations
     
-    # ENHANCED IMPLEMENTATION STRATEGY
+    # Enhanced Implementation Strategy
     implementation_strategy:
-      primary_approach: "enhanced_mcp_integration_with_liquid_glass_optimization"
-      fallback_approach: "impersonator_agent_with_enhanced_detection"
+      primary_approach: "enhanced_mcp_integration"
+      fallback_approach: "impersonator_delegation"
       final_fallback_approach: "standard_implementation_with_research_support"
-      agent_selection_logic: "check_enhanced_agent_availability_with_mcp_validation"
+      agent_selection_logic: "check_enhanced_agent_availability_with_3tier_fallback"
       fail_safe_guarantee: true
-      project_specific_optimizations: true
     
-    # ENHANCED IMPLEMENTATION (liquid-glass-tech-blog specific)
+    # Enhanced vs Fallback Implementation Strategies
     enhanced_implementation:
       condition: "enhanced_agent_available AND mcp_setup_complete"
       agent: "liquid-glass-tech-blog-enhanced-implementation-agent"
       capabilities:
-        # Core MCP integrations
-        - "Integrated MCP tool access: Serena, Context7, DeepWiki"
-        - "Real-time library documentation and API validation"
-        - "Repository pattern analysis and best practices application"
+        - "Integrated 5 operational MCP tools (DeepWiki, Context7, Playwright, Vercel, Brave Search)"
+        - "Next.js 15 App Router specialized patterns and optimizations"
+        - "Liquid glass design system integration with @developer-hub/liquid-glass"
+        - "Real-time library documentation and API validation via Context7"
+        - "Repository pattern analysis and best practices via DeepWiki"
+        - "Visual regression testing and E2E automation via Playwright"
         - "Advanced code generation with MCP-enhanced context"
-        
-        # Project-specific MCP integrations (8 approved tools)
-        - "Vercel deployment automation with Core Web Vitals monitoring"
-        - "GitHub CI/CD workflow automation and repository management"
-        - "Cloudinary image optimization and CDN asset pipeline"
-        - "Playwright E2E testing and visual regression detection"
-        - "OpenAI AI-powered content generation and design concepts"
-        - "BrowserStack cross-browser and device compatibility testing"
-        - "Tailwind Designer CSS optimization and liquid glass utilities"
-        - "Buildkite advanced CI/CD pipeline optimization"
+        - "Automated performance optimization and Core Web Vitals monitoring"
+        - "TDD-first liquid glass component development"
       
-      # LIQUID-GLASS-TECH-BLOG SPECIFIC IMPLEMENTATION FOCUS
       implementation_focus:
-        performance_optimization:
-          - "Core Web Vitals monitoring and optimization (LCP <2.5s, FID <100ms, CLS <0.1)"
-          - "GPU-accelerated liquid glass effects targeting 60fps"
-          - "Next.js 15 App Router optimization with Vercel Edge Runtime"
-          - "Cloudinary asset optimization pipeline for responsive images"
-          
-        deployment_automation:
-          - "Automated Vercel deployment with performance validation gates"
-          - "GitHub Actions workflow automation for CI/CD"
-          - "Buildkite advanced pipeline for complex build requirements"
-          - "Real-time performance monitoring and alerting"
-          
-        visual_excellence:
-          - "OpenAI DALL-E 3 integration for AI-generated hero images"
-          - "Cloudinary transformation pipeline for responsive assets"
-          - "Liquid glass design system with shadcn/ui integration"
-          - "Tailwind CSS 4 optimization with custom utility generation"
-          
-        quality_assurance:
-          - "Playwright E2E testing for critical user journeys"
-          - "BrowserStack cross-browser compatibility validation"
-          - "Automated accessibility testing (WCAG 2.1 AA compliance)"
-          - "Visual regression testing with screenshot comparison"
-          
-        technology_integration:
-          - "Next.js 15 with React 19 Server Components optimization"
-          - "TypeScript 5.x strict mode with advanced type safety"
-          - "@developer-hub/liquid-glass component integration"
-          - "Serena MCP for intelligent code generation and memory"
+        - "Leverage all 5 operational MCP tools for optimal liquid-glass-tech-blog implementation"
+        - "Apply latest Next.js 15 and React 19 documentation from Context7"
+        - "Use DeepWiki for Next.js and React implementation pattern analysis"
+        - "Maintain TDD foundation while enhancing with liquid glass design capabilities"
+        - "Ensure production readiness with comprehensive MCP support and 95% test coverage"
+        - "Optimize Core Web Vitals (LCP <2.5s, INP <200ms, CLS <0.1) with Playwright validation"
     
-    # STANDARD IMPLEMENTATION (enhanced fallback via impersonator-agent)
-    impersonator_implementation:
-      condition: "enhanced_agent_unavailable BUT impersonator_agent_can_detect_and_execute"
+    impersonator_fallback:
+      condition: "enhanced_agent_unavailable OR impersonator_detection_triggered"
       agent: "impersonator-agent"
-      execution_strategy: "detect_and_execute_enhanced_agent_capabilities"
       capabilities:
-        - "Smart detection of enhanced agent configuration"
-        - "Execution of enhanced agent instructions when possible"
-        - "Graceful degradation to available MCP tools"
-        - "Maintain enhanced workflow patterns where feasible"
+        - "Smart detection of enhanced agent unavailability or execution issues"
+        - "Intelligent delegation to implementation-agent when enhanced agent fails"
+        - "Context preservation during agent transition"
+        - "Graceful degradation with minimal workflow disruption"
+        - "Enhanced agent behavior simulation where possible"
+        - "Automatic fallback trigger and status reporting"
       
       implementation_focus:
-        - "Attempt to execute enhanced liquid-glass-tech-blog implementation"
-        - "Use available MCP tools for performance optimization"
-        - "Apply liquid glass design patterns with available resources"
-        - "Maintain TDD foundation while enhancing with available MCPs"
-        - "Ensure production readiness with enhanced capabilities when possible"
+        - "Detect liquid-glass-tech-blog-enhanced-implementation-agent availability"
+        - "Attempt enhanced agent execution with failure detection"
+        - "Delegate to implementation-agent if enhanced agent fails or unavailable"
+        - "Preserve TDD foundation and task progress during transition"
+        - "Maintain project quality standards through intelligent fallback"
     
-    # FINAL FALLBACK (standard implementation)
     standard_implementation:
-      condition: "enhanced_agent_unavailable AND impersonator_agent_unavailable"
+      condition: "enhanced_agent_unavailable AND impersonator_fallback_triggered"
       agent: "implementation-agent"
       capabilities:
         - "Standard TDD-based implementation approach"
-        - "Serena MCP integration for code generation"
+        - "Reliable implementation with existing toolset"
         - "Manual research and documentation lookup"
         - "Standard quality assurance and testing practices"
         - "Tasks.md progress tracking and checkbox updates"
+        - "Proven workflow execution with fallback reliability"
       
       implementation_focus:
         - "Complete TDD implementation using existing test foundation"
-        - "Apply Next.js 15 best practices with manual optimization"
-        - "Implement liquid glass effects with standard CSS techniques"
+        - "Apply established coding patterns and best practices for Next.js projects"
         - "Ensure all tests remain passing throughout implementation"
+        - "Maintain code quality and production readiness standards"
         - "Update tasks.md checkboxes as each task is completed"
+        - "Provide reliable implementation when enhanced capabilities unavailable"
     
-    # ENHANCED TASKS.MD INTEGRATION
+    # Tasks.md Integration (All Agents)
     task_management:
       source: ".kiro/specs/liquid-glass-tech-blog/tasks.md"
-      enhanced_tracking_strategy:
-        - "Load tasks.md with MCP-enhanced context awareness"
-        - "Parse checkbox format with dependency tracking"
-        - "Execute tasks with performance monitoring integration"
-        - "Update checkboxes with automated validation"
-        - "Commit updates with deployment automation"
+      tracking_strategy:
+        - "Load tasks.md at phase start to identify pending tasks"
+        - "Parse checkbox format: '- [ ]' (pending) vs '- [x]' (completed)"
+        - "Execute tasks sequentially or in dependency order"
+        - "Update checkbox immediately upon task completion"
+        - "Commit tasks.md updates after each task or batch completion"
       
-      enhanced_task_execution_flow:
-        1. "Read current tasks.md state with Serena memory integration"
-        2. "Identify next uncompleted task(s) with priority analysis"
-        3. "Execute implementation with MCP tool integration"
-        4. "Run tests with Playwright E2E validation"
-        5. "Monitor performance with Vercel analytics"
-        6. "Update checkbox from '- [ ]' to '- [x]' with deployment check"
-        7. "Commit both code changes and tasks.md with GitHub automation"
-        8. "Proceed to next task with performance validation"
+      task_execution_flow:
+        1. "Read current tasks.md state"
+        2. "Identify next uncompleted task(s)"
+        3. "Execute implementation for the task using selected agent"
+        4. "Run tests to verify implementation"
+        5. "Update checkbox from '- [ ]' to '- [x]'"
+        6. "Commit both code changes and tasks.md update"
+        7. "Proceed to next task or report completion"
       
-      enhanced_progress_reporting:
-        - "Display completion percentage with performance metrics"
-        - "Show remaining tasks with estimated time and resource requirements"
-        - "Highlight MCP tool usage efficiency and optimization opportunities"
-        - "Generate completion summary with deployment and performance data"
+      progress_reporting:
+        - "Display completion percentage (e.g., 8/12 tasks = 67%)"
+        - "Show remaining tasks count and estimated time"
+        - "Highlight blocked or dependent tasks"
+        - "Generate completion summary for human review"
     
-    # ENHANCED MCP INTEGRATION STRATEGY
+    # MCP Integration Strategy (Enhanced Agent Only)
     enhanced_mcp_integration:
       condition: "enhanced_agent_available"
       integrated_tools:
-        # Core MCPs (always included)
-        - "Serena MCP: Intelligent code generation and memory management"
-        - "Context7 MCP: Library documentation and API validation"
-        - "DeepWiki MCP: Repository pattern analysis and problem solving"
-        
-        # Project-specific MCPs (liquid-glass-tech-blog)
-        - "Vercel MCP: Deployment automation and Core Web Vitals monitoring"
-        - "GitHub MCP: CI/CD workflow automation and repository management"
-        - "Cloudinary MCP: Image optimization and CDN asset pipeline"
-        - "Playwright MCP: E2E testing and visual regression detection"
-        - "OpenAI MCP: AI-powered content generation and design concepts"
-        - "BrowserStack MCP: Cross-browser and device compatibility testing"
-        - "Tailwind Designer MCP: CSS optimization and liquid glass utilities"
-        - "Buildkite MCP: Advanced CI/CD pipeline optimization"
+        - "DeepWiki MCP: Repository pattern analysis, Next.js best practices, React 19 patterns"
+        - "Context7 MCP: @developer-hub/liquid-glass API docs, Next.js 15 documentation, shadcn/ui patterns"
+        - "Playwright MCP: Visual regression testing, E2E automation, Core Web Vitals monitoring"
+        - "Vercel MCP: Documentation access, team/project management, deployment insights"
+        - "Brave Search MCP: Latest Next.js optimizations, React 19 updates, performance techniques"
       
-      # ENHANCED USAGE OPTIMIZATION
       usage_optimization:
-        priority_based_usage:
-          critical_path: ["serena", "vercel", "github"]  # Always prioritize for core functionality
-          asset_pipeline: ["cloudinary", "openai"]       # Parallel processing for content
-          testing_pipeline: ["playwright", "browserstack"] # Automated quality assurance
-          optimization: ["tailwind_designer", "buildkite"] # Performance and build optimization
-        
-        intelligent_caching:
-          vercel_analytics: "1_hour_cache_for_performance_insights"
-          cloudinary_transformations: "persistent_cache_for_reuse"
-          github_responses: "local_cache_for_api_efficiency"
-          playwright_screenshots: "regression_testing_storage"
-        
-        graceful_degradation:
-          vercel_unavailable: "manual_deployment_with_performance_logs"
-          cloudinary_timeout: "nextjs_image_optimization_fallback"
-          playwright_failure: "manual_testing_guidance_with_devtools"
-          github_limits: "local_git_operations_with_manual_workflow"
-        
-        performance_monitoring:
-          response_time_tracking: true
-          error_rate_monitoring: true
-          usage_efficiency_metrics: true
-          cost_optimization_alerts: true
+        - "Priority-based MCP usage for critical vs enhancement features"
+        - "Intelligent caching to minimize response times"
+        - "Graceful degradation when MCP tools are unavailable"
+        - "Performance monitoring and timeout handling"
+        - "TDD-first approach with MCP-enhanced research and validation"
       
-      # ENHANCED FALLBACK MECHANISMS
       fallback_mechanisms:
-        - "Vercel unavailable → Manual deployment with performance monitoring logs"
-        - "Cloudinary timeout → Next.js Image optimization with manual asset management"
-        - "Playwright unavailable → Manual testing recommendations with browser dev tools"
-        - "GitHub API limits → Continue with local git operations and manual PR creation"
-        - "OpenAI unavailable → Use existing design assets and manual content creation"
-        - "BrowserStack quota → Local cross-browser testing with guidance"
-        - "Tailwind Designer failure → Manual CSS optimization techniques"
-        - "Buildkite unavailable → GitHub Actions workflow as primary CI/CD"
-        - "All MCP failures → Switch to impersonator-agent or implementation-agent"
+        - "DeepWiki unavailable → Manual repository analysis and community research"
+        - "Context7 timeout → Use cached documentation or manual library lookup"
+        - "Playwright unavailable → Manual testing with browser dev tools"
+        - "Vercel API limits → Use local Next.js tools and manual documentation"
+        - "Brave Search unavailable → Use cached research or standard documentation"
+        - "≥3 critical MCP failures → Trigger impersonator-agent fallback"
     
-    # ENHANCED QUALITY ASSURANCE INTEGRATION
+    # Quality Assurance Integration
     quality_assurance:
       enhanced_monitoring:
         condition: "enhanced_agent_available"
         capabilities:
-          performance_monitoring:
-            - "Real-time Core Web Vitals tracking via Vercel MCP"
-            - "GPU acceleration monitoring for liquid glass effects"
-            - "Lighthouse score progression tracking"
-            - "Asset optimization efficiency via Cloudinary MCP"
-          
-          automated_testing:
-            - "Playwright E2E testing for critical user journeys"
-            - "BrowserStack cross-browser compatibility validation"
-            - "Visual regression detection with screenshot comparison"
-            - "Accessibility testing automation (WCAG 2.1 AA)"
-          
-          code_quality:
-            - "Serena MCP-powered code quality analysis"
-            - "Context7 library compatibility checking"
-            - "DeepWiki repository pattern compliance"
-            - "Tailwind Designer CSS optimization validation"
-          
-          deployment_validation:
-            - "GitHub workflow automation for CI/CD quality gates"
-            - "Buildkite advanced pipeline validation"
-            - "Automated security scanning with latest threat intelligence"
-            - "Performance budget enforcement via Vercel monitoring"
+          - "Real-time MCP-powered code quality analysis"
+          - "Automated Next.js 15 and React 19 compatibility checking via Context7"
+          - "Repository pattern compliance via DeepWiki for liquid glass components"
+          - "Advanced performance monitoring with Core Web Vitals via Playwright"
+          - "Visual regression testing for liquid glass design consistency"
+          - "Latest security scanning with threat intelligence via Brave Search"
+      
+      impersonator_monitoring:
+        condition: "impersonator_agent_active"
+        capabilities:
+          - "Agent availability detection and failure monitoring"
+          - "Smart delegation decision making"
+          - "Context preservation during agent transitions"
+          - "Workflow continuity assurance"
+          - "Fallback trigger optimization"
       
       standard_monitoring:
         condition: "standard_implementation"
@@ -365,42 +281,20 @@ phases:
           - "Basic test coverage monitoring"
           - "Manual security best practices application"
           - "Standard performance optimization techniques"
+          - "Reliable TDD compliance tracking"
       
-      # ENHANCED QUALITY GATES
       unified_quality_gates:
         entry_gate:
           - tdd_foundation_validated: true
-          - enhanced_agent_selection_completed: true
+          - agent_selection_completed: true
           - mcp_setup_status_verified: true
-          - liquid_glass_tech_blog_requirements_loaded: true
-        
-        progress_gates:
-          performance_gate:
-            - core_web_vitals_green: true
-            - gpu_acceleration_validated: true
-            - lighthouse_scores_meeting_targets: true
-          
-          automation_gate:
-            - vercel_deployment_automated: true
-            - github_workflow_active: true
-            - cloudinary_pipeline_optimized: true
-          
-          testing_gate:
-            - playwright_e2e_tests_passing: true
-            - browserstack_validation_complete: true
-            - visual_regression_tests_passed: true
-        
         exit_gate:
           - all_tests_passing: true
           - code_coverage: ">= 95%"
           - implementation_completeness: "100%"
           - production_readiness: true
-          - core_web_vitals_optimized: true
-          - cross_browser_validated: true
-          - accessibility_compliance_verified: true
-          - performance_budget_met: true
     
-    # ENHANCED SUCCESS CRITERIA
+    # Success Criteria (Agent-Agnostic)
     success_criteria:
       core_requirements:
         - all_tests_passing: true
@@ -414,73 +308,68 @@ phases:
         - production_readiness: true
         - error_handling_comprehensive: true
         
-      # ENHANCED LIQUID-GLASS-TECH-BLOG CRITERIA
       enhanced_benefits: 
         condition: "enhanced_agent_used"
-        performance_criteria:
-          - "Core Web Vitals in green zone (LCP <2.5s, FID <100ms, CLS <0.1)"
-          - "Lighthouse scores 95%+ across all metrics"
-          - "GPU-accelerated liquid glass effects achieving 60fps"
-          - "Asset optimization pipeline delivering 40%+ size reduction"
-        
-        automation_criteria:
-          - "Vercel deployment automation with performance validation"
-          - "GitHub CI/CD workflow automation operational"
-          - "Cloudinary asset pipeline automated and optimized"
-          - "Playwright E2E testing integrated and passing"
-        
-        quality_criteria:
-          - "BrowserStack cross-browser validation complete"
-          - "WCAG 2.1 AA accessibility compliance verified"
-          - "Visual regression testing operational"
-          - "OpenAI content generation integrated where applicable"
-        
-        integration_criteria:
-          - "MCP integration successful: All 8 approved tools operational"
-          - "Latest Next.js 15 and React 19 best practices applied"
-          - "Advanced liquid glass design system implemented"
-          - "Enhanced security scanning completed"
-          - "Repository pattern alignment verified via DeepWiki"
+        additional_criteria:
+          - "MCP integration successful: DeepWiki, Context7, Playwright, Vercel, Brave Search"
+          - "Next.js 15 App Router optimization and liquid glass design integration"
+          - "Core Web Vitals in green zone (LCP <2.5s, INP <200ms, CLS <0.1)"
+          - "Latest React 19 patterns applied from MCP research"
+          - "Visual regression testing completed via Playwright"
+          - "Repository pattern alignment verified via DeepWiki analysis"
     
-    # ENHANCED AGENT SELECTION AND FALLBACK LOGIC
+    # 3-Tier Agent Selection and Fallback Logic
     agent_selection:
       selection_order:
         1. "Check for liquid-glass-tech-blog-enhanced-implementation-agent availability"
-        2. "Verify MCP setup completion status with validation"
-        3. "Validate enhanced agent file integrity and accessibility"
-        4. "Select enhanced agent if available and all MCPs ready"
-        5. "Fall back to impersonator-agent with enhanced detection if enhanced unavailable"
-        6. "Fall back to standard implementation-agent if all enhanced options fail"
+        2. "Verify MCP setup completion status and tool availability"
+        3. "Select enhanced agent if available and MCP ready"
+        4. "Fallback to impersonator-agent if enhanced unavailable or failing"
+        5. "Final fallback to implementation-agent if impersonator triggers delegation"
       
       enhanced_agent_criteria:
         - "Agent file exists: .claude/agents/coding/dynamic/liquid-glass-tech-blog-enhanced-implementation-agent.md"
-        - "MCP setup complete: /Volumes/SSD/development/cc-deck/.cc-deck/runtime/projects/liquid-glass-tech-blog/config/mcp-setup-complete.json"
-        - "Extension config accessible: /Volumes/SSD/development/cc-deck/.cc-deck/runtime/projects/liquid-glass-tech-blog/extensions/coding-extension.yaml"
-        - "Claude Code system recognition of enhanced agent confirmed"
+        - "MCP setup complete: .cc-deck/runtime/projects/liquid-glass-tech-blog/config/mcp-setup-complete.json"
+        - "Claude Code system recognition of enhanced agent"
+        - "≥3 of 5 operational MCP tools available (DeepWiki, Context7, Playwright priority)"
         - "No critical MCP failures in setup status"
-        - "At least 6 of 8 project-specific MCP tools operational"
       
-      fallback_triggers:
-        - "Enhanced agent file not found or corrupted"
-        - "MCP setup failed or incomplete"
-        - "Enhanced agent execution failure"
-        - "Critical MCP services unavailable during execution"
-        - "Less than 50% of project-specific MCP tools operational"
+      impersonator_triggers:
+        - "Enhanced agent file not found"
+        - "Enhanced agent execution failure or errors"
+        - "≥3 critical MCP tool failures"
+        - "Enhanced agent performance degradation >300%"
+        - "Quality gate failures with enhanced agent"
+      
+      final_fallback_triggers:
+        - "Impersonator-agent detects continued enhanced agent failures"
+        - "Impersonator-agent delegates execution to implementation-agent"
+        - "All enhanced capabilities proven unavailable"
+        - "Standard implementation required for workflow continuity"
     
-    # ENHANCED ERROR HANDLING
+    # Error Handling for 3-Tier Implementation Phase
     error_handling:
       enhanced_agent_errors:
         mcp_service_failure:
-          action: "Graceful degradation within enhanced agent using fallback mechanisms"
-          fallback: "Switch to impersonator-agent if more than 50% of critical MCPs fail"
+          action: "Graceful degradation within enhanced agent"
+          fallback: "Switch to impersonator-agent if ≥3 critical MCP failures"
         
         enhanced_agent_unavailable:
-          action: "Automatic fallback to impersonator-agent with enhanced detection"
-          notification: "Using impersonator-agent due to enhanced agent unavailability"
+          action: "Automatic fallback to impersonator-agent"
+          notification: "Using impersonator agent due to enhanced agent unavailability"
+          
+        enhanced_agent_execution_failure:
+          action: "Trigger impersonator-agent for failure detection and delegation"
+          escalation: "Delegate to implementation-agent via impersonator logic"
+      
+      impersonator_agent_errors:
+        enhanced_detection_failure:
+          action: "Default to implementation-agent delegation"
+          notification: "Impersonator defaulting to standard implementation"
         
-        mcp_quota_exceeded:
-          action: "Switch to cached operations and manual workflows"
-          recovery: "Monitor quota reset and resume automated operations"
+        delegation_failure:
+          action: "Direct switch to implementation-agent"
+          escalation: "Standard implementation with error logging"
       
       standard_implementation_errors:
         compilation_errors:
@@ -491,120 +380,128 @@ phases:
           action: "Immediate halt and test restoration"
           recovery: "Revert to passing state and re-implement with tests"
     
-    # ENHANCED PERFORMANCE TRACKING
+    # Agent Performance Tracking for 3-Tier System
     performance_tracking:
       enhanced_agent_metrics:
-        mcp_integration:
-          - "MCP tool usage efficiency and response times"
-          - "Cost optimization and quota management"
-          - "Error rates and fallback frequency"
-          - "Feature delivery acceleration via automation"
-        
-        liquid_glass_specific:
-          - "Core Web Vitals progression and optimization"
-          - "GPU acceleration effectiveness for animations"
-          - "Asset optimization pipeline efficiency"
-          - "Cross-browser compatibility validation coverage"
-        
-        implementation_quality:
-          - "Implementation quality improvement over standard agent"
-          - "Time savings from MCP integration and automation"
-          - "Advanced feature utilization rate"
-          - "User satisfaction with enhanced workflow experience"
+        - "MCP tool usage efficiency and availability"
+        - "Implementation quality improvement over standard agents"
+        - "Time savings from Next.js 15 and liquid glass MCP integration"
+        - "Core Web Vitals optimization success rate"
+        - "Advanced feature utilization rate"
+      
+      impersonator_metrics:
+        - "Enhanced agent detection accuracy"
+        - "Fallback trigger frequency and appropriateness"
+        - "Delegation efficiency to implementation-agent"
+        - "Context preservation during transitions"
+        - "User experience during agent switching"
       
       fallback_tracking:
         - "Fallback trigger frequency and root causes"
-        - "Impersonator agent performance when used as enhanced fallback"
         - "Standard agent performance when used as final fallback"
-        - "User satisfaction with fallback experience and workflow continuity"
+        - "User satisfaction with 3-tier fallback experience"
+        - "Workflow continuity maintenance during failures"
     
     next_phase: testing
 
-  # Phase 6: Testing (inherited from base, enhanced monitoring)
+  # Phase 6: Testing
   - name: testing
     agent: testing-agent
-    description: "Comprehensive testing strategy with enhanced MCP validation"
-    inputs: [implementation_context, enhanced_implementation_context]
+    description: "Comprehensive testing strategy"
+    inputs: [implementation_context]
     outputs:
       - test_results
       - coverage_report
-      - enhanced_test_results
-      - cross_browser_validation
-      - performance_test_results
     test_types:
       - unit_tests: true
       - integration_tests: true
       - e2e_tests: conditional
-      # Enhanced testing for liquid-glass-tech-blog
-      - playwright_e2e_tests: true
-      - browserstack_cross_browser: true
-      - performance_tests: true
-      - accessibility_tests: true
-      - visual_regression_tests: true
     success_criteria:
       - tests_created: true
       - tests_passing: true
       - coverage_threshold_met: true
-      # Enhanced criteria
-      - e2e_tests_passing: true
-      - cross_browser_validated: true
-      - performance_budget_met: true
-      - accessibility_compliance: true
+    next_phase: execution_verification
+
+  # Phase 6.2: Execution Verification
+  - name: execution_verification
+    agent: execution-validator
+    description: "Validate application execution in development environment and detect runtime issues"
+    inputs: [implementation_context, test_results]
+    outputs:
+      - execution_report
+      - runtime_issues_list
+      - basic_functionality_status
+      - environment_validation_results
+    
+    # Execution Validation Process
+    validation_steps:
+      - dependency_installation: "Install and verify all project dependencies"
+      - application_startup: "Attempt to start application using standard commands"
+      - runtime_monitoring: "Monitor logs for errors, warnings, and exceptions"
+      - basic_functionality_test: "Execute core user workflows manually"
+      - environment_dependency_check: "Validate external services and configurations"
+      - issue_resolution: "Fix critical runtime issues preventing execution"
+    
+    success_criteria:
+      - application_starts_successfully: true
+      - no_critical_runtime_errors: true
+      - basic_functionality_accessible: true
+      - core_workflows_completable: true
+    
+    failure_handling:
+      on_critical_issues:
+        action: "fix_and_retry"
+        max_attempts: 3
+        escalation: "return_to_implementation_phase"
+      on_warning_issues:
+        action: "document_and_proceed"
+    
     next_phase: specification_compliance_check
 
-  # Phase 6.5: Specification Compliance Check (inherited from base)
+  # Phase 6.5: Specification Compliance Check
   - name: specification_compliance_check
     agent: acceptance-reviewer
     description: "Verify implementation compliance with specifications and detect missing features"
-    inputs: [implementation_context, enhanced_implementation_context, test_results, coverage_report]
+    inputs: [implementation_context, test_results, coverage_report]
     outputs:
       - compliance_report
       - specification_gaps
       - implementation_completeness_score
       - missing_features_list
-      - enhanced_compliance_metrics
     
-    # Enhanced verification for liquid-glass-tech-blog
+    # Specification Verification Process
     verification_process:
       specification_analysis:
-        - "Load and parse .kiro/specs/liquid-glass-tech-blog directory specifications"
+        - "Load and parse .kiro/specs/ directory specifications"
         - "Extract feature requirements and acceptance criteria"
         - "Identify mandatory vs optional features"
         - "Map specifications to implementation artifacts"
       
-      enhanced_implementation_verification:
+      implementation_verification:
         - "Analyze implemented code against specification requirements"
-        - "Verify Next.js 15 App Router implementation patterns"
-        - "Check liquid glass design system integration"
-        - "Validate performance optimization implementation"
-        - "Confirm MCP integration effectiveness"
-        - "Verify Core Web Vitals optimization results"
+        - "Verify API endpoints match specification definitions"
+        - "Check data models align with specification schemas"
+        - "Validate business logic matches specified behavior"
       
       tasks_completion_check:
         - "Parse tasks.md file for completion status"
         - "Verify all mandatory tasks are marked complete"
         - "Identify incomplete or skipped tasks"
         - "Cross-reference tasks with actual implementation"
-        - "Validate MCP-enhanced task execution results"
       
       gap_analysis:
         - "Identify missing features from specifications"
         - "Detect implementation deviations from requirements"
         - "Flag incomplete or partial implementations"
         - "Generate prioritized gap remediation plan"
-        - "Assess MCP integration completeness"
     
-    # Enhanced decision criteria for liquid-glass-tech-blog
+    # Decision Logic
     decision_criteria:
       completion_threshold:
-        mandatory_features: "100%"
-        optional_features: ">= 80%"
-        tasks_completion: ">= 95%"
-        specification_alignment: ">= 90%"
-        # Enhanced thresholds
-        mcp_integration_completeness: ">= 80%"
-        performance_optimization: ">= 90%"
-        accessibility_compliance: "100%"
+        mandatory_features: "100%"  # All mandatory features must be implemented
+        optional_features: ">= 80%"  # Most optional features should be implemented
+        tasks_completion: ">= 95%"   # Nearly all tasks should be complete
+        specification_alignment: ">= 90%"  # High specification alignment required
       
       quality_gates:
         - "No critical specification gaps identified"
@@ -613,20 +510,16 @@ phases:
         - "Data models match specification requirements"
         - "Authentication/authorization properly implemented"
         - "Error handling meets specification standards"
-        # Enhanced quality gates
-        - "Core Web Vitals optimization implemented"
-        - "Liquid glass design system integrated"
-        - "Cross-browser compatibility validated"
-        - "Accessibility compliance verified"
     
+    # Conditional Flow Control
     flow_control:
       on_success:
-        condition: "compliance_score >= 90% AND no_critical_gaps = true AND enhanced_criteria_met = true"
+        condition: "compliance_score >= 90% AND no_critical_gaps = true"
         action: "proceed_to_documentation"
         next_phase: "documentation"
         
       on_failure:
-        condition: "compliance_score < 90% OR critical_gaps_detected = true OR enhanced_criteria_not_met = true"
+        condition: "compliance_score < 90% OR critical_gaps_detected = true"
         action: "rollback_to_tdd_cycle"
         next_phase: "tdd_cycle"
         feedback_data:
@@ -634,8 +527,43 @@ phases:
           - missing_features_list
           - implementation_recommendations
           - priority_tasks_for_completion
-          - enhanced_implementation_gaps
-          - mcp_integration_improvements
+        
+      rollback_context:
+        preserve_data:
+          - "All existing tests (maintain TDD foundation)"
+          - "Completed implementation components"
+          - "Quality metrics and coverage data"
+          - "Specification compliance report"
+        
+        enhancement_focus:
+          - "Address identified specification gaps"
+          - "Implement missing mandatory features"
+          - "Complete incomplete tasks from tasks.md"
+          - "Align implementation with specification requirements"
+    
+    # Integration with Project Structure  
+    specification_sources:
+      primary_specifications: ".kiro/specs/"
+      task_tracking: ".kiro/specs/*/tasks.md"
+      acceptance_criteria: ".kiro/specs/*/acceptance.md"
+      api_specifications: ".kiro/specs/*/api.md"
+      
+    validation_scope:
+      code_analysis:
+        - "src/ directory implementation review"
+        - "API routes and endpoints validation"
+        - "Component and service implementation check"
+        - "Database schema and model verification"
+      
+      test_coverage_verification:
+        - "Ensure tests cover specified requirements"
+        - "Verify edge cases from specifications are tested"
+        - "Confirm integration tests match specification workflows"
+      
+      documentation_alignment:
+        - "Check API documentation matches specifications"
+        - "Verify usage examples align with requirements"
+        - "Confirm configuration matches specification guidelines"
     
     success_criteria:
       - specification_compliance: ">= 90%"
@@ -643,45 +571,30 @@ phases:
       - critical_gaps_count: "0"
       - tasks_completion_rate: ">= 95%"
       - implementation_quality_score: ">= 8.0"
-      # Enhanced criteria
-      - performance_optimization_complete: true
-      - accessibility_compliance_verified: true
-      - cross_browser_compatibility: true
-      - mcp_integration_successful: true
 
-  # Phase 7: Documentation (inherited from base)
+  # Phase 7: Documentation
   - name: documentation
     agent: documentation-agent
-    description: "Generate comprehensive documentation with enhanced MCP insights"
-    inputs: [implementation_context, enhanced_implementation_context, test_results]
+    description: "Generate comprehensive documentation"
+    inputs: [implementation_context, test_results]
     outputs:
       - api_documentation
       - usage_examples
       - tutorials
-      - enhanced_documentation
-      - performance_guides
-      - mcp_integration_docs
     documentation_types:
       - api_docs: true
       - readme: true
       - tutorials: true
       - examples: true
-      # Enhanced documentation for liquid-glass-tech-blog
-      - performance_optimization_guide: true
-      - liquid_glass_design_system_docs: true
-      - mcp_integration_examples: true
-      - deployment_automation_guide: true
     success_criteria:
       - documentation_complete: true
       - examples_working: true
-      - enhanced_docs_generated: true
-      - performance_guides_complete: true
     next_phase: human_approval_coding
 
-  # Phase 8: Human Approval Checkpoint (enhanced)
+  # Phase 8: Human Approval Checkpoint
   - name: human_approval_coding
     type: human_interaction
-    description: "Human review and approval of enhanced coding workflow completion"
+    description: "Human review and approval of coding workflow completion before proceeding to refactoring"
     approval_scope:
       - "Code implementation quality and completeness"
       - "Test coverage and TDD adherence (95%+ expected)"
@@ -689,29 +602,16 @@ phases:
       - "Documentation accuracy and comprehensiveness" 
       - "Architecture alignment with design specifications"
       - "Performance and security considerations"
-      # Enhanced approval scope for liquid-glass-tech-blog
-      - "MCP integration effectiveness and ROI"
-      - "Core Web Vitals optimization results"
-      - "Liquid glass design system implementation"
-      - "Cross-browser compatibility validation"
-      - "Accessibility compliance verification"
-      - "Deployment automation functionality"
     review_materials:
       - implementation_context
-      - enhanced_implementation_context
       - test_results
       - compliance_report
       - api_documentation
       - code_coverage_report
-      # Enhanced review materials
-      - mcp_integration_results
-      - performance_metrics_report
-      - cross_browser_validation_results
-      - accessibility_compliance_report
     decision_options: [approved, approved_with_conditions, rejected, deferred]
     stakeholders:
       required: [technical_lead]
-      optional: [product_owner, qa_lead, performance_specialist]
+      optional: [product_owner, qa_lead]
     timeout: 72 # hours
     on_approval: 
       next_workflow: refactoring
@@ -719,7 +619,7 @@ phases:
       rollback_to_phase: tdd_cycle
       feedback_collection: true
 
-# Enhanced Error Handling and Recovery
+# Error Handling and Recovery
 error_handling:
   retry_policy:
     max_retries: 3
@@ -727,75 +627,151 @@ error_handling:
     exponential_backoff: true
     
   recovery_strategies:
-    # Enhanced Implementation Phase Failures
-    enhanced_agent_unavailable:
-      action: fallback_to_impersonator_agent
-      preserve_enhanced_configuration: true
-      attempt_enhanced_execution: true
+    # Research Phase Failures
+    research_mcp_failure:
+      action: fallback_to_local_research
+      fallback_sources: [cached_documentation, local_examples]
+      timeout: 300s
       
+    deepwiki_timeout:
+      action: switch_to_context7
+      max_attempts: 2
+      
+    # Planning Phase Failures
+    architecture_validation_failure:
+      action: rollback_to_research
+      collect_additional_requirements: true
+      
+    # TDD Phase Failures
+    serena_onboarding_failure:
+      action: manual_tdd_setup
+      create_fallback_config: true
+      notify: true
+      
+    tdd_cycle_failure:
+      action: preserve_tests_rollback_implementation
+      create_checkpoint: before_cycle
+      
+    test_compilation_failure:
+      action: analyze_and_fix_syntax
+      max_auto_fix_attempts: 2
+      escalate_on_failure: true
+      
+    # Implementation Phase Failures - 3-Tier Strategy
+    enhanced_agent_failure:
+      action: trigger_impersonator_agent
+      preserve_context: mandatory
+      notification: "Enhanced agent failure - switching to impersonator"
+      
+    impersonator_failure:
+      action: delegate_to_implementation_agent
+      preserve_context: mandatory
+      notification: "Impersonator failure - delegating to standard implementation"
+      
+    implementation_quality_gate_failure:
+      action: trigger_refactoring_cycle
+      preserve_tests: mandatory
+      
+    coverage_threshold_failure:
+      action: generate_additional_tests
+      target_coverage: ">= 95%"
+      
+    # Integration Failures
     mcp_service_degradation:
-      action: switch_to_backup_service_or_manual_workflow
+      action: switch_to_backup_service_or_fallback_agent
       services:
-        vercel: manual_deployment_with_monitoring
-        github: local_git_with_manual_pr
-        cloudinary: nextjs_image_optimization
-        playwright: manual_testing_guidance
-        openai: existing_assets_fallback
-        browserstack: local_cross_browser_testing
-        tailwind_designer: manual_css_optimization
-        buildkite: github_actions_fallback
-        serena: local_analysis_mode
         deepwiki: cached_fallback
         context7: offline_documentation
-    
-    # Critical Enhanced Implementation Failures
-    enhanced_implementation_quality_gate_failure:
-      action: analyze_mcp_integration_issues_and_retry
-      preserve_tests: mandatory
-      fallback_to_standard: if_critical_failures_persist
+        playwright: manual_testing
+        vercel: local_documentation
+        brave_search: cached_research
+        fallback_threshold: 3_critical_failures
+        
+    # Human Approval Failures
+    approval_timeout:
+      action: send_escalation_notification
+      escalation_chain: [technical_lead, engineering_manager]
+      timeout_extension: 24h
       
-    performance_optimization_failure:
-      action: fallback_to_manual_optimization_techniques
-      preserve_functionality: mandatory
-      document_optimization_gaps: true
+    approval_rejection:
+      action: analyze_feedback_and_rollback
+      feedback_analysis: automated
+      rollback_strategy: targeted_phase
       
-    cross_browser_validation_failure:
-      action: manual_browser_testing_with_documentation
-      preserve_core_functionality: mandatory
-      document_compatibility_issues: true
+    # Critical System Failures
+    context_corruption:
+      action: restore_from_checkpoint
+      backup_source: latest_valid_checkpoint
+      
+    workflow_deadlock:
+      action: force_phase_transition
+      require_manual_approval: true
+      create_incident_report: true
 
-# Enhanced Parallel Execution Support
+  # Checkpoint System
+  checkpoints:
+    frequency: before_each_phase
+    retention_period: 72h
+    include_state:
+      - context_data
+      - intermediate_outputs
+      - quality_metrics
+      - test_results
+      - approval_history
+    
+    critical_checkpoints:
+      - before_tdd_cycle: comprehensive_backup
+      - before_implementation: full_state_backup
+      - after_approval: immutable_milestone
+      
+  # Circuit Breaker Pattern
+  circuit_breakers:
+    mcp_services:
+      failure_threshold: 5
+      timeout: 30s
+      half_open_recovery_timeout: 60s
+      
+    quality_gates:
+      consecutive_failure_threshold: 3
+      escalation_required: true
+      
+    human_approval:
+      timeout_threshold: 72h
+      auto_escalation: true
+
+# Parallel Execution Support
 parallel_groups:
-  enhanced_development_and_testing:
-    condition: "enhanced_agent_available AND mcp_tools_operational"
+  development_and_testing:
+    condition: "context.allow_parallel === true"
     phases: [full_implementation, testing]
-    coordination: shared_enhanced_context
+    coordination: shared_context
     failure_isolation: true
-    mcp_resource_sharing: optimized
+    
+  research_and_planning:
+    condition: "context.fast_track_enabled === true"
+    phases: [research, planning]
+    coordination: shared_context
+    dependency_management: automatic
     
   mcp_services_parallel:
-    condition: "enhanced_mode_enabled"
-    services: [vercel, github, cloudinary, playwright, openai, browserstack, tailwind_designer, buildkite]
-    load_balancing: intelligent_priority_based
-    failure_tolerance: continue_with_available_services
-    quota_management: automatic
+    condition: "context.mcp_parallel_enabled === true"
+    services: [deepwiki, context7, playwright, vercel, brave_search]
+    load_balancing: round_robin
+    failure_tolerance: continue_with_available
 
-# Enhanced Supplementary Agents
+# Supplementary Agents
+# These agents are available throughout the workflow for specific needs
 supplementary_agents:
   - name: deepwiki-research-solver
     description: "Research technical issues and find solutions during any phase"
     availability: all_phases
     primary_usage: implementation_phase
-    enhanced_capabilities:
-      - "Liquid glass design pattern research"
-      - "Next.js 15 App Router optimization techniques"
-      - "Core Web Vitals improvement strategies"
-      - "React 19 Server Components best practices"
     use_cases:
-      - "Troubleshooting MCP integration issues"
-      - "Finding performance optimization patterns"
-      - "Researching accessibility implementation techniques"
-      - "Understanding cross-browser compatibility solutions"
+      - "Troubleshooting implementation errors and compilation issues"
+      - "Finding best practices for specific technologies and frameworks"
+      - "Researching library-specific solutions and patterns"
+      - "Understanding framework patterns and architectural decisions"
+      - "Analyzing successful implementation patterns from popular repositories"
     mcp_integrations:
       - deepwiki: "Repository analysis and pattern extraction"
       - context7: "Framework-specific documentation and solutions"
@@ -804,91 +780,74 @@ supplementary_agents:
     description: "Comprehensive technology research using multiple MCP integrations"
     availability: all_phases
     primary_usage: research_and_implementation_phases
-    enhanced_capabilities:
-      - "Real-time Vercel platform optimization research"
-      - "GitHub Actions workflow pattern analysis"
-      - "Cloudinary transformation optimization research"
-      - "Playwright testing strategy development"
     use_cases:
-      - "Pre-implementation technology stack validation for Next.js 15"
-      - "Real-time best practices research during enhanced implementation"
-      - "Security considerations for MCP integrations"
-      - "Performance optimization techniques for liquid glass effects"
+      - "Pre-implementation technology stack validation"
+      - "Real-time best practices research during implementation"
+      - "Security considerations and vulnerability analysis"
+      - "Performance optimization techniques research"
+      - "Library compatibility and version analysis"
     mcp_integrations:
-      - context7: "Official Next.js, React, and Tailwind documentation"
-      - deepwiki: "Community implementation patterns and liquid glass examples"
-      - web_search: "Latest Core Web Vitals optimization techniques"
+      - context7: "Official library documentation and API references"
+      - deepwiki: "Community implementation patterns and examples"
+      - web_search: "Latest trends, security updates, and community solutions"
+      
+  - name: code-quality-validator
+    description: "Continuous code quality validation and enhancement recommendations"
+    availability: implementation_and_testing_phases
+    primary_usage: implementation_phase
+    use_cases:
+      - "Real-time code quality monitoring and analysis"
+      - "Security vulnerability scanning and mitigation"
+      - "Performance benchmark validation and optimization"
+      - "Test coverage analysis and improvement recommendations"
+      - "Code documentation completeness assessment"
+    quality_dimensions:
+      - functional_quality: "Requirements coverage and edge case handling"
+      - technical_quality: "Code complexity, maintainability, test coverage"
+      - security_quality: "Vulnerability scanning and best practices compliance"
+      - performance_quality: "Benchmark validation and optimization opportunities"
+      - documentation_quality: "API documentation and code comment completeness"
 
-# Enhanced Integration Points
+# Integration Points
 integrations:
   post_coding_workflows:
     - refactoring:
-        condition: "context.code_quality_score < 8.0 OR enhanced_optimizations_available"
+        condition: "context.code_quality_score < 8.0"
         trigger: automatic
-        enhanced_features: true
     - integration_testing:
-        condition: "context.api_endpoints > 0 OR mcp_integrations_present"
+        condition: "context.api_endpoints > 0"
         trigger: automatic
-        include_mcp_validation: true
     - acceptance:
         condition: "always"
         trigger: manual_approval
-        include_enhanced_metrics: true
 
-# Enhanced Quality Gates
+# Quality Gates
 quality_gates:
   code_quality:
     threshold: 7.5
-    metrics: [maintainability, readability, performance, accessibility]
-    enhanced_metrics: [mcp_integration_quality, performance_optimization_effectiveness]
-  
+    metrics: [maintainability, readability, performance]
   test_coverage:
     line_coverage: ">= 95%"
     branch_coverage: ">= 90%"
     function_coverage: ">= 95%"
     exclude_patterns: [test_files, mocks]
-    # Enhanced coverage requirements
-    e2e_coverage: ">= 80%"
-    cross_browser_coverage: ">= 90%"
-    accessibility_coverage: "100%"
-  
-  performance_requirements:
-    core_web_vitals:
-      lcp: "< 2.5s"
-      fid: "< 100ms"
-      cls: "< 0.1"
-    lighthouse_scores:
-      performance: ">= 95"
-      accessibility: ">= 95"
-      best_practices: ">= 95"
-      seo: ">= 95"
-    gpu_acceleration: "60fps_target_met"
-  
   tdd_adherence:
     test_first_percentage: ">= 100%"
     red_green_refactor_cycles: "documented"
     minimal_implementation_verified: true
-  
   documentation_completeness:
     threshold: 90
     api_coverage: ">= 95%"
     check_api_coverage: true
-    enhanced_documentation: true
-    mcp_integration_docs: true
-  
   architecture_compliance:
     design_alignment: true
     dependency_validation: true
     pattern_consistency: true
-    # Enhanced compliance
-    nextjs_15_best_practices: true
-    liquid_glass_design_system: true
-    mcp_integration_patterns: true
 
-# Enhanced Monitoring and Analytics
+# Monitoring and Analytics
 monitoring:
   metrics:
-    # Phase Performance Metrics (inherited)
+    # Phase Performance Metrics
     - phase_duration_research
     - phase_duration_planning
     - phase_duration_serena_onboarding
@@ -897,95 +856,107 @@ monitoring:
     - phase_duration_testing
     - phase_duration_documentation
     
-    # Enhanced Implementation Metrics
-    - enhanced_agent_selection_time
-    - mcp_integration_setup_duration
-    - mcp_tool_response_times
-    - performance_optimization_effectiveness
-    - cross_browser_validation_duration
+    # TDD-Specific Metrics
+    - tdd_cycle_count
+    - tdd_cycle_efficiency
+    - test_first_compliance_rate
+    - refactoring_frequency
+    - green_phase_duration
+    - red_phase_duration
+    
+    # Code Quality Metrics
+    - test_coverage_progression
+    - code_quality_score_trend
+    - technical_debt_reduction
+    - cyclomatic_complexity_trend
+    - code_duplication_ratio
+    
+    # Implementation Progress
+    - implementation_velocity
+    - feature_completion_rate
+    - bug_introduction_rate
+    - code_review_feedback_volume
     
     # MCP Integration Performance
-    - vercel_deployment_success_rate
-    - github_workflow_automation_efficiency
-    - cloudinary_optimization_performance
+    - deepwiki_query_response_time
+    - context7_lookup_efficiency
     - playwright_test_execution_time
-    - openai_content_generation_quality
-    - browserstack_validation_coverage
-    - tailwind_designer_optimization_rate
-    - buildkite_pipeline_efficiency
+    - vercel_documentation_access_time
+    - brave_search_query_response_time
     
-    # Liquid Glass Tech Blog Specific
-    - core_web_vitals_progression
-    - liquid_glass_animation_performance
-    - asset_optimization_efficiency
-    - accessibility_compliance_rate
-    - seo_optimization_effectiveness
+    # 3-Tier Agent Performance
+    - enhanced_agent_availability_rate
+    - impersonator_fallback_frequency
+    - standard_agent_usage_rate
+    - agent_transition_efficiency
+    
+    # Human Approval Metrics
+    - approval_response_time
+    - approval_iteration_count
+    - feedback_resolution_time
 
   alerts:
-    # Enhanced Quality Degradation Alerts
-    - mcp_integration_failure: "> 20% of tools unavailable"
-    - performance_regression: "Core Web Vitals degradation > 10%"
-    - enhanced_agent_unavailability: "Enhanced agent execution failure"
+    # Quality Degradation Alerts
+    - test_coverage_drop: "> 5%"
+    - code_quality_regression: "> 0.5 points"
+    - tdd_compliance_violation: "< 95%"
     
-    # MCP Service Alerts
-    - vercel_api_quota_warning: "> 80% quota usage"
-    - github_rate_limit_approaching: "> 90% of rate limit"
-    - cloudinary_transformation_failures: "> 5% failure rate"
-    - playwright_test_failures: "> 10% test failure rate"
-    
-    # Performance Alerts (inherited and enhanced)
+    # Performance Alerts  
     - phase_duration_anomaly: "> 150% of baseline"
     - implementation_velocity_drop: "> 30%"
     - mcp_service_degradation: "> 5s response time"
-    - enhanced_workflow_regression: "Fallback to standard agent > 20%"
+    
+    # 3-Tier Agent Alerts
+    - enhanced_agent_failure_rate: "> 25%"
+    - impersonator_fallback_frequency: "> 50%"
+    - agent_transition_delay: "> 30s"
+    
+    # Process Alerts
+    - approval_timeout_risk: "> 48 hours pending"
+    - critical_error_threshold: "> 3 errors per phase"
+    - dependency_conflict_detected: "any"
 
   notifications:
-    # Enhanced Implementation Notifications
-    - enhanced_agent_activated
-    - mcp_integration_complete
-    - performance_optimization_milestone
-    - cross_browser_validation_complete
-    - accessibility_compliance_verified
+    # Phase Completion Notifications
+    - research_phase_complete
+    - planning_phase_complete
+    - tdd_environment_ready
+    - tdd_cycle_complete
+    - implementation_milestone_reached
+    - testing_phase_complete
+    - documentation_generated
     
-    # MCP Integration Notifications
-    - vercel_deployment_successful
-    - github_workflow_automated
-    - cloudinary_pipeline_optimized
-    - playwright_tests_passing
-    - enhanced_implementation_complete
+    # Quality Milestone Notifications
+    - coverage_threshold_achieved
+    - quality_gate_passed
+    - architecture_validated
+    
+    # 3-Tier Agent Notifications
+    - enhanced_agent_activated
+    - impersonator_fallback_triggered
+    - standard_agent_fallback_activated
+    - agent_transition_completed
+    
+    # Issue Notifications
+    - tdd_compliance_warning
+    - quality_regression_detected
+    - approval_required
+    - manual_intervention_needed
+    - mcp_integration_issue
 
-# Enhanced Reporting Configuration
+# Reporting Configuration
 reporting:
   formats:
-    - html: comprehensive_dashboard_with_mcp_metrics
-    - json: api_consumption_with_enhanced_data
-    - markdown: documentation_with_mcp_integration_details
-    - metrics: prometheus_format_with_enhanced_metrics
-  
-  enhanced_reports:
-    mcp_integration_efficiency:
-      - tool_usage_statistics
-      - cost_optimization_metrics
-      - performance_improvements
-      - error_rates_and_fallbacks
-    
-    liquid_glass_performance:
-      - core_web_vitals_trends
-      - gpu_acceleration_metrics
-      - asset_optimization_results
-      - user_experience_improvements
-    
-    cross_browser_compatibility:
-      - browser_support_matrix
-      - device_compatibility_results
-      - accessibility_compliance_details
-      - visual_regression_test_results
+    - html: comprehensive_dashboard
+    - json: api_consumption
+    - markdown: documentation
+    - metrics: prometheus_format
   
   distribution:
-    - slack_channel: "#liquid-glass-tech-blog-dev"
-    - email_list: "liquid-glass-dev-team@company.com"
-    - dashboard_update: real_time_with_enhanced_metrics
-    - metrics_export: continuous_with_mcp_data
+    - slack_channel: "#coding-workflow"
+    - email_list: "dev-team@company.com"
+    - dashboard_update: real_time
+    - metrics_export: continuous
   
   retention:
     phase_metrics: 180_days
@@ -993,28 +964,50 @@ reporting:
     tdd_cycle_data: 90_days
     approval_history: 2_years
     performance_data: 1_year
-    # Enhanced retention
-    mcp_integration_data: 6_months
-    performance_optimization_history: 1_year
-    cross_browser_validation_data: 90_days
+    agent_performance_data: 1_year
 
-# Enhanced Progress Tracking Integration
+# Progress Tracking Integration
 progress_tracking:
   tasks_md_sync:
     real_time_update: true
     checkbox_automation: true
-    progress_percentage: calculated_with_mcp_efficiency
-    milestone_detection: automatic_with_performance_validation
-    enhanced_context_integration: true
+    progress_percentage: calculated
+    milestone_detection: automatic
   
   context_propagation:
-    state_checkpoints: every_phase_with_mcp_status
-    rollback_points: before_major_phases_and_mcp_integrations
-    audit_trail: comprehensive_with_enhanced_agent_tracking
-    mcp_integration_state: persistent
+    state_checkpoints: every_phase
+    rollback_points: before_major_phases
+    audit_trail: comprehensive
     
   quality_checkpoints:
-    frequency: every_phase_with_enhanced_validation
-    automated_validation: true_with_mcp_tools
-    human_review_triggers: quality_gate_failures_or_mcp_issues
-    performance_validation: core_web_vitals_continuous_monitoring
+    frequency: every_phase
+    automated_validation: true
+    human_review_triggers: quality_gate_failures
+
+# Project-Specific Configuration for liquid-glass-tech-blog
+project_configuration:
+  enhanced_agent_path: ".claude/agents/coding/dynamic/liquid-glass-tech-blog-enhanced-implementation-agent.md"
+  mcp_setup_status_path: ".cc-deck/runtime/projects/liquid-glass-tech-blog/config/mcp-setup-complete.json"
+  tasks_md_path: ".kiro/specs/liquid-glass-tech-blog/tasks.md"
+  
+  technology_stack:
+    - "Next.js 15 (App Router)"
+    - "React 19"
+    - "TypeScript 5.x"
+    - "Tailwind CSS"
+    - "shadcn/ui"
+    - "@developer-hub/liquid-glass"
+  
+  performance_targets:
+    - "LCP < 2.5s"
+    - "INP < 200ms"
+    - "CLS < 0.1"
+    - "Test Coverage >= 95%"
+    - "Quality Score >= 8.0"
+  
+  mcp_tools_integrated:
+    - "DeepWiki MCP: Next.js and React pattern analysis"
+    - "Context7 MCP: @developer-hub/liquid-glass and shadcn/ui documentation"
+    - "Playwright MCP: Visual regression and E2E testing"
+    - "Vercel MCP: Documentation and deployment insights"
+    - "Brave Search MCP: Latest Next.js and React research"

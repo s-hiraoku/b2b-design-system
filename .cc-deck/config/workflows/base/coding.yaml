@@ -107,12 +107,14 @@ phases:
 
   # Phase 5: Enhanced Implementation
   - name: full_implementation
-    agent: impersonator-agent
-    fallback_agent: implementation-agent
-    description: "Production-ready implementation using enhanced MCP capabilities with intelligent fallback system"
+    agent: "{project_id}-enhanced-implementation-agent"
+    fallback_agent: impersonator-agent
+    final_fallback: implementation-agent
+    description: "Production-ready implementation using enhanced MCP capabilities with intelligent 3-tier fallback system"
     agent_selection_priority:
-      - "impersonator-agent"             # Smart detection and dynamic enhanced agent execution
-      - "implementation-agent"           # Final fallback to standard
+      - "{project_id}-enhanced-implementation-agent"  # Primary: Project-specific enhanced agent
+      - "impersonator-agent"                           # Fallback: Impersonate when enhanced not recognized
+      - "implementation-agent"                         # Final fallback: Standard implementation
     agent_detection_paths:
       enhanced_agent: ".claude/agents/coding/dynamic/{project_id}-enhanced-implementation-agent.md"
       mcp_setup_status: ".cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"

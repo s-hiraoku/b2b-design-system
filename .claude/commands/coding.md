@@ -160,8 +160,8 @@ def select_implementation_agent():
         mcp_setup_path = f".cc-deck/runtime/projects/{project_id}/config/mcp-setup-complete.json"
         
         if file_exists(enhanced_agent_path) and file_exists(mcp_setup_path):
-            print(f"✨ Using enhanced implementation agent via impersonator with MCP capabilities")
-            return "impersonator-agent"
+            print(f"✨ Using enhanced implementation agent with MCP capabilities")
+            return f"{project_id}-enhanced-implementation-agent"
 
     # Fallback to standard implementation
     print(f"📋 Using standard implementation agent (enhanced agent unavailable)")

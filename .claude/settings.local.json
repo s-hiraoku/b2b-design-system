@@ -42,9 +42,33 @@
       "Bash(gtimeout:*)",
       "Bash(lsof:*)",
       "WebFetch(domain:docs.anthropic.com)",
-      "WebFetch(domain:.kiro)"
+      "WebFetch(domain:.kiro)",
+      "WebFetch(domain:shchegrikovich.substack.com)",
+      "Bash(__NEW_LINE__ echo \"1. メインキャッシュディレクトリをクリア...\")",
+      "Bash(__NEW_LINE__ echo \"2. コードキャッシュをクリア...\")",
+      "Bash(__NEW_LINE__ echo \"3. 拡張機能キャッシュをクリア...\")",
+      "Bash(__NEW_LINE__ echo \"4. コードキャッシュ（追加）をクリア...\")",
+      "Bash(__NEW_LINE__ echo \"5. GPUキャッシュをクリア...\")",
+      "Bash(__NEW_LINE__ echo \"7. ワークスペースストレージをクリア...\")",
+      "Bash(__NEW_LINE__ echo \"8. ローカルストレージをクリア...\")",
+      "Bash(__NEW_LINE__ echo \"9. IndexedDBをクリア...\")",
+      "Bash(__NEW_LINE__ echo \"\")",
+      "Bash(for dir in \"Cache\" \"CachedData\" \"CachedExtensionVSIXs\" \"Code Cache\" \"GPUCache\" \"Session Storage\" \"Local Storage\" \"IndexedDB\")",
+      "Bash(do)",
+      "Bash(if [ ! -d ~/Library/Application Support/Code/\"$dir\" ])",
+      "Bash(then)",
+      "Bash(echo:*)",
+      "Bash(else)",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(claude agents list)",
+      "Bash(npm uninstall:*)"
     ],
-    "deny": []
+    "deny": [],
+    "additionalDirectories": [
+      "/Users/hiraoku.shinichi/Library/Application",
+      "/Users/hiraoku.shinichi/.claude"
+    ]
   },
   "searchDefaults": {
     "useCurrentDate": true,
