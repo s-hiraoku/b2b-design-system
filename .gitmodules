@@ -1,0 +1,3 @@
+[submodule "projects/liquid-glass-tech-blog"]
+	path = projects/liquid-glass-tech-blog
+	url = ./projects/liquid-glass-tech-blog
