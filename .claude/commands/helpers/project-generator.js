@@ -10,31 +10,36 @@ const path = require('path');
 
 class ProjectGenerator {
   /**
-   * Generate project from template
+   * Generate project using official framework tools
    * @param {Object} config - Project configuration
    * @param {string} config.projectName - Name of the project
-   * @param {string} config.projectType - Type of project (next-js, basic, etc.)
+   * @param {string} config.projectType - Type of project (nextjs, react, vue, etc.)
    * @param {string} config.projectPath - Full path where project will be created
    * @param {string} config.githubUrl - GitHub repository URL
    */
   static async generateProject(config) {
     const { projectName, projectType, projectPath, githubUrl } = config;
+    const { execSync } = require('child_process');
     
     console.log(`🏗️  Creating ${projectType} project: ${projectName}`);
     
     try {
-      // Create project directory
-      fs.mkdirSync(projectPath, { recursive: true });
+      const projectsDir = path.dirname(projectPath);
       
-      // Load template
-      const template = this.loadTemplate(projectType);
+      // Ensure projects directory exists
+      fs.mkdirSync(projectsDir, { recursive: true });
       
-      // Create files from template
-      await this.createFilesFromTemplate(template, projectPath, {
-        projectName,
-        githubUrl,
-        projectType
-      });
+      // Change to projects directory
+      process.chdir(projectsDir);
+      
+      // Generate project using official tools
+      const command = this.getCreateCommand(projectType, projectName);
+      console.log(`Running: ${command}`);
+      
+      execSync(command, { stdio: 'inherit' });
+      
+      // Add CC-Deck specific files
+      await this.addCCDeckIntegration(projectPath, { projectName, githubUrl, projectType });
       
       console.log(`✅ Project structure created successfully at: ${projectPath}`);
       return { success: true, path: projectPath };
@@ -52,80 +57,84 @@ class ProjectGenerator {
   }
 
   /**
-   * Load template configuration
-   * @param {string} projectType - Type of project template to load
-   * @returns {Object} Template configuration
+   * Get the appropriate create command for project type
+   * @param {string} projectType - Type of project (nextjs, react, vue, etc.)
+   * @param {string} projectName - Name of the project
+   * @returns {string} Command to create the project
    */
-  static loadTemplate(projectType) {
-    const templatePath = path.join(__dirname, '..', 'templates', `${projectType}-template.json`);
+  static getCreateCommand(projectType, projectName) {
+    const commands = {
+      'nextjs': `npx create-next-app@latest ${projectName} --typescript --tailwind --eslint --app --src-dir`,
+      'react': `npm create vite@latest ${projectName} -- --template react-ts`,
+      'vue': `npm create vue@latest ${projectName} -- --typescript --jsx --router --pinia --vitest --eslint --prettier`,
+      'astro': `npm create astro@latest ${projectName} -- --template minimal --typescript strict`,
+      'express': `npm create express@latest ${projectName} -- --typescript`,
+      'basic': `npm init -y ${projectName}`
+    };
     
-    // Fallback to basic template if specific template doesn't exist
-    const fallbackPath = path.join(__dirname, '..', 'templates', 'basic-template.json');
-    
-    let actualTemplatePath = templatePath;
-    
-    if (!fs.existsSync(templatePath)) {
-      console.log(`⚠️  Template for ${projectType} not found, using basic template`);
-      actualTemplatePath = fallbackPath;
-    }
-    
-    if (!fs.existsSync(actualTemplatePath)) {
-      throw new Error(`Template file not found: ${actualTemplatePath}`);
-    }
-    
-    const templateContent = fs.readFileSync(actualTemplatePath, 'utf8');
-    return JSON.parse(templateContent);
+    return commands[projectType] || commands['nextjs']; // Default to Next.js
   }
 
   /**
-   * Create files from template configuration
-   * @param {Object} template - Template configuration object
-   * @param {string} projectPath - Path where files will be created
-   * @param {Object} variables - Variables to replace in template
+   * Add CC-Deck specific integration files to the project
+   * @param {string} projectPath - Path to the project
+   * @param {Object} variables - Variables for replacement
    */
-  static async createFilesFromTemplate(template, projectPath, variables) {
-    for (const [filePath, content] of Object.entries(template)) {
-      const fullFilePath = path.join(projectPath, filePath);
-      const fileDir = path.dirname(fullFilePath);
+  static async addCCDeckIntegration(projectPath, variables) {
+    const { projectName, githubUrl, projectType } = variables;
+    
+    // Add CC-Deck specific README section
+    const readmePath = path.join(projectPath, 'README.md');
+    if (fs.existsSync(readmePath)) {
+      let readmeContent = fs.readFileSync(readmePath, 'utf8');
       
-      // Create directory if it doesn't exist
-      fs.mkdirSync(fileDir, { recursive: true });
+      const ccDeckSection = `
+
+## Part of CC-Deck
+
+This project is part of the CC-Deck development platform and is configured as a Git submodule for independent development and deployment.
+
+- **Parent Project**: [CC-Deck](../../README.md)
+- **Submodule Management**: [Documentation](../../docs/submodule-management.md)
+- **Repository**: ${githubUrl}
+
+### Development Workflow
+
+This project follows the CC-Deck workflow with:
+- Kiro SDD (Specification-Driven Development)
+- Test-Driven Development (TDD)
+- Enterprise-grade quality assurance
+- Automated deployment pipelines
+
+For more information, see the [CC-Deck documentation](../../docs/).
+`;
       
-      // Process content based on type
-      let processedContent;
-      
-      if (typeof content === 'string') {
-        // Direct string content
-        processedContent = this.replaceVariables(content, variables);
-      } else if (typeof content === 'object') {
-        // JSON content
-        processedContent = JSON.stringify(content, null, 2);
-        processedContent = this.replaceVariables(processedContent, variables);
-      } else {
-        throw new Error(`Unsupported content type for ${filePath}`);
+      readmeContent += ccDeckSection;
+      fs.writeFileSync(readmePath, readmeContent, 'utf8');
+      console.log(`   📄 Updated: README.md with CC-Deck integration`);
+    }
+    
+    // Add .vscode settings for CC-Deck workflow
+    const vscodePath = path.join(projectPath, '.vscode');
+    fs.mkdirSync(vscodePath, { recursive: true });
+    
+    const settingsContent = {
+      "typescript.preferences.importModuleSpecifier": "relative",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+      },
+      "files.associations": {
+        "*.md": "markdown"
       }
-      
-      // Write file
-      fs.writeFileSync(fullFilePath, processedContent, 'utf8');
-      console.log(`   📄 Created: ${filePath}`);
-    }
-  }
-
-  /**
-   * Replace template variables in content
-   * @param {string} content - Content with template variables
-   * @param {Object} variables - Variables to replace
-   * @returns {string} Content with variables replaced
-   */
-  static replaceVariables(content, variables) {
-    let result = content;
+    };
     
-    for (const [key, value] of Object.entries(variables)) {
-      const placeholder = `{${key}}`;
-      result = result.split(placeholder).join(value);
-    }
-    
-    return result;
+    fs.writeFileSync(
+      path.join(vscodePath, 'settings.json'),
+      JSON.stringify(settingsContent, null, 2),
+      'utf8'
+    );
+    console.log(`   📄 Created: .vscode/settings.json`);
   }
 
   /**
@@ -317,7 +326,7 @@ if (require.main === module) {
   
   if (args.length < 3) {
     console.log('Usage: node project-generator.js <projectName> <githubUrl> <projectType>');
-    console.log('Example: node project-generator.js my-blog-app https://github.com/user/my-blog-app.git next-js');
+    console.log('Example: node project-generator.js my-blog-app https://github.com/user/my-blog-app.git nextjs');
     process.exit(1);
   }
 
@@ -326,7 +335,7 @@ if (require.main === module) {
   ProjectGenerator.setupCompleteProject({
     projectName,
     githubUrl,
-    projectType: projectType || 'next-js'
+    projectType: projectType || 'nextjs'
   }).then(result => {
     console.log('\n' + JSON.stringify(result, null, 2));
     process.exit(result.success ? 0 : 1);
