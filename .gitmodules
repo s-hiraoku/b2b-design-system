@@ -1,3 +1,6 @@
 [submodule "projects/liquid-glass-tech-blog"]
 	path = projects/liquid-glass-tech-blog
 	url = https://github.com/s-hiraoku/liquid-glass-tech-blog.git
+[submodule "projects/artistic-blog-site"]
+	path = projects/artistic-blog-site
+	url = https://github.com/s-hiraoku/artistic-blog-site
