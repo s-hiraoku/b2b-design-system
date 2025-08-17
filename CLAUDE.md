@@ -27,6 +27,7 @@ See [docs/ATTRIBUTION.md](docs/ATTRIBUTION.md) for detailed acknowledgments.
 All specifications are stored in the `.kiro/specs/` directory:
 
 - **fashionable-girls-blog** - Modern fashion-focused blog platform for young women with visual-first content, social features, and e-commerce integration
+- **artistic-blog-site** - Art-focused blog platform integrating Japanese aesthetics (Ma, Wabi-sabi, Kanso) with modern web technologies for immersive art appreciation and cultural exchange
 
 ## Project Structure
 

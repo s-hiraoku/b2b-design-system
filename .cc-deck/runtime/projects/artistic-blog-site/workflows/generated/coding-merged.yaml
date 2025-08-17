@@ -1,0 +1,1064 @@
+# Artistic Blog Site - Merged Coding Workflow
+# Combined base coding workflow with project-specific enhancements
+# Auto-generated merge of coding.yaml + artistic-blog-site-enhanced-implementation-agent
+
+name: artistic-blog-site-coding-workflow
+description: Complete development workflow with MCP integrations, Smart Context Propagation, and Japanese aesthetic platform enhancements
+version: "1.0.0"
+project_id: artistic-blog-site
+
+# Merged Project Context
+project_context:
+  name: "Artistic Blog Site"
+  type: "artistic_aesthetic_platform"
+  description: "アート的なおしゃれなブログサイト - Japanese aesthetic principles in modern web design"
+  cultural_focus: "Ma (間), Wabi-sabi (侘寂), Kanso (簡素) digital expression"
+  technology_stack:
+    framework: "Next.js 15 App Router"
+    frontend: "React 19, TypeScript 5.x"
+    styling: "Tailwind CSS 4, shadcn/ui, Radix UI"
+    animation: "Framer Motion, GSAP, React Spring, Lottie, Anime.js"
+    3d_rendering: "Three.js with WebXR support"
+    image_handling: "IIIF compliance, Cloudinary optimization"
+    database: "PostgreSQL with Drizzle ORM"
+    state_management: "TanStack Query, Zustand"
+    performance_targets:
+      first_contentful_paint: "< 2.0s"
+      largest_contentful_paint: "< 2.5s"
+      cumulative_layout_shift: "< 0.1"
+      animation_frame_rate: "60fps"
+      mobile_optimization: true
+      test_coverage: "95%"
+      accessibility: "WCAG 2.1 AA"
+
+# Enhanced Agent Configuration
+enhanced_agent_config:
+  agent_id: "artistic-blog-site-enhanced-implementation-agent"
+  agent_path: ".claude/agents/coding/dynamic/artistic-blog-site-enhanced-implementation-agent.md"
+  mcp_tools_count: 7
+  approved_mcp_tools:
+    essential_development:
+      - context7: "Next.js 15, React 19, Three.js, IIIF documentation"
+      - deepwiki: "Art platform architectural patterns and 3D rendering optimization"
+      - brave_search: "2025 Japanese aesthetic web design trends, IIIF standards"
+    core_platform:
+      - vercel: "Edge deployment and performance optimization for art content"
+      - playwright: "Cross-device testing including VR/AR compatibility"
+    specialized_tools:
+      - performance_monitoring: "Animation performance, 3D rendering, and Core Web Vitals"
+      - ai_ml_tools: "Cultural content analysis and Japanese aesthetic validation"
+
+# Smart Context Schema (Enhanced for Japanese Aesthetics)
+context_schema:
+  research_context:
+    technologies: array[string]
+    best_practices: array[object]
+    documentation_sources: array[string]
+    japanese_aesthetic_principles: array[object]
+    animation_libraries_research: array[object]
+    iiif_standards: array[object]
+  planning_context:
+    architecture: object
+    implementation_strategy: string
+    technology_stack: array[string]
+    aesthetic_requirements: object
+    animation_orchestration_plan: object
+    3d_rendering_strategy: object
+  implementation_context:
+    code_generated: array[object]
+    test_coverage: number
+    quality_metrics: object
+    japanese_aesthetic_features: array[object]
+    animation_integrations: array[object]
+    3d_experiences: array[object]
+    iiif_compliance: object
+
+# Workflow Definition (Enhanced for Japanese Aesthetics)
+phases:
+  # Phase 1: Research (Enhanced for Art Platform)
+  - name: research
+    agent: research-agent
+    description: "Japanese aesthetic art platform technology research using MCP integrations"
+    available_agents:
+      - research-agent: "Comprehensive technology research"
+      - deepwiki-research-solver: "Specialized technical problem research and solutions"
+    inputs: [project_requirements, japanese_aesthetic_requirements]
+    outputs:
+      - research_context
+      - technology_recommendations
+      - japanese_aesthetic_patterns
+      - animation_library_analysis
+      - iiif_implementation_guide
+    mcp_integrations:
+      - deepwiki: "Art platform repository analysis and 3D rendering patterns"
+      - context7: "Next.js 15, React 19, Three.js, and IIIF library documentation"
+      - brave_search: "2025 Japanese aesthetic design trends, IIIF standards, animation best practices"
+    japanese_research_focus:
+      - ma_spacing_digital_implementation_patterns
+      - wabi_sabi_animation_effect_techniques
+      - kanso_minimalist_component_design
+      - iiif_art_display_optimization
+      - three_js_virtual_gallery_architecture
+      - multi_animation_library_orchestration
+    success_criteria:
+      - research_complete: true
+      - technology_stack_identified: true
+      - japanese_aesthetic_patterns_analyzed: true
+      - animation_strategy_researched: true
+      - iiif_compliance_understood: true
+    next_phase: planning
+
+  # Phase 2: Strategic Planning (Enhanced for Japanese Aesthetics)
+  - name: planning
+    agent: planning-agent
+    description: "Develop architecture and implementation strategy for Japanese aesthetic art platform"
+    inputs: [research_context, japanese_aesthetic_patterns, animation_library_analysis]
+    outputs:
+      - planning_context
+      - architecture_design
+      - implementation_roadmap
+      - aesthetic_feature_roadmap
+      - animation_orchestration_plan
+    japanese_planning_enhancements:
+      - ma_based_spacing_system_architecture
+      - wabi_sabi_animation_framework_design
+      - kanso_component_library_structure
+      - seasonal_theming_system_planning
+      - iiif_image_optimization_strategy
+      - three_js_performance_optimization_plan
+      - multi_library_animation_coordination
+    success_criteria:
+      - architecture_documented: true
+      - implementation_plan_created: true
+      - aesthetic_features_planned: true
+      - animation_strategy_defined: true
+      - 3d_rendering_plan_complete: true
+    next_phase: serena_onboarding
+
+  # Phase 3: TDD Serena Onboarding & Environment Setup (Enhanced)
+  - name: serena_onboarding
+    agent: serena-onboarding-agent
+    description: "Initialize Serena MCP and establish TDD development environment for Japanese aesthetic art platform"
+    inputs: [planning_context, research_context, aesthetic_feature_roadmap]
+    outputs:
+      - serena_context
+      - tdd_patterns
+      - coding_standards
+      - test_environment_config
+      - japanese_aesthetic_testing_patterns
+    configuration:
+      development_mode: "test_driven"
+      tdd_focus: true
+      japanese_aesthetic_focus: true
+      pattern_preferences:
+        - "AAA pattern for tests (Arrange-Act-Assert)"
+        - "Given-When-Then structure for BDD"
+        - "Animation performance testing patterns"
+        - "3D rendering testing with mocked WebGL contexts"
+        - "IIIF compliance testing patterns"
+        - "Japanese aesthetic validation testing"
+        - "Multi-library animation integration testing"
+        - "Red-Green-Refactor enforcement"
+    success_criteria:
+      - serena_initialized: true
+      - tdd_patterns_established: true
+      - test_framework_ready: true
+      - aesthetic_testing_setup: true
+      - animation_testing_configured: true
+    next_phase: tdd_cycle
+
+  # Phase 4: TDD Red-Green-Refactor Cycle (Enhanced)
+  - name: tdd_cycle
+    agent: tdd-agent
+    description: "Execute strict TDD Red-Green-Refactor cycles for Japanese aesthetic art platform following t-wada methodology"
+    inputs: [serena_context, planning_context, tdd_patterns, japanese_aesthetic_testing_patterns]
+    outputs:
+      - test_suite
+      - minimal_implementations
+      - refactored_code
+      - tdd_cycles_log
+      - aesthetic_feature_tests
+    tdd_methodology:
+      strict_mode: true
+      cycle_enforcement: true
+      test_first_only: true
+      red_phase_validation: true
+      green_phase_minimal: true
+      refactor_phase_mandatory: true
+      animation_performance_testing: true
+      japanese_aesthetic_testing: true
+    japanese_tdd_enhancements:
+      - ma_spacing_calculation_testing
+      - wabi_sabi_animation_effect_testing
+      - kanso_component_simplicity_validation
+      - seasonal_theme_transition_testing
+      - iiif_image_loading_performance_testing
+      - three_js_rendering_performance_testing
+      - multi_library_animation_coordination_testing
+    success_criteria:
+      - all_cycles_complete: true
+      - tests_written_first: true
+      - minimal_implementation_achieved: true
+      - refactoring_applied: true
+      - zero_failing_tests: true
+      - aesthetic_features_tested: true
+      - animation_performance_validated: true
+    next_phase: full_implementation
+
+  # Phase 5: Enhanced Japanese Aesthetic Platform Implementation
+  - name: full_implementation
+    agent: "artistic-blog-site-enhanced-implementation-agent"
+    fallback_agent: impersonator-agent
+    final_fallback: implementation-agent
+    description: "Production-ready Japanese aesthetic art platform implementation using enhanced MCP capabilities with intelligent 3-tier fallback system"
+    
+    # Agent Selection Priority (Updated)
+    agent_selection_priority:
+      - "artistic-blog-site-enhanced-implementation-agent"  # Primary: Project-specific enhanced agent
+      - "impersonator-agent"                               # Fallback: Impersonate when enhanced not recognized
+      - "implementation-agent"                             # Final fallback: Standard implementation
+    
+    agent_detection_paths:
+      enhanced_agent: ".claude/agents/coding/dynamic/artistic-blog-site-enhanced-implementation-agent.md"
+      mcp_setup_status: ".cc-deck/runtime/projects/artistic-blog-site/config/mcp-setup-complete.json"
+    
+    inputs: [test_suite, minimal_implementations, serena_context, refactored_code, aesthetic_feature_tests]
+    outputs:
+      - implementation_context
+      - production_code
+      - japanese_aesthetic_features
+      - animation_orchestration_system
+      - three_js_virtual_galleries
+      - iiif_compliant_image_system
+      - seasonal_theming_system
+      - edge_case_handling
+      - performance_optimizations
+      - quality_metrics
+      - best_practices_applied
+      - security_validations
+    
+    # Enhanced Japanese Aesthetic Implementation Strategy
+    japanese_implementation_strategy:
+      primary_approach: "enhanced_mcp_integration_with_aesthetic_focus"
+      fallback_approach: "standard_implementation_with_research_support"
+      agent_selection_logic: "check_enhanced_agent_availability"
+      fail_safe_guarantee: true
+      animation_first_approach: true
+      aesthetic_principles_integration: true
+      iiif_compliance_mandatory: true
+      performance_optimization_priority: true
+      cultural_authenticity_validation: true
+    
+    # Enhanced vs Standard Implementation (Updated for Japanese Aesthetics)
+    enhanced_implementation:
+      condition: "enhanced_agent_available AND mcp_setup_complete"
+      agent: "artistic-blog-site-enhanced-implementation-agent"
+      capabilities:
+        - "Integrated 7 MCP tools access (Context7, DeepWiki, Brave Search, Vercel, Playwright, Performance Monitoring, AI/ML)"
+        - "Real-time Next.js 15, React 19, Three.js, and IIIF documentation validation"
+        - "Repository pattern analysis for art platform and 3D rendering optimization"
+        - "Advanced code generation with Japanese aesthetic MCP-enhanced context"
+        - "Multi-library animation orchestration with performance monitoring"
+        - "IIIF-compliant art display with automated optimization"
+        - "Three.js virtual gallery implementation with WebXR support"
+        - "Cultural authenticity validation using AI/ML tools"
+        - "Automatic performance optimization and Core Web Vitals monitoring"
+      
+      japanese_implementation_focus:
+        - "Leverage all 7 approved MCP tools for optimal Japanese aesthetic implementation"
+        - "Apply latest Next.js 15, React 19, and Three.js documentation from Context7"
+        - "Use DeepWiki for art platform and 3D rendering pattern analysis"
+        - "Integrate AI/ML tools for cultural authenticity and aesthetic validation"
+        - "Use Playwright for cross-device testing including VR/AR compatibility"
+        - "Apply Vercel optimization strategies for high-resolution art content delivery"
+        - "Monitor animation and 3D rendering performance with specialized analytics"
+        - "Ensure IIIF compliance through automated validation and testing"
+        - "Maintain TDD foundation while enhancing with aesthetic-specific MCP capabilities"
+        - "Ensure production readiness with comprehensive Japanese aesthetic MCP support"
+    
+    standard_implementation:
+      condition: "enhanced_agent_unavailable OR mcp_setup_failed"
+      agent: "implementation-agent"
+      capabilities:
+        - "Standard TDD-based implementation approach"
+        - "Serena MCP integration for code generation"
+        - "Manual research and documentation lookup"
+        - "Standard quality assurance and testing practices"
+        - "Tasks.md progress tracking and checkbox updates"
+        - "Basic responsive design implementation"
+      
+      implementation_focus:
+        - "Complete TDD implementation using existing test foundation"
+        - "Apply established coding patterns and best practices"
+        - "Implement basic Japanese aesthetic features without AI enhancement"
+        - "Ensure all tests remain passing throughout implementation"
+        - "Maintain code quality and production readiness standards"
+        - "Update tasks.md checkboxes as each task is completed"
+    
+    # Tasks.md Integration (Both Enhanced and Standard Agents)
+    task_management:
+      source: ".kiro/specs/artistic-blog-site/tasks.md"
+      tracking_strategy:
+        - "Load tasks.md at phase start to identify pending Japanese aesthetic tasks"
+        - "Parse checkbox format: '- [ ]' (pending) vs '- [x]' (completed)"
+        - "Execute aesthetic tasks sequentially or in dependency order"
+        - "Update checkbox immediately upon task completion"
+        - "Commit tasks.md updates after each task or batch completion"
+      
+      japanese_task_execution_flow:
+        1. "Read current tasks.md state for Japanese aesthetic platform phases"
+        2. "Identify next uncompleted aesthetic implementation task(s)"
+        3. "Execute implementation for the Ma/Wabi-sabi/Kanso feature task"
+        4. "Run animation and 3D rendering tests to verify implementation"
+        5. "Update checkbox from '- [ ]' to '- [x]'"
+        6. "Commit both code changes and tasks.md update"
+        7. "Proceed to next aesthetic task or report phase completion"
+      
+      japanese_progress_reporting:
+        - "Display completion percentage (e.g., Phase 2: Ma Spacing 3/4 tasks = 75%)"
+        - "Show remaining aesthetic tasks count and estimated time"
+        - "Highlight blocked or dependent animation/3D tasks"
+        - "Generate Japanese aesthetic implementation summary for human review"
+    
+    # Enhanced MCP Integration Strategy (Japanese Aesthetic Platform)
+    enhanced_mcp_integration:
+      condition: "enhanced_agent_available"
+      integrated_tools:
+        - "Context7 MCP: Next.js 15, React 19, Three.js, IIIF library documentation"
+        - "DeepWiki MCP: Art platform and 3D rendering repository pattern analysis"
+        - "Brave Search MCP: 2025 Japanese aesthetic design trends and IIIF standards"
+        - "Vercel MCP: Art platform deployment and high-resolution content optimization"
+        - "Playwright MCP: Cross-device testing including VR/AR compatibility validation"
+        - "Performance Monitoring MCP: Animation performance, 3D rendering, and Core Web Vitals"
+        - "AI/ML Tools MCP: Cultural authenticity validation and aesthetic analysis"
+      
+      japanese_usage_optimization:
+        - "Priority-based MCP usage for aesthetic critical vs enhancement features"
+        - "Intelligent caching to minimize response times for art content"
+        - "Graceful degradation when Japanese-specific MCP tools are unavailable"
+        - "Performance monitoring and timeout handling for animation and 3D rendering"
+      
+      japanese_fallback_mechanisms:
+        - "Context7 unavailable → Use cached Next.js 15, React 19, and Three.js documentation"
+        - "DeepWiki timeout → Rely on Serena patterns and standard art platform practices"
+        - "AI/ML Tools failure → Disable cultural validation, use manual aesthetic review"
+        - "Playwright unavailable → Use browser dev tools for VR/AR testing"
+        - "Performance Monitoring failure → Use built-in browser performance APIs"
+        - "All MCP failures → Switch to standard implementation-agent"
+    
+    # Japanese Aesthetic Platform Quality Assurance Integration
+    quality_assurance:
+      enhanced_monitoring:
+        condition: "enhanced_agent_available"
+        capabilities:
+          - "Real-time MCP-powered code quality analysis for Japanese aesthetic platform"
+          - "Automated library compatibility checking via Context7"
+          - "Art platform and 3D rendering pattern compliance via DeepWiki"
+          - "AI-powered cultural authenticity and aesthetic validation"
+          - "Cross-device animation and VR/AR compatibility validation via Playwright"
+          - "Advanced security scanning with latest threat intelligence"
+      
+      japanese_monitoring:
+        condition: "japanese_aesthetic_implementation"
+        capabilities:
+          - "Ma spacing calculation accuracy monitoring"
+          - "Wabi-sabi animation effect authenticity tracking"
+          - "Kanso design simplicity compliance validation"
+          - "Animation performance optimization (60fps target)"
+          - "3D rendering performance and WebXR compatibility"
+          - "IIIF compliance and image optimization validation"
+          - "Seasonal theming system functionality monitoring"
+      
+      unified_quality_gates:
+        entry_gate:
+          - tdd_foundation_validated: true
+          - agent_selection_completed: true
+          - mcp_setup_status_verified: true
+          - japanese_requirements_loaded: true
+        exit_gate:
+          - all_tests_passing: true
+          - code_coverage: ">= 95%"
+          - implementation_completeness: "100%"
+          - production_readiness: true
+          - japanese_features_implemented: true
+          - animation_performance_verified: true
+          - iiif_compliance_validated: true
+    
+    # Japanese Aesthetic Platform Success Criteria
+    success_criteria:
+      core_requirements:
+        - all_tests_passing: true
+        - feature_requirements_met: "100%"
+        - tdd_foundation_preserved: true
+        - implementation_completeness: "100%"
+        - japanese_aesthetic_features_complete: true
+        
+      quality_standards:
+        - code_coverage: ">= 95%"
+        - code_quality_score: ">= 8.5"
+        - production_readiness: true
+        - error_handling_comprehensive: true
+        - animation_performance_optimized: true
+        - accessibility_wcag_aa_compliant: true
+        
+      japanese_aesthetic_benefits: 
+        condition: "enhanced_agent_used"
+        additional_criteria:
+          - "7 MCP tools integration successful: Context7, DeepWiki, Brave Search, Vercel, Playwright, Performance Monitoring, AI/ML"
+          - "Latest Japanese aesthetic design practices applied from MCP research"
+          - "Advanced animation performance optimization achieved (60fps)"
+          - "Enhanced security scanning completed"
+          - "Art platform and 3D rendering pattern alignment verified"
+          - "Cultural authenticity validation operational"
+          - "IIIF compliance and optimization implemented"
+          - "Multi-library animation orchestration functional"
+    
+    next_phase: testing
+
+  # Phase 6: Testing (Enhanced for Japanese Aesthetic Platform)
+  - name: testing
+    agent: testing-agent
+    description: "Comprehensive testing strategy for Japanese aesthetic art platform"
+    inputs: [implementation_context, japanese_aesthetic_features]
+    outputs:
+      - test_results
+      - coverage_report
+      - aesthetic_feature_test_results
+      - animation_performance_test_results
+      - 3d_rendering_test_results
+    test_types:
+      - unit_tests: true
+      - integration_tests: true
+      - e2e_tests: true
+      - animation_performance_tests: true
+      - 3d_rendering_tests: true
+      - vr_ar_compatibility_tests: true
+      - iiif_compliance_tests: true
+      - cultural_authenticity_tests: true
+    japanese_testing_enhancements:
+      - ma_spacing_calculation_accuracy: "Mathematical precision validation"
+      - wabi_sabi_animation_authenticity: "Cultural effect validation"
+      - kanso_design_simplicity: "Minimalism compliance testing"
+      - seasonal_theming_transitions: "Smooth theme change validation"
+      - multi_device_3d_rendering: "WebXR and fallback testing"
+      - iiif_image_optimization: "Loading performance and quality testing"
+    success_criteria:
+      - tests_created: true
+      - tests_passing: true
+      - coverage_threshold_met: true
+      - aesthetic_features_tested: true
+      - animation_performance_verified: true
+      - 3d_rendering_optimized: true
+      - cultural_authenticity_validated: true
+    next_phase: execution_verification
+
+  # Phase 6.2: Execution Verification (Enhanced for Japanese Aesthetics)
+  - name: execution_verification
+    agent: execution-validator
+    description: "Validate Japanese aesthetic art platform execution in development environment and detect runtime issues"
+    inputs: [implementation_context, test_results, aesthetic_feature_test_results]
+    outputs:
+      - execution_report
+      - runtime_issues_list
+      - basic_functionality_status
+      - environment_validation_results
+      - japanese_aesthetic_validation_results
+    
+    # Japanese Aesthetic Platform Execution Validation Process
+    validation_steps:
+      - dependency_installation: "Install and verify all aesthetic platform dependencies"
+      - application_startup: "Attempt to start Japanese aesthetic platform using standard commands"
+      - runtime_monitoring: "Monitor logs for aesthetic platform errors, warnings, and exceptions"
+      - basic_functionality_test: "Execute core aesthetic platform user workflows manually"
+      - animation_validation: "Test multi-library animation orchestration and performance"
+      - 3d_rendering_validation: "Test Three.js virtual galleries and WebXR functionality"
+      - iiif_compliance_validation: "Test IIIF image loading and optimization"
+      - cultural_authenticity_validation: "Test Japanese aesthetic principles implementation"
+      - environment_dependency_check: "Validate external services and platform configurations"
+      - issue_resolution: "Fix critical runtime issues preventing platform execution"
+    
+    japanese_validation_criteria:
+      - application_starts_successfully: true
+      - no_critical_runtime_errors: true
+      - basic_functionality_accessible: true
+      - core_workflows_completable: true
+      - animation_systems_operational: true
+      - 3d_rendering_functional: true
+      - iiif_compliance_verified: true
+      - japanese_aesthetics_authentic: true
+    
+    success_criteria:
+      - application_starts_successfully: true
+      - no_critical_runtime_errors: true
+      - basic_functionality_accessible: true
+      - core_workflows_completable: true
+      - japanese_aesthetic_platform_operational: true
+    
+    next_phase: specification_compliance_check
+
+  # Phase 6.5: Specification Compliance Check (Enhanced for Japanese Aesthetics)
+  - name: specification_compliance_check
+    agent: acceptance-reviewer
+    description: "Verify Japanese aesthetic art platform implementation compliance with specifications and detect missing features"
+    inputs: [implementation_context, test_results, coverage_report, japanese_aesthetic_validation_results]
+    outputs:
+      - compliance_report
+      - specification_gaps
+      - implementation_completeness_score
+      - missing_features_list
+      - japanese_aesthetic_compliance_report
+    
+    # Japanese Aesthetic Platform Specification Verification Process
+    verification_process:
+      specification_analysis:
+        - "Load and parse .kiro/specs/artistic-blog-site directory specifications"
+        - "Extract Japanese aesthetic feature requirements and acceptance criteria"
+        - "Identify mandatory vs optional aesthetic features"
+        - "Map specifications to aesthetic platform implementation artifacts"
+      
+      japanese_implementation_verification:
+        - "Analyze implemented aesthetic platform code against specification requirements"
+        - "Verify API endpoints match aesthetic platform specification definitions"
+        - "Check data models align with aesthetic platform specification schemas"
+        - "Validate business logic matches specified aesthetic platform behavior"
+        - "Verify Ma spacing system implementation accuracy"
+        - "Check Wabi-sabi animation effect authenticity"
+        - "Validate Kanso design principle adherence"
+        - "Verify seasonal theming system functionality"
+        - "Check IIIF compliance and optimization"
+        - "Validate Three.js virtual gallery implementation"
+        - "Verify multi-library animation orchestration"
+      
+      japanese_tasks_completion_check:
+        - "Parse tasks.md file for aesthetic platform completion status"
+        - "Verify all mandatory aesthetic platform tasks are marked complete"
+        - "Identify incomplete or skipped aesthetic tasks"
+        - "Cross-reference aesthetic tasks with actual implementation"
+      
+      japanese_gap_analysis:
+        - "Identify missing aesthetic features from specifications"
+        - "Detect implementation deviations from Japanese aesthetic requirements"
+        - "Flag incomplete or partial aesthetic implementations"
+        - "Generate prioritized aesthetic gap remediation plan"
+    
+    # Japanese Aesthetic Platform Decision Logic
+    decision_criteria:
+      completion_threshold:
+        mandatory_features: "100%"  # All mandatory aesthetic features must be implemented
+        optional_features: ">= 85%"  # Most optional aesthetic features should be implemented
+        tasks_completion: ">= 95%"   # Nearly all aesthetic tasks should be complete
+        specification_alignment: ">= 90%"  # High aesthetic platform specification alignment required
+        animation_performance: "100%"  # 60fps animation performance must be achieved
+        cultural_authenticity: ">= 90%"  # High cultural authenticity required
+      
+      japanese_quality_gates:
+        - "No critical aesthetic specification gaps identified"
+        - "All mandatory aesthetic API endpoints implemented"
+        - "Core Japanese aesthetic principles fully implemented"
+        - "Data models match aesthetic platform specification requirements"
+        - "Authentication/authorization properly implemented"
+        - "Error handling meets aesthetic platform specification standards"
+        - "Animation performance meets 60fps targets"
+        - "3D rendering optimized for target devices"
+        - "IIIF compliance verified"
+        - "Cultural authenticity validated"
+    
+    success_criteria:
+      - specification_compliance: ">= 90%"
+      - mandatory_features_complete: "100%"
+      - critical_gaps_count: "0"
+      - tasks_completion_rate: ">= 95%"
+      - implementation_quality_score: ">= 8.5"
+      - japanese_aesthetic_compliance: ">= 90%"
+      - animation_performance_validated: true
+      - cultural_authenticity_verified: true
+
+    next_phase: documentation
+
+  # Phase 7: Documentation (Enhanced for Japanese Aesthetic Platform)
+  - name: documentation
+    agent: documentation-agent
+    description: "Generate comprehensive documentation for Japanese aesthetic art platform"
+    inputs: [implementation_context, test_results, japanese_aesthetic_compliance_report]
+    outputs:
+      - api_documentation
+      - usage_examples
+      - tutorials
+      - japanese_aesthetic_documentation
+      - animation_integration_guide
+      - 3d_rendering_guide
+    documentation_types:
+      - api_docs: true
+      - readme: true
+      - tutorials: true
+      - examples: true
+      - japanese_aesthetic_guide: true
+      - animation_performance_guide: true
+      - 3d_rendering_optimization_guide: true
+      - iiif_integration_guide: true
+    japanese_documentation_enhancements:
+      - japanese_aesthetic_principles_implementation_guide
+      - ma_spacing_system_usage_documentation
+      - wabi_sabi_animation_effect_library
+      - kanso_design_component_examples
+      - seasonal_theming_configuration_guide
+      - multi_library_animation_orchestration_patterns
+      - three_js_virtual_gallery_setup_guide
+      - iiif_compliance_implementation_examples
+    success_criteria:
+      - documentation_complete: true
+      - examples_working: true
+      - japanese_aesthetic_documented: true
+      - animation_guides_complete: true
+      - 3d_rendering_documented: true
+    next_phase: human_approval_coding
+
+  # Phase 8: Human Approval Checkpoint (Enhanced for Japanese Aesthetics)
+  - name: human_approval_coding
+    type: human_interaction
+    description: "Human review and approval of Japanese aesthetic art platform coding workflow completion before proceeding to refactoring"
+    approval_scope:
+      - "Japanese aesthetic art platform code implementation quality and completeness"
+      - "Test coverage and TDD adherence (95%+ expected)"
+      - "Specification compliance verification results"
+      - "Documentation accuracy and comprehensiveness" 
+      - "Architecture alignment with Japanese aesthetic design specifications"
+      - "Performance and security considerations"
+      - "Animation performance validation (60fps targets)"
+      - "3D rendering optimization and WebXR compatibility"
+      - "IIIF compliance and image optimization verification"
+      - "Cultural authenticity and aesthetic principles implementation"
+    review_materials:
+      - implementation_context
+      - test_results
+      - compliance_report
+      - api_documentation
+      - code_coverage_report
+      - japanese_aesthetic_compliance_report
+      - animation_performance_report
+      - 3d_rendering_optimization_report
+    decision_options: [approved, approved_with_conditions, rejected, deferred]
+    stakeholders:
+      required: [technical_lead]
+      optional: [product_owner, qa_lead, japanese_aesthetic_specialist, cultural_consultant]
+    timeout: 72 # hours
+    on_approval: 
+      next_workflow: refactoring
+    on_rejection:
+      rollback_to_phase: tdd_cycle
+      feedback_collection: true
+
+# Enhanced Error Handling and Recovery (Japanese Aesthetic Platform)
+error_handling:
+  retry_policy:
+    max_retries: 3
+    retry_delay: 15s
+    exponential_backoff: true
+    
+  recovery_strategies:
+    # Research Phase Failures (Enhanced)
+    research_mcp_failure:
+      action: fallback_to_local_research
+      fallback_sources: [cached_documentation, local_examples, japanese_aesthetic_patterns]
+      timeout: 300s
+      
+    deepwiki_timeout:
+      action: switch_to_context7
+      max_attempts: 2
+      
+    japanese_research_failure:
+      action: use_standard_patterns
+      fallback_sources: [react_patterns, animation_best_practices, 3d_rendering_patterns]
+      
+    # Planning Phase Failures (Enhanced)
+    architecture_validation_failure:
+      action: rollback_to_research
+      collect_additional_requirements: true
+      include_japanese_requirements: true
+      
+    # TDD Phase Failures (Enhanced)
+    serena_onboarding_failure:
+      action: manual_tdd_setup
+      create_fallback_config: true
+      notify: true
+      include_japanese_testing_setup: true
+      
+    tdd_cycle_failure:
+      action: preserve_tests_rollback_implementation
+      create_checkpoint: before_cycle
+      preserve_japanese_tests: true
+      
+    animation_test_failure:
+      action: simplify_animation_complexity
+      fallback_to_css_animations: true
+      preserve_performance_targets: true
+      
+    3d_rendering_test_failure:
+      action: fallback_to_2d_alternatives
+      preserve_gallery_functionality: true
+      add_webgl_detection: true
+      
+    # Enhanced Implementation Phase Failures (Japanese Aesthetic Platform)
+    enhanced_agent_unavailable:
+      action: automatic_fallback_to_impersonator_agent
+      notification: "Using impersonator-agent for enhanced implementation delegation"
+      preserve_japanese_requirements: true
+      
+    mcp_critical_failure:
+      condition: ">=4 of 7 MCP tools unavailable"
+      action: fallback_to_standard_implementation_agent
+      notification: "Switching to standard implementation due to MCP unavailability"
+      preserve_tdd_foundation: mandatory
+      
+    animation_performance_failure:
+      action: optimize_or_simplify_animations
+      target_fps: 60
+      fallback_to_css_animations: conditional
+      preserve_aesthetic_principles: true
+      
+    3d_rendering_performance_failure:
+      action: implement_lod_and_optimization
+      reduce_polygon_count: true
+      implement_frustum_culling: true
+      add_performance_monitoring: true
+      
+    iiif_compliance_failure:
+      action: fallback_to_standard_image_optimization
+      preserve_zoom_functionality: true
+      maintain_quality_standards: true
+      
+    cultural_authenticity_failure:
+      action: manual_aesthetic_review_required
+      escalate_to_cultural_consultant: true
+      preserve_core_functionality: true
+      
+    implementation_quality_gate_failure:
+      action: trigger_refactoring_cycle
+      preserve_tests: mandatory
+      preserve_japanese_features: true
+      
+    coverage_threshold_failure:
+      action: generate_additional_tests
+      target_coverage: ">= 95%"
+      focus_on_aesthetic_features: true
+      
+    # Integration Failures (Enhanced)
+    mcp_service_degradation:
+      action: switch_to_backup_service
+      services:
+        serena: local_analysis_mode
+        deepwiki: cached_fallback
+        context7: offline_documentation
+        ai_ml_tools: manual_validation_mode
+        playwright: browser_dev_tools_fallback
+        performance_monitoring: built_in_browser_apis
+        
+    # Human Approval Failures (Enhanced)
+    approval_timeout:
+      action: send_escalation_notification
+      escalation_chain: [technical_lead, engineering_manager, japanese_aesthetic_specialist]
+      timeout_extension: 24h
+      
+    approval_rejection:
+      action: analyze_feedback_and_rollback
+      feedback_analysis: automated
+      rollback_strategy: targeted_phase
+      preserve_aesthetic_work: true
+      
+    # Critical System Failures (Enhanced)
+    context_corruption:
+      action: restore_from_checkpoint
+      backup_source: latest_valid_checkpoint
+      preserve_japanese_context: true
+      
+    workflow_deadlock:
+      action: force_phase_transition
+      require_manual_approval: true
+      create_incident_report: true
+      include_japanese_context: true
+
+# Enhanced Quality Gates (Japanese Aesthetic Platform)
+quality_gates:
+  code_quality:
+    threshold: 8.5
+    metrics: [maintainability, readability, performance, animation_optimization, cultural_authenticity]
+  test_coverage:
+    line_coverage: ">= 95%"
+    branch_coverage: ">= 90%"
+    function_coverage: ">= 95%"
+    exclude_patterns: [test_files, mocks, 3d_shaders]
+  tdd_adherence:
+    test_first_percentage: ">= 100%"
+    red_green_refactor_cycles: "documented"
+    minimal_implementation_verified: true
+  documentation_completeness:
+    threshold: 95
+    api_coverage: ">= 95%"
+    check_api_coverage: true
+    japanese_aesthetic_documentation: true
+  architecture_compliance:
+    design_alignment: true
+    dependency_validation: true
+    pattern_consistency: true
+    japanese_aesthetic_compliance: true
+  japanese_aesthetic_quality:
+    animation_performance_gate:
+      frame_rate_target: "60fps"
+      animation_smoothness: "validated"
+      multi_library_coordination: "verified"
+      performance_monitoring: "active"
+    3d_rendering_quality_gate:
+      webgl_compatibility: "verified"
+      webxr_support: "implemented"
+      performance_optimization: "validated"
+      fallback_mechanisms: "tested"
+    iiif_compliance_gate:
+      standard_compliance: "verified"
+      image_optimization: "active"
+      zoom_functionality: "smooth"
+      loading_performance: "optimized"
+    cultural_authenticity_gate:
+      ma_spacing_accuracy: ">= 95%"
+      wabi_sabi_effect_authenticity: ">= 90%"
+      kanso_design_adherence: ">= 95%"
+      seasonal_theming_functionality: "verified"
+
+# Enhanced Monitoring and Analytics (Japanese Aesthetic Platform)
+monitoring:
+  metrics:
+    # Phase Performance Metrics (Enhanced)
+    - phase_duration_research
+    - phase_duration_planning
+    - phase_duration_serena_onboarding
+    - phase_duration_tdd_cycle
+    - phase_duration_full_implementation
+    - phase_duration_testing
+    - phase_duration_documentation
+    
+    # TDD-Specific Metrics (Enhanced)
+    - tdd_cycle_count
+    - tdd_cycle_efficiency
+    - test_first_compliance_rate
+    - refactoring_frequency
+    - green_phase_duration
+    - red_phase_duration
+    
+    # Code Quality Metrics (Enhanced)
+    - test_coverage_progression
+    - code_quality_score_trend
+    - technical_debt_reduction
+    - cyclomatic_complexity_trend
+    - code_duplication_ratio
+    
+    # Implementation Progress (Enhanced)
+    - implementation_velocity
+    - feature_completion_rate
+    - bug_introduction_rate
+    - code_review_feedback_volume
+    
+    # Enhanced MCP Integration Performance
+    - context7_query_response_time
+    - deepwiki_query_response_time
+    - brave_search_query_response_time
+    - vercel_api_response_time
+    - playwright_test_execution_time
+    - performance_monitoring_overhead
+    - ai_ml_processing_time
+    
+    # Japanese Aesthetic Platform Specific Metrics
+    - animation_frame_rate_monitoring
+    - 3d_rendering_performance_tracking
+    - iiif_image_loading_performance
+    - cultural_authenticity_score
+    - aesthetic_feature_implementation_rate
+    - seasonal_theming_transition_smoothness
+    - multi_library_animation_coordination_efficiency
+    
+    # Human Approval Metrics (Enhanced)
+    - approval_response_time
+    - approval_iteration_count
+    - feedback_resolution_time
+
+  alerts:
+    # Quality Degradation Alerts (Enhanced)
+    - test_coverage_drop: "> 5%"
+    - code_quality_regression: "> 0.5 points"
+    - tdd_compliance_violation: "< 95%"
+    - animation_performance_regression: "< 55fps"
+    - cultural_authenticity_degradation: "> 10%"
+    
+    # Performance Alerts (Enhanced)
+    - phase_duration_anomaly: "> 150% of baseline"
+    - implementation_velocity_drop: "> 30%"
+    - mcp_service_degradation: "> 5s response time"
+    - animation_performance_degradation: "< 60fps"
+    - 3d_rendering_performance_degradation: "> 200% of baseline"
+    
+    # Process Alerts (Enhanced)
+    - approval_timeout_risk: "> 48 hours pending"
+    - critical_error_threshold: "> 3 errors per phase"
+    - dependency_conflict_detected: "any"
+    - japanese_aesthetic_feature_failure: "any critical aesthetic feature"
+
+# Enhanced Reporting Configuration (Japanese Aesthetic Platform)
+reporting:
+  formats:
+    - html: comprehensive_dashboard
+    - json: api_consumption
+    - markdown: documentation
+    - metrics: prometheus_format
+  
+  distribution:
+    - slack_channel: "#artistic-blog-site"
+    - email_list: "dev-team@company.com"
+    - dashboard_update: real_time
+    - metrics_export: continuous
+  
+  retention:
+    phase_metrics: 180_days
+    quality_metrics: 1_year
+    tdd_cycle_data: 90_days
+    approval_history: 2_years
+    performance_data: 1_year
+    japanese_aesthetic_analytics: 1_year
+
+# Enhanced Progress Tracking Integration (Japanese Aesthetic Platform)
+progress_tracking:
+  tasks_md_sync:
+    real_time_update: true
+    checkbox_automation: true
+    progress_percentage: calculated
+    milestone_detection: automatic
+    japanese_milestone_tracking: true
+  
+  context_propagation:
+    state_checkpoints: every_phase
+    rollback_points: before_major_phases
+    audit_trail: comprehensive
+    japanese_context_preservation: true
+    
+  quality_checkpoints:
+    frequency: every_phase
+    automated_validation: true
+    human_review_triggers: quality_gate_failures
+    japanese_quality_validation: true
+
+# Japanese Aesthetic Platform Workflow Extensions Integration
+japanese_aesthetic_extensions:
+  ma_spacing_system:
+    - "Dynamic spacing calculations based on content and viewport"
+    - "Responsive Ma adjustments with smooth transitions"
+    - "Animation timing based on Ma principles"
+    - "Breathing room controls for optimal content flow"
+  
+  wabi_sabi_animation_framework:
+    - "Organic shape morphing with natural timing functions"
+    - "Randomized animation variations for authenticity"
+    - "Subtle aging and weathering effects implementation"
+    - "Temporal effect simulations for transient beauty"
+  
+  kanso_minimalist_design:
+    - "Progressive disclosure patterns with clean interactions"
+    - "Minimalist component variants with essential functionality"
+    - "Distraction-free reading modes with optimal typography"
+    - "Content hierarchy with minimal visual noise"
+  
+  seasonal_theming_automation:
+    - "Automatic season detection with cultural calendar support"
+    - "Smooth theme transition animations between seasons"
+    - "Seasonal illustration sets with cultural authenticity"
+    - "Theme persistence and manual override functionality"
+  
+  iiif_art_display_optimization:
+    - "IIIF Image API compliance with deep zoom functionality"
+    - "Progressive image loading with smooth navigation"
+    - "High-resolution art scanning standards support"
+    - "Automated optimization based on viewport and device"
+  
+  three_js_virtual_galleries:
+    - "Optimized 3D scene rendering with multiple environment models"
+    - "WebXR/VR support with hand tracking and social features"
+    - "Interactive artwork positioning with proximity-based information"
+    - "Performance optimization with LOD and asset compression"
+
+# Integration Points (Enhanced)
+integrations:
+  enhanced_agent_activation:
+    condition: "enhanced_agent_available AND mcp_setup_complete"
+    verification_path: ".cc-deck/runtime/projects/artistic-blog-site/config/mcp-setup-complete.json"
+    
+  fallback_triggers:
+    - "Enhanced agent file not found"
+    - "MCP setup incomplete or failed"
+    - "Critical MCP services unavailable (≥4 of 7 tools)"
+    - "Enhanced agent execution errors"
+    - "Animation performance below 55fps"
+    - "3D rendering compatibility issues"
+    
+  workflow_continuity:
+    primary: "artistic-blog-site-enhanced-implementation-agent"
+    secondary: "impersonator-agent (with delegation)"
+    final: "implementation-agent (standard workflow)"
+    
+  post_coding_workflows:
+    - refactoring:
+        condition: "context.code_quality_score < 8.5 OR animation_optimization_needed"
+        trigger: automatic
+    - integration_testing:
+        condition: "context.api_endpoints > 0 OR 3d_features_implemented"
+        trigger: automatic
+    - acceptance:
+        condition: "always"
+        trigger: manual_approval
+
+# Supplementary Agents (Enhanced for Japanese Aesthetic Platform)
+supplementary_agents:
+  - name: deepwiki-research-solver
+    description: "Research Japanese aesthetic platform technical issues and find solutions during any phase"
+    availability: all_phases
+    primary_usage: implementation_phase
+    use_cases:
+      - "Troubleshooting aesthetic platform implementation errors and compilation issues"
+      - "Finding best practices for Japanese aesthetic technologies and frameworks"
+      - "Researching animation library solutions and 3D rendering patterns"
+      - "Understanding Three.js optimization patterns and WebXR implementation"
+      - "Analyzing successful art platform implementation patterns from popular repositories"
+    mcp_integrations:
+      - deepwiki: "Art platform repository analysis and pattern extraction"
+      - context7: "Framework-specific documentation and solutions"
+      
+  - name: research-agent
+    description: "Comprehensive Japanese aesthetic platform technology research using multiple MCP integrations"
+    availability: all_phases
+    primary_usage: research_and_implementation_phases
+    use_cases:
+      - "Pre-implementation aesthetic platform technology stack validation"
+      - "Real-time best practices research during Japanese aesthetic implementation"
+      - "Security considerations and vulnerability analysis for art platforms"
+      - "Performance optimization techniques research for animation and 3D rendering"
+      - "Library compatibility and version analysis for aesthetic platform stack"
+    mcp_integrations:
+      - context7: "Official library documentation and API references"
+      - deepwiki: "Community implementation patterns and examples"
+      - brave_search: "Latest trends, security updates, and community solutions"
+      
+  - name: code-quality-validator
+    description: "Continuous code quality validation and enhancement recommendations for Japanese aesthetic platform"
+    availability: implementation_and_testing_phases
+    primary_usage: implementation_phase
+    use_cases:
+      - "Real-time code quality monitoring and analysis"
+      - "Security vulnerability scanning and mitigation"
+      - "Performance benchmark validation and optimization"
+      - "Test coverage analysis and improvement recommendations"
+      - "Code documentation completeness assessment"
+      - "Animation performance validation and optimization"
+      - "3D rendering performance and WebXR compatibility validation"
+      - "Cultural authenticity and aesthetic principles compliance"
+    quality_dimensions:
+      - functional_quality: "Requirements coverage and edge case handling"
+      - technical_quality: "Code complexity, maintainability, test coverage"
+      - security_quality: "Vulnerability scanning and best practices compliance"
+      - performance_quality: "Benchmark validation and optimization opportunities"
+      - documentation_quality: "API documentation and code comment completeness"
+      - aesthetic_quality: "Japanese aesthetic principles, animation performance, cultural authenticity"

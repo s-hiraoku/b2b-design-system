@@ -1,64 +1,73 @@
 # Technology Stack
 
 ## Architecture
-Next.js 15を基盤としたモダンなフルスタックアーキテクチャ。SSG（Static Site Generation）とISR（Incremental Static Regeneration）を活用した高性能ファッションブログプラットフォーム。モバイルファーストの視覚的に魅力的なUIと高速なコンテンツ配信に最適化されたスタック構成。
+Next.js 15を基盤とした最新のフルスタックアーキテクチャ。高品質なアート画像の表示に最適化されたSSG（Static Site Generation）とISR（Incremental Static Regeneration）を活用し、日本の美学原理（間・侘寂・簡素）を反映したミニマルで洗練されたアート体験プラットフォーム。
 
 ## Frontend Framework
 - **Next.js**: 15.x (App Router, Server Components)
 - **React**: 19.x with TypeScript 5.x
 - **State Management**: Zustand + React Query (TanStack Query)
-- **Styling**: Tailwind CSS 4 + Styled Components
-- **Animation**: Framer Motion + CSS Animations
-- **Image Handling**: Next.js Image + Cloudinary
-- **UI Components**: Radix UI + Custom Fashion Components
+- **Styling**: Tailwind CSS 4 with Japanese aesthetics custom theme
+- **Animation**: Framer Motion + CSS Animations (Ma - 間の表現)
+- **Image Handling**: Next.js Image + Sharp + Cloudinary (高品質アート画像)
+- **UI Components**: Radix UI + shadcn/ui + Custom Art Components
+- **3D Rendering**: Three.js + React Three Fiber (バーチャル展示)
 - **Form Management**: React Hook Form + Zod validation
 - **Testing**: Vitest + React Testing Library + Playwright
 - **Linting**: ESLint + Prettier + TypeScript strict mode
 
-## Content Management & Data
-- **CMS**: Headless CMS (Contentful/Sanity) + Git-based workflow
-- **Blog Content**: MDX files with frontmatter metadata for fashion articles
-- **User Generated Content**: PostgreSQL + S3 for user style posts
-- **Search**: Algolia for content and product search
-- **Analytics**: Vercel Analytics + Google Analytics 4 + Fashion-specific metrics
-- **Database**: PostgreSQL (Supabase) for user profiles, comments, follows
-- **File Storage**: AWS S3 + Cloudinary for optimized fashion image delivery
-- **Push Notifications**: Web Push API for sale alerts and new content
+## Content Management & Media
+- **CMS**: Sanity Studio with custom art schemas + Git-based workflow
+- **Blog Content**: MDX files with art-specific frontmatter metadata
+- **Art Assets**: PostgreSQL + Cloudinary for optimized art image delivery
+- **Gallery Management**: Custom gallery engine with zoom, lightbox, IIIF support
+- **Video Content**: Cloudinary Video + adaptive streaming for tutorials
+- **Search**: Algolia with art-specific indexing and visual search
+- **Analytics**: Vercel Analytics + Custom art engagement tracking
+- **Database**: PostgreSQL (Supabase) for user profiles, collections, comments
+- **File Storage**: Cloudinary + AWS S3 for high-resolution art assets
+- **Real-time Features**: Pusher for live gallery tours and discussions
 
-## E-commerce & Social Integration
-- **Affiliate Management**: Custom affiliate link management system
-- **Price Tracking**: Third-party APIs for real-time price comparison
-- **Social Authentication**: NextAuth.js (Google, Instagram, TikTok)
-- **Image Upload**: Direct S3 upload with client-side compression
-- **Real-time Features**: Pusher for live comments and reactions
-- **Email Service**: SendGrid for newsletters and notifications
+## Art-Specific Technologies
+- **Color Analysis**: Canvas API + TinyColor2 for palette extraction
+- **Image Zoom**: React Image Gallery + Pan/Zoom controls
+- **Lightbox**: PhotoSwipe 5 for immersive art viewing
+- **3D Gallery**: Three.js for virtual exhibition spaces
+- **Audio Guide**: Web Audio API + MP3 streaming
+- **IIIF Integration**: OpenSeadragon for deep zoom museum-quality viewing
+- **AR Features**: WebXR + AR.js for augmented art experiences
+- **Print Optimization**: CSS Print styles for art catalog generation
 
 ## Development Environment
 - **Package Manager**: pnpm (高速、ディスク効率)
 - **Node.js**: v20+ (LTS)
 - **Development Server**: Next.js dev server with Turbopack
 - **Hot Reload**: Next.js Fast Refresh
-- **Mobile Testing**: Browser DevTools + Real device testing
-- **Design System**: Storybook for component development
+- **Design System**: Storybook for art component development
+- **Visual Testing**: Chromatic for visual regression testing
+- **Color Management**: Culori.js for accurate color representation
 
 ## Common Commands
 
 ### 初期セットアップ
 ```bash
-# Next.js 15プロジェクト作成 (App Router + TypeScript)
-npx create-next-app@latest fashionable-girls-blog --typescript --tailwind --app
-cd fashionable-girls-blog
+# Next.js 15 + TypeScript + Tailwind CSS 4プロジェクト作成
+npx create-next-app@latest artistic-blog-site --typescript --tailwind --app
+cd artistic-blog-site
 
-# 依存関係インストール
+# 基本依存関係インストール
 pnpm install
 
-# ファッションブログ専用依存関係追加
+# アート特化依存関係追加
 pnpm add framer-motion @tailwindcss/typography next-mdx-remote
 pnpm add @radix-ui/react-dialog @radix-ui/react-dropdown-menu
 pnpm add react-hook-form @hookform/resolvers zod
 pnpm add @supabase/supabase-js next-auth
-pnpm add pusher-js cloudinary
+pnpm add three @react-three/fiber @react-three/drei
+pnpm add photoswipe react-image-gallery tinycolor2
+pnpm add openseadragon culori.js
 pnpm add -D @next/mdx @types/mdx vitest @vitejs/plugin-react
+pnpm add -D @types/three storybook @storybook/nextjs
 ```
 
 ### 開発・テスト・ビルド
@@ -66,10 +75,10 @@ pnpm add -D @next/mdx @types/mdx vitest @vitejs/plugin-react
 # 開発サーバー起動（Turbopack使用）
 pnpm dev --turbo
 
-# Storybook起動（コンポーネント開発）
+# Storybook起動（アートコンポーネント開発）
 pnpm storybook
 
-# 本番ビルド（静的最適化）
+# 本番ビルド（画像最適化）
 pnpm build
 
 # 本番確認（ローカル）
@@ -78,9 +87,10 @@ pnpm start
 # テスト実行（Vitest + Playwright）
 pnpm test
 pnpm test:e2e
+pnpm test:visual
 
-# モバイルテスト（デバイス別）
-pnpm test:mobile
+# アート画像最適化
+pnpm optimize:art-images
 
 # コード品質チェック
 pnpm lint
@@ -88,22 +98,28 @@ pnpm lint:fix
 pnpm type-check
 ```
 
-### ファッションブログ専用コマンド
+### アート専用コマンド
 ```bash
-# 新記事テンプレート生成
-pnpm generate:article "spring-fashion-trends-2024"
+# 新作品記事テンプレート生成
+pnpm generate:artwork "japanese-calligraphy-techniques"
 
-# 画像最適化バッチ処理
-pnpm optimize:images
+# アート画像バッチ最適化
+pnpm optimize:gallery-images
 
-# コンテンツ検証（MDX、画像、リンク）
-pnpm validate:content
+# カラーパレット生成
+pnpm extract:color-palette
 
-# アフィリエイトリンク検証
-pnpm validate:affiliate-links
+# IIIFマニフェスト生成
+pnpm generate:iiif-manifest
 
-# SEO監査
-pnpm audit:seo
+# 3Dギャラリー構築
+pnpm build:virtual-gallery
+
+# アートコンテンツ検証
+pnpm validate:art-content
+
+# アクセシビリティ監査
+pnpm audit:accessibility
 ```
 
 ### デプロイ・運用
@@ -111,48 +127,46 @@ pnpm audit:seo
 # Vercel本番デプロイ
 vercel --prod
 
-# 静的エクスポート（CDN配信用）
+# 静的エクスポート（美術館CDN配信用）
 pnpm export
 
 # データベースマイグレーション
 pnpm db:migrate
 
-# キャッシュクリア
-pnpm cache:clear
+# アート画像キャッシュクリア
+pnpm cache:clear:images
 ```
 
 ## Environment Variables
 開発・本番環境設定（`.env.local`、`.env.production`）:
 ```bash
 # Next.js基本設定
-NEXT_PUBLIC_SITE_URL=https://fashionable-girls-blog.vercel.app
-NEXT_PUBLIC_SITE_NAME=Fashionable Girls Blog
+NEXT_PUBLIC_SITE_URL=https://artistic-blog-site.vercel.app
+NEXT_PUBLIC_SITE_NAME=Artistic Blog Site
 
-# CMS設定
-CONTENTFUL_SPACE_ID=your_space_id
-CONTENTFUL_ACCESS_TOKEN=your_access_token
-CONTENTFUL_PREVIEW_ACCESS_TOKEN=your_preview_token
+# CMS設定（Sanity）
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_sanity_project_id
+NEXT_PUBLIC_SANITY_DATASET=production
+SANITY_API_TOKEN=your_sanity_token
+SANITY_PREVIEW_SECRET=your_preview_secret
 
 # データベース（Supabase）
 DATABASE_URL=your_supabase_postgres_url
 SUPABASE_URL=your_supabase_url
 SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_key
 
 # 認証（NextAuth.js）
-NEXTAUTH_URL=https://fashionable-girls-blog.vercel.app
+NEXTAUTH_URL=https://artistic-blog-site.vercel.app
 NEXTAUTH_SECRET=your_nextauth_secret
 GOOGLE_CLIENT_ID=your_google_oauth_id
 GOOGLE_CLIENT_SECRET=your_google_oauth_secret
-INSTAGRAM_CLIENT_ID=your_instagram_app_id
-INSTAGRAM_CLIENT_SECRET=your_instagram_app_secret
 
-# 画像・ファイル管理
+# 画像・メディア管理（Cloudinary）
 CLOUDINARY_CLOUD_NAME=your_cloudinary_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
-AWS_S3_BUCKET_NAME=your_s3_bucket
-AWS_ACCESS_KEY_ID=your_aws_access_key
-AWS_SECRET_ACCESS_KEY=your_aws_secret_key
+CLOUDINARY_UPLOAD_PRESET=art_images
 
 # 検索・解析
 NEXT_PUBLIC_ALGOLIA_APP_ID=your_algolia_app_id
@@ -160,97 +174,117 @@ NEXT_PUBLIC_ALGOLIA_SEARCH_KEY=your_search_key
 ALGOLIA_ADMIN_KEY=your_admin_key
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 
-# リアルタイム機能
+# リアルタイム機能（Pusher）
 PUSHER_APP_ID=your_pusher_app_id
 PUSHER_KEY=your_pusher_key
 PUSHER_SECRET=your_pusher_secret
-PUSHER_CLUSTER=your_pusher_cluster
+PUSHER_CLUSTER=ap3
 
 # メール・通知
 SENDGRID_API_KEY=your_sendgrid_api_key
-SENDGRID_FROM_EMAIL=noreply@fashionable-girls-blog.com
+SENDGRID_FROM_EMAIL=noreply@artistic-blog-site.com
 
-# アフィリエイト・E-commerce
-RAKUTEN_AFFILIATE_ID=your_rakuten_id
-AMAZON_ASSOCIATE_TAG=your_amazon_tag
-PRICE_API_KEY=your_price_comparison_api_key
+# アート専用サービス
+IIIF_SERVER_URL=https://iiif.artistic-blog-site.com
+MUSEUM_API_KEY=your_museum_api_key
+ART_METADATA_API=your_art_metadata_api
 ```
 
 ## Port Configuration
 - **Development Server**: 3000 (Next.js default)
-- **Storybook**: 6006 (コンポーネント開発)
+- **Storybook**: 6006 (アートコンポーネント開発)
 - **Test Server**: 3001 (E2Eテスト用)
 - **Database Local**: 5432 (PostgreSQL)
+- **IIIF Server**: 8080 (画像配信サーバー)
 
 ## Architecture Decisions
 
 ### Next.js 15 App Router選択理由
-- **Server Components**: 優れたパフォーマンスとSEO最適化（ファッション記事の検索可視性）
-- **Static Generation**: ブログコンテンツの高速配信
-- **Image Optimization**: 自動画像最適化とWebP変換（ファッション写真の高速表示）
-- **Built-in Performance**: Core Web Vitalsの自動最適化（モバイル体験向上）
+- **Server Components**: アート画像の効率的なサーバーサイド最適化
+- **Static Generation**: 高品質画像を含むコンテンツの高速配信
+- **Image Optimization**: 自動画像最適化とWebP/AVIF変換（美術品の鮮明表示）
+- **Core Web Vitals**: アート体験に必要な優れたパフォーマンス指標
 
-### Mobile-First Design選択理由
-- **ターゲット行動**: 10-20代女性の90%以上がスマートフォンでファッション情報を閲覧
-- **SNS連携**: Instagram、TikTok等のモバイルプラットフォームとの親和性
-- **コンテンツ消費**: 通勤・通学時間での記事閲覧に最適化
-- **写真体験**: 縦型画像とスワイプ操作に特化した設計
+### Japanese Aesthetics Design選択理由
+- **間（Ma）の実装**: コンポーネント間の適切な余白とレイアウト呼吸
+- **侘寂（Wabi-sabi）の表現**: 自然な不完全性と時間の経過を表現するアニメーション
+- **簡素（Kanso）の実践**: ミニマルUIによる作品への集中促進
+- **季節感の反映**: 四季に応じたカラーパレットとテーマの自動切り替え
 
-### Headless CMS + MDX選択理由
-- **編集体験**: ファッションエディターに最適化されたビジュアル重視の編集環境
-- **画像管理**: 大量のファッション写真の効率的な管理とCDN配信
-- **SEO最適化**: 構造化データとメタデータの自動生成
-- **コンテンツ戦略**: 多様なコンテンツタイプ（記事、ギャラリー、商品レビュー）への対応
+### High-Resolution Image Strategy選択理由
+- **美術品質の保持**: オリジナル作品の色彩・細部の忠実な再現
+- **段階的読み込み**: プログレッシブJPEGによる鑑賞体験の向上
+- **IIIF準拠**: 美術館標準の深度ズーム機能と互換性
+- **アクセシビリティ**: 視覚的詳細の拡大閲覧サポート
 
-### Real-time Features選択理由
-- **エンゲージメント**: リアルタイムコメントとリアクションによるコミュニティ活性化
-- **通知システム**: セール情報やトレンドアラートの即座配信
-- **ソーシャル体験**: フォロー機能と活動フィードのリアルタイム更新
-- **ユーザー維持**: プッシュ通知による再訪問促進
+### 3D Virtual Gallery選択理由
+- **没入体験**: 物理空間を超えた展示体験の提供
+- **国際アクセス**: 地理的制約を超えた美術館・ギャラリー体験
+- **教育効果**: インタラクティブな学習環境の構築
+- **アーカイブ価値**: デジタル展示の永続的保存
 
 ### TypeScript Strict Mode選択理由
-- **型安全性**: ユーザーデータとコンテンツの整合性保証
-- **開発効率**: 大規模なコンテンツ管理での開発生産性向上
-- **品質保証**: コンパイル時エラー検出とランタイムエラー削減
-- **チーム開発**: 複数エディターとの協業での一貫したAPI設計
+- **アート素材の整合性**: 作品メタデータと画像の型安全性保証
+- **国際化対応**: 多言語コンテンツの型安全な管理
+- **アクセシビリティ**: 支援技術との互換性確保
+- **長期保守性**: 美術コンテンツの長期アーカイブ対応
 
-## Fashion-Specific Technical Requirements
+## Art-Specific Technical Requirements
 
-### Image Optimization Strategy
-- **Fashion Photography**: 高解像度ファッション写真の効率的配信
-- **Multiple Formats**: WebP, AVIF対応による転送量削減
-- **Responsive Images**: デバイス別最適サイズの自動配信
-- **Lazy Loading**: スクロール連動の段階的画像読み込み
-- **Compression**: 品質を保った圧縮による高速表示
+### High-Quality Image Rendering
+- **Color Accuracy**: sRGB/P3色空間の正確な表示とキャリブレーション
+- **Resolution Preservation**: オリジナル解像度の保持と段階的スケーリング
+- **Format Optimization**: WebP/AVIF/JPEG XLによる品質と効率の最適化
+- **Deep Zoom**: IIIF準拠のタイル化による詳細閲覧機能
+- **Print Quality**: 300dpi相当の印刷品質画像への対応
 
-### Mobile Performance Optimization
-- **Critical CSS**: Above-the-fold写真の優先ロード
-- **Bundle Splitting**: ページ別JavaScriptの分割読み込み
-- **Prefetching**: ユーザー行動予測による先読み機能
-- **Offline Support**: PWA対応による一部コンテンツのオフライン閲覧
+### Japanese Aesthetic Implementation
+- **Ma (間) Spacing**: CSS Grid/Flexboxによる適切な余白の数学的実装
+- **Wabi-sabi Animation**: 自然な不規則性を表現するCSS/JS animation
+- **Kanso Minimalism**: 不要な装飾を排除したクリーンなインターフェース
+- **Seasonal Theming**: 季節ごとの自動カラーパレット変更システム
+- **Typography**: 日本語・英語混在文章の美しい組版
 
-### Social Media Integration
-- **Open Graph**: 各SNSプラットフォーム最適化画像の自動生成
-- **Share Optimization**: プラットフォーム別シェア体験の最適化
-- **Embed Support**: Instagram、TikTok投稿の記事内埋め込み
-- **User Generated Content**: ユーザー投稿写真の安全な取り込み機能
+### Interactive Art Experience
+- **Gesture Controls**: タッチ・マウスによる直感的な作品操作
+- **Audio Integration**: 作品解説とBGMの同期再生機能
+- **Collaborative Viewing**: リアルタイム共有鑑賞体験
+- **Personal Collections**: ユーザー独自のキュレーション機能
+- **Social Annotations**: 作品に対するコメント・解釈の共有
 
-### E-commerce Integration
-- **Real-time Pricing**: 複数ECサイトの価格情報リアルタイム取得
-- **Deep Linking**: 商品ページへの直接遷移最適化
-- **Conversion Tracking**: アフィリエイト成果の詳細追跡
-- **Inventory Sync**: 在庫状況のリアルタイム反映
+### Performance Optimization for Art Content
+- **Critical Art Loading**: Above-the-fold作品の優先表示
+- **Progressive Enhancement**: 低速回線での段階的品質向上
+- **Memory Management**: 大容量画像の効率的メモリ使用
+- **CDN Strategy**: 地域別最適化による高速画像配信
+- **Offline Gallery**: PWA対応による一部作品のオフライン鑑賞
 
-### SEO & Content Discovery
-- **Fashion Keywords**: ファッション専門用語の検索最適化
-- **Seasonal SEO**: シーズントレンドに合わせたSEO戦略
-- **Image SEO**: ファッション写真のalt text自動生成
-- **Local SEO**: 地域別トレンド情報の最適化
+### Museum Integration Standards
+- **IIIF Compatibility**: 国際画像相互運用フレームワーク準拠
+- **Dublin Core Metadata**: 美術館標準メタデータスキーマ対応
+- **CIDOC-CRM Integration**: 文化遺産概念参照モデル準拠
+- **API Standards**: RESTful API + GraphQLによる柔軟なデータ取得
+- **Authentication**: 美術館システムとのSSO連携対応
+
+### Accessibility & Internationalization
+- **Screen Reader Support**: アート作品の詳細音声説明機能
+- **High Contrast Mode**: 視覚的配慮が必要なユーザー向け表示
+- **Keyboard Navigation**: マウスを使用しない完全操作対応
+- **Multi-language**: 日英中韓対応のアート専門用語翻訳
+- **Cultural Context**: 文化的背景を考慮したローカライゼーション
 
 ## Browser Support Strategy
-- **Modern Mobile Browsers**: iOS Safari 14+, Chrome Mobile 90+
-- **Desktop Support**: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
-- **Progressive Enhancement**: 古いブラウザでの基本機能保証
-- **Feature Detection**: 写真機能やプッシュ通知の段階的対応
+- **Modern Browsers**: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+- **Mobile Optimized**: iOS Safari 14+, Chrome Mobile 90+ (Touch art experience)
+- **Progressive Enhancement**: WebGL非対応環境での代替表示
+- **Color Management**: Wide Color Gamut displayでの正確な色再現
+- **Performance Budgets**: 高品質画像を含む3秒以内の初期表示
 
-この技術スタックは、ファッションに敏感な若い女性ユーザーのモバイル中心の利用パターンと、視覚的に豊富なコンテンツの効率的配信に最適化されています。
+## Japanese Cultural Integration
+- **Font Selection**: 游ゴシック、Noto Sans CJKによる美しい日本語表示
+- **Reading Flow**: 縦書き・横書き対応の柔軟なレイアウト
+- **Cultural Calendar**: 日本の年中行事・季節感を反映したコンテンツ配信
+- **Traditional Color Palette**: 日本の伝統色（藍・朱・金など）のデジタル表現
+- **Zen Philosophy**: 禅の思想を反映したシンプルで静寂なユーザー体験
+
+この技術スタックは、アートの美的価値を最大限に引き出し、日本の美学原理をデジタル体験に昇華させ、国際的なアート愛好者に深い感動と学びを提供するプラットフォームの構築を支援します。
