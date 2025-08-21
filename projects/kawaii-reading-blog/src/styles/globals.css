@@ -1,0 +1,391 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Base Kawaii Styles */
+@layer base {
+  html {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    @apply kawaii-scroll-smooth;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50;
+    @apply text-gray-800 antialiased;
+    min-height: 100vh;
+  }
+
+  /* Kawaii focus styles */
+  *:focus {
+    @apply outline-none;
+  }
+
+  *:focus-visible {
+    @apply ring-2 ring-pink-400 ring-opacity-75 ring-offset-2 ring-offset-white;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-pink-50 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-pink-300 rounded-full;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-pink-400;
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(248 180 217) rgb(253 242 248);
+  }
+}
+
+/* Kawaii Component Styles */
+@layer components {
+  /* Enhanced button styles */
+  .kawaii-btn {
+    @apply relative overflow-hidden;
+    @apply transform-gpu; /* Enable GPU acceleration */
+  }
+
+  .kawaii-btn::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent;
+    @apply opacity-0 translate-x-[-100%] transition-all duration-700;
+    @apply pointer-events-none;
+  }
+
+  .kawaii-btn:hover::before {
+    @apply opacity-20 translate-x-[100%];
+  }
+
+  /* Enhanced card styles */
+  .kawaii-card {
+    @apply transform-gpu; /* Enable GPU acceleration */
+    @apply relative;
+  }
+
+  .kawaii-card::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-t from-pink-500/5 to-transparent;
+    @apply opacity-0 transition-opacity duration-300 pointer-events-none;
+    @apply rounded-kawaii-lg;
+  }
+
+  .kawaii-card:hover::after {
+    @apply opacity-100;
+  }
+
+  /* Loading animation */
+  .kawaii-loading {
+    @apply animate-spin w-4 h-4 border-2 border-current border-t-transparent rounded-full;
+  }
+
+  /* Image loading placeholder */
+  .kawaii-img-loading {
+    @apply bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100;
+    @apply animate-pulse;
+  }
+
+  /* Text shimmer effect */
+  .kawaii-shimmer {
+    @apply bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400;
+    @apply bg-size-200 animate-gradient-x;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glass morphism effects */
+  .kawaii-glass-light {
+    @apply bg-white/25 backdrop-blur-md border border-white/20;
+    @apply shadow-lg shadow-pink-500/10;
+  }
+
+  .kawaii-glass-dark {
+    @apply bg-black/25 backdrop-blur-md border border-white/10;
+    @apply shadow-lg shadow-purple-500/10;
+  }
+
+  /* Floating elements */
+  .kawaii-float {
+    animation: kawaii-float 3s ease-in-out infinite;
+  }
+
+  .kawaii-float-slow {
+    animation: kawaii-float 6s ease-in-out infinite;
+  }
+
+  /* Bouncing elements */
+  .kawaii-bounce-soft {
+    animation: kawaii-bounce 2s ease-in-out infinite;
+  }
+
+  /* Wiggle animation */
+  .kawaii-wiggle {
+    animation: kawaii-wiggle 0.5s ease-in-out;
+  }
+
+  /* Heart beat animation */
+  .kawaii-heartbeat {
+    animation: kawaii-heart 0.8s ease-in-out infinite;
+  }
+
+  /* Sparkle animation */
+  .kawaii-sparkle {
+    animation: kawaii-sparkle 1.5s ease-in-out infinite;
+  }
+
+  /* Gradient backgrounds */
+  .kawaii-bg-primary {
+    @apply bg-gradient-to-br from-pink-400 via-purple-400 to-blue-400;
+  }
+
+  .kawaii-bg-secondary {
+    @apply bg-gradient-to-br from-blue-400 via-teal-400 to-green-400;
+  }
+
+  .kawaii-bg-accent {
+    @apply bg-gradient-to-br from-orange-400 via-pink-400 to-red-400;
+  }
+
+  /* Kawaii shadows */
+  .kawaii-shadow-soft {
+    box-shadow: 0 4px 20px rgba(236, 72, 153, 0.15);
+  }
+
+  .kawaii-shadow-medium {
+    box-shadow: 0 8px 30px rgba(236, 72, 153, 0.2);
+  }
+
+  .kawaii-shadow-strong {
+    box-shadow: 0 12px 40px rgba(236, 72, 153, 0.25);
+  }
+}
+
+/* Kawaii Utilities */
+@layer utilities {
+  /* Performance optimizations */
+  .optimize-animations {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    .kawaii-float,
+    .kawaii-float-slow,
+    .kawaii-bounce-soft,
+    .kawaii-sparkle,
+    .kawaii-heartbeat {
+      animation: none !important;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .kawaii-text-gradient {
+      background: none;
+      -webkit-text-fill-color: initial;
+      @apply text-gray-900;
+    }
+
+    .kawaii-glass,
+    .kawaii-glass-light,
+    .kawaii-glass-dark {
+      @apply bg-white border-2 border-gray-900;
+      backdrop-filter: none;
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    .kawaii-btn,
+    .kawaii-card {
+      @apply shadow-none;
+    }
+
+    .kawaii-bg-primary,
+    .kawaii-bg-secondary,
+    .kawaii-bg-accent {
+      @apply bg-white;
+    }
+
+    .kawaii-text-gradient {
+      -webkit-text-fill-color: initial;
+      @apply text-gray-900;
+    }
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    body {
+      @apply bg-gradient-to-br from-gray-900 via-purple-900 to-pink-900;
+      @apply text-gray-100;
+    }
+
+    .kawaii-card {
+      @apply bg-gray-800/80 border-gray-700;
+    }
+
+    .kawaii-glass {
+      @apply bg-gray-800/25 border-gray-700/20;
+    }
+  }
+
+  /* Responsive text sizes */
+  .text-responsive-xs { font-size: clamp(0.75rem, 2vw, 0.875rem); }
+  .text-responsive-sm { font-size: clamp(0.875rem, 2.5vw, 1rem); }
+  .text-responsive-base { font-size: clamp(1rem, 3vw, 1.125rem); }
+  .text-responsive-lg { font-size: clamp(1.125rem, 3.5vw, 1.25rem); }
+  .text-responsive-xl { font-size: clamp(1.25rem, 4vw, 1.5rem); }
+  .text-responsive-2xl { font-size: clamp(1.5rem, 5vw, 2rem); }
+  .text-responsive-3xl { font-size: clamp(2rem, 6vw, 3rem); }
+
+  /* Line clamping utilities */
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  /* Background size utilities for animations */
+  .bg-size-200 { background-size: 200% 200%; }
+  .bg-size-300 { background-size: 300% 300%; }
+  .bg-size-400 { background-size: 400% 400%; }
+
+  /* Transform utilities */
+  .transform-gpu {
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* Backdrop blur utilities */
+  .backdrop-blur-kawaii {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Custom border gradients */
+  .border-gradient-pink {
+    border: 2px solid;
+    border-image: linear-gradient(135deg, #ec4899, #a855f7, #3b82f6) 1;
+  }
+
+  .border-gradient-blue {
+    border: 2px solid;
+    border-image: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899) 1;
+  }
+}
+
+/* Kawaii-specific animations and effects */
+@keyframes kawaii-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(236, 72, 153, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(236, 72, 153, 0.6); }
+}
+
+.kawaii-glow-effect {
+  animation: kawaii-glow 2s ease-in-out infinite;
+}
+
+/* Loading states */
+.kawaii-skeleton {
+  @apply animate-pulse bg-gradient-to-r from-pink-200 via-purple-200 to-pink-200;
+  background-size: 200% 100%;
+  animation: kawaii-skeleton-wave 1.5s ease-in-out infinite;
+}
+
+@keyframes kawaii-skeleton-wave {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Kawaii particle effects */
+.kawaii-particle {
+  pointer-events: none;
+  user-select: none;
+  will-change: transform, opacity;
+}
+
+.kawaii-particle-heart {
+  filter: drop-shadow(0 2px 4px rgba(236, 72, 153, 0.3));
+}
+
+.kawaii-particle-sparkle {
+  filter: drop-shadow(0 2px 4px rgba(251, 191, 36, 0.4));
+}
+
+.kawaii-particle-star {
+  filter: drop-shadow(0 2px 4px rgba(139, 92, 246, 0.4));
+}
+
+/* Accessibility improvements */
+.kawaii-focus-outline {
+  @apply ring-2 ring-pink-400 ring-opacity-75 ring-offset-2 ring-offset-white;
+}
+
+/* High performance transforms */
+.kawaii-transform-optimized {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Container queries support */
+@container (min-width: 768px) {
+  .kawaii-card-responsive {
+    @apply p-8;
+  }
+}
+
+/* Motion-safe animations */
+@media (prefers-reduced-motion: no-preference) {
+  .kawaii-animate-on-scroll {
+    animation: kawaii-fade-in-up 0.6s ease-out;
+  }
+}
+
+@keyframes kawaii-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
