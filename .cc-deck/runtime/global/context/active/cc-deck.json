@@ -1,11 +1,11 @@
 {
-  "context_id": "orchestrator-cc-deck-20250815",
+  "context_id": "orchestrator-cc-deck-20250819",
   "metadata": {
-    "created_at": "2025-08-15T23:27:43.927Z",
-    "updated_at": "2025-08-16T09:09:14.361Z",
+    "created_at": "2025-08-19T23:00:36.348Z",
+    "updated_at": "2025-08-20T00:38:16.342Z",
     "version": "1.0.0",
     "project_id": "cc-deck",
-    "current_workflow": "kiro-sdd-tasks",
+    "current_workflow": "kiro-sdd",
     "schema_version": "1.0"
   },
   "project_state": {
@@ -14,25 +14,18 @@
     "complexity": "medium",
     "security_critical": false,
     "technology_stack": {},
-    "analysis_timestamp": "2025-08-15T23:27:43.927Z"
+    "analysis_timestamp": "2025-08-19T23:00:36.348Z"
   },
   "workflow_history": [],
   "current_workflow_state": {
-    "workflow_name": "kiro-sdd-tasks",
-    "status": "design_approved",
-    "started_at": "2025-08-15T23:27:43.927Z",
+    "workflow_name": "kiro-sdd",
+    "status": "started",
+    "started_at": "2025-08-19T23:00:36.348Z",
     "current_phase": null,
     "completed_phases": [],
     "phase_outputs": {},
-    "user_selection": "new-project",
-    "tech_stack": "Next.js 15, React 19, Tailwind 4, shadcn/ui",
-    "aesthetic": "artistic-japanese",
-    "phase": "tasks",
-    "requirements_approved": true,
-    "animation_focus": true,
-    "latest_libraries": true,
-    "illustration_focus": true,
-    "design_approved": true
+    "project_type": "japanese-reading-blog",
+    "user_requirements": "シンプルなイラスト調のかわいいブログサイト、読書関連、アニメーション・イラスト・画像重視"
   },
   "task_progress": {
     "tasks_file": ".kiro/specs/cc-deck/tasks.md",
@@ -40,7 +33,7 @@
     "completed_tasks": 0,
     "current_task": null,
     "completion_percentage": 0,
-    "last_updated": "2025-08-15T23:27:43.927Z",
+    "last_updated": "2025-08-19T23:00:36.348Z",
     "task_details": []
   },
   "agent_memory": {},
@@ -55,7 +48,7 @@
       "line_coverage": 0,
       "branch_coverage": 0,
       "function_coverage": 0,
-      "last_measured": "2025-08-15T23:27:43.927Z"
+      "last_measured": "2025-08-19T23:00:36.348Z"
     },
     "code_quality": {
       "complexity_score": 0,

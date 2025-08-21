@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, type Variants } from 'framer-motion'
 import { NextPage } from 'next'
 import Head from 'next/head'
 import { kawaiiPresets } from '@/lib/kawaii-animations'

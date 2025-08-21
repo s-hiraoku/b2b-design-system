@@ -1,0 +1,225 @@
+# Kawaii Reading Blog Coding Workflow Extension Configuration
+# Project-specific enhancements for kawaii reading blog development
+
+extension_info:
+  project_id: "kawaii-reading-blog"
+  version: "1.0.0"
+  description: "Enhanced coding workflow with MCP integration for kawaii reading blog development"
+  created_date: "2024-01-12"
+
+# Enhanced Agent Configuration
+enhanced_agents:
+  kawaii-reading-blog-enhanced-implementation-agent:
+    path: ".claude/agents/coding/dynamic/kawaii-reading-blog-enhanced-implementation-agent.md"
+    fallback_agent: "impersonator-agent"
+    final_fallback: "implementation-agent"
+    priority: "primary"
+    description: "MCP-enhanced implementation agent with 8 integrated tools for kawaii blog development"
+    
+    # MCP Tool Integration
+    mcp_tools:
+      core_tools:
+        - "mcp__serena__list_memories"
+        - "mcp__serena__read_memory" 
+        - "mcp__serena__get_symbols_overview"
+        - "mcp__serena__find_symbol"
+        - "mcp__serena__write_to_file"
+      
+      research_tools:
+        - "mcp__deepwiki__read_wiki_structure"
+        - "mcp__deepwiki__read_wiki_contents"
+        - "mcp__deepwiki__ask_question"
+        - "mcp__brave-search__brave_web_search"
+        - "mcp__brave-search__brave_local_search"
+      
+      documentation_tools:
+        - "mcp__context7__resolve-library-id"
+        - "mcp__context7__get-library-docs"
+      
+      testing_tools:
+        - "mcp__playwright__browser_navigate"
+        - "mcp__playwright__browser_click"
+        - "mcp__playwright__browser_take_screenshot"
+    
+    # Kawaii-Specific Capabilities
+    kawaii_optimizations:
+      animation_performance: "60FPS target with real-time monitoring"
+      design_system: "Automated kawaii theme generation and validation"
+      database_optimization: "PostgreSQL tuning for reading progress tracking"
+      media_workflow: "Cloudinary integration for kawaii image optimization"
+      testing_automation: "Playwright E2E testing for animations"
+      deployment_optimization: "Vercel edge functions for reading analytics"
+    
+    # Technology Stack Configuration
+    technology_stack:
+      frontend: "Next.js 15 + React 19 + TypeScript 5.x"
+      animation: "Framer Motion + Lottie + Anime.js + CSS3"
+      database: "PostgreSQL (Supabase) + Redis caching"
+      styling: "Tailwind CSS 4 + Custom kawaii theme system"
+      testing: "Vitest + React Testing Library + Playwright E2E"
+      deployment: "Vercel with edge functions"
+      media: "Cloudinary optimization for kawaii imagery"
+    
+    # Performance Requirements
+    performance_targets:
+      animation_fps: 60
+      initial_load_time: "3s"
+      page_transition_time: "1s"
+      test_coverage_line: "95%"
+      test_coverage_branch: "90%"
+      accessibility_standard: "WCAG 2.1 AA"
+
+# Phase Enhancement Configuration
+phase_enhancements:
+  full_implementation:
+    primary_agent: "kawaii-reading-blog-enhanced-implementation-agent"
+    fallback_agent: "impersonator-agent"
+    final_fallback: "implementation-agent"
+    selection_logic: "dynamic_agent_resolution_with_3_tier_fallback"
+    
+    # Agent Selection Priority
+    agent_selection_priority:
+      - "kawaii-reading-blog-enhanced-implementation-agent"  # Primary: Project-specific enhanced agent
+      - "impersonator-agent"                                  # Fallback: Impersonate when enhanced not recognized
+      - "implementation-agent"                                # Final fallback: Standard implementation
+    
+    # Agent Detection Configuration
+    agent_detection_paths:
+      enhanced_agent: ".claude/agents/coding/dynamic/kawaii-reading-blog-enhanced-implementation-agent.md"
+      mcp_setup_status: ".cc-deck/runtime/projects/kawaii-reading-blog/config/mcp-setup-complete.json"
+    
+    # Enhanced Implementation Strategy
+    implementation_strategy:
+      primary_approach: "enhanced_mcp_integration_with_kawaii_optimization"
+      fallback_approach: "standard_implementation_with_kawaii_patterns"
+      fail_safe_guarantee: true
+      performance_monitoring: "real_time_60fps_tracking"
+
+# MCP Integration Configuration
+mcp_integration:
+  setup_status_file: ".cc-deck/runtime/projects/kawaii-reading-blog/config/mcp-setup-complete.json"
+  required_for_enhanced_mode: true
+  graceful_degradation: true
+  
+  # MCP Service Configuration
+  service_configuration:
+    serena:
+      priority: "critical"
+      timeout: "5s"
+      fallback: "local_analysis_mode"
+    
+    context7:
+      priority: "critical"
+      timeout: "3s"
+      fallback: "cached_framer_documentation"
+    
+    deepwiki:
+      priority: "enhancement"
+      timeout: "10s"
+      fallback: "standard_research_methods"
+    
+    playwright:
+      priority: "enhancement"
+      timeout: "15s"
+      fallback: "manual_animation_testing"
+    
+    brave_search:
+      priority: "optional"
+      timeout: "8s"
+      fallback: "existing_knowledge_base"
+  
+  # Fallback Mechanisms
+  fallback_mechanisms:
+    context7_unavailable: "Use cached Framer Motion documentation"
+    deepwiki_timeout: "Rely on Serena patterns and standard practices"
+    playwright_unavailable: "Manual animation testing recommendations"
+    all_mcp_failures: "Switch to standard implementation-agent"
+    performance_mcp_timeout: "Continue with existing knowledge base"
+
+# Quality Assurance Enhancement
+quality_assurance:
+  enhanced_monitoring:
+    condition: "enhanced_agent_available AND mcp_setup_complete"
+    capabilities:
+      - "Real-time MCP-powered kawaii code quality analysis"
+      - "Automated Framer Motion pattern compliance checking via Context7"
+      - "Repository pattern validation for kawaii designs via DeepWiki"
+      - "Advanced animation performance scanning with 60FPS monitoring"
+      - "Kawaii design system consistency validation"
+      - "PostgreSQL query optimization analysis"
+  
+  kawaii_specific_quality_gates:
+    animation_performance:
+      target_fps: 60
+      monitoring: "real_time"
+      fallback_threshold: 45
+    
+    design_consistency:
+      kawaii_theme_compliance: "100%"
+      component_reusability: ">= 80%"
+      accessibility_score: "WCAG 2.1 AA"
+    
+    database_performance:
+      query_response_time: "< 100ms"
+      connection_efficiency: ">= 95%"
+      cache_hit_ratio: ">= 90%"
+
+# Workflow Integration Points
+workflow_integration:
+  tdd_handoff:
+    preserve_tests: "mandatory"
+    expand_implementation: "mcp_enhanced"
+    maintain_coverage: "increase_only"
+  
+  tasks_md_integration:
+    source: ".kiro/specs/kawaii-reading-blog/tasks.md"
+    update_strategy: "real_time_checkbox_automation"
+    progress_display: "kawaii_themed_progress_indicators"
+    commit_strategy: "batch_with_implementation"
+  
+  context_propagation:
+    include_kawaii_patterns: true
+    preserve_mcp_context: true
+    animation_state_tracking: true
+
+# Error Handling Configuration
+error_handling:
+  enhanced_agent_errors:
+    mcp_service_failure:
+      action: "graceful_degradation_within_enhanced_agent"
+      fallback: "switch_to_impersonator_agent_if_critical"
+      notification: "log_mcp_service_degradation"
+    
+    animation_performance_failure:
+      action: "optimize_animation_complexity"
+      fallback: "reduce_to_essential_animations"
+      escalation: "performance_team_notification"
+    
+    enhanced_agent_unavailable:
+      action: "automatic_fallback_to_impersonator_agent"
+      notification: "using_impersonator_due_to_enhanced_unavailability"
+  
+  kawaii_specific_errors:
+    design_system_failure:
+      action: "fallback_to_manual_kawaii_implementation"
+      preservation: "maintain_accessibility_standards"
+    
+    database_optimization_failure:
+      action: "use_standard_postgresql_patterns"
+      monitoring: "continue_performance_tracking"
+
+# Performance Tracking
+performance_tracking:
+  enhanced_agent_metrics:
+    - "MCP tool usage efficiency for kawaii development"
+    - "Animation performance improvement over standard implementation"
+    - "Database query optimization success rate"
+    - "Kawaii design system automation effectiveness"
+    - "Time savings from integrated MCP workflow"
+  
+  kawaii_specific_metrics:
+    - "60FPS animation consistency rate"
+    - "Kawaii component reusability score"
+    - "User engagement with kawaii animations"
+    - "Page load time improvement with optimizations"
+    - "Test coverage increase with enhanced testing tools"

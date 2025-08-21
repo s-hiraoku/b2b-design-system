@@ -36,11 +36,30 @@ global.ResizeObserver = vi.fn().mockImplementation(() => ({
   disconnect: vi.fn()
 }))
 
+// Performance API mock for animation timing
+Object.defineProperty(global, 'performance', {
+  writable: true,
+  value: {
+    now: vi.fn(() => Date.now()),
+    mark: vi.fn(),
+    measure: vi.fn(),
+    getEntriesByName: vi.fn(() => []),
+    getEntriesByType: vi.fn(() => [])
+  }
+})
+
+// requestAnimationFrame and cancelAnimationFrame mocks
+global.requestAnimationFrame = vi.fn((cb) => {
+  setTimeout(cb, 16)
+  return 1
+})
+global.cancelAnimationFrame = vi.fn()
+
 // matchMedia mock for responsive testing
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: vi.fn().mockImplementation(query => ({
-    matches: false,
+    matches: query.includes('prefers-reduced-motion') ? false : false,
     media: query,
     onchange: null,
     addListener: vi.fn(),
@@ -49,4 +68,14 @@ Object.defineProperty(window, 'matchMedia', {
     removeEventListener: vi.fn(),
     dispatchEvent: vi.fn()
   }))
+})
+
+// Window dimensions for particle bounds checking
+Object.defineProperty(window, 'innerWidth', {
+  writable: true,
+  value: 1024
+})
+Object.defineProperty(window, 'innerHeight', {
+  writable: true,
+  value: 768
 })

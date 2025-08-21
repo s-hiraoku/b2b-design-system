@@ -2,7 +2,6 @@
 description: "Interactive setup for Git submodules in CC-Deck projects"
 argument-hint: "[project-name] [github-url]"
 allowed-tools: ["Bash", "Write", "Read", "Edit", "LS", "Glob", "Grep"]
-model: "sonnet"
 ---
 
 # Interactive Git Submodule Setup
@@ -26,7 +25,7 @@ Or with arguments:
 The command will guide you through:
 
 1. **Project Name**: Name for your submodule project
-2. **GitHub URL**: GitHub repository URL for the submodule  
+2. **GitHub URL**: GitHub repository URL for the submodule
 3. **Directory Creation**: Creates the project directory structure
 4. **Git Configuration**: Sets up local git repository
 5. **Remote Setup**: Connects to GitHub repository
@@ -36,21 +35,25 @@ The command will guide you through:
 ## What This Command Does
 
 ### 1. Project Directory Setup
+
 - Creates `projects/{project-name}/` directory
 - Initializes basic project structure
 - Sets up `.gitignore` file
 
 ### 2. Git Repository Initialization
+
 - Initializes local git repository
 - Adds remote origin to GitHub
 - Creates initial commit with project structure
 
 ### 3. Submodule Configuration
+
 - Updates `.gitmodules` file in parent project
 - Syncs submodule configuration
 - Commits submodule changes to parent project
 
 ### 4. Validation
+
 - Verifies GitHub repository accessibility
 - Checks git configuration
 - Tests submodule functionality
@@ -70,9 +73,11 @@ I'll check what arguments were provided with the command.
 Now I need to collect some information about your new project. Let me ask you a few questions:
 
 ### 1. Project Name
+
 I need a name for your new submodule project.
 
 **Requirements:**
+
 - Use lowercase letters, numbers, and hyphens only
 - 2-50 characters long
 - Cannot start or end with hyphens
@@ -82,9 +87,11 @@ I need a name for your new submodule project.
 **Examples:** `my-blog-app`, `e-commerce-site`, `portfolio-website`
 
 ### 2. GitHub Repository URL
+
 I need the GitHub repository URL where this project will be hosted.
 
 **Requirements:**
+
 - Must be a valid GitHub URL
 - Format: `https://github.com/username/repository-name.git`
 - The repository should already exist on GitHub
@@ -93,9 +100,11 @@ I need the GitHub repository URL where this project will be hosted.
 **Example:** `https://github.com/s-hiraoku/my-new-project.git`
 
 ### 3. Project Type (Optional)
+
 What type of project template would you like to use?
 
 **Available options:**
+
 - `next-js` - Next.js 15 + React 19 + TypeScript + Tailwind CSS (default)
 - `basic` - Basic project with minimal structure
 - `other` - Custom project type
@@ -107,16 +116,19 @@ What type of project template would you like to use?
 I'll validate the provided information:
 
 ✅ **Project name validation**
+
 - Check format (lowercase, hyphens, numbers only)
 - Verify directory doesn't already exist
 - Ensure valid project name length
 
-✅ **GitHub URL validation**  
+✅ **GitHub URL validation**
+
 - Verify URL format
 - Check if repository exists (if accessible)
 - Validate repository name matches project name
 
 ✅ **Configuration summary**
+
 ```
 Project Configuration:
 - Name: {project-name}
@@ -140,6 +152,7 @@ cd projects/{project-name}
 ```
 
 **Next.js Project Structure**:
+
 ```
 projects/{project-name}/
 ├── README.md
@@ -213,6 +226,7 @@ cd /Volumes/SSD/development/cc-deck
 ```
 
 **.gitmodules Configuration**:
+
 ```ini
 [submodule "projects/{project-name}"]
     path = projects/{project-name}
@@ -275,6 +289,7 @@ git log --oneline -3
 🎉 **Submodule Setup Complete!**
 
 ### What was created:
+
 - ✅ Project directory: `projects/{project-name}/`
 - ✅ Git repository initialized and connected to GitHub
 - ✅ Basic {project-type} project structure
@@ -282,7 +297,9 @@ git log --oneline -3
 - ✅ Initial commit pushed to GitHub
 
 ### Next steps:
-1. **Start developing**: 
+
+1. **Start developing**:
+
    ```bash
    cd projects/{project-name}
    # Install dependencies if applicable
@@ -292,23 +309,25 @@ git log --oneline -3
    ```
 
 2. **Development workflow**:
+
    ```bash
    # Make changes in projects/{project-name}/
    git add .
    git commit -m "Your changes"
    git push origin main
-   
+
    # Update parent project
    cd /Volumes/SSD/development/cc-deck
    git add projects/{project-name}
    git commit -m "Update {project-name} submodule"
    ```
 
-3. **Documentation**: 
+3. **Documentation**:
    - See `docs/submodule-management.md` for detailed workflow
    - Project-specific README available at `projects/{project-name}/README.md`
 
 ### Useful commands:
+
 - **Status check**: `git submodule status`
 - **Update from remote**: `git submodule update --remote projects/{project-name}`
 - **Project directory**: `cd projects/{project-name}`

@@ -249,7 +249,7 @@ export const animationUtils = {
    * Respects user's reduced motion preferences
    */
   respectsReducedMotion: () => 
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
 
   /**
    * Creates stagger configuration for list animations
@@ -261,7 +261,7 @@ export const animationUtils = {
 }
 
 // Export animation presets for common kawaii patterns
-export const kawaiiPresets = {
+export const kawaiiPresets: Record<string, Variants> = {
   // Book interaction animations
   bookHover: kawaiiAnimations.bookCard,
   bookFloat: kawaiiAnimations.float,

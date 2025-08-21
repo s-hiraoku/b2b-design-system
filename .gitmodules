@@ -4,3 +4,6 @@
 [submodule "projects/artistic-blog-site"]
 	path = projects/artistic-blog-site
 	url = https://github.com/s-hiraoku/artistic-blog-site
+[submodule "projects/kawaii-reading-blog"]
+	path = projects/kawaii-reading-blog
+	url = https://github.com/s-hiraoku/kawaii-reading-blog.git

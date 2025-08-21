@@ -62,7 +62,16 @@
       "Bash(fi)",
       "Bash(done)",
       "Bash(claude agents list)",
-      "Bash(npm uninstall:*)"
+      "Bash(npm uninstall:*)",
+      "Bash(project_yaml=\"../../.cc-deck/runtime/projects/fashionable-girls-blog/workflows/generated/coding-merged.yaml\")",
+      "Bash([ -f \"$project_yaml\" ])",
+      "WebSearch",
+      "Bash([ -d .kiro/steering ])",
+      "Bash(project_id=\"kawaii-reading-blog\")",
+      "WebFetch(domain:supabase.com)",
+      "Bash(claude mcp:*)",
+      "Bash(project_yaml=\".cc-deck/runtime/projects/$project_id/workflows/generated/coding-merged.yaml\")",
+      "Bash(git submodule:*)"
     ],
     "deny": [],
     "additionalDirectories": [

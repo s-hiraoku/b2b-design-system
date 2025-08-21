@@ -1,0 +1,210 @@
+{
+  "authentication_status_report": {
+    "timestamp": "2025-08-20T16:30:00Z",
+    "project_id": "kawaii-reading-blog",
+    "overall_auth_status": "partially_authenticated",
+    "critical_tools_auth_status": "fully_authenticated"
+  },
+  "authentication_details": {
+    "no_auth_required": [
+      {
+        "tool": "context7",
+        "transport": "sse",
+        "auth_method": "none",
+        "status": "authenticated",
+        "url": "https://mcp.context7.com/sse",
+        "notes": "Public SSE endpoint, no authentication required"
+      },
+      {
+        "tool": "deepwiki", 
+        "transport": "sse",
+        "auth_method": "none",
+        "status": "authenticated",
+        "url": "https://mcp.deepwiki.com/sse",
+        "notes": "Public SSE endpoint, no authentication required"
+      },
+      {
+        "tool": "playwright",
+        "transport": "stdio",
+        "auth_method": "none", 
+        "status": "authenticated",
+        "command": "npx @playwright/mcp@latest",
+        "notes": "Local stdio server, no authentication required"
+      },
+      {
+        "tool": "vercel",
+        "transport": "http",
+        "auth_method": "none",
+        "status": "authenticated",
+        "url": "https://mcp.vercel.com",
+        "notes": "Public HTTP endpoint, no authentication required for basic functionality"
+      }
+    ],
+    "api_key_authenticated": [
+      {
+        "tool": "brave-search",
+        "transport": "stdio",
+        "auth_method": "api_key",
+        "status": "authenticated",
+        "env_var": "BRAVE_API_KEY",
+        "token_status": "valid",
+        "token_expiry": "none",
+        "refresh_required": false,
+        "notes": "Valid Brave Search API key configured"
+      }
+    ],
+    "placeholder_credentials": [
+      {
+        "tool": "cloudinary",
+        "transport": "stdio",
+        "auth_method": "api_credentials",
+        "status": "connected_with_placeholders",
+        "required_env_vars": ["CLOUDINARY_CLOUD_NAME", "CLOUDINARY_API_KEY", "CLOUDINARY_API_SECRET"],
+        "current_env_vars": {
+          "CLOUDINARY_CLOUD_NAME": "placeholder",
+          "CLOUDINARY_API_KEY": "placeholder", 
+          "CLOUDINARY_API_SECRET": "placeholder"
+        },
+        "production_ready": false,
+        "setup_instructions": "Replace placeholder values with real Cloudinary account credentials",
+        "documentation": "https://cloudinary.com/documentation/node_integration"
+      }
+    ],
+    "authentication_failed": [
+      {
+        "tool": "supabase",
+        "transport": "stdio",
+        "auth_method": "api_credentials",
+        "status": "failed",
+        "required_env_vars": ["SUPABASE_URL", "SUPABASE_ANON_KEY"],
+        "current_env_vars": {
+          "SUPABASE_URL": "https://placeholder.supabase.co",
+          "SUPABASE_ANON_KEY": "placeholder_key"
+        },
+        "error": "NPM package @supabase/mcp-server not found",
+        "production_ready": false,
+        "setup_instructions": "1. Create real Supabase project, 2. Use manual Supabase client setup, 3. Verify @supabase/mcp-server package availability",
+        "documentation": "https://supabase.com/docs/guides/getting-started"
+      },
+      {
+        "tool": "figma",
+        "transport": "stdio", 
+        "auth_method": "personal_access_token",
+        "status": "failed",
+        "required_env_vars": ["FIGMA_ACCESS_TOKEN"],
+        "current_env_vars": {
+          "FIGMA_ACCESS_TOKEN": "placeholder_token"
+        },
+        "error": "NPM package figma-mcp-server not found",
+        "production_ready": false,
+        "setup_instructions": "1. Generate Figma personal access token, 2. Verify figma-mcp-server package availability, 3. Use manual Figma API integration",
+        "documentation": "https://www.figma.com/developers/api"
+      },
+      {
+        "tool": "nextjs-monitor",
+        "transport": "stdio",
+        "auth_method": "none",
+        "status": "failed",
+        "required_env_vars": ["NEXT_PROJECT_PATH"],
+        "current_env_vars": {
+          "NEXT_PROJECT_PATH": "/projects/kawaii-reading-blog"
+        },
+        "error": "NPM package nextjs-performance-mcp not found",
+        "production_ready": false,
+        "setup_instructions": "Use browser-native performance monitoring APIs and React DevTools",
+        "documentation": "Custom implementation with Performance API"
+      }
+    ]
+  },
+  "refresh_procedures": {
+    "brave_search": {
+      "refresh_required": false,
+      "refresh_interval": "none",
+      "auto_refresh": false,
+      "manual_refresh_command": "Update BRAVE_API_KEY environment variable if expired"
+    },
+    "cloudinary": {
+      "refresh_required": "when_credentials_updated",
+      "refresh_interval": "none",
+      "auto_refresh": false,
+      "manual_refresh_command": "claude mcp remove cloudinary && claude mcp add cloudinary --env CLOUDINARY_CLOUD_NAME=real --env CLOUDINARY_API_KEY=real --env CLOUDINARY_API_SECRET=real -- npx -y cloudinary-mcp-server"
+    }
+  },
+  "security_considerations": [
+    "Brave Search API key is properly configured and secured",
+    "Placeholder credentials for Cloudinary are not production-ready",
+    "All failed authentication tools require manual credential setup",
+    "No sensitive credentials are logged in MCP configuration",
+    "Environment variables are properly isolated per tool"
+  ],
+  "production_readiness": {
+    "ready_for_production": [
+      "context7",
+      "deepwiki", 
+      "playwright",
+      "vercel",
+      "brave-search"
+    ],
+    "requires_credential_update": [
+      "cloudinary"
+    ],
+    "requires_manual_setup": [
+      "supabase",
+      "figma",
+      "nextjs-monitor"
+    ]
+  },
+  "troubleshooting_guide": {
+    "common_issues": {
+      "mcp_server_not_found": {
+        "symptoms": "NPM package not found error",
+        "solutions": [
+          "Verify package exists on NPM registry",
+          "Use alternative package name or version",
+          "Implement manual integration without MCP",
+          "Check package documentation for correct installation"
+        ]
+      },
+      "authentication_failed": {
+        "symptoms": "Connection failed with auth error", 
+        "solutions": [
+          "Verify API credentials are correct",
+          "Check environment variable names and values",
+          "Ensure API keys have required permissions",
+          "Test credentials with direct API calls"
+        ]
+      },
+      "connection_timeout": {
+        "symptoms": "Server connection times out",
+        "solutions": [
+          "Check network connectivity",
+          "Verify server URLs are correct",
+          "Test with longer timeout values",
+          "Use alternative transport methods"
+        ]
+      }
+    },
+    "manual_authentication_procedures": {
+      "cloudinary": {
+        "step1": "Create Cloudinary account at https://cloudinary.com",
+        "step2": "Navigate to Dashboard > Settings > API Keys",
+        "step3": "Copy Cloud Name, API Key, and API Secret",
+        "step4": "Update MCP configuration with real credentials",
+        "step5": "Test connection with claude mcp list"
+      },
+      "supabase": {
+        "step1": "Create Supabase project at https://supabase.com",
+        "step2": "Navigate to Project Settings > API",
+        "step3": "Copy Project URL and anon public key",
+        "step4": "Install @supabase/supabase-js manually for project",
+        "step5": "Implement custom Supabase integration without MCP"
+      },
+      "figma": {
+        "step1": "Generate personal access token in Figma account settings",
+        "step2": "Verify figma-mcp-server package availability",
+        "step3": "Alternative: Use Figma REST API directly",
+        "step4": "Implement design token automation manually"
+      }
+    }
+  }
+}
