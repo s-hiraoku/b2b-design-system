@@ -1,0 +1,57 @@
+{
+  "project_name": "b2b-design-system",
+  "project_type": "design-system",
+  "created_at": "2025-08-29T02:35:00.000Z",
+  "updated_at": "2025-08-29T02:35:00.000Z",
+  "status": "in_progress",
+  "phases": {
+    "steering": {
+      "status": "completed",
+      "completed_at": "2025-08-29T02:35:00.000Z",
+      "files": [
+        ".kiro/steering/product.md",
+        ".kiro/steering/tech.md",
+        ".kiro/steering/structure.md"
+      ]
+    },
+    "init": {
+      "status": "in_progress",
+      "started_at": "2025-08-29T02:35:00.000Z",
+      "files": [
+        ".kiro/specs/b2b-design-system/kiro_status.json"
+      ]
+    },
+    "requirements": {
+      "status": "pending"
+    },
+    "design": {
+      "status": "pending"
+    },
+    "tasks": {
+      "status": "pending"
+    }
+  },
+  "metadata": {
+    "description": "A comprehensive B2B design system using React, TypeScript, shadcn/ui, and Tailwind CSS with Storybook documentation",
+    "technology_stack": [
+      "React 18+",
+      "TypeScript 5.3+",
+      "Tailwind CSS 3.4+",
+      "shadcn/ui",
+      "Storybook 7.6+",
+      "Vite 5+",
+      "Vitest",
+      "Playwright"
+    ],
+    "target_audience": "Enterprise developers and designers building B2B applications",
+    "key_features": [
+      "Component library with 50+ enterprise components",
+      "Design tokens for consistent theming",
+      "Full accessibility compliance (WCAG 2.1 AA)",
+      "Comprehensive Storybook documentation",
+      "TypeScript-first development",
+      "Dark mode support",
+      "Internationalization ready"
+    ]
+  }
+}

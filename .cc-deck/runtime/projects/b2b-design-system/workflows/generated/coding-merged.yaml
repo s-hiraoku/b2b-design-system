@@ -1,0 +1,679 @@
+# Merged Coding Workflow for B2B Design System
+# Base coding workflow enhanced with project-specific b2b-design-system-enhanced-implementation-agent
+# Generated from base coding.yaml + b2b-design-system extension
+
+name: b2b-design-system-coding-workflow
+description: Complete B2B design system development workflow with enhanced MCP integrations and Smart Context Propagation
+version: "1.0.0"
+project_id: b2b-design-system
+generated_from:
+  base_workflow: ".cc-deck/config/workflows/base/coding.yaml"
+  extension: ".cc-deck/runtime/projects/b2b-design-system/extensions/coding-extension.yaml"
+  generation_date: "2024-01-29"
+
+# Smart Context Schema (inherited from base)
+context_schema:
+  research_context:
+    technologies: array[string]
+    best_practices: array[object]
+    documentation_sources: array[string]
+  planning_context:
+    architecture: object
+    implementation_strategy: string
+    technology_stack: array[string]
+  implementation_context:
+    code_generated: array[object]
+    test_coverage: number
+    quality_metrics: object
+
+# Enhanced Workflow Definition with B2B Design System Integration
+phases:
+  # Phase 1: Research (Base + B2B Enhancement)
+  - name: research
+    agent: research-agent
+    description: "Technology research using MCP integrations with B2B design system focus"
+    available_agents:
+      - research-agent: "Comprehensive technology research"
+      - deepwiki-research-solver: "Specialized technical problem research and solutions"
+    inputs: [project_requirements]
+    outputs:
+      - research_context
+      - technology_recommendations
+      - b2b_design_patterns
+      - enterprise_component_standards
+    mcp_integrations:
+      - deepwiki: "GitHub repository analysis focusing on enterprise design systems"
+      - context7: "React 18.3+, TypeScript 5.3+, Tailwind CSS 3.4+ documentation"
+      - web_search: "Current B2B design system best practices and accessibility standards"
+    success_criteria:
+      - research_complete: true
+      - technology_stack_identified: true
+      - b2b_design_patterns_researched: true
+    next_phase: planning
+
+  # Phase 2: Strategic Planning (Base + B2B Enhancement)
+  - name: planning
+    agent: planning-agent
+    description: "Develop B2B design system architecture and implementation strategy"
+    inputs: [research_context, project_requirements]
+    outputs:
+      - planning_context
+      - architecture_design
+      - implementation_roadmap
+      - b2b_component_architecture
+    success_criteria:
+      - architecture_documented: true
+      - implementation_plan_created: true
+      - b2b_component_hierarchy_defined: true
+    next_phase: serena_onboarding
+
+  # Phase 3: TDD Serena Onboarding & Environment Setup (Base + B2B Context)
+  - name: serena_onboarding
+    agent: serena-onboarding-agent
+    description: "Initialize Serena MCP and establish TDD environment for B2B design system development"
+    inputs: [planning_context, research_context]
+    outputs:
+      - serena_context
+      - tdd_patterns
+      - coding_standards
+      - test_environment_config
+      - b2b_testing_strategies
+    configuration:
+      development_mode: "test_driven"
+      tdd_focus: true
+      pattern_preferences:
+        - "AAA pattern for component tests (Arrange-Act-Assert)"
+        - "Given-When-Then structure for B2B user stories"
+        - "Descriptive component test names"
+        - "Red-Green-Refactor enforcement for components"
+        - "Accessibility-first testing approach"
+    success_criteria:
+      - serena_initialized: true
+      - tdd_patterns_established: true
+      - test_framework_ready: true
+      - b2b_component_testing_ready: true
+    next_phase: tdd_cycle
+
+  # Phase 4: TDD Red-Green-Refactor Cycle (Base + Component Focus)
+  - name: tdd_cycle
+    agent: tdd-agent
+    description: "Execute strict TDD Red-Green-Refactor cycles for B2B component development following t-wada methodology"
+    inputs: [serena_context, planning_context, tdd_patterns]
+    outputs:
+      - test_suite
+      - minimal_implementations
+      - refactored_code
+      - tdd_cycles_log
+      - component_test_foundations
+    tdd_methodology:
+      strict_mode: true
+      cycle_enforcement: true
+      test_first_only: true
+      red_phase_validation: true
+      green_phase_minimal: true
+      refactor_phase_mandatory: true
+      component_focused: true
+    success_criteria:
+      - all_cycles_complete: true
+      - tests_written_first: true
+      - minimal_implementation_achieved: true
+      - refactoring_applied: true
+      - zero_failing_tests: true
+      - component_foundations_established: true
+    next_phase: full_implementation
+
+  # Phase 5: Enhanced B2B Design System Implementation (ENHANCED)
+  - name: full_implementation
+    # Enhanced Agent Selection with 3-Tier Fallback System
+    agent: "b2b-design-system-enhanced-implementation-agent"
+    fallback_agent: "impersonator-agent"
+    final_fallback: "implementation-agent"
+    description: "Production-ready B2B design system implementation using enhanced MCP capabilities with intelligent 3-tier fallback system"
+    
+    # Agent Selection Priority (Enhanced for B2B Design System)
+    agent_selection_priority:
+      - "b2b-design-system-enhanced-implementation-agent"  # Primary: B2B design system specialized agent
+      - "impersonator-agent"                               # Fallback: Smart impersonation when enhanced not recognized
+      - "implementation-agent"                             # Final fallback: Standard implementation
+    
+    # Agent Detection and Validation
+    agent_detection_paths:
+      enhanced_agent: ".claude/agents/coding/dynamic/b2b-design-system-enhanced-implementation-agent.md"
+      mcp_setup_status: "/Volumes/SSD/development/cc-deck/.cc-deck/runtime/projects/b2b-design-system/config/mcp-setup-complete.json"
+    
+    inputs: [test_suite, minimal_implementations, serena_context, refactored_code]
+    outputs:
+      - implementation_context
+      - production_code
+      - b2b_component_library
+      - design_token_system
+      - storybook_documentation
+      - accessibility_validation_reports
+      - performance_optimization_reports
+      - edge_case_handling
+      - quality_metrics
+      - best_practices_applied
+      - security_validations
+    
+    # Enhanced B2B Design System Implementation Strategy
+    implementation_strategy:
+      primary_approach: "enhanced_mcp_b2b_design_system_integration"
+      fallback_approach: "standard_react_component_implementation_with_research_support"
+      agent_selection_logic: "check_enhanced_b2b_agent_availability"
+      fail_safe_guarantee: true
+    
+    # Enhanced vs Standard Implementation for B2B Design System
+    enhanced_implementation:
+      condition: "enhanced_agent_available AND mcp_setup_complete"
+      agent: "b2b-design-system-enhanced-implementation-agent"
+      capabilities:
+        - "Integrated MCP tool access (Context7, DeepWiki, Serena, Playwright, Brave Search)"
+        - "Real-time React 18.3+, TypeScript 5.3+, Tailwind CSS 3.4+ documentation via Context7"
+        - "Enterprise design system pattern research and validation via DeepWiki"
+        - "Advanced B2B component generation with comprehensive MCP-enhanced context"
+        - "Automated accessibility compliance and WCAG 2.1 AA validation"
+        - "Visual regression testing and E2E component validation via Playwright"
+        - "Bundle optimization and performance monitoring for component library"
+        - "Comprehensive Storybook documentation and interactive playground"
+      
+      implementation_focus:
+        - "Leverage all available MCP tools for optimal B2B component library development"
+        - "Apply latest React 18.3+ concurrent features and TypeScript 5.3+ advanced types"
+        - "Use DeepWiki for enterprise design system pattern analysis and best practices"
+        - "Implement comprehensive design token system with Tailwind CSS 3.4+ features"
+        - "Ensure production readiness with comprehensive MCP-powered quality assurance"
+        - "Create accessible, performant, and enterprise-grade component architecture"
+    
+    standard_implementation:
+      condition: "enhanced_agent_unavailable OR mcp_setup_failed"
+      agent: "implementation-agent"
+      capabilities:
+        - "Standard TDD-based React component implementation approach"
+        - "Basic Serena MCP integration for code generation"
+        - "Manual React/TypeScript documentation lookup"
+        - "Standard component development and testing practices"
+        - "Basic Storybook setup and documentation"
+        - "Manual accessibility validation recommendations"
+      
+      implementation_focus:
+        - "Complete TDD implementation using existing component test foundation"
+        - "Apply established React component patterns and best practices"
+        - "Ensure all tests remain passing throughout component development"
+        - "Maintain code quality and production readiness standards"
+        - "Update tasks.md checkboxes as each component task is completed"
+    
+    # B2B Design System Tasks.md Integration (Enhanced)
+    task_management:
+      source: ".kiro/specs/b2b-design-system/tasks.md"
+      total_tasks: 42
+      development_phases: 10
+      tracking_strategy:
+        - "Load B2B design system tasks.md at phase start to identify pending component tasks"
+        - "Parse checkbox format: '- [ ]' (pending) vs '- [x]' (completed)"
+        - "Execute component development tasks in dependency order"
+        - "Update checkbox immediately upon component completion and testing"
+        - "Commit both component code and tasks.md updates together"
+      
+      task_execution_flow:
+        1. "Read current B2B design system tasks.md state"
+        2. "Identify next uncompleted component or feature task"
+        3. "Execute component implementation with enhanced MCP capabilities"
+        4. "Run component tests and accessibility validation"
+        5. "Update Storybook documentation and examples"
+        6. "Update checkbox from '- [ ]' to '- [x]'"
+        7. "Commit component code, tests, stories, and tasks.md update"
+        8. "Proceed to next task or report B2B design system completion"
+      
+      progress_reporting:
+        - "Display completion percentage (e.g., 15/42 tasks = 36%)"
+        - "Show remaining high-priority component development tasks"
+        - "Highlight blocked or dependent component tasks"
+        - "Generate B2B design system completion summary for stakeholder review"
+    
+    # Enhanced MCP Integration Strategy for B2B Design System
+    enhanced_mcp_integration:
+      condition: "enhanced_agent_available"
+      integrated_tools:
+        - "Context7 MCP: React 18.3+, TypeScript 5.3+, Tailwind CSS 3.4+ library documentation"
+        - "DeepWiki MCP: Enterprise design system pattern analysis and component architecture research"
+        - "Serena MCP: Intelligent B2B component generation and project memory management"
+        - "Playwright MCP: Automated component testing and visual regression validation"
+        - "Brave Search MCP: Latest B2B design trends and technology best practices research"
+      
+      usage_optimization:
+        - "Priority-based MCP usage for critical component features vs enhancement features"
+        - "Intelligent caching of Context7 documentation responses"
+        - "Parallel MCP requests for non-dependent operations"
+        - "Graceful degradation when specific MCP tools are unavailable"
+        - "Performance monitoring and 10-second timeout handling per MCP operation"
+      
+      fallback_mechanisms:
+        - "Context7 unavailable → Use cached React/TypeScript documentation"
+        - "DeepWiki timeout → Rely on Serena patterns and standard design system practices"
+        - "Playwright unavailable → Manual testing recommendations with Jest/RTL focus"
+        - "Brave Search failure → Continue with existing knowledge and cached research"
+        - "All MCP failures → Switch to standard implementation-agent with notification"
+    
+    # B2B Design System Quality Assurance Integration
+    quality_assurance:
+      enhanced_monitoring:
+        condition: "enhanced_agent_available"
+        capabilities:
+          - "Real-time MCP-powered B2B component quality analysis"
+          - "Automated React/TypeScript best practices validation via Context7"
+          - "Enterprise design system pattern compliance via DeepWiki"
+          - "Advanced accessibility scanning with latest WCAG 2.1 AA guidelines"
+          - "Bundle size monitoring and optimization recommendations"
+          - "Visual regression testing automation via Playwright"
+          - "Storybook documentation completeness validation"
+      
+      standard_monitoring:
+        condition: "standard_implementation"
+        capabilities:
+          - "Standard React component quality metrics tracking"
+          - "Basic test coverage monitoring for components"
+          - "Manual accessibility best practices application"
+          - "Standard performance optimization techniques"
+          - "Basic Storybook documentation validation"
+      
+      unified_quality_gates:
+        entry_gate:
+          - tdd_foundation_validated: true
+          - enhanced_agent_selection_completed: true
+          - mcp_setup_status_verified: true
+          - b2b_component_architecture_ready: true
+        
+        progress_gate:
+          - component_development_on_track: true
+          - accessibility_compliance_maintained: true
+          - design_token_system_functional: true
+          - storybook_documentation_current: true
+        
+        exit_gate:
+          - all_component_tests_passing: true
+          - component_coverage: ">= 95%"
+          - accessibility_compliance: "WCAG 2.1 AA"
+          - implementation_completeness: "100%"
+          - b2b_production_readiness: true
+          - bundle_optimization_completed: true
+    
+    # B2B Design System Success Criteria
+    success_criteria:
+      core_requirements:
+        - all_component_tests_passing: true
+        - feature_requirements_met: "100%"
+        - tdd_foundation_preserved: true
+        - implementation_completeness: "100%"
+        - b2b_component_library_complete: true
+        
+      quality_standards:
+        - component_coverage: ">= 95%"
+        - code_quality_score: ">= 8.0"
+        - accessibility_score: "WCAG 2.1 AA compliant"
+        - production_readiness: true
+        - error_handling_comprehensive: true
+        - bundle_size_optimized: true
+        
+      enhanced_benefits:
+        condition: "enhanced_agent_used"
+        additional_criteria:
+          - "MCP integration successful: Context7, DeepWiki, Serena, Playwright, Brave Search"
+          - "Latest React/TypeScript/Tailwind best practices applied from MCP research"
+          - "Advanced component performance optimization achieved"
+          - "Enhanced accessibility scanning and compliance completed"
+          - "Enterprise design system pattern alignment verified"
+          - "Visual regression testing automation implemented"
+    
+    # Enhanced Agent Selection and Fallback Logic
+    agent_selection:
+      selection_order:
+        1. "Check for b2b-design-system-enhanced-implementation-agent availability"
+        2. "Verify MCP setup completion status for B2B design system tools"
+        3. "Select enhanced agent if available and MCP ready"
+        4. "Fall back to impersonator-agent for smart impersonation if enhanced unavailable"
+        5. "Final fallback to standard implementation-agent if all enhanced options fail"
+      
+      enhanced_agent_criteria:
+        - "Agent file exists: .claude/agents/coding/dynamic/b2b-design-system-enhanced-implementation-agent.md"
+        - "MCP setup complete: /Volumes/SSD/development/cc-deck/.cc-deck/runtime/projects/b2b-design-system/config/mcp-setup-complete.json"
+        - "Claude Code system recognition of enhanced B2B agent"
+        - "No critical MCP failures in B2B-specific setup status"
+        - "React/TypeScript/Tailwind environment validated"
+      
+      fallback_triggers:
+        - "Enhanced B2B agent file not found"
+        - "MCP setup failed or incomplete for B2B design system tools"
+        - "Enhanced agent execution failure during component development"
+        - "Critical MCP services unavailable during B2B implementation"
+    
+    next_phase: testing
+
+  # Phase 6: Testing (Base + B2B Component Testing)
+  - name: testing
+    agent: testing-agent
+    description: "Comprehensive testing strategy for B2B design system components"
+    inputs: [implementation_context]
+    outputs:
+      - test_results
+      - coverage_report
+      - accessibility_test_results
+      - visual_regression_results
+    test_types:
+      - unit_tests: true
+      - integration_tests: true
+      - component_tests: true
+      - accessibility_tests: true
+      - visual_regression_tests: conditional
+      - e2e_tests: conditional
+    success_criteria:
+      - tests_created: true
+      - tests_passing: true
+      - coverage_threshold_met: true
+      - accessibility_validation_passed: true
+    next_phase: execution_verification
+
+  # Phase 6.2: Execution Verification (Base + B2B Component Validation)
+  - name: execution_verification
+    agent: execution-validator
+    description: "Validate B2B design system execution in development environment and detect runtime issues"
+    inputs: [implementation_context, test_results]
+    outputs:
+      - execution_report
+      - runtime_issues_list
+      - basic_functionality_status
+      - environment_validation_results
+      - component_library_validation_results
+    
+    # B2B Design System Validation Process
+    validation_steps:
+      - dependency_installation: "Install and verify all B2B design system dependencies"
+      - storybook_startup: "Start Storybook development server successfully"
+      - component_library_startup: "Verify component library builds and exports correctly"
+      - runtime_monitoring: "Monitor logs for errors, warnings, and exceptions"
+      - component_functionality_test: "Test core component interactions and behaviors"
+      - accessibility_runtime_check: "Validate accessibility compliance in running components"
+      - environment_dependency_check: "Validate Tailwind, TypeScript, and build tools"
+      - issue_resolution: "Fix critical runtime issues preventing component usage"
+    
+    success_criteria:
+      - storybook_starts_successfully: true
+      - component_library_builds_successfully: true
+      - no_critical_runtime_errors: true
+      - component_functionality_accessible: true
+      - core_component_workflows_completable: true
+      - accessibility_runtime_validated: true
+    
+    failure_handling:
+      on_critical_issues:
+        action: "fix_and_retry"
+        max_attempts: 3
+        escalation: "return_to_implementation_phase"
+      on_warning_issues:
+        action: "document_and_proceed"
+    
+    next_phase: specification_compliance_check
+
+  # Phase 6.5: Specification Compliance Check (Base + B2B Specifications)
+  - name: specification_compliance_check
+    agent: acceptance-reviewer
+    description: "Verify B2B design system implementation compliance with specifications and detect missing components"
+    inputs: [implementation_context, test_results, coverage_report]
+    outputs:
+      - compliance_report
+      - specification_gaps
+      - implementation_completeness_score
+      - missing_features_list
+      - b2b_component_compliance_report
+    
+    # B2B Design System Specification Verification Process
+    verification_process:
+      specification_analysis:
+        - "Load and parse .kiro/specs/b2b-design-system/ directory specifications"
+        - "Extract B2B component requirements and acceptance criteria"
+        - "Identify mandatory vs optional components and features"
+        - "Map specifications to component implementation artifacts"
+      
+      implementation_verification:
+        - "Analyze implemented components against B2B specification requirements"
+        - "Verify component APIs match specification definitions"
+        - "Check design token system aligns with specification schemas"
+        - "Validate component behaviors match specified interactions"
+        - "Verify accessibility compliance meets B2B enterprise standards"
+      
+      tasks_completion_check:
+        - "Parse B2B design system tasks.md file for completion status"
+        - "Verify all mandatory component tasks are marked complete"
+        - "Identify incomplete or skipped component development tasks"
+        - "Cross-reference component tasks with actual implementation"
+      
+      gap_analysis:
+        - "Identify missing B2B components from specifications"
+        - "Detect component implementation deviations from requirements"
+        - "Flag incomplete or partial component implementations"
+        - "Generate prioritized B2B component gap remediation plan"
+    
+    # Decision Logic for B2B Design System
+    decision_criteria:
+      completion_threshold:
+        mandatory_components: "100%"  # All mandatory B2B components must be implemented
+        optional_components: ">= 80%"  # Most optional components should be implemented
+        tasks_completion: ">= 95%"     # Nearly all B2B component tasks should be complete
+        specification_alignment: ">= 90%"  # High specification alignment required
+      
+      quality_gates:
+        - "No critical B2B component specification gaps identified"
+        - "All mandatory component APIs implemented"
+        - "Core component interaction logic fully implemented"
+        - "Design token system matches specification requirements"
+        - "Accessibility compliance properly implemented (WCAG 2.1 AA)"
+        - "Component error handling meets specification standards"
+        - "Storybook documentation completeness verified"
+    
+    # Conditional Flow Control
+    flow_control:
+      on_success:
+        condition: "compliance_score >= 90% AND no_critical_gaps = true"
+        action: "proceed_to_documentation"
+        next_phase: "documentation"
+        
+      on_failure:
+        condition: "compliance_score < 90% OR critical_gaps_detected = true"
+        action: "rollback_to_tdd_cycle"
+        next_phase: "tdd_cycle"
+        feedback_data:
+          - specification_gaps
+          - missing_components_list
+          - implementation_recommendations
+          - priority_component_tasks_for_completion
+    
+    success_criteria:
+      - specification_compliance: ">= 90%"
+      - mandatory_components_complete: "100%"
+      - critical_gaps_count: "0"
+      - tasks_completion_rate: ">= 95%"
+      - implementation_quality_score: ">= 8.0"
+      - b2b_component_readiness: true
+
+  # Phase 7: Documentation (Base + B2B Component Documentation)
+  - name: documentation
+    agent: documentation-agent
+    description: "Generate comprehensive B2B design system documentation"
+    inputs: [implementation_context, test_results]
+    outputs:
+      - api_documentation
+      - component_usage_examples
+      - storybook_enhanced_documentation
+      - migration_guides
+      - accessibility_guides
+    documentation_types:
+      - component_api_docs: true
+      - storybook_stories: true
+      - usage_examples: true
+      - accessibility_guides: true
+      - migration_guides: true
+      - design_token_documentation: true
+    success_criteria:
+      - documentation_complete: true
+      - examples_working: true
+      - storybook_comprehensive: true
+      - accessibility_documented: true
+    next_phase: human_approval_coding
+
+  # Phase 8: Human Approval Checkpoint (Base + B2B Review)
+  - name: human_approval_coding
+    type: human_interaction
+    description: "Human review and approval of B2B design system coding workflow completion before proceeding"
+    approval_scope:
+      - "B2B component implementation quality and completeness"
+      - "Component test coverage and TDD adherence (95%+ expected)"
+      - "B2B specification compliance verification results"
+      - "Storybook documentation accuracy and comprehensiveness"
+      - "Component architecture alignment with B2B design specifications"
+      - "Accessibility compliance and enterprise standards adherence"
+      - "Performance optimization and bundle size considerations"
+    review_materials:
+      - implementation_context
+      - test_results
+      - compliance_report
+      - storybook_documentation
+      - component_coverage_report
+      - accessibility_validation_reports
+    decision_options: [approved, approved_with_conditions, rejected, deferred]
+    stakeholders:
+      required: [technical_lead, design_system_lead]
+      optional: [product_owner, qa_lead, accessibility_specialist]
+    timeout: 72 # hours
+    on_approval: 
+      next_workflow: refactoring
+    on_rejection:
+      rollback_to_phase: tdd_cycle
+      feedback_collection: true
+
+# Enhanced Error Handling and Recovery for B2B Design System
+error_handling:
+  retry_policy:
+    max_retries: 3
+    retry_delay: 15s
+    exponential_backoff: true
+    
+  recovery_strategies:
+    # Enhanced Implementation Phase Failures (B2B Specific)
+    enhanced_b2b_agent_failure:
+      action: fallback_to_impersonator_then_standard
+      fallback_sequence:
+        1. "Try impersonator-agent for smart enhanced capability simulation"
+        2. "Fall back to standard implementation-agent"
+        3. "Notify user of degraded B2B-specific capabilities"
+      timeout: 300s
+      
+    mcp_context7_failure:
+      action: switch_to_cached_documentation
+      fallback_sources: [cached_react_docs, cached_typescript_docs, cached_tailwind_docs]
+      max_attempts: 2
+      
+    mcp_deepwiki_failure:
+      action: rely_on_serena_and_standard_patterns
+      fallback_strategy: "Use established component patterns and best practices"
+      
+    component_development_failure:
+      action: analyze_and_retry_with_different_approach
+      strategies: [simplified_component_api, alternative_implementation_pattern]
+      preserve_tests: mandatory
+      
+    storybook_integration_failure:
+      action: continue_with_basic_documentation
+      fallback: "Generate component documentation without interactive playground"
+      
+    # Accessibility Validation Failures
+    accessibility_compliance_failure:
+      action: implement_accessibility_fixes
+      standards: "WCAG 2.1 AA"
+      max_auto_fix_attempts: 3
+      escalation_on_failure: "manual_accessibility_review_required"
+
+# Enhanced Supplementary Agents for B2B Design System
+supplementary_agents:
+  - name: deepwiki-research-solver
+    description: "Research B2B component patterns and design system solutions during implementation"
+    availability: all_phases
+    primary_usage: implementation_phase
+    b2b_use_cases:
+      - "Researching enterprise component architecture patterns"
+      - "Finding accessibility implementation best practices for B2B components"
+      - "Analyzing successful design system implementations"
+      - "Understanding component library distribution and packaging patterns"
+      - "Researching performance optimization techniques for component libraries"
+  
+  - name: code-quality-validator
+    description: "Continuous B2B component quality validation and enhancement recommendations"
+    availability: implementation_and_testing_phases
+    primary_usage: implementation_phase
+    b2b_quality_dimensions:
+      - functional_quality: "B2B component requirements coverage and edge case handling"
+      - technical_quality: "Component complexity, maintainability, test coverage"
+      - accessibility_quality: "WCAG 2.1 AA compliance and enterprise accessibility standards"
+      - performance_quality: "Component bundle size, rendering performance, memory usage"
+      - documentation_quality: "Component API documentation and Storybook completeness"
+
+# B2B Design System Quality Gates (Enhanced)
+quality_gates:
+  component_quality:
+    threshold: 8.0
+    metrics: [maintainability, reusability, accessibility, performance]
+  test_coverage:
+    line_coverage: ">= 95%"
+    branch_coverage: ">= 90%"
+    function_coverage: ">= 95%"
+    component_coverage: ">= 95%"
+    exclude_patterns: [test_files, mocks, storybook_stories]
+  accessibility_compliance:
+    wcag_level: "AA"
+    automated_testing: true
+    manual_review_required: true
+  bundle_optimization:
+    individual_component_size: "< 50kb gzipped"
+    tree_shaking_verified: true
+    dependency_analysis_complete: true
+  documentation_completeness:
+    threshold: 95
+    component_api_coverage: ">= 100%"
+    storybook_story_coverage: ">= 95%"
+    usage_example_coverage: ">= 90%"
+
+# Enhanced Monitoring and Analytics for B2B Design System
+monitoring:
+  metrics:
+    # B2B Component Development Metrics
+    - component_development_velocity
+    - component_complexity_score
+    - component_reusability_score
+    - accessibility_compliance_rate
+    - bundle_size_trend
+    - storybook_documentation_coverage
+    
+    # Enhanced MCP Integration Performance
+    - context7_react_docs_lookup_time
+    - deepwiki_design_pattern_research_time
+    - serena_component_generation_efficiency
+    - playwright_component_test_automation_time
+    
+    # B2B Specific Quality Metrics
+    - component_accessibility_score_trend
+    - component_performance_benchmark_results
+    - design_token_usage_consistency
+    - component_api_stability_score
+
+# Progress Tracking Integration (Enhanced for B2B)
+progress_tracking:
+  tasks_md_sync:
+    real_time_update: true
+    checkbox_automation: true
+    progress_percentage: calculated
+    milestone_detection: automatic
+    b2b_component_milestones: tracked
+  
+  component_development_tracking:
+    component_completion_rate: tracked
+    accessibility_compliance_progress: monitored
+    storybook_documentation_progress: tracked
+    test_coverage_progression: monitored

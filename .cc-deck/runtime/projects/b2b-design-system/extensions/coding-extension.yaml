@@ -1,0 +1,223 @@
+# Coding Extension Configuration for B2B Design System
+# Enhanced agent integration with MCP capabilities and graceful fallback system
+
+name: b2b-design-system-coding-extension
+version: "1.0.0"
+project_id: b2b-design-system
+created: 2024-01-29
+
+# Enhanced Agent Configuration
+enhanced_agents:
+  b2b-design-system-enhanced-implementation-agent:
+    path: ".claude/agents/coding/dynamic/b2b-design-system-enhanced-implementation-agent.md"
+    specialization: "B2B design system development with React 18.3+, TypeScript 5.3+, Tailwind CSS"
+    
+    # MCP Tool Integration
+    mcp_tools:
+      critical:
+        - "mcp__serena__*": "Core code generation and project memory management"
+        - "mcp__context7__*": "React/TypeScript/Tailwind documentation and API validation"
+      
+      enhancement:
+        - "mcp__deepwiki__*": "Design system pattern analysis and best practices research"
+        - "mcp__playwright__*": "Automated testing and visual regression validation"
+      
+      research:
+        - "mcp__brave-search__*": "Latest technology trends and problem-solving research"
+    
+    # Agent Capabilities
+    capabilities:
+      - "React 18.3+ concurrent features and performance optimization"
+      - "TypeScript 5.3+ advanced type system and inference"
+      - "Tailwind CSS 3.4+ enterprise theming and design tokens"
+      - "Storybook 7.6+ interactive documentation and testing"
+      - "Comprehensive accessibility compliance (WCAG 2.1 AA)"
+      - "Enterprise-grade component architecture patterns"
+      - "Advanced testing with Playwright E2E and visual regression"
+      - "Bundle optimization and performance monitoring"
+    
+    # Fallback Strategy
+    fallback_agent: "implementation-agent"
+    priority: "primary"
+    usage_context: "Phase 5+ (Full Implementation) in B2B design system workflow"
+
+# Phase Enhancements
+phase_enhancements:
+  full_implementation:
+    # Agent Selection Priority (3-tier fallback system)
+    primary_agent: "b2b-design-system-enhanced-implementation-agent"
+    fallback_agent: "impersonator-agent"  # Smart impersonation when enhanced not recognized
+    final_fallback: "implementation-agent"  # Standard implementation as last resort
+    
+    # Agent Selection Logic
+    selection_logic: "enhanced_agent_with_intelligent_3_tier_fallback"
+    
+    # Enhanced Implementation Strategy
+    implementation_strategy:
+      enhanced_mode:
+        condition: "enhanced_agent_available AND mcp_setup_complete"
+        capabilities:
+          - "Integrated MCP tool access (Context7, DeepWiki, Serena, Playwright, Brave Search)"
+          - "Real-time React/TypeScript/Tailwind documentation access via Context7"
+          - "Enterprise design system pattern research via DeepWiki"
+          - "Latest technology trend research via Brave Search"
+          - "Automated testing and visual regression via Playwright"
+          - "Advanced B2B component development with comprehensive MCP support"
+        
+        focus_areas:
+          - "Leverage all available MCP tools for optimal B2B component implementation"
+          - "Apply latest React 18.3+ and TypeScript 5.3+ best practices from Context7"
+          - "Use DeepWiki for enterprise design system pattern analysis"
+          - "Maintain TDD foundation while enhancing with specialized B2B capabilities"
+          - "Ensure enterprise-grade quality with comprehensive MCP-powered validation"
+      
+      fallback_mode:
+        condition: "enhanced_agent_unavailable OR mcp_setup_failed"
+        strategy: "graceful_degradation_to_standard_implementation"
+        capabilities:
+          - "Standard TDD-based implementation approach"
+          - "Serena MCP integration for basic code generation"
+          - "Manual documentation lookup and research"
+          - "Standard React component development practices"
+          - "Basic testing with Jest and React Testing Library"
+
+# MCP Integration Configuration
+mcp_integration:
+  setup_status_file: "/Volumes/SSD/development/cc-deck/.cc-deck/runtime/projects/b2b-design-system/config/mcp-setup-complete.json"
+  required_for_enhanced_mode: true
+  graceful_degradation: true
+  
+  # MCP Service Configuration
+  services:
+    serena:
+      required: true
+      timeout: 30s
+      fallback: "local_analysis_mode"
+    
+    context7:
+      required: false
+      timeout: 15s
+      fallback: "cached_documentation"
+      priority_libraries:
+        - "react"
+        - "typescript"
+        - "tailwindcss"
+        - "storybook"
+    
+    deepwiki:
+      required: false
+      timeout: 20s
+      fallback: "pattern_library_fallback"
+      target_repositories:
+        - "design-systems-repo/design-system"
+        - "chakra-ui/chakra-ui"
+        - "ant-design/ant-design"
+        - "shadcn-ui/ui"
+    
+    playwright:
+      required: false
+      timeout: 45s
+      fallback: "manual_testing_recommendations"
+      scope: "e2e_and_visual_regression"
+    
+    brave_search:
+      required: false
+      timeout: 10s
+      fallback: "existing_knowledge_base"
+      usage: "research_and_troubleshooting"
+
+# Tasks.md Integration
+task_management:
+  source: ".kiro/specs/b2b-design-system/tasks.md"
+  total_tasks: 42
+  phases: 10
+  
+  tracking_strategy:
+    - "Real-time progress tracking across all 42 B2B design system tasks"
+    - "Checkbox automation: '- [ ]' → '- [x]' upon task completion"
+    - "Progress percentage calculation and reporting"
+    - "Dependency-aware task execution order"
+    - "Batch commit of code changes + tasks.md updates"
+  
+  progress_reporting:
+    - "Display completion percentage (e.g., 15/42 tasks = 36%)"
+    - "Show remaining high-priority tasks"
+    - "Highlight blocked or dependent component development tasks"
+    - "Generate B2B-specific progress summaries for stakeholder review"
+
+# Quality Assurance Integration
+quality_assurance:
+  enhanced_monitoring:
+    condition: "enhanced_agent_available"
+    capabilities:
+      - "Real-time MCP-powered B2B component quality analysis"
+      - "Automated React/TypeScript best practices validation via Context7"
+      - "Enterprise design system pattern compliance via DeepWiki"
+      - "Advanced accessibility scanning with latest WCAG guidelines"
+      - "Bundle size optimization with performance monitoring"
+      - "Visual regression testing automation via Playwright"
+  
+  unified_quality_gates:
+    entry_gate:
+      - b2b_design_system_foundation_validated: true
+      - enhanced_agent_selection_completed: true
+      - mcp_setup_status_verified: true
+      - react_typescript_environment_ready: true
+    
+    progress_gate:
+      - component_architecture_validated: true
+      - design_token_system_implemented: true
+      - accessibility_compliance_verified: true
+      - storybook_documentation_current: true
+    
+    exit_gate:
+      - all_tests_passing: true
+      - component_coverage: ">= 95%"
+      - accessibility_score: "WCAG 2.1 AA compliant"
+      - bundle_optimization_completed: true
+      - b2b_production_readiness: true
+
+# Error Handling and Recovery
+error_handling:
+  enhanced_agent_errors:
+    mcp_service_failure:
+      action: "graceful_degradation_within_enhanced_agent"
+      fallback_sequence:
+        1. "Use cached MCP responses if available"
+        2. "Switch to alternative MCP service for same function"
+        3. "Fall back to manual implementation for specific functionality"
+        4. "Switch to standard implementation-agent if critical services fail"
+    
+    enhanced_agent_unavailable:
+      action: "automatic_3_tier_fallback_system"
+      fallback_sequence:
+        1. "Try impersonator-agent (smart impersonation of enhanced capabilities)"
+        2. "Fall back to standard implementation-agent"
+        3. "Notify user of degraded capabilities"
+    
+    component_development_errors:
+      typescript_compilation_failure:
+        action: "use_context7_for_typescript_troubleshooting"
+        max_attempts: 2
+        escalation: "fallback_to_standard_implementation"
+      
+      accessibility_validation_failure:
+        action: "use_deepwiki_for_accessibility_patterns"
+        fallback: "manual_accessibility_review_recommendations"
+
+# Performance Optimization
+performance_tracking:
+  enhanced_agent_metrics:
+    - "MCP tool usage efficiency for B2B component development"
+    - "Context7 documentation lookup performance and cache hit rate"
+    - "DeepWiki pattern research effectiveness"
+    - "Playwright test automation time savings"
+    - "Component development velocity improvement over standard approach"
+    - "Bundle size optimization achieved through enhanced tooling"
+  
+  quality_improvements:
+    - "Accessibility compliance improvement (target: 100% WCAG 2.1 AA)"
+    - "TypeScript type safety enhancement (target: 0 any types)"
+    - "Test coverage improvement (target: 95%+ for all components)"
+    - "Documentation completeness (target: 100% component API coverage)"
+    - "Performance optimization (target: < 50kb gzipped per component)"
