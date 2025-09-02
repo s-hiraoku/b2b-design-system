@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles for the B2B Design System */
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  }
+  
+  * {
+    @apply border-gray-300;
+  }
+  
+  body {
+    @apply bg-white text-gray-900 antialiased;
+  }
+}
+
+/* Enterprise component styles */
+@layer components {
+  .btn-primary {
+    @apply shadow-sm hover:shadow-md;
+  }
+  
+  .btn-large {
+    @apply shadow-sm hover:shadow-md;
+  }
+  
+  .enterprise-button {
+    @apply shadow-sm hover:shadow-md transition-shadow;
+  }
+  
+  .icon-button-small {
+    @apply shadow-sm hover:shadow;
+  }
+  
+  .icon-button-large {
+    @apply shadow-sm hover:shadow-md;
+  }
+  
+  .fab-extended {
+    @apply min-w-max;
+  }
+  
+  .fab-large {
+    @apply shadow-lg hover:shadow-xl;
+  }
+  
+  .button-group-first {
+    @apply relative z-10;
+  }
+  
+  .button-group-middle {
+    @apply relative z-0;
+  }
+  
+  .button-group-last {
+    @apply relative z-10;
+  }
+  
+  .button-group-only {
+    @apply relative z-10;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn-primary,
+  .enterprise-button,
+  .icon-button-small,
+  .icon-button-large {
+    @apply border-2 border-current;
+  }
+}
