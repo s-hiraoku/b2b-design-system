@@ -7,3 +7,6 @@
 [submodule "projects/kawaii-reading-blog"]
 	path = projects/kawaii-reading-blog
 	url = https://github.com/s-hiraoku/kawaii-reading-blog.git
+[submodule "projects/b2b-design-system"]
+	path = projects/b2b-design-system
+	url = https://github.com/s-hiraoku/b2b-design-system.git
