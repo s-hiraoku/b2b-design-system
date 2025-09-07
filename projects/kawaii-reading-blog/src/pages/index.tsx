@@ -6,14 +6,16 @@ import { kawaiiPresets } from '@/lib/kawaii-animations'
 import KawaiiButtonAdvanced from '@/components/kawaii/KawaiiButtonAdvanced'
 import BookCard, { type Book } from '@/components/reading/BookCard'
 import ReadingProgress, { type ReadingStats } from '@/components/reading/ReadingProgress'
+import { BookIcon, StarIcon, HeartIcon, SearchIcon, LibraryIcon, RocketIcon, MagicIcon, MailIcon } from '@/components/kawaii/KawaiiIcons'
+import { KawaiiBookCover } from '@/components/kawaii/KawaiiBookCovers'
 
-// Sample data for demonstration
+// Sample data for demonstration with kawaii cover types
 const sampleBooks: Book[] = [
   {
     id: '1',
     title: 'The Enchanted Garden',
     author: 'Luna Sakura',
-    coverUrl: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=450&fit=crop',
+    coverUrl: 'kawaii-fantasy', // Will use KawaiiBookCover component
     description: 'A magical tale of friendship and adventure in a mysterious garden.',
     pages: 280,
     rating: 4.8,
@@ -24,7 +26,7 @@ const sampleBooks: Book[] = [
     id: '2',
     title: 'Kawaii Cooking Adventures',
     author: 'Chef Momo',
-    coverUrl: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300&h=450&fit=crop',
+    coverUrl: 'kawaii-cookbook', // Will use KawaiiBookCover component
     description: 'Discover the joy of cooking with cute and delicious recipes.',
     pages: 156,
     rating: 4.6,
@@ -35,7 +37,7 @@ const sampleBooks: Book[] = [
     id: '3',
     title: 'Digital Dreams',
     author: 'Yuki Tanaka',
-    coverUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=450&fit=crop',
+    coverUrl: 'kawaii-sci-fi', // Will use KawaiiBookCover component
     description: 'A futuristic romance set in a world of virtual reality.',
     pages: 324,
     rating: 4.5,
@@ -46,7 +48,7 @@ const sampleBooks: Book[] = [
     id: '4',
     title: 'The Art of Mindful Reading',
     author: 'Serenity Willow',
-    coverUrl: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300&h=450&fit=crop',
+    coverUrl: 'kawaii-self-help', // Will use KawaiiBookCover component
     description: 'Learn to find peace and wisdom through mindful reading practices.',
     pages: 198,
     rating: 4.9,
@@ -93,7 +95,7 @@ const HomePage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Kawaii Reading Blog - Discover Your Next Favorite Book! 📚</title>
+        <title>Kawaii Reading Blog - Discover Your Next Favorite Book!</title>
         <meta name="description" content="A cute and delightful reading blog with kawaii animations, book recommendations, and reading progress tracking." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -114,12 +116,15 @@ const HomePage: NextPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="text-3xl">📚</div>
+                <BookIcon size="lg" animate={true} className="text-pink-500" />
                 <div>
                   <h1 className="text-2xl font-bold kawaii-text-gradient">
                     Kawaii Reading Blog
                   </h1>
-                  <p className="text-sm text-gray-600">Discover magical books ✨</p>
+                  <div className="flex items-center space-x-1">
+                    <p className="text-sm text-gray-600">Discover magical books</p>
+                    <MagicIcon size="sm" animate={true} className="text-yellow-400" />
+                  </div>
                 </div>
               </motion.div>
 
@@ -130,7 +135,10 @@ const HomePage: NextPage = () => {
                   particleEffect="sparkles"
                   glowEffect={true}
                 >
-                  🔍 Search Books
+                  <div className="flex items-center space-x-2">
+                    <SearchIcon size="sm" animate={true} className="text-blue-500" />
+                    <span>Search Books</span>
+                  </div>
                 </KawaiiButtonAdvanced>
                 
                 <KawaiiButtonAdvanced
@@ -139,7 +147,10 @@ const HomePage: NextPage = () => {
                   particleEffect="hearts"
                   pulseEffect={true}
                 >
-                  📖 My Library
+                  <div className="flex items-center space-x-2">
+                    <LibraryIcon size="sm" animate={true} className="text-purple-500" />
+                    <span>My Library</span>
+                  </div>
                 </KawaiiButtonAdvanced>
               </div>
             </div>
@@ -166,16 +177,23 @@ const HomePage: NextPage = () => {
                 ease: "easeInOut"
               }}
             >
-              Welcome to Your Reading Adventure! 🌟
+              <div className="flex items-center justify-center space-x-3">
+                <span>Welcome to Your Reading Adventure!</span>
+                <StarIcon size="lg" animate={true} className="text-yellow-400" />
+              </div>
             </motion.h2>
             
-            <motion.p
+            <motion.div
               className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto"
               variants={kawaiiPresets.itemAppear}
             >
-              Discover amazing books, track your reading progress, and join a community 
-              of book lovers in the most kawaii way possible! ✨📚💖
-            </motion.p>
+              <div className="flex items-center justify-center space-x-2 flex-wrap">
+                <span>Discover amazing books, track your reading progress, and join a community of book lovers in the most kawaii way possible!</span>
+                <MagicIcon size="sm" animate={true} className="text-yellow-400" />
+                <BookIcon size="sm" animate={true} className="text-pink-500" />
+                <HeartIcon size="sm" animate={true} className="text-red-400" />
+              </div>
+            </motion.div>
 
             <motion.div
               className="flex flex-wrap justify-center gap-4"
@@ -188,7 +206,10 @@ const HomePage: NextPage = () => {
                 glowEffect={true}
                 onClick={() => console.log('Start reading!')}
               >
-                🚀 Start Reading Adventure
+                <div className="flex items-center space-x-2">
+                  <RocketIcon size="md" animate={true} className="text-blue-500" />
+                  <span>Start Reading Adventure</span>
+                </div>
               </KawaiiButtonAdvanced>
               
               <KawaiiButtonAdvanced
@@ -197,7 +218,10 @@ const HomePage: NextPage = () => {
                 particleEffect="stars"
                 onClick={() => console.log('Browse books')}
               >
-                📚 Browse Books
+                <div className="flex items-center space-x-2">
+                  <BookIcon size="md" animate={true} className="text-green-500" />
+                  <span>Browse Books</span>
+                </div>
               </KawaiiButtonAdvanced>
             </motion.div>
           </motion.section>
@@ -222,7 +246,11 @@ const HomePage: NextPage = () => {
               className="text-3xl font-bold text-center mb-8 text-gray-800"
               variants={kawaiiPresets.itemAppear}
             >
-              ✨ Featured Books ✨
+              <div className="flex items-center justify-center space-x-3">
+                <MagicIcon size="md" animate={true} className="text-yellow-400" />
+                <span>Featured Books</span>
+                <MagicIcon size="md" animate={true} className="text-yellow-400" />
+              </div>
             </motion.h3>
             
             <motion.div
@@ -269,9 +297,10 @@ const HomePage: NextPage = () => {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className="text-6xl mb-4"
+                className="flex items-center justify-center space-x-4 mb-4"
               >
-                📖💫
+                <BookIcon size="xl" animate={true} className="text-pink-500" />
+                <MagicIcon size="xl" animate={true} className="text-yellow-400" />
               </motion.div>
               
               <h3 className="text-2xl font-bold mb-4 text-gray-800">
@@ -291,7 +320,10 @@ const HomePage: NextPage = () => {
                   glowEffect={true}
                   pulseEffect={true}
                 >
-                  🌟 Join Community
+                  <div className="flex items-center space-x-2">
+                    <StarIcon size="md" animate={true} className="text-yellow-400" />
+                    <span>Join Community</span>
+                  </div>
                 </KawaiiButtonAdvanced>
                 
                 <KawaiiButtonAdvanced
@@ -299,7 +331,10 @@ const HomePage: NextPage = () => {
                   size="lg"
                   particleEffect="hearts"
                 >
-                  💌 Get Recommendations
+                  <div className="flex items-center space-x-2">
+                    <MailIcon size="md" animate={true} className="text-purple-500" />
+                    <span>Get Recommendations</span>
+                  </div>
                 </KawaiiButtonAdvanced>
               </div>
             </div>
@@ -314,7 +349,11 @@ const HomePage: NextPage = () => {
           animate="animate"
         >
           <div className="container mx-auto px-6 py-8 text-center">
-            <div className="text-2xl mb-4">📚✨💖</div>
+            <div className="flex items-center justify-center space-x-3 mb-4">
+              <BookIcon size="lg" animate={true} className="text-pink-500" />
+              <MagicIcon size="lg" animate={true} className="text-yellow-400" />
+              <HeartIcon size="lg" animate={true} className="text-red-400" />
+            </div>
             <p className="text-gray-600 mb-4">
               Made with love for book enthusiasts everywhere
             </p>
@@ -341,7 +380,10 @@ const HomePage: NextPage = () => {
             className="bg-white rounded-2xl p-6 max-w-md w-full"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-xl font-bold mb-4">📖 {selectedBook.title}</h3>
+            <div className="flex items-center space-x-2 mb-4">
+              <BookIcon size="md" animate={true} className="text-pink-500" />
+              <h3 className="text-xl font-bold">{selectedBook.title}</h3>
+            </div>
             <p className="text-gray-600 mb-4">by {selectedBook.author}</p>
             <p className="text-gray-700 mb-6">{selectedBook.description}</p>
             

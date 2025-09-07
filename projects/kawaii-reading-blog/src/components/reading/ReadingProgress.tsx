@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { kawaiiPresets, animationUtils } from '@/lib/kawaii-animations'
+import { BookIcon, ClockIcon, FireIcon, PageIcon, CalendarIcon, TargetIcon, MagicIcon, StarIcon } from '@/components/kawaii/KawaiiIcons'
 
 export interface ReadingStats {
   booksRead: number
@@ -129,9 +130,13 @@ export const ReadingProgress: React.FC<ReadingProgressProps> = ({
     >
       {/* Header */}
       <motion.div variants={itemVariants} className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">
-          📚 Reading Progress
-        </h2>
+        <div className="flex items-center justify-center space-x-3 mb-2">
+          <BookIcon size="md" animate={true} className="text-pink-500" />
+          <h2 className="text-2xl font-bold text-gray-800">
+            Reading Progress
+          </h2>
+          <BookIcon size="md" animate={true} className="text-pink-500" />
+        </div>
         <p className="text-gray-600">Keep up the amazing work!</p>
       </motion.div>
 
@@ -142,7 +147,9 @@ export const ReadingProgress: React.FC<ReadingProgressProps> = ({
           variants={itemVariants}
           className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl"
         >
-          <div className="text-3xl mb-1">📖</div>
+          <div className="flex justify-center mb-1">
+            <BookIcon size="lg" animate={true} className="text-pink-500" />
+          </div>
           <motion.div 
             className="text-2xl font-bold text-pink-600"
             key={animatedBooksRead} // Re-render when count changes
@@ -157,7 +164,9 @@ export const ReadingProgress: React.FC<ReadingProgressProps> = ({
           variants={itemVariants}
           className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl"
         >
-          <div className="text-3xl mb-1">📄</div>
+          <div className="flex justify-center mb-1">
+            <PageIcon size="lg" animate={true} className="text-blue-500" />
+          </div>
           <motion.div 
             className="text-2xl font-bold text-blue-600"
             key={animatedPagesRead}
@@ -172,7 +181,9 @@ export const ReadingProgress: React.FC<ReadingProgressProps> = ({
           variants={itemVariants}
           className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl"
         >
-          <div className="text-3xl mb-1">⏰</div>
+          <div className="flex justify-center mb-1">
+            <ClockIcon size="lg" animate={true} className="text-purple-500" />
+          </div>
           <motion.div 
             className="text-2xl font-bold text-purple-600"
             key={animatedMinutesRead}
@@ -187,7 +198,9 @@ export const ReadingProgress: React.FC<ReadingProgressProps> = ({
           variants={itemVariants}
           className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-xl"
         >
-          <div className="text-3xl mb-1">🔥</div>
+          <div className="flex justify-center mb-1">
+            <FireIcon size="lg" animate={true} className="text-green-500" />
+          </div>
           <div className="text-2xl font-bold text-green-600">{stats.currentStreak}</div>
           <div className="text-sm text-gray-600">Day Streak</div>
         </motion.div>
@@ -199,9 +212,12 @@ export const ReadingProgress: React.FC<ReadingProgressProps> = ({
           {/* Weekly Goal */}
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-gray-700">
-                📅 Weekly Goal
-              </span>
+              <div className="flex items-center space-x-2">
+                <CalendarIcon size="sm" animate={true} className="text-pink-500" />
+                <span className="text-sm font-medium text-gray-700">
+                  Weekly Goal
+                </span>
+              </div>
               <span className="text-sm text-gray-600">
                 {Math.round(weeklyProgress)}%
               </span>
@@ -218,9 +234,12 @@ export const ReadingProgress: React.FC<ReadingProgressProps> = ({
           {/* Monthly Goal */}
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-gray-700">
-                🗓️ Monthly Goal
-              </span>
+              <div className="flex items-center space-x-2">
+                <CalendarIcon size="sm" animate={true} className="text-blue-500" />
+                <span className="text-sm font-medium text-gray-700">
+                  Monthly Goal
+                </span>
+              </div>
               <span className="text-sm text-gray-600">
                 {Math.round(monthlyProgress)}%
               </span>
@@ -237,9 +256,12 @@ export const ReadingProgress: React.FC<ReadingProgressProps> = ({
           {/* Yearly Goal */}
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-medium text-gray-700">
-                🎯 Yearly Goal
-              </span>
+              <div className="flex items-center space-x-2">
+                <TargetIcon size="sm" animate={true} className="text-purple-500" />
+                <span className="text-sm font-medium text-gray-700">
+                  Yearly Goal
+                </span>
+              </div>
               <span className="text-sm text-gray-600">
                 {Math.round(yearlyProgress)}%
               </span>
@@ -261,16 +283,35 @@ export const ReadingProgress: React.FC<ReadingProgressProps> = ({
         className="mt-6 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl border border-yellow-200"
       >
         <div className="text-center">
-          <div className="text-2xl mb-2">✨</div>
-          <p className="text-sm font-medium text-gray-700">
-            {yearlyProgress >= 100 
-              ? "🎉 Congratulations! You've reached your yearly goal!"
-              : stats.currentStreak >= 7
-              ? "Amazing streak! You're on fire! 🔥"
-              : stats.booksRead > 0
-              ? "Great progress! Keep reading! 📚"
-              : "Start your reading journey today! 🌟"
-            }
+          <div className="flex justify-center mb-2">
+            <MagicIcon size="md" animate={true} className="text-yellow-400" />
+          </div>
+          <p className="text-sm font-medium text-gray-700 flex items-center justify-center space-x-2">
+            {yearlyProgress >= 100 ? (
+              <>
+                <StarIcon size="sm" animate={true} className="text-yellow-400" />
+                <span>Congratulations! You've reached your yearly goal!</span>
+                <StarIcon size="sm" animate={true} className="text-yellow-400" />
+              </>
+            ) : stats.currentStreak >= 7 ? (
+              <>
+                <FireIcon size="sm" animate={true} className="text-orange-500" />
+                <span>Amazing streak! You're on fire!</span>
+                <FireIcon size="sm" animate={true} className="text-orange-500" />
+              </>
+            ) : stats.booksRead > 0 ? (
+              <>
+                <BookIcon size="sm" animate={true} className="text-pink-500" />
+                <span>Great progress! Keep reading!</span>
+                <BookIcon size="sm" animate={true} className="text-pink-500" />
+              </>
+            ) : (
+              <>
+                <StarIcon size="sm" animate={true} className="text-yellow-400" />
+                <span>Start your reading journey today!</span>
+                <StarIcon size="sm" animate={true} className="text-yellow-400" />
+              </>
+            )}
           </p>
         </div>
       </motion.div>

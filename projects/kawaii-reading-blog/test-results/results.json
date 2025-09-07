@@ -1,0 +1,224 @@
+{
+  "config": {
+    "configFile": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/playwright.config.ts",
+    "rootDir": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/e2e/global-setup.ts",
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "project": "kawaii-reading-blog",
+      "version": "0.1.0",
+      "environment": "test",
+      "kawaii": "🌸"
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "project": "kawaii-reading-blog",
+          "version": "0.1.0",
+          "environment": "test",
+          "kawaii": "🌸"
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/.next/**",
+          "**/build/**"
+        ],
+        "testMatch": [
+          "**/e2e/**/*.spec.ts",
+          "**/tests/**/*.e2e.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "project": "kawaii-reading-blog",
+          "version": "0.1.0",
+          "environment": "test",
+          "kawaii": "🌸"
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/.next/**",
+          "**/build/**"
+        ],
+        "testMatch": [
+          "**/e2e/**/*.spec.ts",
+          "**/tests/**/*.e2e.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "project": "kawaii-reading-blog",
+          "version": "0.1.0",
+          "environment": "test",
+          "kawaii": "🌸"
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/.next/**",
+          "**/build/**"
+        ],
+        "testMatch": [
+          "**/e2e/**/*.spec.ts",
+          "**/tests/**/*.e2e.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "project": "kawaii-reading-blog",
+          "version": "0.1.0",
+          "environment": "test",
+          "kawaii": "🌸"
+        },
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/.next/**",
+          "**/build/**"
+        ],
+        "testMatch": [
+          "**/e2e/**/*.spec.ts",
+          "**/tests/**/*.e2e.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "project": "kawaii-reading-blog",
+          "version": "0.1.0",
+          "environment": "test",
+          "kawaii": "🌸"
+        },
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/.next/**",
+          "**/build/**"
+        ],
+        "testMatch": [
+          "**/e2e/**/*.spec.ts",
+          "**/tests/**/*.e2e.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "project": "kawaii-reading-blog",
+          "version": "0.1.0",
+          "environment": "test",
+          "kawaii": "🌸"
+        },
+        "id": "Tablet",
+        "name": "Tablet",
+        "testDir": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/e2e",
+        "testIgnore": [
+          "**/node_modules/**",
+          "**/.next/**",
+          "**/build/**"
+        ],
+        "testMatch": [
+          "**/e2e/**/*.spec.ts",
+          "**/tests/**/*.e2e.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 5,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true,
+      "timeout": 120000,
+      "stdout": "ignore",
+      "stderr": "pipe"
+    }
+  },
+  "suites": [],
+  "errors": [
+    {
+      "message": "Error: browserType.launch: Executable doesn't exist at /Users/hiraoku.shinichi/Library/Caches/ms-playwright/chromium_headless_shell-1187/chrome-mac/headless_shell\n╔═════════════════════════════════════════════════════════════════════════╗\n║ Looks like Playwright Test or Playwright was just installed or updated. ║\n║ Please run the following command to download new browsers:              ║\n║                                                                         ║\n║     npx playwright install                                              ║\n║                                                                         ║\n║ <3 Playwright Team                                                      ║\n╚═════════════════════════════════════════════════════════════════════════╝",
+      "stack": "Error: browserType.launch: Executable doesn't exist at /Users/hiraoku.shinichi/Library/Caches/ms-playwright/chromium_headless_shell-1187/chrome-mac/headless_shell\n╔═════════════════════════════════════════════════════════════════════════╗\n║ Looks like Playwright Test or Playwright was just installed or updated. ║\n║ Please run the following command to download new browsers:              ║\n║                                                                         ║\n║     npx playwright install                                              ║\n║                                                                         ║\n║ <3 Playwright Team                                                      ║\n╚═════════════════════════════════════════════════════════════════════════╝\n    at globalSetup (/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/e2e/global-setup.ts:14:34)",
+      "location": {
+        "file": "/Volumes/SSD/development/cc-deck/projects/kawaii-reading-blog/e2e/global-setup.ts",
+        "column": 34,
+        "line": 14
+      },
+      "snippet": "\u001b[90m   at \u001b[39mglobal-setup.ts:14\n\n\u001b[0m \u001b[90m 12 |\u001b[39m   \n \u001b[90m 13 |\u001b[39m   \u001b[90m// Launch browser for setup\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 14 |\u001b[39m   \u001b[36mconst\u001b[39m browser \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m chromium\u001b[33m.\u001b[39mlaunch()\n \u001b[90m    |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 15 |\u001b[39m   \u001b[36mconst\u001b[39m page \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m browser\u001b[33m.\u001b[39mnewPage()\n \u001b[90m 16 |\u001b[39m   \n \u001b[90m 17 |\u001b[39m   \u001b[36mtry\u001b[39m {\u001b[0m"
+    }
+  ],
+  "stats": {
+    "startTime": "2025-08-22T01:13:49.108Z",
+    "duration": 168.80899999999997,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

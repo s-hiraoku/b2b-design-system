@@ -4,6 +4,8 @@ import { kawaiiPresets, animationUtils } from '@/lib/kawaii-animations'
 import { useParticles } from '@/hooks/useParticles'
 import ParticleRenderer from '@/components/kawaii/ParticleRenderer'
 import KawaiiButtonAdvanced from '@/components/kawaii/KawaiiButtonAdvanced'
+import { BookIcon, PageIcon, StarIcon, HeartIcon } from '@/components/kawaii/KawaiiIcons'
+import { KawaiiBookCover } from '@/components/kawaii/KawaiiBookCovers'
 
 export interface Book {
   id: string
@@ -143,9 +145,26 @@ export const BookCard: React.FC<BookCardProps> = ({
         style={{ willChange: 'transform' }}
         onClick={() => onRead?.(book)}
       >
-        {/* Book Cover Image */}
+        {/* Book Cover Image - Now using Kawaii illustrations */}
         <div className={`relative ${imageSizes[size]} bg-gradient-to-br from-pink-50 to-purple-50 overflow-hidden`}>
-          {!imageError ? (
+          {book.coverUrl.startsWith('kawaii-') ? (
+            // Use KawaiiBookCover for kawaii covers
+            <div className="w-full h-full flex items-center justify-center">
+              {book.coverUrl === 'kawaii-fantasy' && (
+                <KawaiiBookCover genre="fantasy" width={200} height={300} />
+              )}
+              {book.coverUrl === 'kawaii-cookbook' && (
+                <KawaiiBookCover genre="cookbook" width={200} height={300} />
+              )}
+              {book.coverUrl === 'kawaii-sci-fi' && (
+                <KawaiiBookCover genre="sci-fi" width={200} height={300} />
+              )}
+              {book.coverUrl === 'kawaii-self-help' && (
+                <KawaiiBookCover genre="self-help" width={200} height={300} />
+              )}
+            </div>
+          ) : !imageError ? (
+            // Use regular image for external URLs
             <motion.img
               src={book.coverUrl}
               alt={`${book.title} by ${book.author}`}
@@ -166,7 +185,9 @@ export const BookCard: React.FC<BookCardProps> = ({
               animate="error"
             >
               <div className="text-center p-4">
-                <div className="text-4xl mb-2">📚</div>
+                <div className="flex justify-center mb-2">
+                  <BookIcon size="xl" animate={true} className="text-pink-500" />
+                </div>
                 <div className="text-xs text-gray-500 font-medium">{book.title}</div>
               </div>
             </motion.div>
@@ -192,7 +213,7 @@ export const BookCard: React.FC<BookCardProps> = ({
                 animate={isLiked ? { scale: [1, 1.2, 1] } : { scale: 1 }}
                 transition={{ duration: 0.3 }}
               >
-                {isLiked ? '❤️' : '🤍'}
+                <HeartIcon size="sm" animate={isLiked} className={isLiked ? 'text-red-500' : 'text-gray-400'} />
               </motion.span>
             </motion.button>
           )}
@@ -224,13 +245,15 @@ export const BookCard: React.FC<BookCardProps> = ({
           {/* Book Metadata */}
           <div className="flex items-center justify-between text-xs text-gray-500">
             {book.pages && (
-              <span className="flex items-center">
-                📄 {book.pages}p
+              <span className="flex items-center space-x-1">
+                <PageIcon size="sm" animate={true} className="text-blue-500" />
+                <span>{book.pages}p</span>
               </span>
             )}
             {book.rating && (
-              <span className="flex items-center">
-                ⭐ {book.rating.toFixed(1)}
+              <span className="flex items-center space-x-1">
+                <StarIcon size="sm" animate={true} className="text-yellow-400" />
+                <span>{book.rating.toFixed(1)}</span>
               </span>
             )}
             {book.genre && (
@@ -242,8 +265,9 @@ export const BookCard: React.FC<BookCardProps> = ({
 
           {/* Reading Progress Text */}
           {showProgress && readingProgress > 0 && (
-            <div className="text-xs text-gray-600">
-              📖 {readingProgress}% complete
+            <div className="flex items-center space-x-1 text-xs text-gray-600">
+              <BookIcon size="sm" animate={true} className="text-pink-500" />
+              <span>{readingProgress}% complete</span>
             </div>
           )}
 
@@ -268,7 +292,10 @@ export const BookCard: React.FC<BookCardProps> = ({
                 particleEffect="sparkles"
                 data-testid="read-button"
               >
-                📖 Read
+                <div className="flex items-center space-x-1">
+                  <BookIcon size="sm" animate={true} className="text-white" />
+                  <span>Read</span>
+                </div>
               </KawaiiButtonAdvanced>
               
               <KawaiiButtonAdvanced
@@ -282,7 +309,9 @@ export const BookCard: React.FC<BookCardProps> = ({
                 particleEffect="stars"
                 data-testid="add-to-list-button"
               >
-                ➕
+                <div className="flex items-center justify-center">
+                  <span className="text-lg font-bold">+</span>
+                </div>
               </KawaiiButtonAdvanced>
             </div>
           )}
