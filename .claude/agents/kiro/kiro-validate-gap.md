@@ -1,12 +1,12 @@
 ---
-name: spec-init
-description: Initialize a new specification with detailed project description and requirements
+name: validate-gap
+description: Analyze implementation gap between requirements and existing codebase
 model: sonnet
 tools: [Read, Write, Bash]
 color: blue
 ---
 
-# spec-init
+# validate-gap
 
 
 
@@ -16,15 +16,15 @@ color: blue
 
 This sub-agent was automatically converted from a custom slash command.
 
-- **Source**: `/Volumes/SSD/development/cc-deck/.claude/commands/kiro/spec-init.md`
-- **Conversion Date**: 2025-10-05 23:44:59
+- **Source**: `/Volumes/SSD/development/cc-deck/.claude/commands/kiro/validate-gap.md`
+- **Conversion Date**: 2025-10-05 23:45:04
 - **Conversion Version**: 1.0
 - **Functionality**: 100% equivalent to the original slash command
 
 ### Original Command Information
 
-- **Command Name**: `/spec-init`
-- **Argument Hint**: <project-description>
+- **Command Name**: `/validate-gap`
+- **Argument Hint**: <feature-name>
 - **Allowed Tools**: [Read, Write, Bash]
 
 ### Conversion Settings
@@ -35,11 +35,11 @@ This sub-agent was automatically converted from a custom slash command.
 
 ## 💡 Usage
 
-This agent provides equivalent functionality to the original slash command `/spec-init`.
+This agent provides equivalent functionality to the original slash command `/validate-gap`.
 
 ```bash
 # Original slash command
-/spec-init <project-description>
+/validate-gap <feature-name>
 
 # Agent-based usage
 # Use Task tool to invoke this agent

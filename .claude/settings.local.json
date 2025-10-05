@@ -71,7 +71,20 @@
       "WebFetch(domain:supabase.com)",
       "Bash(claude mcp:*)",
       "Bash(project_yaml=\".cc-deck/runtime/projects/$project_id/workflows/generated/coding-merged.yaml\")",
-      "Bash(git submodule:*)"
+      "Bash(git submodule:*)",
+      "WebFetch(domain:glama.ai)",
+      "Bash(project_id=\"b2b-design-system\")",
+      "Bash(if [ -f \"$project_yaml\" ])",
+      "Bash(then echo \"✅ プロジェクト固有のワークフロー発見: $project_yaml\")",
+      "Bash(else echo \"⚠️ ベースワークフローを使用: .cc-deck/config/workflows/base/coding.yaml\")",
+      "Bash(project_yaml=\"../../.cc-deck/runtime/projects/b2b-design-system/workflows/generated/coding-merged.yaml\")",
+      "Bash(npm run storybook:build:*)",
+      "Bash(npm run:*)",
+      "Bash(pkill:*)",
+      "Bash(curl:*)",
+      "Bash(npx storybook dev:*)",
+      "Bash(npx storybook@latest dev:*)",
+      "Bash(npx:*)"
     ],
     "deny": [],
     "additionalDirectories": [

@@ -1,113 +1,123 @@
-# Product Overview
+# B2B Design System - Product Vision
 
-Artistic Blog Siteは、アート愛好家とクリエイターのための美的体験に特化したブログプラットフォームです。日本の美学原理（間・侘寂・簡素）を現代のウェブデザインに融合し、アートワークとストーリーテリングを通じて深い感動と洞察を提供することを目指しています。
+## Product Overview
 
-## Core Features
+The B2B Design System is a comprehensive component library and design framework specifically crafted for enterprise and business-to-business applications. It provides a robust foundation for building professional, scalable, and consistent user interfaces across multiple B2B products and teams.
 
-### アート中心のコンテンツ機能
-- **ビジュアルストーリーテリング**: 画像、動画、インタラクティブメディアによる没入型記事体験
-- **アートギャラリー**: 高解像度作品の展示とライトボックス表示機能
-- **ポートフォリオセクション**: アーティストの作品集と経歴の体系的展示
-- **創作プロセス記録**: 制作過程のドキュメンテーションとタイムラプス機能
-- **美学解説**: アート理論、技法、歴史的文脈の詳細解説
+## Value Proposition
 
-### 日本美学の統合
-- **間（Ma）の活用**: 余白を活かしたレイアウトとコンテンツ間の呼吸
-- **侘寂（Wabi-sabi）の表現**: 不完全性と一過性の美を反映したデザイン要素
-- **簡素（Kanso）の実践**: ミニマルで洗練されたインターフェースデザイン
-- **自然との調和**: 季節感と自然のリズムを反映したテーマカラー
-- **職人精神**: 細部への配慮と丁寧な手作り感の表現
+### Core Value
+Accelerate B2B application development by 60% while ensuring enterprise-grade quality, accessibility, and consistency across all digital products.
 
-### インタラクティブ・体験機能
-- **没入型ビューア**: 作品の詳細を拡大・回転で鑑賞する機能
-- **カラーパレット抽出**: 作品から自動的に色彩を抽出し表示
-- **アート技法ガイド**: ステップバイステップの制作チュートリアル
-- **バーチャル展示**: 3D空間での作品展示とウォークスルー
-- **音声ガイド**: 作品解説の音声ナレーション機能
+### Key Benefits
+- **Rapid Development**: Pre-built, tested components reduce development time from weeks to days
+- **Enterprise Quality**: Production-ready components with built-in accessibility and security
+- **Team Scalability**: Consistent patterns enable teams to onboard and collaborate efficiently
+- **Brand Consistency**: Unified design language across all B2B touchpoints
+- **Cost Reduction**: Eliminate redundant component development across projects
 
-## Target Audience
+## Target Users
 
-このプラットフォームの主要ターゲットは以下の層です:
+### Primary Personas
 
-- **アート愛好家**: 美術館、ギャラリー巡りを好み、アート作品への深い興味を持つ
-- **クリエイター・アーティスト**: 絵画、彫刻、デザイン、工芸などの創作活動に従事
-- **美学研究者**: アート理論、美術史、文化研究に関心のある学術関係者
-- **日本文化愛好者**: 日本の伝統美学や現代アートシーンに興味を持つ国内外のユーザー
-- **デザイン専門家**: UI/UX、グラフィック、プロダクトデザインの実務者
+#### 1. Enterprise Developer (Alex)
+- **Role**: Senior Frontend Developer at B2B SaaS company
+- **Needs**: Type-safe, well-documented components that integrate with existing systems
+- **Pain Points**: Building the same data tables and forms repeatedly, inconsistent implementations
+- **Goals**: Ship features faster while maintaining code quality
 
-### セカンダリターゲット
-- **教育関係者**: 美術教育、文化教育に携わる教師・講師
-- **コレクター**: アート作品の収集や投資に関心のある愛好家
-- **文化観光客**: 日本の美術文化を探求する海外からの訪問者
+#### 2. Product Designer (Sarah)
+- **Role**: UX/UI Designer for enterprise applications
+- **Needs**: Flexible design system that maintains consistency while allowing customization
+- **Pain Points**: Design-development handoff issues, maintaining design consistency
+- **Goals**: Create professional interfaces that users can navigate intuitively
 
-## Key Value Proposition
+#### 3. Engineering Manager (David)
+- **Role**: Frontend Team Lead
+- **Needs**: Standardized components to reduce technical debt and maintenance
+- **Pain Points**: Team velocity, code review overhead, onboarding new developers
+- **Goals**: Improve team productivity and code maintainability
 
-### 美的体験の深化
-- **感性に訴える体験**: 論理的理解を超えた感覚的・直感的な美の体験
-- **文化的洞察**: 日本の美学思想と現代アート表現の架け橋
-- **個人的発見**: 各ユーザーの美的感性の発達と自己発見の支援
+#### 4. Product Manager (Maria)
+- **Role**: B2B Product Owner
+- **Needs**: Faster time-to-market for new features
+- **Pain Points**: Long development cycles, inconsistent user experience
+- **Goals**: Deliver value to customers quickly and consistently
 
-### 創作活動の支援
-- **技術的ガイダンス**: 伝統技法から現代手法まで幅広い制作技術の習得支援
-- **インスピレーション提供**: 多様なアートワークからの創作刺激とアイデア源
-- **作品発表の場**: アーティストの作品展示と認知度向上の機会
+## Feature Set
 
-### 教育的価値
-- **美術史の理解**: 日本および世界の美術史の体系的学習
-- **批評的思考**: アート作品の分析と解釈スキルの向上
-- **文化的素養**: 芸術を通じた豊かな人間性と教養の育成
+### Core Components
+- **Data Management**: Tables, grids, lists with sorting, filtering, pagination
+- **Forms & Inputs**: Complex form builders, validation, multi-step wizards
+- **Navigation**: Multi-level menus, breadcrumbs, tabs, sidebars
+- **Dashboards**: Charts, KPI cards, analytics widgets
+- **Feedback**: Notifications, alerts, progress indicators, loading states
+- **Modals & Overlays**: Dialogs, drawers, tooltips, popovers
 
-### テクノロジーとアートの融合
-- **デジタル表現**: 最新技術によるアート体験の拡張と深化
-- **アクセシビリティ**: 地理的・物理的制約を超えたアート作品への接触
-- **アーカイブ機能**: 貴重なアート作品とその背景の永続的保存
+### Design Features
+- **Theming System**: Customizable design tokens for brand alignment
+- **Dark Mode**: Built-in dark theme support for reduced eye strain
+- **Responsive Design**: Optimized for desktop and tablet experiences
+- **Accessibility**: WCAG 2.1 AA compliance out of the box
+- **Internationalization**: RTL support and locale-aware components
 
-### 国際的な文化交流
-- **多言語対応**: 日本文化の国際的発信と相互理解の促進
-- **文化の橋渡し**: 東西の美学思想の対話と新しい表現の創出
-- **グローバルコミュニティ**: 国境を越えたアート愛好者のネットワーク形成
-
-## Content Categories
-
-### メインコンテンツ
-- **Featured Artists**: 注目アーティストの特集記事と作品紹介
-- **Art Techniques**: 伝統技法から現代手法まで詳細な制作ガイド
-- **Aesthetic Philosophy**: 美学理論と実践の架け橋となる解説記事
-- **Gallery Spotlight**: 美術館・ギャラリーの企画展レビューと見どころ
-
-### 特集コンテンツ
-- **Seasonal Art**: 四季の移ろいを表現したアート作品の季節特集
-- **Traditional Meets Modern**: 伝統工芸と現代アートの融合事例
-- **Emerging Voices**: 新進アーティストの発掘と紹介特集
-- **Masterpiece Analysis**: 名作の詳細分析と新しい解釈の提示
-
-### インタラクティブコンテンツ
-- **Virtual Studios**: アーティストの制作現場バーチャル見学
-- **Art Challenges**: 読者参加型の創作チャレンジとコンテスト
-- **Technique Workshops**: オンライン制作ワークショップと指導
-- **Cultural Journeys**: アートを通じた文化的探求の旅
+### Developer Experience
+- **TypeScript First**: Full type safety and IntelliSense support
+- **Storybook Documentation**: Interactive component playground
+- **Testing Utilities**: Pre-built test helpers and fixtures
+- **Copy-Paste Components**: shadcn/ui philosophy for ownership
+- **Tree-Shaking**: Import only what you need
 
 ## Success Metrics
 
-### エンゲージメント指標
-- **滞在時間**: 平均セッション時間10分以上（深い鑑賞体験の実現）
-- **作品閲覧深度**: ギャラリー内での作品詳細閲覧率80%以上
-- **リピート訪問**: 月間リピート率60%以上
-- **コンテンツ完読率**: 長文記事の完読率40%以上
+### Adoption Metrics
+- Number of projects using the design system
+- Component usage frequency across projects
+- Developer satisfaction scores (NPS)
+- Time to implement new features
 
-### 学習・創作活動指標
-- **チュートリアル完了率**: 技法ガイドの完了率70%以上
-- **作品投稿**: ユーザー作品投稿月間200件以上
-- **コミュニティ参加**: ディスカッション参加率30%以上
+### Quality Metrics
+- Accessibility audit scores
+- Performance benchmarks (bundle size, render time)
+- Bug reports per component
+- Test coverage percentages
 
-### 文化的影響指標
-- **国際的リーチ**: 海外ユーザー比率30%以上
-- **美術館・ギャラリー連携**: 月間5機関以上との協力関係
-- **アーティスト支援**: 新進アーティストの作品販売成約月間20件以上
+### Business Impact
+- Development velocity improvement
+- Reduction in UI-related bugs
+- Time saved on component development
+- Consistency score across applications
 
-### 技術的パフォーマンス
-- **画像読み込み時間**: 高解像度アート画像の表示3秒以内
-- **モバイル体験**: モバイルデバイスでの快適な鑑賞体験実現
-- **アクセシビリティ**: WCAG 2.1 AA準拠のアクセシブルな設計
+## Competitive Advantages
 
-Artistic Blog Siteは、アートを愛するすべての人々が美的体験を深め、創作活動を豊かにし、文化的な理解を広げることができるプラットフォームとして、現代におけるアートとテクノロジーの調和を追求します。
+1. **B2B Focus**: Unlike general-purpose libraries, specifically designed for enterprise needs
+2. **Modern Stack**: Built with latest React, TypeScript, and Tailwind CSS
+3. **Flexibility**: shadcn/ui approach allows full customization and ownership
+4. **Documentation**: Comprehensive Storybook with real-world examples
+5. **Performance**: Optimized for large datasets and complex interactions
+
+## Future Vision
+
+### Phase 1 (Current)
+- Core component library
+- Basic theming system
+- Storybook documentation
+
+### Phase 2 (6 months)
+- Advanced data visualization components
+- AI-powered form builders
+- Design tokens generator
+- Figma integration
+
+### Phase 3 (12 months)
+- Multi-framework support (Vue, Angular)
+- Component analytics dashboard
+- Visual regression testing
+- Enterprise design system platform
+
+## Project Constraints
+
+- Must support React 18+
+- Internet Explorer 11 not supported
+- Focus on desktop-first, tablet-second (mobile deprioritized)
+- Initial release targeting English-only documentation

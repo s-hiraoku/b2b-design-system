@@ -1,11 +1,11 @@
 {
-  "context_id": "orchestrator-cc-deck-20250819",
+  "context_id": "orchestrator-cc-deck-20250829",
   "metadata": {
-    "created_at": "2025-08-19T23:00:36.348Z",
-    "updated_at": "2025-08-20T00:38:16.342Z",
+    "created_at": "2025-08-29T02:30:05.232Z",
+    "updated_at": "2025-08-29T21:17:47.805Z",
     "version": "1.0.0",
     "project_id": "cc-deck",
-    "current_workflow": "kiro-sdd",
+    "current_workflow": "coding",
     "schema_version": "1.0"
   },
   "project_state": {
@@ -14,18 +14,37 @@
     "complexity": "medium",
     "security_critical": false,
     "technology_stack": {},
-    "analysis_timestamp": "2025-08-19T23:00:36.348Z"
+    "analysis_timestamp": "2025-08-29T02:30:05.232Z"
   },
-  "workflow_history": [],
+  "workflow_history": [
+    {
+      "workflow_name": "kiro-sdd",
+      "status": "completed",
+      "started_at": "2025-08-29T02:30:05.232Z",
+      "current_phase": null,
+      "completed_phases": [],
+      "phase_outputs": {},
+      "success": true,
+      "completed_at": "2025-08-29T03:56:26.586Z"
+    },
+    {
+      "workflow_name": "dev-env-setup",
+      "status": "completed",
+      "started_at": null,
+      "current_phase": null,
+      "completed_phases": [],
+      "phase_outputs": {},
+      "success": true,
+      "completed_at": "2025-08-29T21:17:43.904Z"
+    }
+  ],
   "current_workflow_state": {
-    "workflow_name": "kiro-sdd",
-    "status": "started",
-    "started_at": "2025-08-19T23:00:36.348Z",
+    "workflow_name": "coding",
+    "status": "starting",
+    "started_at": null,
     "current_phase": null,
     "completed_phases": [],
-    "phase_outputs": {},
-    "project_type": "japanese-reading-blog",
-    "user_requirements": "シンプルなイラスト調のかわいいブログサイト、読書関連、アニメーション・イラスト・画像重視"
+    "phase_outputs": {}
   },
   "task_progress": {
     "tasks_file": ".kiro/specs/cc-deck/tasks.md",
@@ -33,7 +52,7 @@
     "completed_tasks": 0,
     "current_task": null,
     "completion_percentage": 0,
-    "last_updated": "2025-08-19T23:00:36.348Z",
+    "last_updated": "2025-08-29T02:30:05.232Z",
     "task_details": []
   },
   "agent_memory": {},
@@ -48,7 +67,7 @@
       "line_coverage": 0,
       "branch_coverage": 0,
       "function_coverage": 0,
-      "last_measured": "2025-08-19T23:00:36.348Z"
+      "last_measured": "2025-08-29T02:30:05.232Z"
     },
     "code_quality": {
       "complexity_score": 0,

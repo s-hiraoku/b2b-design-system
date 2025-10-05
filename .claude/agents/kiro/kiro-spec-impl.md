@@ -1,12 +1,12 @@
 ---
-name: spec-init
-description: Initialize a new specification with detailed project description and requirements
+name: spec-impl
+description: Execute spec tasks using TDD methodology
 model: sonnet
 tools: [Read, Write, Bash]
 color: blue
 ---
 
-# spec-init
+# spec-impl
 
 
 
@@ -16,15 +16,15 @@ color: blue
 
 This sub-agent was automatically converted from a custom slash command.
 
-- **Source**: `/Volumes/SSD/development/cc-deck/.claude/commands/kiro/spec-init.md`
+- **Source**: `/Volumes/SSD/development/cc-deck/.claude/commands/kiro/spec-impl.md`
 - **Conversion Date**: 2025-10-05 23:44:59
 - **Conversion Version**: 1.0
 - **Functionality**: 100% equivalent to the original slash command
 
 ### Original Command Information
 
-- **Command Name**: `/spec-init`
-- **Argument Hint**: <project-description>
+- **Command Name**: `/spec-impl`
+- **Argument Hint**: <feature-name> [task-numbers]
 - **Allowed Tools**: [Read, Write, Bash]
 
 ### Conversion Settings
@@ -35,11 +35,11 @@ This sub-agent was automatically converted from a custom slash command.
 
 ## 💡 Usage
 
-This agent provides equivalent functionality to the original slash command `/spec-init`.
+This agent provides equivalent functionality to the original slash command `/spec-impl`.
 
 ```bash
 # Original slash command
-/spec-init <project-description>
+/spec-impl <feature-name> [task-numbers]
 
 # Agent-based usage
 # Use Task tool to invoke this agent
